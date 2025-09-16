@@ -1,0 +1,16 @@
+# Core Data Science Libraries
+pandas>=1.5.0
+numpy>=1.24.0
+
+# Machine Learning Libraries
+scikit-learn>=1.2.0
+tensorflow>=2.13.0
+xgboost>=1.7.0
+rapidfuzz>=2.0.0
+
+# Visualization Libraries
+plotly>=5.14.0
+
+# Jupyter Notebook Support
+jupyter>=1.0.0
+ipykernel>=6.0.0
