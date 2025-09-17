@@ -1,4 +1,4 @@
-# sWARm: Sid Wins Above Replace Metric
+# sWARm: (Sid) Wins Above Replacement Metric
 
 Welcome to **sWARm**, a personalized reimplementation of the Wins Above Replacement (WAR) metric in baseball analytics. This project aims to provide a fresh perspective on evaluating player value by calculating the number of wins a player contributes to their team above a replacement-level player.
 
