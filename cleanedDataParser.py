@@ -485,7 +485,7 @@ fielding_by_game_df = pd.read_csv(os.path.join(DATA_DIR, "fieldingNotes(player_d
 warp_hitter_df = pd.read_csv(os.path.join(DATA_DIR, "bp_hitters_2021.csv"))
 warp_pitcher_df = pd.read_csv(os.path.join(DATA_DIR, "bp_pitchers_2021.csv"))
 oaa_hitter_df = pd.read_csv(os.path.join(DATA_DIR, "outs_above_average.csv"))
-catcher_framing_df = pd.read_csv(os.path.join(DATA_DIR, "catcher-framing.csv"))
+# catcher_framing_df = pd.read_csv(os.path.join(DATA_DIR, "catcher-framing.csv"))  # Replaced by load_yearly_catcher_framing_data()
 
 fielding_df = pd.read_csv(os.path.join(DATA_DIR, "fieldingNotes(player_defensive_data).csv"))
 baserunning_df = pd.read_csv(os.path.join(DATA_DIR, "baserunningNotes(player_offense_data).csv"))
@@ -558,13 +558,129 @@ def clean_sorted_pitcher():
     return aggregated.sort_values(by='Pitchers')
 
 def clean_warp_hitter():
+    """Legacy function - uses only 2021 data"""
     df = warp_hitter_df.drop(['bpid', 'mlbid', 'Age', 'DRC+', '+/-', 'PA', 'R', 'RBI',
                               'ISO', 'K%', 'BB%', 'Whiff%'], axis=1)
     return df.sort_values(by='WARP')
 
 def clean_warp_pitcher():
+    """Legacy function - uses only 2021 data"""
     df = warp_pitcher_df.drop(['bpid', 'mlbid', 'DRA-', 'DRA', 'DRA SD', 'cFIP',
                                'GS', 'W', 'L', 'ERA', 'RA9', 'Whiff%'], axis=1)
+    return df.sort_values(by='WARP')
+
+def clean_yearly_warp_hitter():
+    """
+    Enhanced function - uses all available years of BP hitter data (2016-2024)
+    Returns expanded dataset for improved training
+    """
+    cache_file = os.path.join(CACHE_DIR, "yearly_warp_hitter_cleaned.json")
+
+    # Check cache first
+    if os.path.exists(cache_file):
+        try:
+            cached_df = pd.read_json(cache_file, orient='records')
+            print(f"Loaded cached yearly WARP hitter data ({len(cached_df)} player-seasons)")
+            return cached_df
+        except:
+            pass
+
+    print("Preparing yearly WARP hitter data...")
+    bp_data = load_yearly_bp_data()
+    team_mapping = create_player_team_mapping()
+    hitter_records = []
+
+    for player_year, warp in bp_data['hitters'].items():
+        name, year = player_year.rsplit('_', 1)
+
+        # Try to get team from game data mapping using multiple name formats
+        team = 'UNK'
+
+        # Try exact match first
+        if player_year in team_mapping:
+            team = team_mapping[player_year]
+        else:
+            # Try abbreviated format: "Juan Soto" -> "J. Soto"
+            name_parts = name.split()
+            if len(name_parts) >= 2:
+                abbreviated_name = f"{name_parts[0][0]}. {name_parts[-1]}"
+                abbreviated_key = f"{abbreviated_name}_{year}"
+                if abbreviated_key in team_mapping:
+                    team = team_mapping[abbreviated_key]
+
+        hitter_records.append({
+            'Name': name,
+            'Year': int(year),
+            'WARP': warp,
+            'Team': team
+        })
+
+    df = pd.DataFrame(hitter_records)
+
+    # Cache the result
+    try:
+        df.to_json(cache_file, orient='records', indent=2)
+        print(f"Cached yearly WARP hitter data ({len(df)} player-seasons)")
+    except Exception as e:
+        print(f"Warning: Could not cache data: {e}")
+
+    return df.sort_values(by='WARP')
+
+def clean_yearly_warp_pitcher():
+    """
+    Enhanced function - uses all available years of BP pitcher data (2016-2021)
+    Returns expanded dataset for improved training
+    """
+    cache_file = os.path.join(CACHE_DIR, "yearly_warp_pitcher_cleaned.json")
+
+    # Check cache first
+    if os.path.exists(cache_file):
+        try:
+            cached_df = pd.read_json(cache_file, orient='records')
+            print(f"Loaded cached yearly WARP pitcher data ({len(cached_df)} player-seasons)")
+            return cached_df
+        except:
+            pass
+
+    print("Preparing yearly WARP pitcher data...")
+    bp_data = load_yearly_bp_data()
+    team_mapping = create_player_team_mapping()
+    pitcher_records = []
+
+    for player_year, warp in bp_data['pitchers'].items():
+        name, year = player_year.rsplit('_', 1)
+
+        # Try to get team from game data mapping using multiple name formats
+        team = 'UNK'
+
+        # Try exact match first
+        if player_year in team_mapping:
+            team = team_mapping[player_year]
+        else:
+            # Try abbreviated format: "Juan Soto" -> "J. Soto"
+            name_parts = name.split()
+            if len(name_parts) >= 2:
+                abbreviated_name = f"{name_parts[0][0]}. {name_parts[-1]}"
+                abbreviated_key = f"{abbreviated_name}_{year}"
+                if abbreviated_key in team_mapping:
+                    team = team_mapping[abbreviated_key]
+
+        pitcher_records.append({
+            'Name': name,
+            'Year': int(year),
+            'WARP': warp,
+            'Team': team
+        })
+
+    df = pd.DataFrame(pitcher_records)
+
+    # Cache the result
+    try:
+        df.to_json(cache_file, orient='records', indent=2)
+        print(f"Cached yearly WARP pitcher data ({len(df)} player-seasons)")
+    except Exception as e:
+        print(f"Warning: Could not cache data: {e}")
+
     return df.sort_values(by='WARP')
 
 def clean_war():
@@ -1116,6 +1232,533 @@ def compare_oaa_calculations():
         'suggested_multiplier': suggested_multiplier if 'suggested_multiplier' in locals() else 1.0
     }
 
+def create_player_team_mapping():
+    """
+    Create a mapping of player names to teams by year using game-level data
+
+    Returns:
+        dict: {player_name_year: team} e.g., {'Juan Soto_2021': 'WSH'}
+    """
+    cache_file = os.path.join(CACHE_DIR, "player_team_mapping.json")
+
+    # Check cache first
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_data = json.load(f)
+            print(f"Loaded cached player-team mapping ({len(cached_data)} player-seasons)")
+            return cached_data
+        except:
+            pass
+
+    print("Creating player-team mapping from game data...")
+
+    # Load game-level data
+    hitter_df = pd.read_csv(os.path.join(DATA_DIR, "hittersByGame(player_offense_data).csv"), low_memory=False)
+    pitcher_df = pd.read_csv(os.path.join(DATA_DIR, "pitchersByGame(pitcher_data).csv"), low_memory=False)
+
+    player_team_map = {}
+
+    # Extract year from game IDs and map hitters to teams
+    for _, row in hitter_df.iterrows():
+        game_id = row.get('Game', '')
+        year = extract_year_from_game_id(game_id)
+        if year:
+            player_name = str(row.get('Hitters', '')).strip()
+            team = str(row.get('Team', '')).strip()
+            if player_name and team:
+                key = f"{player_name}_{year}"
+                player_team_map[key] = team
+
+    # Extract year from game IDs and map pitchers to teams
+    for _, row in pitcher_df.iterrows():
+        game_id = row.get('Game', '')
+        year = extract_year_from_game_id(game_id)
+        if year:
+            player_name = str(row.get('Pitchers', '')).strip()
+            team = str(row.get('Team', '')).strip()
+            if player_name and team:
+                key = f"{player_name}_{year}"
+                player_team_map[key] = team
+
+    # Cache the result
+    try:
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(player_team_map, f, indent=2)
+        print(f"Cached player-team mapping ({len(player_team_map)} player-seasons)")
+    except Exception as e:
+        print(f"Warning: Could not cache mapping: {e}")
+
+    return player_team_map
+
+def identify_two_way_players():
+    """
+    Identify TRUE two-way players using strict MLB criteria:
+    - Only officially designated two-way players (Shohei Ohtani)
+    - Excludes position players pitching in blowouts (Rizzo, France, etc.)
+    - Excludes name conflicts (Will Smith catcher vs Will Smith pitcher)
+
+    MLB Two-Way Criteria:
+    - Pitching: At least 20 Major League innings
+    - Hitting: At least 20 games as position player/DH with 3+ PA each
+    - Must be officially classified by MLB
+
+    Returns:
+        dict: {player_name_year: {'hitting_warp': X, 'pitching_warp': Y}}
+    """
+    print("Identifying ONLY officially designated MLB two-way players...")
+
+    # Get both datasets
+    bp_data = load_yearly_bp_data()
+
+    # STRICT: Only Ohtani is officially designated as two-way player by MLB
+    official_two_way_players = {
+        'Shohei Ohtani_2018': True,
+        'Shohei Ohtani_2021': True,  # Only years where he appears in both datasets significantly
+    }
+
+    two_way_players = {}
+
+    for player_key in official_two_way_players:
+        if player_key in bp_data['hitters'] and player_key in bp_data['pitchers']:
+            hitting_warp = bp_data['hitters'][player_key]
+            pitching_warp = bp_data['pitchers'][player_key]
+
+            # Additional validation: both WARPs should be meaningful (>0.5)
+            if hitting_warp > 0.5 and pitching_warp > 0.5:
+                name, year = player_key.rsplit('_', 1)
+                print(f"Official two-way player: {name} ({year}) - {hitting_warp:.1f} hitting, {pitching_warp:.1f} pitching WARP")
+                two_way_players[player_key] = {
+                    'hitting_warp': hitting_warp,
+                    'pitching_warp': pitching_warp,
+                    'total_warp': hitting_warp + pitching_warp,
+                    'is_official_two_way': True
+                }
+
+    # Show examples of what we're filtering OUT
+    print(f"\nFiltered OUT (not true two-way players):")
+
+    # Position players with tiny pitching WARP (blowout relief)
+    blowout_pitchers = []
+    for hitter_key, hitting_warp in bp_data['hitters'].items():
+        if hitter_key in bp_data['pitchers'] and hitter_key not in two_way_players:
+            pitching_warp = bp_data['pitchers'][hitter_key]
+            if hitting_warp > 1.0 and pitching_warp < 0.5:  # Good hitter, minimal pitching
+                name, year = hitter_key.rsplit('_', 1)
+                blowout_pitchers.append(f"{name} ({year}): {hitting_warp:.1f} hitting, {pitching_warp:.2f} pitching")
+
+    if blowout_pitchers:
+        print("  Position players pitching in blowouts:")
+        for example in blowout_pitchers[:5]:
+            print(f"    {example}")
+        if len(blowout_pitchers) > 5:
+            print(f"    ... and {len(blowout_pitchers) - 5} more position players with minimal pitching")
+
+    # NL pitchers who had to hit
+    nl_pitchers = []
+    for hitter_key, hitting_warp in bp_data['hitters'].items():
+        if hitter_key in bp_data['pitchers'] and hitter_key not in two_way_players:
+            pitching_warp = bp_data['pitchers'][hitter_key]
+            if pitching_warp > 1.0 and hitting_warp < 1.0:  # Good pitcher, minimal hitting
+                name, year = hitter_key.rsplit('_', 1)
+                nl_pitchers.append(f"{name} ({year}): {hitting_warp:.2f} hitting, {pitching_warp:.1f} pitching")
+
+    if nl_pitchers:
+        print("  NL pitchers who had to hit:")
+        for example in nl_pitchers[:5]:
+            print(f"    {example}")
+        if len(nl_pitchers) > 5:
+            print(f"    ... and {len(nl_pitchers) - 5} more NL pitchers")
+
+    return two_way_players
+
+def filter_blowout_pitching_from_warp():
+    """
+    Identify and filter out position players' blowout relief pitching from WARP calculations.
+    This prevents players like Rizzo, France from having their WAR hurt by emergency pitching.
+
+    Returns:
+        dict: {
+            'filtered_hitters': cleaned hitter WARP data,
+            'filtered_pitchers': cleaned pitcher WARP data,
+            'blowout_appearances': list of filtered entries
+        }
+    """
+    print("Filtering out blowout relief pitching from position players...")
+
+    bp_data = load_yearly_bp_data()
+    filtered_data = {
+        'filtered_hitters': bp_data['hitters'].copy(),
+        'filtered_pitchers': {},
+        'blowout_appearances': []
+    }
+
+    # Criteria for blowout relief appearance:
+    # 1. Player has significant hitting WARP (>1.0)
+    # 2. But minimal pitching WARP (<0.5)
+    # 3. This suggests emergency/blowout pitching
+
+    for pitcher_key, pitching_warp in bp_data['pitchers'].items():
+        if pitcher_key in bp_data['hitters']:
+            hitting_warp = bp_data['hitters'][pitcher_key]
+
+            # Check if this looks like blowout relief
+            is_blowout_relief = (
+                hitting_warp > 1.0 and  # Good position player
+                pitching_warp < 0.5 and  # Minimal pitching contribution
+                pitching_warp > -0.5     # Not completely terrible (just limited)
+            )
+
+            if is_blowout_relief:
+                name, year = pitcher_key.rsplit('_', 1)
+                filtered_data['blowout_appearances'].append({
+                    'player': name,
+                    'year': year,
+                    'hitting_warp': hitting_warp,
+                    'pitching_warp': pitching_warp,
+                    'reason': 'Position player emergency pitching'
+                })
+                print(f"  Filtered: {name} ({year}) - {hitting_warp:.1f} hitting, {pitching_warp:.2f} pitching (blowout relief)")
+            else:
+                # Keep legitimate pitching performance
+                filtered_data['filtered_pitchers'][pitcher_key] = pitching_warp
+        else:
+            # Pure pitcher, keep as-is
+            filtered_data['filtered_pitchers'][pitcher_key] = pitching_warp
+
+    print(f"Filtered {len(filtered_data['blowout_appearances'])} blowout relief appearances")
+    print(f"Kept {len(filtered_data['filtered_pitchers'])} legitimate pitching seasons")
+
+    return filtered_data
+
+def separate_will_smith_players():
+    """
+    Separate the two different Will Smith players:
+    - Will Smith (Catcher): LAD, strong hitting 2020-2024
+    - Will Smith (Pitcher): Journeyman reliever 2016-2021
+
+    Returns:
+        dict: {
+            'will_smith_catcher': {...},
+            'will_smith_pitcher': {...}
+        }
+    """
+    print("Separating Will Smith catcher from Will Smith pitcher...")
+
+    bp_data = load_yearly_bp_data()
+    team_mapping = create_player_team_mapping()
+
+    will_smith_data = {
+        'will_smith_catcher': {},
+        'will_smith_pitcher': {}
+    }
+
+    # Find all Will Smith entries
+    will_smith_keys = [k for k in bp_data['hitters'].keys() if 'Will Smith' in k]
+    will_smith_keys.extend([k for k in bp_data['pitchers'].keys() if 'Will Smith' in k])
+    will_smith_keys = list(set(will_smith_keys))  # Remove duplicates
+
+    for key in will_smith_keys:
+        name, year = key.rsplit('_', 1)
+        year = int(year)
+
+        # Get team if available
+        team = team_mapping.get(key, 'UNK')
+
+        # Separation logic based on career patterns:
+        # Catcher Will Smith: Strong hitting 2020+, primarily LAD
+        # Pitcher Will Smith: Pitching 2016-2021, multiple teams
+
+        if key in bp_data['hitters']:
+            hitting_warp = bp_data['hitters'][key]
+
+            # Strong hitting seasons (2020+) are likely the catcher
+            if year >= 2020 and hitting_warp > 1.0:
+                will_smith_data['will_smith_catcher'][key] = {
+                    'hitting_warp': hitting_warp,
+                    'team': team,
+                    'year': year,
+                    'type': 'catcher'
+                }
+            # Weak hitting seasons (especially early years) could be pitcher hitting
+            elif hitting_warp < 0.5:
+                will_smith_data['will_smith_pitcher'][key] = {
+                    'hitting_warp': hitting_warp,
+                    'team': team,
+                    'year': year,
+                    'type': 'pitcher_hitting'
+                }
+
+        if key in bp_data['pitchers']:
+            pitching_warp = bp_data['pitchers'][key]
+            # All pitching performances go to pitcher Will Smith
+            will_smith_data['will_smith_pitcher'][key] = {
+                'pitching_warp': pitching_warp,
+                'team': team,
+                'year': year,
+                'type': 'pitcher'
+            }
+
+    # Display separation results
+    print("Will Smith Catcher (LAD):")
+    for key, data in will_smith_data['will_smith_catcher'].items():
+        print(f"  {key}: {data.get('hitting_warp', 0):.1f} hitting WARP, Team: {data['team']}")
+
+    print("Will Smith Pitcher (Multi-team):")
+    for key, data in will_smith_data['will_smith_pitcher'].items():
+        hitting = data.get('hitting_warp', 0)
+        pitching = data.get('pitching_warp', 0)
+        print(f"  {key}: {hitting:.2f} hitting, {pitching:.1f} pitching WARP, Team: {data['team']}")
+
+    return will_smith_data
+
+def load_yearly_bp_data():
+    """
+    Load and unify Baseball Prospectus WARP data from 2016-2024 (hitters) and 2016-2021 (pitchers)
+
+    Returns:
+        dict: {
+            'hitters': {player_name_year: warp_value},
+            'pitchers': {player_name_year: warp_value}
+        }
+    """
+    cache_file = os.path.join(CACHE_DIR, "yearly_bp_data.json")
+
+    # Check cache first
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_data = json.load(f)
+            print(f"Loaded cached yearly BP data ({len(cached_data.get('hitters', {}))} hitter-seasons, {len(cached_data.get('pitchers', {}))} pitcher-seasons)")
+            return cached_data
+        except:
+            pass
+
+    print("=== LOADING YEARLY BP DATA (2016-2024) ===")
+
+    bp_data = {'hitters': {}, 'pitchers': {}}
+
+    # Load hitters data (2016-2024)
+    for year in range(2016, 2025):  # 2016-2024
+        filename = f'MLB Player Data/bp_hitters_{year}.csv'
+        if not os.path.exists(filename):
+            continue
+
+        try:
+            df = pd.read_csv(filename)
+            df.columns = df.columns.str.strip().str.strip('"')
+
+            # Handle different formats
+            if year <= 2019:
+                # Format: NAME, YEAR, BWARP
+                name_col = 'NAME'
+                warp_col = 'BWARP'
+            else:
+                # Format: Name, WARP (2020+)
+                name_col = 'Name'
+                warp_col = 'WARP'
+
+            for _, row in df.iterrows():
+                name = str(row.get(name_col, '')).strip().strip('"')
+                if not name or name == '':
+                    continue
+
+                warp_value = row.get(warp_col, 0)
+                if pd.isna(warp_value):
+                    warp_value = 0
+
+                player_year_key = f"{name}_{year}"
+                bp_data['hitters'][player_year_key] = float(warp_value)
+
+            print(f"Loaded {year} hitters: {len([k for k in bp_data['hitters'].keys() if k.endswith(f'_{year}')])} players")
+
+        except Exception as e:
+            print(f"Error loading {filename}: {e}")
+
+    # Load pitchers data (2016-2021)
+    for year in range(2016, 2022):  # 2016-2021
+        filename = f'MLB Player Data/bp_pitchers_{year}.csv'
+        if not os.path.exists(filename):
+            continue
+
+        try:
+            df = pd.read_csv(filename)
+            df.columns = df.columns.str.strip().str.strip('"')
+
+            # Handle different formats
+            if year <= 2019:
+                # Format: NAME, YEAR, PWARP
+                name_col = 'NAME'
+                warp_col = 'PWARP'
+            else:
+                # Format: Name, WARP (2020+)
+                name_col = 'Name'
+                warp_col = 'WARP'
+
+            for _, row in df.iterrows():
+                name = str(row.get(name_col, '')).strip().strip('"')
+                if not name or name == '':
+                    continue
+
+                warp_value = row.get(warp_col, 0)
+                if pd.isna(warp_value):
+                    warp_value = 0
+
+                player_year_key = f"{name}_{year}"
+                bp_data['pitchers'][player_year_key] = float(warp_value)
+
+            print(f"Loaded {year} pitchers: {len([k for k in bp_data['pitchers'].keys() if k.endswith(f'_{year}')])} players")
+
+        except Exception as e:
+            print(f"Error loading {filename}: {e}")
+
+    # Cache the result
+    try:
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(bp_data, f, indent=2)
+        print(f"Cached yearly BP data")
+    except Exception as e:
+        print(f"Warning: Could not cache BP data: {e}")
+
+    print(f"Loaded BP data: {len(bp_data['hitters'])} hitter-seasons, {len(bp_data['pitchers'])} pitcher-seasons")
+    return bp_data
+
+def load_yearly_catcher_framing_data():
+    """
+    Load and unify catcher framing data from 2016-2021 with yearly breakdown
+
+    Returns:
+        dict: {player_name_year: framing_runs} e.g. {'Buster Posey_2016': 31.0}
+    """
+    cache_file = os.path.join(CACHE_DIR, "yearly_catcher_framing_data.json")
+
+    # Check cache first
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_data = json.load(f)
+            print(f"Loaded cached yearly catcher framing data ({len(cached_data)} player-seasons)")
+            return cached_data
+        except:
+            pass
+
+    print("=== LOADING YEARLY CATCHER FRAMING DATA (2016-2021) ===")
+
+    yearly_framing_data = {}
+
+    # Data format patterns by year
+    years_with_formats = {
+        # Format 1: separate last_name/first_name columns, player_id, runs_extra_strikes
+        2016: 'format1',
+        2017: 'format1',
+        # Format 2: single name column (id), rv_tot for run value
+        2018: 'format2',
+        2019: 'format2',
+        2020: 'format2',
+        2021: 'format1'  # But with fielder_2 instead of player_id
+    }
+
+    for year in range(2016, 2022):
+        filename = f'MLB Player Data/catcher_framing_{year}.csv'
+        if not os.path.exists(filename):
+            print(f"⚠️  Missing file: {filename}")
+            continue
+
+        try:
+            df = pd.read_csv(filename)
+            df.columns = df.columns.str.strip()  # Clean column names
+            print(f"Processing {year}: {len(df)} records")
+
+            year_format = years_with_formats[year]
+
+            if year_format == 'format1':
+                # Format: last_name, first_name, player_id/fielder_2, runs_extra_strikes
+                for _, row in df.iterrows():
+                    # Skip league average rows and invalid entries
+                    last_name = str(row.get('last_name', '')).strip().strip('"')
+                    first_name = str(row.get('first_name', '')).strip().strip('"')
+
+                    if (last_name in ['', 'League Average'] or
+                        first_name in ['', '999999'] or
+                        not last_name or not first_name):
+                        continue
+
+                    # Create standardized name
+                    player_name = f"{first_name} {last_name}"
+                    player_year_key = f"{player_name}_{year}"
+
+                    # Get framing runs
+                    framing_runs = row.get('runs_extra_strikes', 0)
+                    if pd.isna(framing_runs):
+                        framing_runs = 0
+
+                    yearly_framing_data[player_year_key] = float(framing_runs)
+
+            elif year_format == 'format2':
+                # Format: id, name ("Last, First"), rv_tot
+                for _, row in df.iterrows():
+                    name = str(row.get('name', '')).strip().strip('"')
+
+                    if not name or name == '':
+                        continue
+
+                    # Parse "Last, First" format
+                    if ',' in name:
+                        parts = name.split(',', 1)
+                        last_name = parts[0].strip()
+                        first_name = parts[1].strip() if len(parts) > 1 else ''
+                        player_name = f"{first_name} {last_name}"
+                    else:
+                        player_name = name
+
+                    player_year_key = f"{player_name}_{year}"
+
+                    # Get framing runs (rv_tot)
+                    framing_runs = row.get('rv_tot', 0)
+                    if pd.isna(framing_runs):
+                        framing_runs = 0
+
+                    yearly_framing_data[player_year_key] = float(framing_runs)
+
+        except Exception as e:
+            print(f"Error processing {filename}: {e}")
+            continue
+
+    print(f"Loaded catcher framing data for {len(yearly_framing_data)} player-seasons")
+
+    # Show sample data
+    sample_catchers = list(yearly_framing_data.items())[:10]
+    print("Sample catcher framing data:")
+    for player_year, runs in sample_catchers:
+        print(f"  {player_year}: {runs:+.1f} runs")
+
+    # Cache the results
+    try:
+        os.makedirs('cache', exist_ok=True)
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(yearly_framing_data, f, indent=2)
+        print("Cached yearly catcher framing data")
+    except Exception as e:
+        print(f"Warning: Could not cache framing data: {e}")
+
+    return yearly_framing_data
+
+def get_catcher_framing_value(player_name, year):
+    """
+    Get catcher framing run value for a specific player-year
+
+    Args:
+        player_name: Player name (First Last format)
+        year: Season year (2016-2021)
+
+    Returns:
+        float: Framing run value (positive = good framing, negative = poor framing)
+    """
+    framing_data = load_yearly_catcher_framing_data()
+    player_year_key = f"{player_name}_{year}"
+
+    return framing_data.get(player_year_key, 0.0)
+
 def clean_enhanced_defensive_players():
     """
     Enhanced defensive metric combining seasonal data with official metrics
@@ -1136,7 +1779,7 @@ def clean_enhanced_defensive_players():
     # Get all our data sources
     our_seasonal_oaa = calculate_outs_above_average_from_fielding_notes()
     official_oaa = load_official_oaa_data()
-    framing_values = clean_catcher_framing()
+    yearly_framing_values = load_yearly_catcher_framing_data()
 
     enhanced_defensive_values = {}
 
@@ -1165,19 +1808,25 @@ def clean_enhanced_defensive_players():
             # Only our seasonal OAA available
             combined_oaa = our_oaa_value
 
-        # Add catcher framing if applicable (apply to all seasons for catchers)
+        # Add catcher framing if applicable (year-specific)
         framing_bonus = 0
-        if player_name in framing_values:
-            # Convert framing runs to OAA equivalent
-            framing_bonus = framing_values[player_name] / 1.0
+        framing_runs_value = 0
 
-        # Check if this player is estimated as a catcher
-        if our_data.get('estimated_position') == 'C' and framing_bonus == 0:
-            # Try name matching for framing data
-            for framing_name in framing_values.keys():
-                if player_name.split()[-1] in framing_name:  # Match by last name
-                    framing_bonus = framing_values[framing_name] / 1.0
-                    break
+        # Try direct match first (in case names are exactly the same)
+        player_year_key = f"{player_name}_{year}"
+        if player_year_key in yearly_framing_values:
+            framing_runs_value = yearly_framing_values[player_year_key]
+            framing_bonus = framing_runs_value / 1.0
+        else:
+            # Try fuzzy matching by last name for this year
+            player_last_name = player_name.split()[-1].strip()
+            for framing_key in yearly_framing_values.keys():
+                if framing_key.endswith(f"_{year}"):
+                    framing_name = framing_key.rsplit('_', 1)[0]  # Remove the year
+                    if player_last_name in framing_name:
+                        framing_runs_value = yearly_framing_values[framing_key]
+                        framing_bonus = framing_runs_value / 1.0
+                        break
 
         # Final defensive value
         final_defensive_value = combined_oaa + framing_bonus
@@ -1193,7 +1842,7 @@ def clean_enhanced_defensive_players():
             'our_oaa': our_oaa_value,
             'official_oaa': official_oaa_value,
             'combined_oaa': round(combined_oaa, 1),
-            'framing_runs': framing_values.get(player_name, 0),
+            'framing_runs': framing_runs_value,
             'framing_bonus': round(framing_bonus, 1),
             'total_plays': our_data['total_plays'],
             'estimated_position': our_data.get('estimated_position', 'Unknown'),
@@ -1375,6 +2024,49 @@ def clean_stadium_name(stadium_str):
     # Return original name if no standardization found
     return clean_name
 
+def get_regular_season_stadiums():
+    """
+    Returns the list of MLB regular season stadiums only, excluding:
+    - Spring training facilities
+    - Special event venues (Field of Dreams, London, etc.)
+    - International stadiums
+    - Minor league parks
+    """
+    regular_season_stadiums = {
+        # 30 MLB regular season stadiums
+        'American Family Field',      # Milwaukee Brewers (formerly Miller Park)
+        'Angel Stadium',              # Los Angeles Angels
+        'Busch Stadium',             # St. Louis Cardinals
+        'Chase Field',               # Arizona Diamondbacks
+        'Citi Field',                # New York Mets
+        'Citizens Bank Park',        # Philadelphia Phillies
+        'Comerica Park',             # Detroit Tigers
+        'Coors Field',               # Colorado Rockies
+        'Dodger Stadium',            # Los Angeles Dodgers
+        'Fenway Park',               # Boston Red Sox
+        'Globe Life Field',          # Texas Rangers
+        'Great American Ball Park',  # Cincinnati Reds
+        'Guaranteed Rate Field',     # Chicago White Sox
+        'Kauffman Stadium',          # Kansas City Royals
+        'loanDepot Park',            # Miami Marlins
+        'Minute Maid Park',          # Houston Astros
+        'Nationals Park',            # Washington Nationals
+        'Oakland Coliseum',          # Oakland Athletics
+        'Oracle Park',               # San Francisco Giants
+        'Oriole Park at Camden Yards', # Baltimore Orioles
+        'Petco Park',                # San Diego Padres
+        'PNC Park',                  # Pittsburgh Pirates
+        'Progressive Field',         # Cleveland Guardians
+        'Rogers Centre',             # Toronto Blue Jays
+        'T-Mobile Park',             # Seattle Mariners
+        'Target Field',              # Minnesota Twins
+        'Tropicana Field',           # Tampa Bay Rays
+        'Truist Park',               # Atlanta Braves
+        'Wrigley Field',             # Chicago Cubs
+        'Yankee Stadium'             # New York Yankees
+    }
+    return regular_season_stadiums
+
 def calculate_park_factors():
     """
     Enhanced park factors using home/away run scoring methodology with stronger effects
@@ -1393,6 +2085,122 @@ def calculate_park_factors():
             return cached_data
         except:
             pass
+
+    print("=== CALCULATING ENHANCED PARK FACTORS ===")
+
+    # Load games data
+    games_df = pd.read_csv('MLB Player Data/games(team_data).csv')
+    games_df['Stadium_Clean'] = games_df['Stadium'].apply(clean_stadium_name)
+    games_df = games_df.dropna(subset=['Stadium_Clean'])
+
+    park_stats = {}
+
+    for stadium in games_df['Stadium_Clean'].unique():
+        if not stadium:
+            continue
+
+        stadium_games = games_df[games_df['Stadium_Clean'] == stadium]
+        home_team = stadium_games['home'].mode().iloc[0] if len(stadium_games['home'].mode()) > 0 else None
+
+        if not home_team:
+            continue
+
+        # Calculate home/away splits for the home team
+        home_games = stadium_games[stadium_games['home'] == home_team]
+        away_games = games_df[(games_df['away'] == home_team) & (games_df['Stadium_Clean'] != stadium)]
+
+        if len(home_games) < 10 or len(away_games) < 10:  # Need sufficient sample size
+            continue
+
+        # Calculate run scoring rates
+        home_runs_for = home_games['home-score'].sum()
+        home_runs_against = home_games['away-score'].sum()
+        home_games_count = len(home_games)
+
+        away_runs_for = away_games['away-score'].sum()
+        away_runs_against = away_games['home-score'].sum()
+        away_games_count = len(away_games)
+
+        if home_games_count > 0 and away_games_count > 0:
+            # Runs per game rates
+            home_rpg_for = home_runs_for / home_games_count
+            home_rpg_against = home_runs_against / home_games_count
+            home_total_rpg = (home_runs_for + home_runs_against) / home_games_count
+
+            away_rpg_for = away_runs_for / away_games_count
+            away_rpg_against = away_runs_against / away_games_count
+            away_total_rpg = (away_runs_for + away_runs_against) / away_games_count
+
+            # Park factor calculation (amplified effect)
+            if away_total_rpg > 0:
+                park_factor = (home_total_rpg / away_total_rpg) * 100
+                # Amplify the effect by 1.5x to make park differences more pronounced
+                park_factor = 100 + (park_factor - 100) * 1.5
+                park_stats[stadium] = round(park_factor, 1)
+
+    # Cache the result
+    try:
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(park_stats, f, indent=2)
+        print(f"Cached enhanced park factors ({len(park_stats)} stadiums)")
+    except Exception as e:
+        print(f"Warning: Could not cache park factors: {e}")
+
+    print(f"Calculated park factors for {len(park_stats)} stadiums")
+    return park_stats
+
+def calculate_regular_season_park_factors():
+    """
+    Enhanced park factors for REGULAR SEASON stadiums only, filtering out:
+    - Spring training facilities
+    - Special event venues
+    - International/exhibition stadiums
+
+    Returns:
+        dict: {stadium: park_factor} for 30 MLB regular season stadiums only
+    """
+
+    # Check cache first
+    cache_file = os.path.join(CACHE_DIR, "regular_season_park_factors.json")
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_data = json.load(f)
+            print(f"Loaded cached regular season park factors ({len(cached_data)} stadiums)")
+            return cached_data
+        except:
+            pass
+
+    print("=== CALCULATING REGULAR SEASON PARK FACTORS ===")
+
+    # Get all park factors
+    all_park_factors = calculate_park_factors()
+
+    # Get regular season stadiums list
+    regular_stadiums = get_regular_season_stadiums()
+
+    # Filter to regular season only
+    regular_park_factors = {}
+    for stadium, factor in all_park_factors.items():
+        if stadium in regular_stadiums:
+            regular_park_factors[stadium] = factor
+
+    print(f"Filtered from {len(all_park_factors)} total stadiums to {len(regular_park_factors)} regular season stadiums")
+    print("Excluded non-regular season venues:")
+    excluded = set(all_park_factors.keys()) - set(regular_park_factors.keys())
+    for venue in sorted(excluded):
+        venue_type = 'Spring Training' if any(x in venue for x in ['Stadium', 'Park', 'Field']) and venue not in regular_stadiums else 'Special/International'
+        print(f"  - {venue} ({venue_type})")
+
+    # Cache the result
+    try:
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(regular_park_factors, f, indent=2)
+        print(f"Cached regular season park factors")
+    except Exception as e:
+        print(f"Warning: Could not cache park factors: {e}")
+
+    return regular_park_factors
 
     print("=== CALCULATING ENHANCED PARK FACTORS ===")
 
