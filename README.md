@@ -10,7 +10,7 @@ WAR is widely used for player evaluation and comparison across different eras an
 
 ## 🧪 About sWARm
 
-**sWARm** stands for **Sid Wins Above Replace Metric**, reflecting my personal approach to calculating WAR. While it draws inspiration from existing models like FanGraphs' fWAR and Baseball Reference's bWAR, sWARm introduces unique methodologies and adjustments to better capture player value.
+**sWARm** stands for **Sid Wins Above Replace Metric**, reflecting my personal approach to calculating WAR. While it draws inspiration from existing models like FanGraphs' fWAR and Baseball Reference's bWAR, sWARm introduces unique methodologies and adjustments to simplify the capturing of player value.
 
 Key features of sWARm include:
 
@@ -33,24 +33,86 @@ pip install -r requirements.txt
 
 ## 📊 Usage
 
-TBA
+The main notebook `cleanedCode.ipynb` contains a complete machine learning pipeline for predicting WAR and WARP values:
 
-## 📈 Example Output
+```python
+# Run the complete pipeline
+# Execute all cells in cleanedCode.ipynb
+```
 
-TBA
+The pipeline automatically:
+
+* Loads and cleans baseball statistics data
+* Applies fuzzy name matching to align datasets
+* Trains multiple ML models (Linear, Random Forest, XGBoost, Neural Networks)
+* Generates comprehensive analysis and visualizations
+
+## 📈 Key Features
+
+**Machine Learning Models:**
+
+* Linear Regression variants (Linear, Lasso, ElasticNet)
+* Tree-based models (Random Forest, XGBoost)
+* Instance-based learning (K-Nearest Neighbors)
+* Deep learning (Keras Neural Networks with early stopping)
+
+**Data Processing:**
+
+* Fuzzy name matching between datasets (460+ players vs original 5)
+* Automatic data cleaning for infinite/NaN values
+* Integration of advanced metrics including catcher framing data
+* Enhanced defensive and baserunning statistics
+
+**Visualization & Analysis:**
+
+* Interactive Plotly visualizations with player-specific hover tooltips
+* Quadrant analysis showing prediction error patterns
+* Delta-1 margin analysis comparing to official MLB accuracy standards
+* Cross-shaped visualization for WAR≤1 OR WARP≤1 official margins
+* Model performance comparison across different categories
+
+**Performance Metrics:**
+
+* R-squared and RMSE for model evaluation
+* Individual metric accuracy (WAR-only and WARP-only predictions)
+* Cross-validation and intersection analysis for delta-1 margins
+* Auto-selection of best performing models by category
 
 ## 🧠 Methodology
 
-sWARm builds upon established WAR frameworks but incorporates the following enhancements:
+sWARm employs a comprehensive machine learning approach that includes:
 
-* **Advanced Defensive Metrics**: Utilization of modern defensive statistics to more accurately assess fielding contributions.
-* **Contextual Adjustments**: Consideration of factors like ballpark effects and era-specific trends.
-* **Position Value Scaling**: Adjustments based on the relative importance of different positions in contributing to team success.
-* TBA 
+**Data Integration:**
+
+* Advanced defensive metrics including catcher framing contributions
+* Baserunning value calculations with caching optimization
+* Contextual adjustments for ballpark and era effects
+* Position value scaling based on defensive importance
+
+**Model Architecture:**
+
+* Ensemble approach using multiple algorithm types
+* Automatic model selection based on cross-validation performance
+* Feature engineering with 7-dimensional input (5 hitting + baserunning defense)
+* Neural network architecture with dropout regularization
+
+**Validation Framework:**
+
+* Official fWAR/WARP accuracy standards (±1 WAR and ±1 WARP margins)
+* Cross-shaped region analysis for statistical significance
+* Quadrant-based error pattern identification
+* Separate evaluation for hitters and pitchers
+
+**Performance Optimization:**
+
+* Cached computations for repeated operations
+* Parallel model training where possible
+* Memory-efficient data processing
+* GPU acceleration for neural network training
 
 ## 🤝 Contributing
 
-Contributions are welcome! If you have suggestions for improvements, bug fixes, or new features, please fork the repository and submit a pull request. Ensure that your code adheres to the project's coding standards and includes appropriate tests.
+Contributions are welcome! If you have suggestions for improvements, bug fixes, or new features, please fork the repository and submit a pull request. Ensure that your code adheres to the project's coding standards and has been tested.
 
 ## 📄 License
 
