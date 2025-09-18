@@ -80,8 +80,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Cervelli _PIT_2016": {
@@ -168,8 +168,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Bautista _TOR_2016": {
@@ -190,9 +190,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Walker_NYM_2016": {
@@ -339,9 +339,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Home_SF_2016": {
@@ -470,8 +470,8 @@
     },
     "primary_contexts": [
       "throwing_error",
-      "bobble",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Seager _SEA_2016": {
@@ -493,8 +493,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Marte _SEA_2016": {
@@ -515,9 +515,9 @@
       "errors": 20
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Andrus _TEX_2016": {
@@ -772,8 +772,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -795,8 +795,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
+      "catching_error",
       "fly_ball"
     ]
   },
@@ -881,9 +881,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Upton Jr_SD_2016": {
@@ -904,9 +904,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Home_SD_2016": {
@@ -1096,9 +1096,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "bobble",
       "standard",
-      "line_drive"
+      "line_drive",
+      "bobble"
     ]
   },
   "Altuve_HOU_2016": {
@@ -1353,9 +1353,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Mercer _PIT_2016": {
@@ -1464,7 +1464,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Hechavarr_MIA_2016": {
@@ -1486,8 +1486,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Prado_MIA_2016": {
@@ -1697,9 +1697,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "standard",
       "throwing_error",
-      "bobble",
-      "standard"
+      "bobble"
     ]
   },
   "Andrus_TEX_2016": {
@@ -1870,8 +1870,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Ram\u00edrez_SD_2016": {
@@ -2040,8 +2040,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Lucroy_MIL_2016": {
@@ -2423,9 +2423,9 @@
       "errors": 4
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Headley_NYY_2016": {
@@ -2577,9 +2577,9 @@
       "errors": 5
     },
     "primary_contexts": [
+      "fly_ball",
       "ground_ball",
-      "bobble",
-      "fly_ball"
+      "standard"
     ]
   },
   "Votto_CIN_2016": {
@@ -2643,8 +2643,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Semien _OAK_2016": {
@@ -2687,9 +2687,9 @@
       "errors": 12
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Valbuena _HOU_2016": {
@@ -2924,8 +2924,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Lamb _ARI_2016": {
@@ -3031,9 +3031,9 @@
       "errors": 8
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Wright_NYM_2016": {
@@ -3332,8 +3332,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Su_CIN_2016": {
@@ -3421,8 +3421,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "bobble",
+      "throwing_error"
     ]
   },
   "Dozier _MIN_2016": {
@@ -3465,8 +3465,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -3509,9 +3509,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Castillo_ARI_2016": {
@@ -3596,8 +3596,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Harrison _PIT_2016": {
@@ -3640,8 +3640,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Su\u00e1rez_CIN_2016": {
@@ -3684,8 +3684,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Lawrie _CHW_2016": {
@@ -3773,8 +3773,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Carpenter _STL_2016": {
@@ -3840,8 +3840,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Pierzynski_ATL_2016": {
@@ -3884,8 +3884,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Story _COL_2016": {
@@ -3928,8 +3928,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -3952,8 +3952,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Moreland 2_TEX_2016": {
@@ -4190,7 +4190,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Duvall _CIN_2016": {
@@ -4211,9 +4211,9 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Home_CIN_2016": {
@@ -4255,9 +4255,9 @@
       "errors": 10
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "G. Garcia_STL_2016": {
@@ -4404,9 +4404,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Desmond _TEX_2016": {
@@ -4429,7 +4429,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Parra _COL_2016": {
@@ -4450,9 +4450,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
-      "bobble",
-      "ground_ball"
+      "ground_ball",
+      "standard",
+      "throwing_error"
     ]
   },
   "McCann_DET_2016": {
@@ -4496,7 +4496,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "ground_ball"
+      "line_drive"
     ]
   },
   "Hardy_BAL_2016": {
@@ -4643,8 +4643,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -4835,9 +4835,9 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Cabrera 2_DET_2016": {
@@ -4880,8 +4880,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Puig _LAD_2016": {
@@ -5012,8 +5012,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Gregorius_NYY_2016": {
@@ -5076,8 +5076,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -5208,8 +5208,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "catching_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Home_COL_2016": {
@@ -5294,8 +5294,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Odor _TEX_2016": {
@@ -5317,8 +5317,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "fly_ball"
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Lee_SEA_2016": {
@@ -5360,9 +5360,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Flores_NYM_2016": {
@@ -5491,8 +5491,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
+      "bobble",
       "standard"
     ]
   },
@@ -5599,8 +5599,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Longoria _TB_2016": {
@@ -5644,8 +5644,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "throwing_error"
+      "throwing_error",
+      "bobble"
     ]
   },
   "Molina_STL_2016": {
@@ -5730,8 +5730,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -5795,8 +5795,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "standard"
     ]
   },
   "Norris_SD_2016": {
@@ -5859,9 +5859,9 @@
       "errors": 18
     },
     "primary_contexts": [
-      "standard",
+      "fly_ball",
       "catching_error",
-      "throwing_error"
+      "standard"
     ]
   },
   "Morrison_TB_2016": {
@@ -5925,8 +5925,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Orlando _KC_2016": {
@@ -5948,8 +5948,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Russell _CHC_2016": {
@@ -5992,9 +5992,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Montero_CHC_2016": {
@@ -6037,8 +6037,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Franco _PHI_2016": {
@@ -6147,9 +6147,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Lindor _CLE_2016": {
@@ -6255,9 +6255,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Rosario _MIN_2016": {
@@ -6278,9 +6278,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Plouffe_MIN_2016": {
@@ -6343,8 +6343,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "fly_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -6431,7 +6431,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "standard"
     ]
   },
   "Norris _SD_2016": {
@@ -6453,7 +6453,7 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -6497,8 +6497,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Adames_COL_2016": {
@@ -6668,8 +6668,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -6693,7 +6693,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Prado _MIA_2016": {
@@ -6799,9 +6799,9 @@
       "errors": 4
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Ortega _LAA_2016": {
@@ -6846,8 +6846,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Cabrera _DET_2016": {
@@ -6868,9 +6868,9 @@
       "errors": 7
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Garcia _STL_2016": {
@@ -6892,8 +6892,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Col\u00f3n_KC_2016": {
@@ -6956,9 +6956,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
-      "bobble"
+      "bobble",
+      "standard"
     ]
   },
   "Franco_PHI_2016": {
@@ -7022,7 +7022,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -7108,7 +7108,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -7130,9 +7130,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
-      "bobble",
-      "standard"
+      "standard",
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Home_BAL_2016": {
@@ -7305,8 +7305,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Eaton _CHW_2016": {
@@ -7327,9 +7327,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
+      "ground_ball",
       "bobble",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Home_CHW_2016": {
@@ -7371,9 +7371,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "bobble",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Home_CHC_2016": {
@@ -7522,8 +7522,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -7611,8 +7611,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Mazara _TEX_2016": {
@@ -7633,8 +7633,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -7932,9 +7932,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
-      "catching_error",
-      "bobble"
+      "bobble",
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Barney _TOR_2016": {
@@ -7955,8 +7955,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -8064,8 +8064,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -8088,8 +8088,8 @@
     },
     "primary_contexts": [
       "throwing_error",
-      "bobble",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Butler_OAK_2016": {
@@ -8176,8 +8176,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Ladendorf_OAK_2016": {
@@ -8243,8 +8243,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Goeddel _PHI_2016": {
@@ -8266,8 +8266,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Simmons _LAA_2016": {
@@ -8373,9 +8373,9 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "line_drive",
+      "standard"
     ]
   },
   "Home_ARI_2016": {
@@ -8418,7 +8418,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -8504,9 +8504,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "ground_ball"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Aviles_DET_2016": {
@@ -8549,8 +8549,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Fielder_TEX_2016": {
@@ -8768,8 +8768,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Wallace _SD_2016": {
@@ -8878,8 +8878,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Wieters_BAL_2016": {
@@ -8985,8 +8985,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Kiermaier _TB_2016": {
@@ -9007,9 +9007,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Machado _BAL_2016": {
@@ -9031,8 +9031,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Schoop _BAL_2016": {
@@ -9055,7 +9055,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Rupp_PHI_2016": {
@@ -9140,8 +9140,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Stewart_PIT_2016": {
@@ -9184,7 +9184,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -9227,9 +9227,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Myers 2_SD_2016": {
@@ -9422,9 +9422,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Aviles _DET_2016": {
@@ -9445,9 +9445,9 @@
       "errors": 5
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Votto 2_CIN_2016": {
@@ -9599,8 +9599,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Rivera_NYM_2016": {
@@ -9750,8 +9750,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Home_WSH_2016": {
@@ -9860,8 +9860,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Wilson_TEX_2016": {
@@ -9946,8 +9946,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Gonz\u00e1lez_LAD_2016": {
@@ -10011,8 +10011,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "standard"
     ]
   },
   "Arrieta_CHC_2016": {
@@ -10054,9 +10054,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "catching_error",
-      "bobble"
+      "bobble",
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Kinsler _DET_2016": {
@@ -10078,8 +10078,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Cuthbert_KC_2016": {
@@ -10121,9 +10121,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Gimenez_CLE_2016": {
@@ -10209,8 +10209,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Mauer 2_MIN_2016": {
@@ -10383,9 +10383,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Merrifield_KC_2016": {
@@ -10576,8 +10576,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Mart\u00ednez_CLE_2016": {
@@ -10684,8 +10684,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -10729,8 +10729,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Blanco _PHI_2016": {
@@ -10797,8 +10797,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Smith _SEA_2016": {
@@ -10862,8 +10862,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "LeMahieu _COL_2016": {
@@ -10929,8 +10929,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -10995,9 +10995,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
-      "bobble",
-      "ground_ball"
+      "ground_ball",
+      "standard",
+      "throwing_error"
     ]
   },
   "Centeno_MIN_2016": {
@@ -11102,9 +11102,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Segura _ARI_2016": {
@@ -11343,9 +11343,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "standard",
       "catching_error",
-      "bobble",
-      "standard"
+      "bobble"
     ]
   },
   "Refsnyder_NYY_2016": {
@@ -11408,9 +11408,9 @@
       "errors": 7
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Profar _TEX_2016": {
@@ -11432,8 +11432,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Loney 2_NYM_2016": {
@@ -11603,8 +11603,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Shuck _CHW_2016": {
@@ -11625,8 +11625,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -11649,8 +11649,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Garc_CHW_2016": {
@@ -11672,8 +11672,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Joseph _PHI_2016": {
@@ -11717,8 +11717,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "throwing_error"
+      "throwing_error",
+      "bobble"
     ]
   },
   "Joseph 2_PHI_2016": {
@@ -11889,8 +11889,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
+      "bobble",
       "throwing_error"
     ]
   },
@@ -12082,8 +12082,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -12105,9 +12105,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "bobble"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Anderson _CHW_2016": {
@@ -12256,8 +12256,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Vargas_MIN_2016": {
@@ -12407,8 +12407,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Bregman_HOU_2016": {
@@ -12559,8 +12559,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Reynolds_NYM_2016": {
@@ -12623,8 +12623,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Arcia_MIL_2016": {
@@ -12666,9 +12666,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "standard"
     ]
   },
   "De Jes\u00fas Jr._CIN_2016": {
@@ -13175,8 +13175,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Home_SD_2017": {
@@ -13241,8 +13241,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -13264,8 +13264,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -13434,8 +13434,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -13478,9 +13478,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Lindor_CLE_2017": {
@@ -13565,8 +13565,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Andrus_TEX_2017": {
@@ -13650,8 +13650,8 @@
       "errors": 14
     },
     "primary_contexts": [
-      "ground_ball",
       "fly_ball",
+      "ground_ball",
       "catching_error"
     ]
   },
@@ -13737,8 +13737,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bregman _HOU_2017": {
@@ -13760,7 +13760,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -13783,8 +13783,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Owings _ARI_2017": {
@@ -13806,7 +13806,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "bobble",
       "throwing_error"
     ]
   },
@@ -13996,9 +13996,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Turner_LAD_2017": {
@@ -14802,8 +14802,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Encarnaci\u00f3n_CLE_2017": {
@@ -14846,8 +14846,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Choo _TEX_2017": {
@@ -14868,9 +14868,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "standard"
     ]
   },
   "Wolters_COL_2017": {
@@ -14933,9 +14933,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Home_COL_2017": {
@@ -15086,7 +15086,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Hern_PHI_2017": {
@@ -15107,8 +15107,8 @@
       "errors": 12
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -15298,9 +15298,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Castellanos _DET_2017": {
@@ -15322,7 +15322,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -15365,9 +15365,9 @@
       "errors": 14
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "fly_ball"
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Frazier_CHW_2017": {
@@ -15430,8 +15430,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Canha _OAK_2017": {
@@ -15452,9 +15452,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "fly_ball",
-      "ground_ball"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Davis _OAK_2017": {
@@ -15475,9 +15475,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "fly_ball",
       "catching_error",
-      "standard",
-      "fly_ball"
+      "throwing_error"
     ]
   },
   "Rendon_WSH_2017": {
@@ -15562,7 +15562,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -15731,8 +15731,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "standard"
     ]
   },
@@ -15775,9 +15775,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
+      "fly_ball",
       "catching_error",
-      "throwing_error"
+      "standard"
     ]
   },
   "Gurriel_HOU_2017": {
@@ -15882,9 +15882,9 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Mathis_ARI_2017": {
@@ -15970,9 +15970,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "fly_ball",
       "catching_error",
-      "standard",
-      "fly_ball"
+      "standard"
     ]
   },
   "Jaso_PIT_2017": {
@@ -16035,8 +16035,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "standard"
     ]
   },
   "Kinsler_DET_2017": {
@@ -16208,7 +16208,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Crawford_SF_2017": {
@@ -16294,8 +16294,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Odor _TEX_2017": {
@@ -16381,8 +16381,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Escobar_KC_2017": {
@@ -16445,9 +16445,9 @@
       "errors": 9
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Gattis_HOU_2017": {
@@ -16532,8 +16532,8 @@
     },
     "primary_contexts": [
       "throwing_error",
-      "bobble",
-      "standard"
+      "line_drive",
+      "bobble"
     ]
   },
   "Escobar _LAA_2017": {
@@ -16577,8 +16577,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Castro _MIN_2017": {
@@ -16600,8 +16600,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "San_MIN_2017": {
@@ -16623,7 +16623,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -16792,8 +16792,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Castillo_BAL_2017": {
@@ -16836,8 +16836,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Difo _WSH_2017": {
@@ -16859,8 +16859,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Difo_WSH_2017": {
@@ -16944,8 +16944,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
+      "bobble",
       "standard"
     ]
   },
@@ -16967,8 +16967,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -16990,8 +16990,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -17013,8 +17013,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "standard"
     ]
   },
   "Frazier_PIT_2017": {
@@ -17143,8 +17143,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Mazara _TEX_2017": {
@@ -17166,8 +17166,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Drury_ARI_2017": {
@@ -17315,8 +17315,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Upton _DET_2017": {
@@ -17337,9 +17337,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Castellanos_DET_2017": {
@@ -17469,7 +17469,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Freeman _ATL_2017": {
@@ -17490,9 +17490,9 @@
       "errors": 7
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "bobble",
-      "ground_ball"
+      "bobble"
     ]
   },
   "Peterson _ATL_2017": {
@@ -17513,8 +17513,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
-      "ground_ball"
+      "ground_ball",
+      "catching_error"
     ]
   },
   "Stewart_PIT_2017": {
@@ -17601,8 +17601,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "fly_ball",
-      "throwing_error"
+      "line_drive",
+      "fly_ball"
     ]
   },
   "P\u00e9rez_MIL_2017": {
@@ -17645,8 +17645,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Aoki _HOU_2017": {
@@ -17884,7 +17884,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Parra _COL_2017": {
@@ -17905,8 +17905,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -17928,9 +17928,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Motter _SEA_2017": {
@@ -17973,8 +17973,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Lamb _ARI_2017": {
@@ -18038,9 +18038,9 @@
       "errors": 7
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Miller _TB_2017": {
@@ -18084,9 +18084,9 @@
       "errors": 4
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Plouffe _OAK_2017": {
@@ -18107,9 +18107,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Reddick _HOU_2017": {
@@ -18130,8 +18130,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
+      "bobble",
       "throwing_error"
     ]
   },
@@ -18197,8 +18197,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "throwing_error"
+      "throwing_error",
+      "bobble"
     ]
   },
   "Rendon _WSH_2017": {
@@ -18220,8 +18220,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Harper _WSH_2017": {
@@ -18242,8 +18242,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -18287,8 +18287,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Cervelli _PIT_2017": {
@@ -18309,9 +18309,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Frazier _PIT_2017": {
@@ -18333,8 +18333,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Puig _LAD_2017": {
@@ -18355,8 +18355,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Contreras _CHC_2017": {
@@ -18377,9 +18377,9 @@
       "errors": 14
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Russell _CHC_2017": {
@@ -18425,7 +18425,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Contreras_CHC_2017": {
@@ -18576,7 +18576,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Peraza _CIN_2017": {
@@ -18598,7 +18598,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -18621,8 +18621,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Hardy _BAL_2017": {
@@ -18666,8 +18666,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Machado_BAL_2017": {
@@ -18731,8 +18731,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Andrus _TEX_2017": {
@@ -18754,8 +18754,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Napoli 2_TEX_2017": {
@@ -18798,8 +18798,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Espinosa_LAA_2017": {
@@ -18906,9 +18906,9 @@
       "errors": 11
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Hicks _NYY_2017": {
@@ -18929,8 +18929,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -18952,9 +18952,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "standard"
     ]
   },
   "P\u00e9rez_CLE_2017": {
@@ -19017,8 +19017,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -19083,8 +19083,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Moore_MIA_2017": {
@@ -19211,8 +19211,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Home_LAD_2017": {
@@ -19254,9 +19254,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "line_drive",
       "bobble",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Pennington_LAA_2017": {
@@ -19384,8 +19384,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "bobble",
+      "throwing_error"
     ]
   },
   "Home_NYM_2017": {
@@ -19427,9 +19427,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "standard"
     ]
   },
   "Home_MIA_2017": {
@@ -19515,8 +19515,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -19669,8 +19669,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Conforto _NYM_2017": {
@@ -19714,8 +19714,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Teher\u00e1n_ATL_2017": {
@@ -19778,9 +19778,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Cain _KC_2017": {
@@ -19801,9 +19801,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "catching_error",
-      "bobble"
+      "bobble",
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Gonz\u00e1lez_HOU_2017": {
@@ -19911,8 +19911,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "fly_ball"
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Davidson_CHW_2017": {
@@ -19955,8 +19955,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Pujols_LAA_2017": {
@@ -19998,8 +19998,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -20066,8 +20066,8 @@
     },
     "primary_contexts": [
       "throwing_error",
-      "bobble",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Stanton _MIA_2017": {
@@ -20088,9 +20088,9 @@
       "errors": 4
     },
     "primary_contexts": [
+      "standard",
       "throwing_error",
-      "bobble",
-      "standard"
+      "bobble"
     ]
   },
   "Weeks Jr._TB_2017": {
@@ -20155,7 +20155,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -20177,9 +20177,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Mercer _PIT_2017": {
@@ -20310,9 +20310,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Bogaerts _BOS_2017": {
@@ -20355,9 +20355,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
+      "fly_ball",
       "bobble",
-      "fly_ball"
+      "throwing_error"
     ]
   },
   "Home_BAL_2017": {
@@ -20422,8 +20422,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Kepler _MIN_2017": {
@@ -20444,9 +20444,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "San\u00f3_MIN_2017": {
@@ -20531,8 +20531,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "line_drive"
+      "line_drive",
+      "bobble"
     ]
   },
   "Zunino _SEA_2017": {
@@ -20639,8 +20639,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Garcia _STL_2017": {
@@ -20768,9 +20768,9 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Barnhart_CIN_2017": {
@@ -20965,9 +20965,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "ground_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Altherr _PHI_2017": {
@@ -20989,8 +20989,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Hosmer 2_KC_2017": {
@@ -21096,9 +21096,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "fly_ball",
       "ground_ball",
-      "catching_error",
-      "fly_ball"
+      "catching_error"
     ]
   },
   "Harrison _PIT_2017": {
@@ -21143,8 +21143,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Longoria _TB_2017": {
@@ -21187,8 +21187,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -21253,8 +21253,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Peralta _ARI_2017": {
@@ -21275,8 +21275,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Valencia 2_SEA_2017": {
@@ -21448,8 +21448,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Molina _STL_2017": {
@@ -21492,9 +21492,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Taylor_LAD_2017": {
@@ -21708,9 +21708,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Revere _LAA_2017": {
@@ -21731,9 +21731,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "fly_ball",
       "ground_ball",
-      "bobble",
-      "fly_ball"
+      "standard"
     ]
   },
   "Olson_OAK_2017": {
@@ -21864,7 +21864,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Moustakas _KC_2017": {
@@ -21993,8 +21993,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -22082,8 +22082,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "LeMahieu _COL_2017": {
@@ -22105,8 +22105,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Blash _SD_2017": {
@@ -22127,9 +22127,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Arroyo_SF_2017": {
@@ -22192,9 +22192,9 @@
       "errors": 6
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Kiermaier _TB_2017": {
@@ -22215,9 +22215,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Ngoepe_PIT_2017": {
@@ -22302,8 +22302,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -22325,9 +22325,9 @@
       "errors": 13
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Can_SEA_2017": {
@@ -22499,8 +22499,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Su_CIN_2017": {
@@ -22522,8 +22522,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Valaika_COL_2017": {
@@ -22567,7 +22567,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Aybar _SD_2017": {
@@ -22589,8 +22589,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Hundley _SF_2017": {
@@ -22611,8 +22611,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Home_TB_2017": {
@@ -22654,9 +22654,9 @@
       "errors": 11
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Phillips _MIL_2017": {
@@ -22720,9 +22720,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
-      "bobble"
+      "bobble",
+      "standard"
     ]
   },
   "Gregorius_NYY_2017": {
@@ -22765,8 +22765,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bell _PIT_2017": {
@@ -22788,8 +22788,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Pi\u00f1a_MIL_2017": {
@@ -22831,9 +22831,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "fly_ball",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Pinder_OAK_2017": {
@@ -22896,8 +22896,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -23025,8 +23025,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
+      "line_drive",
       "bobble"
     ]
   },
@@ -23091,8 +23091,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Pence _SF_2017": {
@@ -23113,8 +23113,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
+      "bobble",
       "standard"
     ]
   },
@@ -23136,9 +23136,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
+      "ground_ball",
       "catching_error",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Markakis _ATL_2017": {
@@ -23352,7 +23352,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Adams _ATL_2017": {
@@ -23375,7 +23375,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "standard"
     ]
   },
   "F. Freeman_ATL_2017": {
@@ -23459,9 +23459,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Rutledge_BOS_2017": {
@@ -23525,8 +23525,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Flowers _ATL_2017": {
@@ -23547,9 +23547,9 @@
       "errors": 5
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Tomlinson _SF_2017": {
@@ -23658,8 +23658,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Bellinger_LAD_2017": {
@@ -23830,8 +23830,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Schwarber _CHC_2017": {
@@ -23852,9 +23852,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "C\u00f3rdoba_SD_2017": {
@@ -23917,8 +23917,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -23941,8 +23941,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Gardner _NYY_2017": {
@@ -24155,8 +24155,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Gurriel _HOU_2017": {
@@ -24177,8 +24177,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -24245,8 +24245,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Sogard_MIL_2017": {
@@ -24310,8 +24310,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -24376,8 +24376,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Duvall _CIN_2017": {
@@ -24398,9 +24398,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "fly_ball"
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Osuna_PIT_2017": {
@@ -24443,7 +24443,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -24509,8 +24509,8 @@
     },
     "primary_contexts": [
       "standard",
-      "bobble",
-      "throwing_error"
+      "throwing_error",
+      "bobble"
     ]
   },
   "Pham _STL_2017": {
@@ -24574,8 +24574,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -24597,9 +24597,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "ground_ball"
+      "ground_ball",
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Taylor _WSH_2017": {
@@ -24620,9 +24620,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
-      "standard"
+      "line_drive",
+      "bobble"
     ]
   },
   "Arenado _COL_2017": {
@@ -24644,8 +24644,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Reynolds_NYM_2017": {
@@ -24836,9 +24836,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Joyce _OAK_2017": {
@@ -24861,7 +24861,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Valbuena _LAA_2017": {
@@ -24925,8 +24925,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -25183,8 +25183,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "M. Adams_ATL_2017": {
@@ -25291,8 +25291,8 @@
     },
     "primary_contexts": [
       "throwing_error",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "S\u00e1nchez_NYY_2017": {
@@ -25356,8 +25356,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "standard"
+      "standard",
+      "line_drive"
     ]
   },
   "Kendrick_PHI_2017": {
@@ -25525,8 +25525,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -25695,9 +25695,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Jones_SF_2017": {
@@ -25804,8 +25804,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -25911,8 +25911,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -26190,7 +26190,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -26256,7 +26256,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -26365,8 +26365,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Devers_BOS_2017": {
@@ -26645,8 +26645,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Telis_MIA_2017": {
@@ -26923,8 +26923,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "standard"
+      "catching_error",
+      "bobble"
     ]
   },
   "Walker_MIL_2017": {
@@ -27093,8 +27093,8 @@
       "errors": 15
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -27116,8 +27116,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Russell_CHC_2018": {
@@ -27265,7 +27265,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -27392,9 +27392,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "D\u00edaz_TOR_2018": {
@@ -27500,8 +27500,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Knapp_PHI_2018": {
@@ -28177,8 +28177,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "McCann_DET_2018": {
@@ -28304,9 +28304,9 @@
       "errors": 14
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Contreras_CHC_2018": {
@@ -28559,8 +28559,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Home_PHI_2018": {
@@ -28603,8 +28603,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Correa_HOU_2018": {
@@ -28709,8 +28709,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -28733,8 +28733,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Andrus_TEX_2018": {
@@ -28819,8 +28819,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Forsythe _LAD_2018": {
@@ -28886,9 +28886,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
+      "ground_ball",
       "catching_error",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Home_MIL_2018": {
@@ -29016,8 +29016,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Frazier _NYM_2018": {
@@ -29039,8 +29039,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Turner _WSH_2018": {
@@ -29062,8 +29062,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Simmons_LAA_2018": {
@@ -29276,7 +29276,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -29319,8 +29319,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -29427,8 +29427,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Franco _PHI_2018": {
@@ -29450,8 +29450,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Hern_PHI_2018": {
@@ -29472,9 +29472,9 @@
       "errors": 12
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Crawford _PHI_2018": {
@@ -29496,8 +29496,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Zobrist_CHC_2018": {
@@ -29708,8 +29708,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Story_COL_2018": {
@@ -29857,8 +29857,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Belt _SF_2018": {
@@ -29879,8 +29879,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -29947,8 +29947,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Home_NYY_2018": {
@@ -29991,8 +29991,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Frazier_NYM_2018": {
@@ -30097,9 +30097,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
+      "fly_ball",
       "bobble",
-      "fly_ball"
+      "throwing_error"
     ]
   },
   "Home_TB_2018": {
@@ -30291,8 +30291,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "throwing_error"
+      "throwing_error",
+      "bobble"
     ]
   },
   "Healy_SEA_2018": {
@@ -30566,8 +30566,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Goodrum_DET_2018": {
@@ -30631,9 +30631,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "fly_ball",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Turner_WSH_2018": {
@@ -30718,9 +30718,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Beltr\u00e9_TEX_2018": {
@@ -30762,9 +30762,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Home_TEX_2018": {
@@ -30806,9 +30806,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "fly_ball",
       "throwing_error",
-      "standard",
-      "fly_ball"
+      "standard"
     ]
   },
   "Gomes_CLE_2018": {
@@ -30850,9 +30850,9 @@
       "errors": 4
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Maldonado_LAA_2018": {
@@ -30895,8 +30895,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Cuthbert_KC_2018": {
@@ -31022,9 +31022,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
-      "standard"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Can\u00f3_SEA_2018": {
@@ -31109,8 +31109,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Benintendi _BOS_2018": {
@@ -31131,8 +31131,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -31265,8 +31265,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Villar_MIL_2018": {
@@ -31308,8 +31308,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Davis_HOU_2018": {
@@ -31396,8 +31396,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "bobble",
+      "throwing_error"
     ]
   },
   "Difo _WSH_2018": {
@@ -31504,8 +31504,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Pujols_LAA_2018": {
@@ -31547,9 +31547,9 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "standard"
     ]
   },
   "Polanco _MIN_2018": {
@@ -31570,9 +31570,9 @@
       "errors": 12
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Home_MIN_2018": {
@@ -31615,8 +31615,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Donaldson_TOR_2018": {
@@ -31659,8 +31659,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Molina_STL_2018": {
@@ -31746,8 +31746,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Bruce _NYM_2018": {
@@ -31769,8 +31769,8 @@
     },
     "primary_contexts": [
       "standard",
-      "throwing_error",
-      "bobble"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Reyes_NYM_2018": {
@@ -31965,9 +31965,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "bobble",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Abreu _CHW_2018": {
@@ -32034,7 +32034,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "ground_ball"
+      "line_drive"
     ]
   },
   "Freitas_SEA_2018": {
@@ -32277,8 +32277,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "bobble",
+      "throwing_error"
     ]
   },
   "Bandy_MIL_2018": {
@@ -32362,8 +32362,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Hamilton _CIN_2018": {
@@ -32384,8 +32384,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -32473,9 +32473,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Beckham_BAL_2018": {
@@ -32517,9 +32517,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
+      "fly_ball",
       "catching_error",
-      "throwing_error"
+      "standard"
     ]
   },
   "Home_NYM_2018": {
@@ -32670,9 +32670,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
-      "bobble",
-      "ground_ball"
+      "ground_ball",
+      "standard",
+      "throwing_error"
     ]
   },
   "Villanueva_SD_2018": {
@@ -32819,9 +32819,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "bobble",
       "fly_ball",
-      "standard"
+      "line_drive",
+      "bobble"
     ]
   },
   "Caratini_CHC_2018": {
@@ -32885,8 +32885,8 @@
     },
     "primary_contexts": [
       "throwing_error",
-      "bobble",
-      "standard"
+      "line_drive",
+      "bobble"
     ]
   },
   "Valaika_COL_2018": {
@@ -33037,9 +33037,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Home_CHW_2018": {
@@ -33147,7 +33147,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Anderson_MIA_2018": {
@@ -33213,7 +33213,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Escobar_KC_2018": {
@@ -33255,9 +33255,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Wendle _TB_2018": {
@@ -33279,8 +33279,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "And_NYY_2018": {
@@ -33302,7 +33302,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -33451,9 +33451,9 @@
       "errors": 9
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "fly_ball"
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Valbuena _LAA_2018": {
@@ -33517,9 +33517,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
+      "fly_ball",
       "catching_error",
-      "throwing_error"
+      "standard"
     ]
   },
   "Desmond _COL_2018": {
@@ -33671,8 +33671,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Morrison_MIN_2018": {
@@ -33737,7 +33737,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "standard"
     ]
   },
   "Cordero _SD_2018": {
@@ -33758,8 +33758,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
+      "bobble",
       "throwing_error"
     ]
   },
@@ -33803,8 +33803,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Brinson _MIA_2018": {
@@ -33827,7 +33827,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Freese_PIT_2018": {
@@ -33870,7 +33870,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -33892,9 +33892,9 @@
       "errors": 12
     },
     "primary_contexts": [
+      "ground_ball",
       "catching_error",
-      "standard",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Hicks _DET_2018": {
@@ -33916,8 +33916,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Lindor _CLE_2018": {
@@ -33939,8 +33939,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Gonz_CLE_2018": {
@@ -33984,8 +33984,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Ervin _CIN_2018": {
@@ -34007,8 +34007,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Duvall_CIN_2018": {
@@ -34073,8 +34073,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Kinsler_LAA_2018": {
@@ -34203,8 +34203,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Simmons _LAA_2018": {
@@ -34311,8 +34311,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -34357,8 +34357,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Valencia_BAL_2018": {
@@ -34400,8 +34400,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Happ _CHC_2018": {
@@ -34422,8 +34422,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -34467,8 +34467,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Falefa_TEX_2018": {
@@ -34574,8 +34574,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "bobble"
     ]
   },
   "Ellis_SD_2018": {
@@ -34617,9 +34617,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "throwing_error"
+      "fly_ball",
+      "standard"
     ]
   },
   "Vogelbach_SEA_2018": {
@@ -34684,8 +34684,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Flores _NYM_2018": {
@@ -34707,8 +34707,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Frazier _PIT_2018": {
@@ -34730,7 +34730,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "bobble",
       "throwing_error"
     ]
   },
@@ -34905,9 +34905,9 @@
       "errors": 13
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Realmuto_MIA_2018": {
@@ -35037,8 +35037,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Home_LAA_2018": {
@@ -35166,8 +35166,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Hoskins_PHI_2018": {
@@ -35209,9 +35209,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "line_drive",
+      "standard"
     ]
   },
   "Home_HOU_2018": {
@@ -35382,8 +35382,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Inciarte _ATL_2018": {
@@ -35405,7 +35405,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "bobble",
       "throwing_error"
     ]
   },
@@ -35450,7 +35450,7 @@
     "primary_contexts": [
       "catching_error",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Gyorko_STL_2018": {
@@ -35535,8 +35535,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -35601,9 +35601,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "catching_error",
       "fly_ball",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Torres_NYY_2018": {
@@ -35688,8 +35688,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Myers _SD_2018": {
@@ -35777,8 +35777,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Rizzo 2_CHC_2018": {
@@ -35820,9 +35820,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "bobble"
+      "standard",
+      "throwing_error"
     ]
   },
   "Torres _NYY_2018": {
@@ -35844,8 +35844,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "DeShields _TEX_2018": {
@@ -35866,9 +35866,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Pirela_SD_2018": {
@@ -35952,8 +35952,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -35976,7 +35976,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -36042,7 +36042,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Nova _PIT_2018": {
@@ -36064,8 +36064,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "S. Rodr\u00edguez_PIT_2018": {
@@ -36107,9 +36107,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Polanco _PIT_2018": {
@@ -36130,9 +36130,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "bobble",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Schebler _CIN_2018": {
@@ -36154,8 +36154,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Su\u00e1rez_CIN_2018": {
@@ -36197,8 +36197,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "standard"
     ]
   },
@@ -36221,8 +36221,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "fly_ball",
-      "throwing_error"
+      "line_drive",
+      "fly_ball"
     ]
   },
   "Chirinos_TEX_2018": {
@@ -36266,7 +36266,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "standard"
     ]
   },
   "Mercer _PIT_2018": {
@@ -36288,8 +36288,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Goldschmidt 2_ARI_2018": {
@@ -36331,8 +36331,8 @@
       "errors": 13
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -36527,8 +36527,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Zunino_SEA_2018": {
@@ -36570,9 +36570,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "bobble",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Castro_COL_2018": {
@@ -36658,8 +36658,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Taylor_LAD_2018": {
@@ -36723,8 +36723,8 @@
     },
     "primary_contexts": [
       "bobble",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Pi_MIL_2018": {
@@ -36746,8 +36746,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Peterson _BAL_2018": {
@@ -36768,8 +36768,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "standard"
     ]
   },
@@ -36813,7 +36813,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -36942,9 +36942,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
+      "ground_ball",
       "bobble",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Iglesias _DET_2018": {
@@ -36966,8 +36966,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Wieters_WSH_2018": {
@@ -37138,8 +37138,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -37184,7 +37184,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "standard"
     ]
   },
   "Jr_ATL_2018": {
@@ -37207,7 +37207,7 @@
     "primary_contexts": [
       "bobble",
       "fly_ball",
-      "throwing_error"
+      "standard"
     ]
   },
   "Flowers_ATL_2018": {
@@ -37249,9 +37249,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Votto _CIN_2018": {
@@ -37357,9 +37357,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Mahtook _DET_2018": {
@@ -37448,8 +37448,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Mesoraco_NYM_2018": {
@@ -37492,8 +37492,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bellinger _LAD_2018": {
@@ -37515,8 +37515,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Dozier_KC_2018": {
@@ -37666,7 +37666,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -37922,9 +37922,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Le_BOS_2018": {
@@ -38053,8 +38053,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "bobble",
+      "throwing_error"
     ]
   },
   "Adames _TB_2018": {
@@ -38183,8 +38183,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Rendon _WSH_2018": {
@@ -38335,8 +38335,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Lamb_ARI_2018": {
@@ -38379,8 +38379,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Gallo _TEX_2018": {
@@ -38401,9 +38401,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "fly_ball",
       "catching_error",
-      "bobble",
-      "fly_ball"
+      "bobble"
     ]
   },
   "Rodr\u00edguez_DET_2018": {
@@ -38467,8 +38467,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Healy 2_SEA_2018": {
@@ -38555,8 +38555,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bauers_TB_2018": {
@@ -38732,8 +38732,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -38860,9 +38860,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "bobble",
       "standard",
-      "line_drive"
+      "line_drive",
+      "bobble"
     ]
   },
   "Span _SEA_2018": {
@@ -38884,8 +38884,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "standard"
+      "bobble",
+      "throwing_error"
     ]
   },
   "Bautista_NYM_2018": {
@@ -39077,8 +39077,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "bobble",
-      "standard"
+      "line_drive",
+      "bobble"
     ]
   },
   "Valent\u00edn_PHI_2018": {
@@ -39225,9 +39225,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "bobble",
       "throwing_error",
-      "bobble"
+      "standard"
     ]
   },
   "Adduci _DET_2018": {
@@ -39313,8 +39313,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -39358,8 +39358,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "bobble",
-      "standard"
+      "standard",
+      "bobble"
     ]
   },
   "Casali_CIN_2018": {
@@ -39401,9 +39401,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
       "bobble",
-      "ground_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "N\u00fa\u00f1ez_BAL_2018": {
@@ -39468,7 +39468,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Phegley_OAK_2018": {
@@ -39531,8 +39531,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "bobble",
+      "throwing_error",
       "standard"
     ]
   },
@@ -39724,8 +39724,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Schoop_MIL_2018": {
@@ -40042,9 +40042,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
+      "ground_ball",
       "bobble",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Hechavarria_PIT_2018": {
@@ -40108,8 +40108,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Murphy_CHC_2018": {
@@ -40406,8 +40406,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -40429,9 +40429,9 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Muncy_LAD_2019": {
@@ -40494,8 +40494,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -40518,8 +40518,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Healy_SEA_2019": {
@@ -40625,7 +40625,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -40711,8 +40711,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Segura_PHI_2019": {
@@ -40839,8 +40839,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Mayfield_HOU_2019": {
@@ -40967,8 +40967,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Swanson_ATL_2019": {
@@ -41431,8 +41431,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Hern\u00e1ndez_LAD_2019": {
@@ -41560,8 +41560,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -41711,8 +41711,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "catching_error",
-      "ground_ball"
+      "ground_ball",
+      "catching_error"
     ]
   },
   "Beckham_SEA_2019": {
@@ -41817,8 +41817,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Robertson_TB_2019": {
@@ -41883,7 +41883,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Mancini_BAL_2019": {
@@ -41946,9 +41946,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Candelario_DET_2019": {
@@ -42117,8 +42117,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Moroff_CLE_2019": {
@@ -42223,9 +42223,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "O'Hearn_KC_2019": {
@@ -42331,7 +42331,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -42438,8 +42438,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Escobar_ARI_2019": {
@@ -42672,7 +42672,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -42823,7 +42823,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -42847,7 +42847,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "McNeil_NYM_2019": {
@@ -42994,9 +42994,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Thames _MIL_2019": {
@@ -43018,8 +43018,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "catching_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Wisdom_TEX_2019": {
@@ -43062,8 +43062,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "McCann _CHW_2019": {
@@ -43084,9 +43084,9 @@
       "errors": 8
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "La Stella_LAA_2019": {
@@ -43129,7 +43129,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -43152,8 +43152,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Garver _MIN_2019": {
@@ -43175,8 +43175,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Castro_MIN_2019": {
@@ -43219,8 +43219,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Goodrum_DET_2019": {
@@ -43326,8 +43326,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "D\u00edaz_HOU_2019": {
@@ -43432,9 +43432,9 @@
       "errors": 14
     },
     "primary_contexts": [
-      "standard",
+      "fly_ball",
       "catching_error",
-      "throwing_error"
+      "standard"
     ]
   },
   "Mondesi _KC_2019": {
@@ -43456,8 +43456,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Arteaga_KC_2019": {
@@ -43585,7 +43585,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Albies _ATL_2019": {
@@ -43713,8 +43713,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Vargas_ARI_2019": {
@@ -43821,8 +43821,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Garver_MIN_2019": {
@@ -43971,8 +43971,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -44037,8 +44037,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Biggio _TOR_2019": {
@@ -44144,9 +44144,9 @@
       "errors": 4
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Naquin _CLE_2019": {
@@ -44316,8 +44316,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Pederson _LAD_2019": {
@@ -44339,8 +44339,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Martin_LAD_2019": {
@@ -44383,8 +44383,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Simmons _LAA_2019": {
@@ -44428,8 +44428,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Realmuto_PHI_2019": {
@@ -44556,8 +44556,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Aquino _CIN_2019": {
@@ -44578,8 +44578,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Swanson _ATL_2019": {
@@ -44623,9 +44623,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Gallo _TEX_2019": {
@@ -44646,9 +44646,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Cervelli_PIT_2019": {
@@ -44796,9 +44796,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "line_drive",
+      "standard"
     ]
   },
   "Moore _SEA_2019": {
@@ -44820,8 +44820,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Encarnaci\u00f3n_SEA_2019": {
@@ -44863,9 +44863,9 @@
       "errors": 10
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "line_drive",
+      "standard"
     ]
   },
   "Farmer_CIN_2019": {
@@ -44929,7 +44929,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -44952,7 +44952,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -44995,9 +44995,9 @@
       "errors": 11
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "White_HOU_2019": {
@@ -45208,8 +45208,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Sucre_BAL_2019": {
@@ -45294,8 +45294,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Rojas _MIA_2019": {
@@ -45317,8 +45317,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Brinson _MIA_2019": {
@@ -45339,9 +45339,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
+      "line_drive",
       "throwing_error",
-      "line_drive"
+      "standard"
     ]
   },
   "Cooper_MIA_2019": {
@@ -45404,9 +45404,9 @@
       "errors": 12
     },
     "primary_contexts": [
+      "fly_ball",
       "ground_ball",
-      "throwing_error",
-      "fly_ball"
+      "catching_error"
     ]
   },
   "Frazier _PIT_2019": {
@@ -45450,8 +45450,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "catching_error",
-      "fly_ball"
+      "fly_ball",
+      "catching_error"
     ]
   },
   "Beckham _SEA_2019": {
@@ -45473,7 +45473,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -45538,9 +45538,9 @@
       "errors": 9
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Molina_STL_2019": {
@@ -45625,8 +45625,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Narv_SEA_2019": {
@@ -45647,9 +45647,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "LeMahieu _NYY_2019": {
@@ -45778,8 +45778,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Suzuki_WSH_2019": {
@@ -45927,8 +45927,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Bote _CHC_2019": {
@@ -46099,8 +46099,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Barnhart_CIN_2019": {
@@ -46143,8 +46143,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Ram\u00edrez_CLE_2019": {
@@ -46333,9 +46333,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "line_drive",
+      "standard"
     ]
   },
   "Ahmed _ARI_2019": {
@@ -46357,8 +46357,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Bellinger_LAD_2019": {
@@ -46444,8 +46444,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Albies_ATL_2019": {
@@ -46487,9 +46487,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Carpenter_STL_2019": {
@@ -46554,9 +46554,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Arcia_MIL_2019": {
@@ -46641,8 +46641,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Bryant _CHC_2019": {
@@ -46664,8 +46664,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Donaldson _ATL_2019": {
@@ -46687,8 +46687,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Galvis _TOR_2019": {
@@ -46733,8 +46733,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Davis_NYM_2019": {
@@ -46819,8 +46819,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Flores_ARI_2019": {
@@ -46947,9 +46947,9 @@
       "errors": 11
     },
     "primary_contexts": [
-      "catching_error",
       "fly_ball",
-      "throwing_error"
+      "catching_error",
+      "standard"
     ]
   },
   "Correa_HOU_2019": {
@@ -46992,8 +46992,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Duggar _SF_2019": {
@@ -47014,9 +47014,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "line_drive",
       "throwing_error",
-      "line_drive"
+      "standard"
     ]
   },
   "Segura _PHI_2019": {
@@ -47038,8 +47038,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Realmuto _PHI_2019": {
@@ -47061,8 +47061,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Hoskins _PHI_2019": {
@@ -47106,8 +47106,8 @@
       "errors": 15
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
+      "fly_ball",
       "throwing_error"
     ]
   },
@@ -47129,9 +47129,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Myers _SD_2019": {
@@ -47153,8 +47153,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Severino_BAL_2019": {
@@ -47219,7 +47219,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Heyward _CHC_2019": {
@@ -47241,8 +47241,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Fowler _STL_2019": {
@@ -47263,9 +47263,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Cabrera _TEX_2019": {
@@ -47287,8 +47287,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Devers_BOS_2019": {
@@ -47331,8 +47331,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Rendon _WSH_2019": {
@@ -47398,7 +47398,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -47528,7 +47528,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -47571,9 +47571,9 @@
       "errors": 10
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
-      "throwing_error"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Tellez_TOR_2019": {
@@ -47679,8 +47679,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Moncada_CHW_2019": {
@@ -47723,8 +47723,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Zunino _TB_2019": {
@@ -47811,8 +47811,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Flowers_ATL_2019": {
@@ -47855,8 +47855,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Urshela _NYY_2019": {
@@ -47922,8 +47922,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Ramos _NYM_2019": {
@@ -48029,9 +48029,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Bader_STL_2019": {
@@ -48074,7 +48074,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -48118,7 +48118,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -48162,8 +48162,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Goodwin _LAA_2019": {
@@ -48185,8 +48185,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Hern_TOR_2019": {
@@ -48208,8 +48208,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Hanson_TOR_2019": {
@@ -48294,8 +48294,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -48318,8 +48318,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Chirinos_HOU_2019": {
@@ -48362,7 +48362,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -48428,7 +48428,7 @@
     "primary_contexts": [
       "ground_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Schwarber _CHC_2019": {
@@ -48449,9 +48449,9 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Escobar _ARI_2019": {
@@ -48494,8 +48494,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
       "ground_ball",
+      "catching_error",
       "throwing_error"
     ]
   },
@@ -48561,9 +48561,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Bogaerts _BOS_2019": {
@@ -48585,8 +48585,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Ram_CLE_2019": {
@@ -48630,7 +48630,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -48717,8 +48717,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Martin _BAL_2019": {
@@ -48762,8 +48762,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Chapman _OAK_2019": {
@@ -48870,8 +48870,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Drury _TOR_2019": {
@@ -48915,8 +48915,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Le_BOS_2019": {
@@ -48938,8 +48938,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Santana_TEX_2019": {
@@ -49046,8 +49046,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "McCann_CHW_2019": {
@@ -49090,8 +49090,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bauers_CLE_2019": {
@@ -49134,8 +49134,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Adams _WSH_2019": {
@@ -49157,8 +49157,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "N\u00fa\u00f1ez_BAL_2019": {
@@ -49222,9 +49222,9 @@
       "errors": 15
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "line_drive",
+      "standard"
     ]
   },
   "Candelario _DET_2019": {
@@ -49267,9 +49267,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Kingery _PHI_2019": {
@@ -49291,8 +49291,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Dozier _KC_2019": {
@@ -49314,8 +49314,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Crawford _SF_2019": {
@@ -49338,7 +49338,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Garc\u00eda_CHW_2019": {
@@ -49403,8 +49403,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "DeJong _STL_2019": {
@@ -49426,8 +49426,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Harper _PHI_2019": {
@@ -49449,8 +49449,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive"
     ]
   },
   "Iglesias _CIN_2019": {
@@ -49472,8 +49472,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Casali _CIN_2019": {
@@ -49542,7 +49542,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Home_MIN_2019": {
@@ -49585,7 +49585,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -49629,8 +49629,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Home_MIA_2019": {
@@ -49693,9 +49693,9 @@
       "errors": 7
     },
     "primary_contexts": [
-      "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "fly_ball",
+      "ground_ball",
+      "catching_error"
     ]
   },
   "Braun _MIL_2019": {
@@ -49716,9 +49716,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
       "fly_ball",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Reddick _HOU_2019": {
@@ -49741,7 +49741,7 @@
     "primary_contexts": [
       "catching_error",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "DeShields _TEX_2019": {
@@ -49763,8 +49763,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Dixon_DET_2019": {
@@ -49806,9 +49806,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Home_BOS_2019": {
@@ -49851,8 +49851,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Wong _STL_2019": {
@@ -50003,7 +50003,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Camargo_ATL_2019": {
@@ -50046,8 +50046,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Jr_ATL_2019": {
@@ -50069,8 +50069,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Home_PHI_2019": {
@@ -50112,9 +50112,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Lindor_CLE_2019": {
@@ -50198,9 +50198,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Falefa_TEX_2019": {
@@ -50242,9 +50242,9 @@
       "errors": 13
     },
     "primary_contexts": [
-      "standard",
+      "fly_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Winker _CIN_2019": {
@@ -50265,8 +50265,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -50289,7 +50289,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -50312,8 +50312,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Home_STL_2019": {
@@ -50356,8 +50356,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Conforto _NYM_2019": {
@@ -50378,9 +50378,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "line_drive",
       "throwing_error",
-      "line_drive"
+      "standard"
     ]
   },
   "Smith _SEA_2019": {
@@ -50403,7 +50403,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Chavis _BOS_2019": {
@@ -50468,7 +50468,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -50490,9 +50490,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "fly_ball"
+      "fly_ball",
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Frazier_NYM_2019": {
@@ -50535,8 +50535,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Dozier _WSH_2019": {
@@ -50580,8 +50580,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Garcia _SD_2019": {
@@ -50732,7 +50732,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -50776,8 +50776,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Marte _PIT_2019": {
@@ -50798,9 +50798,9 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "fly_ball",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Home_PIT_2019": {
@@ -50844,7 +50844,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Guerrero Jr._TOR_2019": {
@@ -50950,8 +50950,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Home_CLE_2019": {
@@ -51037,8 +51037,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Home_ARI_2019": {
@@ -51123,8 +51123,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Cabrera _PIT_2019": {
@@ -51145,8 +51145,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Long_SEA_2019": {
@@ -51189,7 +51189,7 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
+      "line_drive",
       "throwing_error"
     ]
   },
@@ -51212,8 +51212,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Parra_WSH_2019": {
@@ -51277,8 +51277,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Reyes _SD_2019": {
@@ -51301,7 +51301,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Freeman_CLE_2019": {
@@ -51343,8 +51343,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Hiura_MIL_2019": {
@@ -51535,8 +51535,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Tilson _CHW_2019": {
@@ -51557,9 +51557,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
+      "line_drive",
       "throwing_error",
-      "line_drive"
+      "standard"
     ]
   },
   "Home_TB_2019": {
@@ -51601,9 +51601,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Yelich _MIL_2019": {
@@ -51625,8 +51625,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "San_MIN_2019": {
@@ -51647,9 +51647,9 @@
       "errors": 18
     },
     "primary_contexts": [
-      "standard",
+      "fly_ball",
       "catching_error",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Arraez _MIN_2019": {
@@ -51670,8 +51670,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
+      "catching_error",
       "standard"
     ]
   },
@@ -51694,8 +51694,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Parra _WSH_2019": {
@@ -51716,8 +51716,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Mercado _CLE_2019": {
@@ -51740,7 +51740,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "standard"
+      "line_drive"
     ]
   },
   "Soroka_ATL_2019": {
@@ -51783,8 +51783,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "standard"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Marte _ARI_2019": {
@@ -51805,9 +51805,9 @@
       "errors": 3
     },
     "primary_contexts": [
-      "catching_error",
       "ground_ball",
-      "standard"
+      "catching_error",
+      "line_drive"
     ]
   },
   "Rodgers_COL_2019": {
@@ -51893,8 +51893,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Rodgers _COL_2019": {
@@ -51937,9 +51937,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "ground_ball",
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "throwing_error"
     ]
   },
   "Lugo _DET_2019": {
@@ -51983,8 +51983,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "throwing_error",
-      "ground_ball"
+      "line_drive",
+      "standard"
     ]
   },
   "Seager_SEA_2019": {
@@ -52158,9 +52158,9 @@
       "errors": 4
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Murphy_SEA_2019": {
@@ -52224,8 +52224,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Daza _COL_2019": {
@@ -52246,9 +52246,9 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
+      "line_drive",
       "throwing_error",
-      "line_drive"
+      "standard"
     ]
   },
   "D\u00edaz_PIT_2019": {
@@ -52291,8 +52291,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Allen _CLE_2019": {
@@ -52314,8 +52314,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Home_WSH_2019": {
@@ -52380,7 +52380,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Velasquez _PHI_2019": {
@@ -52402,8 +52402,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Seager _SEA_2019": {
@@ -52425,8 +52425,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Long _SEA_2019": {
@@ -52448,8 +52448,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Peralta _ARI_2019": {
@@ -52470,9 +52470,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "San\u00f3_MIN_2019": {
@@ -52514,9 +52514,9 @@
       "errors": 12
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
-      "catching_error"
+      "catching_error",
+      "throwing_error"
     ]
   },
   "Davis _BAL_2019": {
@@ -52561,8 +52561,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Sisco _BAL_2019": {
@@ -52605,8 +52605,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "throwing_error",
       "ground_ball",
+      "throwing_error",
       "standard"
     ]
   },
@@ -52671,8 +52671,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "throwing_error",
-      "line_drive"
+      "line_drive",
+      "throwing_error"
     ]
   },
   "Stallings _PIT_2019": {
@@ -52694,8 +52694,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Beaty_LAD_2019": {
@@ -52780,8 +52780,8 @@
     },
     "primary_contexts": [
       "fly_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Arraez_MIN_2019": {
@@ -52949,9 +52949,9 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
-      "standard",
-      "ground_ball"
+      "ground_ball",
+      "fly_ball",
+      "throwing_error"
     ]
   },
   "Brosseau_TB_2019": {
@@ -53057,9 +53057,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Home_KC_2019": {
@@ -53249,8 +53249,8 @@
       "errors": 1
     },
     "primary_contexts": [
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Starling _KC_2019": {
@@ -53294,8 +53294,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Duffy_TB_2019": {
@@ -53382,7 +53382,7 @@
     "primary_contexts": [
       "ground_ball",
       "fly_ball",
-      "throwing_error"
+      "line_drive"
     ]
   },
   "Alonso_COL_2019": {
@@ -53722,9 +53722,9 @@
       "errors": 3
     },
     "primary_contexts": [
+      "line_drive",
       "throwing_error",
-      "standard",
-      "line_drive"
+      "standard"
     ]
   },
   "Owings_BOS_2019": {
@@ -53851,8 +53851,8 @@
     },
     "primary_contexts": [
       "ground_ball",
-      "standard",
-      "line_drive"
+      "line_drive",
+      "standard"
     ]
   },
   "Cabrera_WSH_2019": {
@@ -53894,9 +53894,9 @@
       "errors": 2
     },
     "primary_contexts": [
+      "fly_ball",
       "throwing_error",
-      "standard",
-      "fly_ball"
+      "standard"
     ]
   },
   "W. Castro_DET_2019": {
@@ -54358,8 +54358,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -54444,8 +54444,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Peraza_BOS_2020": {
@@ -54636,8 +54636,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Edman _STL_2020": {
@@ -54849,8 +54849,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Seager_LAD_2020": {
@@ -54997,8 +54997,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Rizzo_CHC_2020": {
@@ -55061,8 +55061,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Severino_BAL_2020": {
@@ -55421,8 +55421,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Flores_SF_2020": {
@@ -55655,8 +55655,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Torres_NYY_2020": {
@@ -55740,8 +55740,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Cabrera_WSH_2020": {
@@ -56394,8 +56394,8 @@
       "errors": 2
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Turner_LAD_2020": {
@@ -56543,8 +56543,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "O'Hearn_KC_2020": {
@@ -56840,8 +56840,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Falefa _TEX_2020": {
@@ -56862,8 +56862,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Frazier_TEX_2020": {
@@ -56990,8 +56990,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Crawford_SF_2020": {
@@ -57266,8 +57266,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Rengifo_LAA_2020": {
@@ -57625,8 +57625,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Cronenworth_SD_2020": {
@@ -57668,8 +57668,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -57840,8 +57840,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Hampson_COL_2020": {
@@ -58031,8 +58031,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Home_BOS_2020": {
@@ -58521,8 +58521,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Paredes_DET_2020": {
@@ -58608,8 +58608,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Home_TOR_2020": {
@@ -58672,8 +58672,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Tapia _COL_2020": {
@@ -58779,8 +58779,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Garcia _WSH_2020": {
@@ -59287,8 +59287,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Cave _MIN_2021": {
@@ -59352,8 +59352,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Turner _LAD_2021": {
@@ -59375,8 +59375,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Seager _LAD_2021": {
@@ -59398,8 +59398,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Fuentes_COL_2021": {
@@ -59549,8 +59549,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Moustakas_CIN_2021": {
@@ -59634,8 +59634,8 @@
       "errors": 18
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Falefa _TEX_2021": {
@@ -59656,8 +59656,8 @@
       "errors": 18
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Trevino _TEX_2021": {
@@ -59679,8 +59679,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Trevino_TEX_2021": {
@@ -59766,8 +59766,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Seager_SEA_2021": {
@@ -59851,8 +59851,8 @@
       "errors": 12
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "D\u00edaz_TB_2021": {
@@ -60318,8 +60318,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Cronenworth_SD_2021": {
@@ -60466,8 +60466,8 @@
       "errors": 20
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Torres_NYY_2021": {
@@ -60510,8 +60510,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Gim\u00e9nez_CLE_2021": {
@@ -60976,8 +60976,8 @@
       "errors": 12
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Altuve_HOU_2021": {
@@ -61209,8 +61209,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -61233,8 +61233,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Marte _MIA_2021": {
@@ -61299,8 +61299,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Profar_SD_2021": {
@@ -61342,8 +61342,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Moncada_CHW_2021": {
@@ -61616,8 +61616,8 @@
       "errors": 16
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Hedges_CLE_2021": {
@@ -61765,8 +61765,8 @@
       "errors": 16
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -61873,8 +61873,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Evans _PIT_2021": {
@@ -61895,8 +61895,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -61981,8 +61981,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Machado_SD_2021": {
@@ -62024,8 +62024,8 @@
       "errors": 13
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Stassi_LAA_2021": {
@@ -62088,8 +62088,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Solak_TEX_2021": {
@@ -62131,8 +62131,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -62259,8 +62259,8 @@
       "errors": 18
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Zunino _TB_2021": {
@@ -62281,8 +62281,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Wendle_TB_2021": {
@@ -62430,8 +62430,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Andrus _OAK_2021": {
@@ -62858,8 +62858,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Alonso _NYM_2021": {
@@ -62881,8 +62881,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Cordero _BOS_2021": {
@@ -63094,8 +63094,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Castellanos _CIN_2021": {
@@ -63287,8 +63287,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Villar_NYM_2021": {
@@ -63736,8 +63736,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Kemp _OAK_2021": {
@@ -63780,8 +63780,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Wade_NYY_2021": {
@@ -63887,8 +63887,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bohm _PHI_2021": {
@@ -63909,8 +63909,8 @@
       "errors": 13
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Barnhart_CIN_2021": {
@@ -63994,8 +63994,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Peterson_MIL_2021": {
@@ -64102,8 +64102,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Gim_CLE_2021": {
@@ -64125,8 +64125,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Ram\u00edrez_CLE_2021": {
@@ -64212,8 +64212,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -64278,8 +64278,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -64407,8 +64407,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -64430,8 +64430,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Franco_BAL_2021": {
@@ -64516,8 +64516,8 @@
       "errors": 16
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Pi_MIL_2021": {
@@ -64666,8 +64666,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Singer _KC_2021": {
@@ -64751,8 +64751,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "VanMeter_ARI_2021": {
@@ -64795,8 +64795,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Profar _SD_2021": {
@@ -64817,8 +64817,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Biggio _TOR_2021": {
@@ -64839,8 +64839,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Sogard_CHC_2021": {
@@ -65012,8 +65012,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -65098,8 +65098,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Beaty_LAD_2021": {
@@ -65247,8 +65247,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -65357,8 +65357,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Straw _HOU_2021": {
@@ -65528,8 +65528,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Candelario _DET_2021": {
@@ -65550,8 +65550,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Taylor _LAD_2021": {
@@ -65572,8 +65572,8 @@
       "errors": 12
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Contreras_CHC_2021": {
@@ -65637,8 +65637,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Ram_CLE_2021": {
@@ -65702,8 +65702,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "A. Frazier_PIT_2021": {
@@ -65745,8 +65745,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -65831,8 +65831,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Tatis Jr._SD_2021": {
@@ -65874,8 +65874,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -65919,8 +65919,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Higashioka_NYY_2021": {
@@ -66196,8 +66196,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Garc_TEX_2021": {
@@ -66284,8 +66284,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Adrianza_ATL_2021": {
@@ -66350,8 +66350,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Walsh _LAA_2021": {
@@ -66522,8 +66522,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Castro_WSH_2021": {
@@ -66737,8 +66737,8 @@
       "errors": 3
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "P. Smith_ARI_2021": {
@@ -66781,8 +66781,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Lindor _NYM_2021": {
@@ -66803,8 +66803,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Conforto _NYM_2021": {
@@ -66825,8 +66825,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Phillips _TB_2021": {
@@ -66998,8 +66998,8 @@
       "errors": 11
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Farmer _CIN_2021": {
@@ -67148,8 +67148,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -67234,8 +67234,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Home_PHI_2021": {
@@ -67298,8 +67298,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Hays _BAL_2021": {
@@ -67493,8 +67493,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Barnes_LAD_2021": {
@@ -67642,8 +67642,8 @@
       "errors": 12
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -67686,8 +67686,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Panik_TOR_2021": {
@@ -67751,8 +67751,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -67795,8 +67795,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Polanco _PIT_2021": {
@@ -67839,8 +67839,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bregman _HOU_2021": {
@@ -67861,8 +67861,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Dozier _KC_2021": {
@@ -67883,8 +67883,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Mullins _BAL_2021": {
@@ -67970,8 +67970,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Herrera _PHI_2021": {
@@ -68014,8 +68014,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -68058,8 +68058,8 @@
       "errors": 13
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "J. Ram\u00edrez_CLE_2021": {
@@ -68273,8 +68273,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Anderson _MIA_2021": {
@@ -68425,8 +68425,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Segura _PHI_2021": {
@@ -68512,8 +68512,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -68619,8 +68619,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Pinder_OAK_2021": {
@@ -68749,8 +68749,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Larnach _MIN_2021": {
@@ -68814,8 +68814,8 @@
       "errors": 9
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Vaughn _CHW_2021": {
@@ -68943,8 +68943,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -69030,8 +69030,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "throwing_error",
       "catching_error",
+      "throwing_error",
       "standard"
     ]
   },
@@ -69074,8 +69074,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Adames_MIL_2021": {
@@ -69310,8 +69310,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Sosa _STL_2021": {
@@ -69461,8 +69461,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Wisdom _CHC_2021": {
@@ -69484,8 +69484,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Dub_SF_2021": {
@@ -69506,8 +69506,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Wisdom_CHC_2021": {
@@ -69570,8 +69570,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Beaty _LAD_2021": {
@@ -69635,8 +69635,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "C. Santana 2_KC_2021": {
@@ -69722,8 +69722,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Alc\u00e1ntara_CHC_2021": {
@@ -70126,8 +70126,8 @@
     },
     "primary_contexts": [
       "catching_error",
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Garc_MIL_2021": {
@@ -70148,8 +70148,8 @@
       "errors": 4
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Franco_TB_2021": {
@@ -70555,8 +70555,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Gutierrez_BAL_2021": {
@@ -70704,8 +70704,8 @@
       "errors": 8
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Mayfield _LAA_2021": {
@@ -70726,8 +70726,8 @@
       "errors": 7
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Toro_SEA_2021": {
@@ -71001,8 +71001,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Harrison_OAK_2021": {
@@ -71087,8 +71087,8 @@
       "errors": 10
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Schwindel_CHC_2021": {
@@ -71151,8 +71151,8 @@
       "errors": 6
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Bryant_SF_2021": {
@@ -71320,8 +71320,8 @@
       "errors": 5
     },
     "primary_contexts": [
-      "standard",
-      "throwing_error"
+      "throwing_error",
+      "standard"
     ]
   },
   "Soler _ATL_2021": {

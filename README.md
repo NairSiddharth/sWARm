@@ -1,16 +1,18 @@
 # sWARm: (Sid) Wins Above Replacement Metric
 
-Welcome to **sWARm**, a personalized reimplementation of the Wins Above Replacement (WAR) metric in baseball analytics. This project aims to provide a fresh perspective on evaluating player value by calculating the number of wins a player contributes to their team above a replacement-level player.
+Welcome to **sWARm**, a personalized reimplementation of the Wins Above Replacement (WAR) metric commonly used throughout baseball analytics and discussions. This project aims to provide a fresh perspective on evaluating player value by calculating the number of wins a player contributes to their team through a variety of machine learning algorithms and features.
 
 ## ⚾ What is WAR?
 
-**Wins Above Replacement (WAR)** is a sabermetric statistic that quantifies a player's total contributions to their team in terms of wins. It combines various aspects of a player's performance, including batting, baserunning, fielding, and pitching, to estimate how many more wins a player is worth compared to a replacement-level player—someone readily available to any team at minimal cost.
+**Wins Above Replacement (WAR)** is a sabermetric statistic that quantifies a player's total contributions to their team in terms of wins. It combines various aspects of a player's performance, including batting, baserunning, fielding, and pitching, to estimate how many more wins a player is worth compared to a replacement-level player.
 
-WAR is widely used for player evaluation and comparison across different eras and positions. However, different organizations have developed their own versions of WAR, leading to variations in calculations and interpretations.
+* Note that replacement-level is that ambigious term but is typically defined at about 0 WAR, (average AAA player at any position should get that amount by playing a full MLB season)
+
+* This is something I have some minor quibbles with due to the disparity between hitting and pitching talent in baseball (i.e. I think that batters should have a slightly higher level set for their replacement level when compared to pitchers, because the average AAA batter called up will probably do better than the average AAA pitcher because I think that better pitchers get called up faster than better batters so the general level of batters stuck in the AAA is higher), but the people who came up with this are much smarter than me so consider this young man yelling at clouds.
 
 ## 🧪 About sWARm
 
-**sWARm** stands for **Sid Wins Above Replace Metric**, reflecting my personal approach to calculating WAR. While it draws inspiration from existing models like FanGraphs' fWAR and Baseball Reference's bWAR, sWARm introduces unique methodologies and adjustments to simplify the capturing of player value.
+**sWARm** stands for **Sid Wins Above Replace Metric**, reflecting my personal approach to calculating WAR. While it draws inspiration from existing models like FanGraphs' fWAR and Baseball Prospectus' WARP, sWARm attempts to use different combinations of commonly available statistics and the adjustments that these precursors have helpfully made available to simplify the capturing of player value.
 
 Key features of sWARm include:
 
@@ -22,8 +24,10 @@ Key features of sWARm include:
 
 To get started with sWARm, clone this repository to your local machine:
 
+``` bash
 git clone [https://github.com/NairSiddharth/sWARm.git](https://github.com/NairSiddharth/sWARm.git)
 cd sWARm
+```
 
 Ensure you have the necessary dependencies installed. You can set up a virtual environment and install the required packages as follows:
 
@@ -49,27 +53,36 @@ The pipeline automatically:
 
 ## 📈 Key Features
 
-**Machine Learning Models:**
+Machine Learning Models:
 
-* Linear Regression variants (Linear, Lasso, ElasticNet)
-* Tree-based models (Random Forest, XGBoost)
-* Instance-based learning (K-Nearest Neighbors)
-* Deep learning (Keras Neural Networks with early stopping)
+* Linear Models: Linear, Lasso, Ridge, ElasticNet
+* Instance-based Learning: K-Nearest Neighbors (KNN)
+* Tree-based Methods: Random Forest, XGBoost
+* Kernel / Non-linear Methods: SVR , Gaussian Process Regression
+* Deep Learning: Keras Neural Networks (with AdamW optimizer and early stopping)
+
+- [ ] (TODO - Deprecate due to poor performance) Ensemble Methods: AdaBoost 
 
 **Data Processing:**
 
-* Fuzzy name matching between datasets (460+ players vs original 5)
+* Fuzzy name matching between datasets (names are in different formats so an easier way of matching players between the datasets when compared to manually cleaning the datasets, and subjectively better than permanently overwriting the files with one format or the other)
 * Automatic data cleaning for infinite/NaN values
 * Integration of advanced metrics including catcher framing data
 * Enhanced defensive and baserunning statistics
+* Hitters/Pitchers with same name are properly handled
+* Made decision to ignore hitting stats/pitching stats for players not considered "2-way players" by MLB definition (i.e. a player must have pitched at least 20 Major League innings and started at least 20 games as a position player or designated hitter with at least three plate appearances in each of those games)
 
 **Visualization & Analysis:**
 
-* Interactive Plotly visualizations with player-specific hover tooltips
 * Quadrant analysis showing prediction error patterns
 * Delta-1 margin analysis comparing to official MLB accuracy standards
 * Cross-shaped visualization for WAR≤1 OR WARP≤1 official margins
 * Model performance comparison across different categories
+* Interactive Plotly visualizations with player-specific hover tooltip
+
+- [ ] (TODO: make sure selectable filters apply to all graphs, maybe make a searchable filter?)
+- [ ] TODO: Implement feature where user can enter a player name and get predictions of 3 years of player performance?
+- [ ] TODO: Implement feature where user can enter a player name and get 5 players who's career project in the same way?
 
 **Performance Metrics:**
 
@@ -77,6 +90,8 @@ The pipeline automatically:
 * Individual metric accuracy (WAR-only and WARP-only predictions)
 * Cross-validation and intersection analysis for delta-1 margins
 * Auto-selection of best performing models by category
+
+- [ ] TODO: Implement MAE for model evaluation (curious to see if trying to minimize RMSE vs. MAE is better for this dataset as I don't necessarily want to minimize ALL outliers, only the negative ones really and at that point it might be better to just try adjusting everything the same)
 
 ## 🧠 Methodology
 
@@ -86,19 +101,25 @@ sWARm employs a comprehensive machine learning approach that includes:
 
 * Advanced defensive metrics including catcher framing contributions
 * Baserunning value calculations with caching optimization
-* Contextual adjustments for ballpark and era effects
-* Position value scaling based on defensive importance
+* Contextual adjustments for ballpark effects
+* Position value scaling based on their relative defensive importance (i.e. a shortstop will be weighted more than a first baseman due to the position being more difficult to play)
+
+- [ ] TODO: potentially add in catcher blocking
+- [ ] TODO - decrease effects of park factors, currently 1.5 reduce to maybe 1.2
 
 **Model Architecture:**
 
 * Ensemble approach using multiple algorithm types
 * Automatic model selection based on cross-validation performance
-* Feature engineering with 7-dimensional input (5 hitting + baserunning defense)
+* Feature engineering with 7-dimensional input for batters(5 hitting specific + baserunning, defense) and 5-dimensional input for pitchers
+  * Note - Hitting has features strikeouts, walks, average, onbase percentage, and slugging. Pitching has innings pitched, walks, strikeouts, homeruns given up, and earned runs average. 
 * Neural network architecture with dropout regularization
+
+- [ ] TODO: add in more features for both hitters and pitchers, have data for it just need to make sure features aren't overlapping (i.e. are the base stats OR if an advanced stat, don't include an already included base stat) Potential features to add Hitters: intentional walks (how feared of a hitter you are in comparison to the avg. joe hitting in your spot), plate appearances. Get rid of walks because double counting with OBP. /Pitchers: TB, HBP
 
 **Validation Framework:**
 
-* Official fWAR/WARP accuracy standards (±1 WAR and ±1 WARP margins)
+* "Official" fWAR/WARP/bWAR accuracy standards (±1 WAR and ±1 WARP margins)
 * Cross-shaped region analysis for statistical significance
 * Quadrant-based error pattern identification
 * Separate evaluation for hitters and pitchers
@@ -121,3 +142,10 @@ TBA
 ## 📬 Contact
 
 For questions or feedback, feel free to open an issue on the GitHub repository.
+
+## Data Sources
+
+* Data from [Baseball Savant](https://baseballsavant.mlb.com/) (MLB Statcast data)
+* Data from [FanGraphs](https://www.fangraphs.com/) (advanced baseball statistics and personally my source of baseball news!)
+* Data from [Baseball Prospectus](https://www.baseballprospectus.com/) (player and team analysis)
+* Zip files w/ currently unused data from [Retrosheets](https://www.retrosheets.org/) – Historical game logs and play-by-play data
