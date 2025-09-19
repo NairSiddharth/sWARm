@@ -291,7 +291,7 @@
     "Name":"Jose Ramirez",
     "Year":2016,
     "WARP":0.0,
-    "Team":"LAA"
+    "Team":"ATL"
   },
   {
     "Name":"Evan Gattis",
@@ -1347,7 +1347,7 @@
     "Name":"Avisail Garcia",
     "Year":2016,
     "WARP":0.8,
-    "Team":"CHW"
+    "Team":"ATL"
   },
   {
     "Name":"Carlos Perez",
@@ -1599,7 +1599,7 @@
     "Name":"Adonis Garcia",
     "Year":2016,
     "WARP":0.5,
-    "Team":"CHW"
+    "Team":"ATL"
   },
   {
     "Name":"A.J. Pollock",
@@ -2637,7 +2637,7 @@
     "Name":"Wily Peralta",
     "Year":2016,
     "WARP":0.1,
-    "Team":"MIL"
+    "Team":"CIN"
   },
   {
     "Name":"Jesus Sucre",
@@ -3003,7 +3003,7 @@
     "Name":"Spencer Kieboom",
     "Year":2016,
     "WARP":0.0,
-    "Team":"UNK"
+    "Team":"WSH"
   },
   {
     "Name":"Wilfredo Boscan",
@@ -4707,7 +4707,7 @@
     "Name":"Josh Smith",
     "Year":2016,
     "WARP":-0.1,
-    "Team":"CIN"
+    "Team":"CHC"
   },
   {
     "Name":"Marcus Stroman",
@@ -6477,7 +6477,7 @@
     "Name":"J.C. Ramirez",
     "Year":2016,
     "WARP":0.0,
-    "Team":"LAA"
+    "Team":"ATL"
   },
   {
     "Name":"J.J. Hoover",
@@ -6501,7 +6501,7 @@
     "Name":"Jacob Smith",
     "Year":2016,
     "WARP":0.0,
-    "Team":"CIN"
+    "Team":"CHC"
   },
   {
     "Name":"Jacob Turner",
@@ -6663,7 +6663,7 @@
     "Name":"Joe Smith",
     "Year":2016,
     "WARP":0.0,
-    "Team":"CIN"
+    "Team":"CHC"
   },
   {
     "Name":"Joely Rodriguez",
@@ -7401,7 +7401,7 @@
     "Name":"Wandy Peralta",
     "Year":2016,
     "WARP":0.0,
-    "Team":"MIL"
+    "Team":"CIN"
   },
   {
     "Name":"Will Harris",
@@ -7743,7 +7743,7 @@
     "Name":"Avisail Garcia",
     "Year":2017,
     "WARP":3.7,
-    "Team":"CHW"
+    "Team":"ATL"
   },
   {
     "Name":"Freddie Freeman",
@@ -9387,7 +9387,7 @@
     "Name":"Jaime Garcia",
     "Year":2017,
     "WARP":0.2,
-    "Team":"MIA"
+    "Team":"NYY"
   },
   {
     "Name":"Patrick Kivlehan",
@@ -9795,7 +9795,7 @@
     "Name":"Mark Reynolds",
     "Year":2017,
     "WARP":0.1,
-    "Team":"NYM"
+    "Team":"COL"
   },
   {
     "Name":"Efren Navarro",
@@ -10029,7 +10029,7 @@
     "Name":"Chris Smith",
     "Year":2017,
     "WARP":0.1,
-    "Team":"OAK"
+    "Team":"BOS"
   },
   {
     "Name":"Pedro Florimon",
@@ -11517,7 +11517,7 @@
     "Name":"Javy Guerra",
     "Year":2017,
     "WARP":0.0,
-    "Team":"MIL"
+    "Team":"MIA"
   },
   {
     "Name":"Jacob Hannemann",
@@ -11907,7 +11907,7 @@
     "Name":"Junior Guerra",
     "Year":2017,
     "WARP":-0.1,
-    "Team":"MIL"
+    "Team":"MIA"
   },
   {
     "Name":"Martin Prado",
@@ -12369,7 +12369,7 @@
     "Name":"Matt Reynolds",
     "Year":2017,
     "WARP":-0.2,
-    "Team":"NYM"
+    "Team":"COL"
   },
   {
     "Name":"Pete Kozma",
@@ -12873,7 +12873,7 @@
     "Name":"Ervin Santana",
     "Year":2017,
     "WARP":-0.3,
-    "Team":"PIT"
+    "Team":"MIN"
   },
   {
     "Name":"Chris Carter",
@@ -12951,7 +12951,7 @@
     "Name":"Adonis Garcia",
     "Year":2017,
     "WARP":-0.4,
-    "Team":"CHW"
+    "Team":"ATL"
   },
   {
     "Name":"Michael Fulmer",
@@ -13467,7 +13467,7 @@
     "Name":"Caleb Smith",
     "Year":2017,
     "WARP":0.0,
-    "Team":"OAK"
+    "Team":"BOS"
   },
   {
     "Name":"Cam Bedrosian",
@@ -13491,7 +13491,7 @@
     "Name":"Carson Smith",
     "Year":2017,
     "WARP":0.0,
-    "Team":"OAK"
+    "Team":"BOS"
   },
   {
     "Name":"Carter Capps",
@@ -13749,7 +13749,7 @@
     "Name":"Edgar Santana",
     "Year":2017,
     "WARP":0.0,
-    "Team":"PIT"
+    "Team":"MIN"
   },
   {
     "Name":"Eduardo Paredes",
@@ -13959,7 +13959,7 @@
     "Name":"Jarlin Garcia",
     "Year":2017,
     "WARP":0.0,
-    "Team":"MIA"
+    "Team":"NYY"
   },
   {
     "Name":"Jason Grilli",
@@ -15867,7 +15867,7 @@
     "Name":"Austin Romine",
     "Year":2018,
     "WARP":1.2,
-    "Team":"SEA"
+    "Team":"NYY"
   },
   {
     "Name":"Billy Hamilton",
@@ -19809,7 +19809,7 @@
     "Name":"Andrew Romine",
     "Year":2018,
     "WARP":-0.1,
-    "Team":"SEA"
+    "Team":"NYY"
   },
   {
     "Name":"Hanley Ramirez",
@@ -22653,7 +22653,7 @@
     "Name":"Kolten Wong",
     "Year":2019,
     "WARP":4.1,
-    "Team":"LAA"
+    "Team":"STL"
   },
   {
     "Name":"Trea Turner",
@@ -26907,7 +26907,7 @@
     "Name":"Kean Wong",
     "Year":2019,
     "WARP":-0.1,
-    "Team":"LAA"
+    "Team":"STL"
   },
   {
     "Name":"Conner Menez",
@@ -26931,7 +26931,7 @@
     "Name":"Junior Guerra",
     "Year":2019,
     "WARP":-0.1,
-    "Team":"SD"
+    "Team":"WSH"
   },
   {
     "Name":"Nick Dini",
@@ -27159,7 +27159,7 @@
     "Name":"Javy Guerra",
     "Year":2019,
     "WARP":-0.1,
-    "Team":"SD"
+    "Team":"WSH"
   },
   {
     "Name":"Rangel Ravelo",
@@ -29139,7 +29139,7 @@
     "Name":"Javier Guerra",
     "Year":2019,
     "WARP":0.0,
-    "Team":"SD"
+    "Team":"WSH"
   },
   {
     "Name":"Jeffrey Springs",
@@ -29871,7 +29871,7 @@
     "Name":"Taylor Rogers",
     "Year":2019,
     "WARP":0.0,
-    "Team":"SF"
+    "Team":"MIN"
   },
   {
     "Name":"Tayron Guerrero",
@@ -30009,7 +30009,7 @@
     "Name":"Tyler Rogers",
     "Year":2019,
     "WARP":0.0,
-    "Team":"SF"
+    "Team":"MIN"
   },
   {
     "Name":"Tyler Thornburg",
@@ -31425,7 +31425,7 @@
     "Name":"Asdr\u00fabal Cabrera",
     "Year":2020,
     "WARP":0.3,
-    "Team":"WSH"
+    "Team":"ARI"
   },
   {
     "Name":"Carlos Santana",

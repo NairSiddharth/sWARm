@@ -32,7 +32,8 @@ __all__ = [
     'load_official_oaa_data',
     'load_yearly_bp_data',
     'load_yearly_catcher_framing_data',
-    'get_primary_dataframes'
+    'get_primary_dataframes',
+    'load_comprehensive_fangraphs_data'
 ]
 
 # Global variables to store loaded data
@@ -190,9 +191,169 @@ def load_official_oaa_data():
 
     return oaa_data
 
+def load_comprehensive_fangraphs_data():
+    """
+    Load and unify comprehensive FanGraphs data from 2016-2024 across 5 data types:
+
+    1. Hitters: Basic (WAR, wRC+, wOBA), Advanced (sabermetrics), Standard (counting stats)
+    2. Pitchers: Basic (WAR, FIP, xERA), Advanced (rates, ERA-), Standard (counting stats)
+    3. Defensive: Advanced and Standard fielding metrics
+
+    This provides rich feature sets for enhanced WAR/WARP prediction and future season forecasting.
+
+    Returns:
+        dict: {
+            'hitters': {player_name_year: {combined_features_dict}},
+            'pitchers': {player_name_year: {combined_features_dict}},
+            'defensive': {player_name_year: {defensive_features_dict}}
+        }
+    """
+    cache_file = os.path.join(CACHE_DIR, "comprehensive_fangraphs_data.json")
+
+    # Check cache first
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_data = json.load(f)
+            print(f"Loaded cached comprehensive FanGraphs data:")
+            print(f"  Hitters: {len(cached_data.get('hitters', {}))} player-seasons")
+            print(f"  Pitchers: {len(cached_data.get('pitchers', {}))} player-seasons")
+            print(f"  Defensive: {len(cached_data.get('defensive', {}))} player-seasons")
+            return cached_data
+        except:
+            pass
+
+    print("=== LOADING COMPREHENSIVE FANGRAPHS DATA (2016-2024) ===")
+    print("Combining 5 data types: Hitters (3), Pitchers (3), Defensive (2)")
+
+    fangraphs_data = {'hitters': {}, 'pitchers': {}, 'defensive': {}}
+
+    # Load hitters data (3 types per year: basic, advanced, standard)
+    for year in range(2016, 2025):  # 2016-2024
+        print(f"\n📅 Processing {year}...")
+
+        # Hitters - combine 3 data types
+        hitter_files = {
+            'basic': os.path.join(DATA_DIR, f'fangraphs_hitters_{year}.csv'),
+            'advanced': os.path.join(DATA_DIR, f'fangraphs_hitters_advanced_{year}.csv'),
+            'standard': os.path.join(DATA_DIR, f'fangraphs_hitters_standard_{year}.csv')
+        }
+
+        hitter_data = {}
+        for data_type, filename in hitter_files.items():
+            if os.path.exists(filename):
+                try:
+                    df = pd.read_csv(filename, encoding='utf-8-sig')  # Handle BOM
+                    df.columns = df.columns.str.strip()
+
+                    for _, row in df.iterrows():
+                        name = str(row.get('Name', '')).strip()
+                        if name and name != 'nan':
+                            key = f"{name}_{year}"
+                            if key not in hitter_data:
+                                hitter_data[key] = {'name': name, 'year': year, 'team': row.get('Team', 'UNK')}
+
+                            # Add all columns with prefix for data type
+                            for col, val in row.items():
+                                if col not in ['Name', 'Team', 'NameASCII', 'PlayerId', 'MLBAMID']:
+                                    prefixed_col = f"{data_type}_{col}" if data_type != 'basic' else col
+                                    hitter_data[key][prefixed_col] = val
+
+                    print(f"  Hitters {data_type}: {len(df)} players loaded")
+                except Exception as e:
+                    print(f"  Error loading {filename}: {e}")
+
+        # Store hitter data
+        for key, data in hitter_data.items():
+            fangraphs_data['hitters'][key] = data
+
+        # Pitchers - combine 3 data types
+        pitcher_files = {
+            'basic': os.path.join(DATA_DIR, f'fangraphs_pitchers_{year}.csv'),
+            'advanced': os.path.join(DATA_DIR, f'fangraphs_pitchers_advanced_{year}.csv'),
+            'standard': os.path.join(DATA_DIR, f'fangraphs_pitchers_standard_{year}.csv')
+        }
+
+        pitcher_data = {}
+        for data_type, filename in pitcher_files.items():
+            if os.path.exists(filename):
+                try:
+                    df = pd.read_csv(filename, encoding='utf-8-sig')
+                    df.columns = df.columns.str.strip()
+
+                    for _, row in df.iterrows():
+                        name = str(row.get('Name', '')).strip()
+                        if name and name != 'nan':
+                            key = f"{name}_{year}"
+                            if key not in pitcher_data:
+                                pitcher_data[key] = {'name': name, 'year': year, 'team': row.get('Team', 'UNK')}
+
+                            # Add all columns with prefix for data type
+                            for col, val in row.items():
+                                if col not in ['Name', 'Team', 'NameASCII', 'PlayerId', 'MLBAMID']:
+                                    prefixed_col = f"{data_type}_{col}" if data_type != 'basic' else col
+                                    pitcher_data[key][prefixed_col] = val
+
+                    print(f"  Pitchers {data_type}: {len(df)} players loaded")
+                except Exception as e:
+                    print(f"  Error loading {filename}: {e}")
+
+        # Store pitcher data
+        for key, data in pitcher_data.items():
+            fangraphs_data['pitchers'][key] = data
+
+        # Defensive data - combine advanced and standard
+        defensive_files = {
+            'advanced': os.path.join(DATA_DIR, f'fangraphs_defensive_advanced_{year}.csv'),
+            'standard': os.path.join(DATA_DIR, f'fangraphs_defensive_standard_{year}.csv')
+        }
+
+        defensive_data = {}
+        for data_type, filename in defensive_files.items():
+            if os.path.exists(filename):
+                try:
+                    df = pd.read_csv(filename, encoding='utf-8-sig')
+                    df.columns = df.columns.str.strip()
+
+                    for _, row in df.iterrows():
+                        name = str(row.get('Name', '')).strip()
+                        if name and name != 'nan':
+                            key = f"{name}_{year}"
+                            if key not in defensive_data:
+                                defensive_data[key] = {'name': name, 'year': year, 'team': row.get('Team', 'UNK')}
+
+                            # Add defensive columns with prefix
+                            for col, val in row.items():
+                                if col not in ['Name', 'Team', 'NameASCII', 'PlayerId', 'MLBAMID']:
+                                    prefixed_col = f"def_{data_type}_{col}"
+                                    defensive_data[key][prefixed_col] = val
+
+                    print(f"  Defensive {data_type}: {len(df)} players loaded")
+                except Exception as e:
+                    print(f"  Error loading {filename}: {e}")
+
+        # Store defensive data
+        for key, data in defensive_data.items():
+            fangraphs_data['defensive'][key] = data
+
+    # Cache the comprehensive dataset
+    try:
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(fangraphs_data, f, indent=2, default=str)  # default=str handles pandas dtypes
+        print(f"\n💾 Cached comprehensive FanGraphs data:")
+        print(f"  Hitters: {len(fangraphs_data['hitters'])} player-seasons")
+        print(f"  Pitchers: {len(fangraphs_data['pitchers'])} player-seasons")
+        print(f"  Defensive: {len(fangraphs_data['defensive'])} player-seasons")
+    except Exception as e:
+        print(f"Warning: Could not cache comprehensive data: {e}")
+
+    return fangraphs_data
+
 def load_yearly_bp_data():
     """
-    Load and unify Baseball Prospectus WARP data from 2016-2024 (hitters) and 2016-2021 (pitchers)
+    Load and unify Baseball Prospectus WARP data from 2016-2024 (hitters) and 2016-2024 (pitchers)
+
+    NOTE: 2022-2024 pitcher data uses dual CSV format (regular + standard versions)
 
     Returns:
         dict: {
@@ -200,7 +361,7 @@ def load_yearly_bp_data():
             'pitchers': {player_name_year: warp_value}
         }
     """
-    cache_file = os.path.join(CACHE_DIR, "yearly_bp_data.json")
+    cache_file = os.path.join(CACHE_DIR, "yearly_bp_data_v2.json")
 
     # Check cache first
     if os.path.exists(cache_file):
@@ -250,37 +411,55 @@ def load_yearly_bp_data():
         except Exception as e:
             print(f"  Error loading {filename}: {e}")
 
-    # Load pitchers data (2016-2021)
-    for year in range(2016, 2022):  # 2016-2021
-        filename = os.path.join(DATA_DIR, f'bp_pitchers_{year}.csv')
-        if not os.path.exists(filename):
-            continue
+    # Load pitchers data (2016-2024) - Extended to include 2022-2024 with dual CSV support
+    for year in range(2016, 2025):  # 2016-2024
+        # For 2022-2024, load both regular and standard versions as user requested
+        if year >= 2022:
+            filenames = [
+                os.path.join(DATA_DIR, f'bp_pitchers_{year}.csv'),
+                os.path.join(DATA_DIR, f'bp_pitchers_{year}_standard.csv')
+            ]
+        else:
+            filenames = [os.path.join(DATA_DIR, f'bp_pitchers_{year}.csv')]
 
-        try:
-            df = pd.read_csv(filename)
-            df.columns = df.columns.str.strip().str.strip('"')
+        players_loaded = 0
+        for filename in filenames:
+            if not os.path.exists(filename):
+                continue
 
-            # Handle different formats
-            if year <= 2019:
-                name_col = 'NAME'
-                warp_col = 'PWARP'
-            else:
-                name_col = 'Name'
-                warp_col = 'WARP'
+            try:
+                df = pd.read_csv(filename)
+                df.columns = df.columns.str.strip().str.strip('"')
 
-            # Process each player
-            for _, row in df.iterrows():
-                player_name = str(row.get(name_col, '')).strip()
-                warp_value = row.get(warp_col, 0)
+                # Handle different formats across years
+                if year <= 2019:
+                    name_col = 'NAME'
+                    warp_col = 'PWARP'
+                else:
+                    name_col = 'Name'
+                    warp_col = 'WARP'
 
-                if player_name and pd.notna(warp_value) and player_name != 'nan':
-                    key = f"{player_name}_{year}"
-                    bp_data['pitchers'][key] = float(warp_value)
+                # Process each player
+                for _, row in df.iterrows():
+                    player_name = str(row.get(name_col, '')).strip()
+                    warp_value = row.get(warp_col, 0)
 
-            print(f"  {year} pitchers: {len(df)} players loaded")
+                    if player_name and pd.notna(warp_value) and player_name != 'nan':
+                        key = f"{player_name}_{year}"
+                        # For dual CSV years, combine data (later files may have additional players)
+                        if key not in bp_data['pitchers'] or bp_data['pitchers'][key] == 0:
+                            bp_data['pitchers'][key] = float(warp_value)
 
-        except Exception as e:
-            print(f"  Error loading {filename}: {e}")
+                players_loaded += len(df)
+
+            except Exception as e:
+                print(f"  Error loading {filename}: {e}")
+
+        if players_loaded > 0:
+            # Count unique players for this year
+            year_players = len([k for k in bp_data['pitchers'].keys() if k.endswith(f'_{year}')])
+            csv_info = " (dual CSV)" if year >= 2022 else ""
+            print(f"  {year} pitchers: {year_players} unique players loaded{csv_info}")
 
     # Cache the results
     try:

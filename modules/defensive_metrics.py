@@ -34,8 +34,10 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 
 # Global data loading (from parent context)
 try:
-    fielding_df = pd.read_csv(os.path.join(DATA_DIR, 'fielding(fielding_notes).csv'))
-except:
+    fielding_df = pd.read_csv(os.path.join(DATA_DIR, 'fieldingNotes(player_defensive_data).csv'))
+    print(f"Loaded fielding data: {len(fielding_df)} rows, columns: {list(fielding_df.columns)}")
+except Exception as e:
+    print(f"Error loading fielding data: {e}")
     fielding_df = pd.DataFrame()  # Fallback if file not found
 
 # Pattern for finding capitalized words (player names)
@@ -46,6 +48,7 @@ __all__ = [
     'analyze_double_play_contributions',
     'get_positional_defensive_weights',
     'estimate_player_position',
+    'extract_year_unified',
     'extract_year_from_game_id',
     'create_player_season_key',
     'calculate_outs_above_average_from_fielding_notes',
@@ -58,15 +61,97 @@ __all__ = [
     'get_all_defensive_data'
 ]
 
-def extract_year_from_game_id(game_id):
-    """Extract year from game ID string"""
+def extract_year_unified(data_source, **kwargs):
+    """
+    Unified year extraction from multiple data sources with different formats:
+
+    Args:
+        data_source: String indicating the data source type
+        **kwargs: Flexible arguments depending on data source
+
+    Supported data sources:
+        - 'direct': Direct year from row data (Year/Season columns)
+        - 'espn_game_id': ESPN Game ID requiring conversion
+        - 'csv_row': DataFrame row with Year/Season columns
+        - 'filename': Extract from filename pattern
+
+    Returns:
+        int: Year (2016-2021+) or None if extraction fails
+    """
     try:
-        game_str = str(game_id)
-        year_match = re.search(r'(20\d{2})', game_str)
-        if year_match:
-            return int(year_match.group(1))
-        return None
-    except:
+        if data_source == 'direct':
+            # Direct year value
+            year_value = kwargs.get('year_value')
+            if year_value is not None:
+                return int(year_value)
+
+        elif data_source == 'espn_game_id':
+            # ESPN Game ID conversion
+            game_id = kwargs.get('game_id')
+            return extract_year_from_game_id(game_id)
+
+        elif data_source == 'csv_row':
+            # DataFrame row with Year/Season columns
+            row = kwargs.get('row')
+            if row is not None:
+                # Try multiple column names in order of preference
+                for col_name in ['Year', 'Season', 'year', 'season']:
+                    if col_name in row and pd.notna(row[col_name]):
+                        return int(row[col_name])
+
+        elif data_source == 'filename':
+            # Extract from filename pattern (e.g., "data_2021.csv")
+            filename = kwargs.get('filename', '')
+            year_match = re.search(r'(20\d{2})', filename)
+            if year_match:
+                return int(year_match.group(1))
+
+        # Default fallback
+        default_year = kwargs.get('default_year', 2021)
+        return default_year
+
+    except (ValueError, TypeError, KeyError):
+        return kwargs.get('default_year', 2021)
+
+def extract_year_from_game_id(game_id):
+    """
+    Extract year from ESPN Game ID based on correct mapping:
+    2016: 36xxxxxxx (360403107 - 361002107)
+    2017: 37xxxxxxx (370403119 - 371001127)
+    2018: 38xxxxxxx (380329114 - 381001116)
+    2019: 401xxxxxx (401074733 - 401169053)
+    2020: 401xxxxxx (401225674 - 401226568)
+    2021: 401xxxxxx (401227058 - 401229475)
+    """
+    try:
+        game_str = str(game_id).strip()
+        if not game_str.isdigit():
+            return None
+
+        game_int = int(game_str)
+
+        # Map game ID ranges to years based on ESPN's actual encoding
+        if 360000000 <= game_int <= 369999999:
+            return 2016
+        elif 370000000 <= game_int <= 379999999:
+            return 2017
+        elif 380000000 <= game_int <= 389999999:
+            return 2018
+        elif 390000000 <= game_int <= 399999999:
+            return 2019  # Just in case, though examples start at 401
+        elif 400000000 <= game_int <= 409999999:
+            # Need to distinguish 2019, 2020, 2021 within 40xxxxxxx range
+            if game_int <= 401169999:  # 2019 ends around 401169053
+                return 2019
+            elif game_int <= 401226999:  # 2020 range 401225674 - 401226568
+                return 2020
+            else:  # 2021 starts around 401227058
+                return 2021
+        else:
+            # For future years or unknown ranges
+            return None
+
+    except (ValueError, TypeError):
         return None
 
 def classify_defensive_play(data_text, play_type):
@@ -190,6 +275,12 @@ def calculate_outs_above_average_from_fielding_notes():
             pass
 
     print("Calculating seasonal outs above average from fielding notes...")
+
+    # Check if fielding data is available
+    if fielding_df.empty or 'Game' not in fielding_df.columns:
+        print("No fielding data available or missing 'Game' column. Returning empty defensive values.")
+        return {}
+
     df = fielding_df.copy()
 
     # Add year column

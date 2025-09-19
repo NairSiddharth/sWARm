@@ -39,55 +39,139 @@ __all__ = [
 def clean_stadium_name(stadium_name):
     """
     Clean and normalize stadium names for consistent matching
+    FIXED: Handles renamed stadiums, eliminates duplicates, removes HTML/formatting
 
     Args:
         stadium_name: Raw stadium name from data
 
     Returns:
-        str: Cleaned stadium name
+        str: Cleaned and normalized stadium name
     """
     if pd.isna(stadium_name):
         return None
 
-    # Basic cleaning
+    # Basic cleaning and remove HTML/formatting
     cleaned = str(stadium_name).strip()
 
-    # Remove common suffixes that cause mismatches
-    replacements = {
-        ' Stadium': '',
-        ' Park': '',
-        ' Field': '',
-        ' Ballpark': '',
-        'Guaranteed Rate Field': 'Guaranteed Rate Field',  # Keep full name for White Sox
-        'Kauffman Stadium': 'Kauffman Stadium',  # Keep full name for Royals
+    # Remove HTML tags, embedded content, newlines, and extra whitespace
+    import re
+    cleaned = re.sub(r'<[^>]*>', '', cleaned)  # Remove HTML tags
+    cleaned = re.sub(r'\s*Coverage:.*$', '', cleaned, flags=re.MULTILINE)  # Remove coverage info
+    cleaned = re.sub(r'\s*\([^)]*\)', '', cleaned)  # Remove parenthetical content like (Spring Training)
+    cleaned = re.sub(r'\s+', ' ', cleaned)  # Normalize whitespace
+    cleaned = cleaned.strip()
+
+    # CRITICAL: Handle renamed stadiums to eliminate duplicates
+    stadium_mappings = {
+        # Milwaukee Brewers - Miller Park renamed to American Family Field
+        'Miller Park': 'American Family Field',
+
+        # Miami Marlins - Marlins Park renamed to loanDepot park
+        'Marlins Park': 'loanDepot park',
+
+        # Texas Rangers - Moved from Globe Life Park to Globe Life Field
+        'Globe Life Park in Arlington': 'Globe Life Field',
+        'The Ballpark in Arlington': 'Globe Life Field',  # Even older name
+
+        # Handle other common variations
+        'Citizens Bank Park': 'Citizens Bank Park',  # Keep as-is (Phillies)
+        'Guaranteed Rate Field': 'Guaranteed Rate Field',  # Keep as-is (White Sox)
+        'Kauffman Stadium': 'Kauffman Stadium',  # Keep as-is (Royals)
+        'PNC Park': 'PNC Park',  # Keep as-is (Pirates)
     }
 
-    for old, new in replacements.items():
-        if old in cleaned and new != cleaned:
-            cleaned = cleaned.replace(old, new)
+    # Apply stadium mappings first
+    if cleaned in stadium_mappings:
+        cleaned = stadium_mappings[cleaned]
+
+    # Preserve names that should keep their full titles
+    preserve_names = {
+        'Citizens Bank Park', 'Guaranteed Rate Field', 'Kauffman Stadium',
+        'PNC Park', 'loanDepot park', 'Globe Life Field', 'American Family Field',
+        'Citi Field', 'Busch Stadium', 'Coors Field', 'Chase Field', 'Target Field',
+        'Fenway Park', 'Wrigley Field', 'Dodger Stadium', 'Yankee Stadium',
+        'Tropicana Field', 'Progressive Field', 'Comerica Park', 'Angel Stadium',
+        'Petco Park', 'Oracle Park', 'Truist Park', 'Nationals Park',
+        'Great American Ball Park', 'Oriole Park at Camden Yards'
+    }
+
+    if cleaned not in preserve_names:
+        # Apply limited cleaning for non-preserved stadiums only
+        replacements = {
+            ' Ballpark': '',  # Only remove "Ballpark" suffix
+        }
+
+        for old, new in replacements.items():
+            if old in cleaned:
+                cleaned = cleaned.replace(old, new)
 
     return cleaned.strip()
 
 def get_regular_season_stadiums():
     """
-    Get list of regular season MLB stadiums (30 teams)
+    Get list of regular season MLB stadiums (30 teams) + special event venues
+    FIXED: Added missing stadiums, removed duplicates, included special venues
 
     Returns:
-        set: Set of regular season stadium names
+        set: Set of regular season stadium names plus special event venues
     """
-    # List of 30 regular season MLB stadiums (as of recent seasons)
+    # 30 regular season MLB stadiums (current as of 2024)
     regular_stadiums = {
-        'Angel Stadium', 'Minute Maid Park', 'Oakland Coliseum', 'T-Mobile Park',
-        'Globe Life Field', 'Tropicana Field', 'Rogers Centre', 'Oriole Park at Camden Yards',
-        'Fenway Park', 'Yankee Stadium', 'Progressive Field', 'Comerica Park',
-        'Guaranteed Rate Field', 'Kauffman Stadium', 'Target Field', 'Coors Field',
-        'Chase Field', 'Dodger Stadium', 'Petco Park', 'Oracle Park',
-        'Truist Park', 'loanDepot park', 'Citi Field', 'Citizens Bank Park',
-        'Nationals Park', 'Wrigley Field', 'Great American Ball Park',
-        'American Family Field', 'PNC Park', 'Busch Stadium'
+        # AL West
+        'Angel Stadium',          # Los Angeles Angels
+        'Minute Maid Park',       # Houston Astros
+        'Oakland Coliseum',       # Oakland Athletics
+        'T-Mobile Park',          # Seattle Mariners
+        'Globe Life Field',       # Texas Rangers (NEW stadium)
+
+        # AL East
+        'Tropicana Field',        # Tampa Bay Rays
+        'Rogers Centre',          # Toronto Blue Jays
+        'Oriole Park at Camden Yards',  # Baltimore Orioles
+        'Fenway Park',           # Boston Red Sox
+        'Yankee Stadium',        # New York Yankees
+
+        # AL Central
+        'Progressive Field',      # Cleveland Guardians
+        'Comerica Park',         # Detroit Tigers
+        'Guaranteed Rate Field', # Chicago White Sox
+        'Kauffman Stadium',      # Kansas City Royals
+        'Target Field',          # Minnesota Twins
+
+        # NL West
+        'Coors Field',           # Colorado Rockies
+        'Chase Field',           # Arizona Diamondbacks
+        'Dodger Stadium',        # Los Angeles Dodgers
+        'Petco Park',            # San Diego Padres
+        'Oracle Park',           # San Francisco Giants
+
+        # NL East
+        'Truist Park',           # Atlanta Braves
+        'loanDepot park',        # Miami Marlins (RENAMED from Marlins Park)
+        'Citi Field',            # New York Mets (MISSING - ADDED)
+        'Citizens Bank Park',    # Philadelphia Phillies
+        'Nationals Park',        # Washington Nationals
+
+        # NL Central
+        'Wrigley Field',         # Chicago Cubs
+        'Great American Ball Park',  # Cincinnati Reds
+        'American Family Field', # Milwaukee Brewers (RENAMED from Miller Park)
+        'PNC Park',              # Pittsburgh Pirates
+        'Busch Stadium',         # St. Louis Cardinals (MISSING - ADDED)
     }
 
-    return regular_stadiums
+    # Special event venues (valid for regular season games)
+    special_venues = {
+        "BB&T Ballpark at Historic Bowman Field",  # Little League Classic
+        "Fort Bragg Field",                        # 2016 Military Event
+        "Field of Dreams",                         # 2021+ Field of Dreams Game
+        "Sahlen Field",                           # Blue Jays COVID-19 home (2020-2021)
+    }
+
+    # Combine regular and special venues
+    all_valid_stadiums = regular_stadiums.union(special_venues)
+
+    return all_valid_stadiums
 
 def calculate_park_factors():
     """
@@ -157,7 +241,7 @@ def calculate_park_factors():
             if away_total_rpg > 0:
                 park_factor = (home_total_rpg / away_total_rpg) * 100
                 # Amplify the effect by 1.5x to make park differences more pronounced
-                park_factor = 100 + (park_factor - 100) * 1.5
+                park_factor = 100 + (park_factor - 100) * 1.2
                 park_stats[stadium] = round(park_factor, 1)
 
     # Cache the result

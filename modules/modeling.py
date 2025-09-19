@@ -4,8 +4,7 @@ Modeling Module for sWARm
 This module contains all machine learning model training functions including:
 - Basic regression models (Linear, Lasso, Ridge, ElasticNet)
 - Advanced tree-based models (RandomForest, XGBoost, KNN)
-- Ensemble models (AdaBoost)
-- Non-linear models (SVR, Gaussian Process)
+- Non-linear models (SVR)
 - Neural networks (Keras with AdamW)
 - Model evaluation and comparison utilities
 """
@@ -15,12 +14,12 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Lasso, ElasticNet, Ridge
 from sklearn.neighbors import KNeighborsRegressor
-from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor
+from sklearn.ensemble import RandomForestRegressor#, AdaBoostRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.svm import SVR
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
+# from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import ConstantKernel as C #, import RBF
 
 try:
     import xgboost as xgb
@@ -48,7 +47,7 @@ __all__ = [
     'create_keras_model',
     'run_basic_regressions',
     'run_advanced_models',
-    'run_ensemble_models',
+    # 'run_ensemble_models',
     'run_nonlinear_models',
     'run_neural_network',
     'ModelResults',
@@ -66,13 +65,14 @@ class ModelResults:
     def __init__(self):
         self.results = {}
 
-    def store_results(self, model_name, player_type, metric_type, y_true, y_pred, player_names):
-        """Store model results for later analysis"""
+    def store_results(self, model_name, player_type, metric_type, y_true, y_pred, player_names, seasons=None):
+        """Store model results for later analysis with optional season data"""
         key = f"{model_name}_{player_type}_{metric_type}"
         self.results[key] = {
             'y_true': y_true,
             'y_pred': y_pred,
-            'player_names': player_names
+            'player_names': player_names,
+            'Season': seasons if seasons is not None else ['2021'] * len(player_names)
         }
 
     def get_results(self, model_name, player_type, metric_type):
@@ -96,13 +96,13 @@ def create_keras_model(input_dim, name="model"):
     if not HAS_TENSORFLOW:
         raise ImportError("TensorFlow/Keras not available. Cannot create neural network model.")
 
-    model = tf.keras.Sequential([
-        tf.keras.layers.Input(shape=(input_dim,)),  # Fixed: Use Input layer instead of input_dim
-        tf.keras.layers.Dense(32, activation='relu', name=f'{name}_dense1'),
-        tf.keras.layers.Dropout(0.3, name=f'{name}_dropout1'),
-        tf.keras.layers.Dense(16, activation='relu', name=f'{name}_dense2'),
-        tf.keras.layers.Dropout(0.2, name=f'{name}_dropout2'),
-        tf.keras.layers.Dense(1, activation='linear', name=f'{name}_output')
+    model = tf.keras.Sequential([ # type: ignore
+        tf.keras.layers.Input(shape=(input_dim,)),  # Fixed: Use Input layer instead of input_dim # type: ignore
+        tf.keras.layers.Dense(32, activation='relu', name=f'{name}_dense1'), # type: ignore
+        tf.keras.layers.Dropout(0.3, name=f'{name}_dropout1'), # type: ignore
+        tf.keras.layers.Dense(16, activation='relu', name=f'{name}_dense2'), # type: ignore
+        tf.keras.layers.Dropout(0.2, name=f'{name}_dropout2'), # type: ignore
+        tf.keras.layers.Dense(1, activation='linear', name=f'{name}_output') # type: ignore
     ], name=name)
 
     # FIXED: Use AdamW optimizer with decoupled weight decay instead of 'adam'
@@ -119,7 +119,7 @@ def run_basic_regressions(data_splits, model_results, print_metrics_func, plot_r
     Run basic regression models: Linear, Lasso, Ridge, ElasticNet
 
     Args:
-        data_splits: Tuple of train/test splits from prepare_train_test_splits()
+        data_splits: Tuple of train/test splits from prepare_train_test_splits() with season data
         model_results: ModelResults instance to store results
         print_metrics_func: Function to print metrics
         plot_results_func: Function to plot results
@@ -128,13 +128,13 @@ def run_basic_regressions(data_splits, model_results, print_metrics_func, plot_r
      x_war_train, x_war_test, y_war_train, y_war_test,
      a_warp_train, a_warp_test, b_warp_train, b_warp_test,
      a_war_train, a_war_test, b_war_train, b_war_test,
-     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test) = data_splits
+     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test,
+     h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
-    # EXPANDED: Added Ridge to complete regularization suite
     models = [
-        ('linear', LinearRegression()),
-        ('lasso', Lasso()),
-        ('ridge', Ridge()),  # NEW: L2 regularization
+        # ('linear', LinearRegression()),
+        # ('lasso', Lasso()),
+        ('ridge', Ridge()),  
         ('elasticnet', ElasticNet())
     ]
 
@@ -142,19 +142,19 @@ def run_basic_regressions(data_splits, model_results, print_metrics_func, plot_r
         print(f"=== {name.upper()} REGRESSION ===")
 
         datasets = [
-            ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test),
-            ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test),
-            ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test),
-            ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test)
+            ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test, h_seasons_warp_test),
+            ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test, h_seasons_war_test),
+            ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test, p_seasons_warp_test),
+            ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test, p_seasons_war_test)
         ]
 
-        for player_type, metric, X_train, X_test, y_train, y_test, names_test in datasets:
+        for player_type, metric, X_train, X_test, y_train, y_test, names_test, seasons_test in datasets:
             if len(X_train) > 0:
                 model.fit(X_train, y_train)
                 y_pred = model.predict(X_test)
                 print_metrics_func(f"{name} {player_type} {metric}", y_test, y_pred)
                 plot_results_func(f"{player_type} {metric} ({name})", y_test, y_pred, names_test)
-                model_results.store_results(name, player_type, metric, y_test, y_pred, names_test)
+                model_results.store_results(name, player_type, metric, y_test, y_pred, names_test, seasons_test)
 
 def run_advanced_models(data_splits, model_results, print_metrics_func, plot_results_func):
     """
@@ -170,7 +170,8 @@ def run_advanced_models(data_splits, model_results, print_metrics_func, plot_res
      x_war_train, x_war_test, y_war_train, y_war_test,
      a_warp_train, a_warp_test, b_warp_train, b_warp_test,
      a_war_train, a_war_test, b_war_train, b_war_test,
-     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test) = data_splits
+     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test,
+     h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
     models = [
         ('knn', KNeighborsRegressor(n_neighbors=3, n_jobs=-1)),
@@ -187,57 +188,58 @@ def run_advanced_models(data_splits, model_results, print_metrics_func, plot_res
         print(f"=== {name.upper()} ===")
 
         datasets = [
-            ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test),
-            ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test),
-            ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test),
-            ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test)
+            ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test, h_seasons_warp_test),
+            ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test, h_seasons_war_test),
+            ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test, p_seasons_warp_test),
+            ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test, p_seasons_war_test)
         ]
 
-        for player_type, metric, X_train, X_test, y_train, y_test, names_test in datasets:
+        for player_type, metric, X_train, X_test, y_train, y_test, names_test, seasons_test in datasets:
             if len(X_train) > 0:
                 model.fit(X_train, y_train)
                 y_pred = model.predict(X_test)
                 print_metrics_func(f"{name} {player_type} {metric}", y_test, y_pred)
                 plot_results_func(f"{player_type} {metric} ({name})", y_test, y_pred, names_test)
-                model_results.store_results(name, player_type, metric, y_test, y_pred, names_test)
+                model_results.store_results(name, player_type, metric, y_test, y_pred, names_test, seasons_test)
 
-def run_ensemble_models(data_splits, model_results, print_metrics_func, plot_results_func):
-    """
-    Run ensemble models: AdaBoost
+# def run_ensemble_models(data_splits, model_results, print_metrics_func, plot_results_func):
+#     """
+#     Run ensemble models: AdaBoost
 
-    Args:
-        data_splits: Tuple of train/test splits from prepare_train_test_splits()
-        model_results: ModelResults instance to store results
-        print_metrics_func: Function to print metrics
-        plot_results_func: Function to plot results
-    """
-    (x_warp_train, x_warp_test, y_warp_train, y_warp_test,
-     x_war_train, x_war_test, y_war_train, y_war_test,
-     a_warp_train, a_warp_test, b_warp_train, b_warp_test,
-     a_war_train, a_war_test, b_war_train, b_war_test,
-     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test) = data_splits
+#     Args:
+#         data_splits: Tuple of train/test splits from prepare_train_test_splits()
+#         model_results: ModelResults instance to store results
+#         print_metrics_func: Function to print metrics
+#         plot_results_func: Function to plot results
+#     """
+#     (x_warp_train, x_warp_test, y_warp_train, y_warp_test,
+#      x_war_train, x_war_test, y_war_train, y_war_test,
+#      a_warp_train, a_warp_test, b_warp_train, b_warp_test,
+#      a_war_train, a_war_test, b_war_train, b_war_test,
+#      h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test,
+#      h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
-    models = [
-        ('adaboost', AdaBoostRegressor(n_estimators=50, learning_rate=1.0, random_state=1))
-    ]
+#     models = [
+#         ('adaboost', AdaBoostRegressor(n_estimators=50, learning_rate=1.0, random_state=1))
+#     ]
 
-    for name, model in models:
-        print(f"=== {name.upper()} ===")
+#     for name, model in models:
+#         print(f"=== {name.upper()} ===")
 
-        datasets = [
-            ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test),
-            ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test),
-            ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test),
-            ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test)
-        ]
+#         datasets = [
+#             ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test, h_seasons_warp_test),
+#             ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test, h_seasons_war_test),
+#             ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test, p_seasons_warp_test),
+#             ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test, p_seasons_war_test)
+#         ]
 
-        for player_type, metric, X_train, X_test, y_train, y_test, names_test in datasets:
-            if len(X_train) > 0:
-                model.fit(X_train, y_train)
-                y_pred = model.predict(X_test)
-                print_metrics_func(f"{name} {player_type} {metric}", y_test, y_pred)
-                plot_results_func(f"{player_type} {metric} ({name})", y_test, y_pred, names_test)
-                model_results.store_results(name, player_type, metric, y_test, y_pred, names_test)
+#         for player_type, metric, X_train, X_test, y_train, y_test, names_test, seasons_test in datasets:
+#             if len(X_train) > 0:
+#                 model.fit(X_train, y_train)
+#                 y_pred = model.predict(X_test)
+#                 print_metrics_func(f"{name} {player_type} {metric}", y_test, y_pred)
+#                 plot_results_func(f"{player_type} {metric} ({name})", y_test, y_pred, names_test)
+#                 model_results.store_results(name, player_type, metric, y_test, y_pred, names_test, seasons_test)
 
 def run_nonlinear_models(data_splits, model_results, print_metrics_func, plot_results_func):
     """
@@ -253,30 +255,32 @@ def run_nonlinear_models(data_splits, model_results, print_metrics_func, plot_re
      x_war_train, x_war_test, y_war_train, y_war_test,
      a_warp_train, a_warp_test, b_warp_train, b_warp_test,
      a_war_train, a_war_test, b_war_train, b_war_test,
-     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test) = data_splits
+     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test,
+     h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
     # Need to scale data for SVR and GP
+    #Could potentially use RobustScaler instead
     scaler = StandardScaler()
 
     # Note: GP can be computationally expensive, so using simpler kernel
-    kernel = C(1.0, (1e-3, 1e3)) * RBF(1.0, (1e-2, 1e2))
+    # kernel = C(1.0, (1e-3, 1e3)) * RBF(1.0, (1e-2, 1e2))
 
     models = [
         ('svr', SVR(kernel='rbf', gamma='scale', C=1.0)),
-        ('gaussianprocess', GaussianProcessRegressor(kernel=kernel, random_state=1, n_restarts_optimizer=2))
+        # ('gaussianprocess', GaussianProcessRegressor(kernel=kernel, random_state=1, n_restarts_optimizer=2))
     ]
 
     for name, model in models:
         print(f"=== {name.upper()} ===")
 
         datasets = [
-            ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test),
-            ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test),
-            ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test),
-            ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test)
+            ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test, h_seasons_warp_test),
+            ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test, h_seasons_war_test),
+            ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test, p_seasons_warp_test),
+            ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test, p_seasons_war_test)
         ]
 
-        for player_type, metric, X_train, X_test, y_train, y_test, names_test in datasets:
+        for player_type, metric, X_train, X_test, y_train, y_test, names_test, seasons_test in datasets:
             if len(X_train) > 0:
                 print(f"Training {name} for {player_type} {metric}...")
 
@@ -289,7 +293,7 @@ def run_nonlinear_models(data_splits, model_results, print_metrics_func, plot_re
 
                 print_metrics_func(f"{name} {player_type} {metric}", y_test, y_pred)
                 plot_results_func(f"{player_type} {metric} ({name})", y_test, y_pred, names_test)
-                model_results.store_results(name, player_type, metric, y_test, y_pred, names_test)
+                model_results.store_results(name, player_type, metric, y_test, y_pred, names_test, seasons_test)
 
 def run_neural_network(data_splits, model_results, print_metrics_func, plot_results_func, plot_training_history_func):
     """
@@ -306,23 +310,24 @@ def run_neural_network(data_splits, model_results, print_metrics_func, plot_resu
      x_war_train, x_war_test, y_war_train, y_war_test,
      a_warp_train, a_warp_test, b_warp_train, b_warp_test,
      a_war_train, a_war_test, b_war_train, b_war_test,
-     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test) = data_splits
+     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test,
+     h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
     scaler = StandardScaler()
-    early_stopping = tf.keras.callbacks.EarlyStopping(
+    early_stopping = tf.keras.callbacks.EarlyStopping( # type: ignore
         monitor='val_loss', patience=10, restore_best_weights=True, verbose=0
     )
 
     print("=== KERAS NEURAL NETWORK WITH ADAMW ===")
 
     datasets = [
-        ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test),
-        ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test),
-        ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test),
-        ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test)
+        ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test, h_seasons_warp_test),
+        ('hitter', 'war', x_war_train, x_war_test, y_war_train, y_war_test, h_names_war_test, h_seasons_war_test),
+        ('pitcher', 'warp', a_warp_train, a_warp_test, b_warp_train, b_warp_test, p_names_warp_test, p_seasons_warp_test),
+        ('pitcher', 'war', a_war_train, a_war_test, b_war_train, b_war_test, p_names_war_test, p_seasons_war_test)
     ]
 
-    for player_type, metric, X_train, X_test, y_train, y_test, names_test in datasets:
+    for player_type, metric, X_train, X_test, y_train, y_test, names_test, seasons_test in datasets:
         if len(X_train) > 0:
             print(f"Training Neural Network with AdamW for {player_type} {metric}...")
 
@@ -352,7 +357,7 @@ def run_neural_network(data_splits, model_results, print_metrics_func, plot_resu
             print_metrics_func(f"Keras {player_type} {metric}", y_test, y_pred)
             plot_results_func(f"{player_type} {metric} (Keras Neural Network + AdamW)", y_test, y_pred, names_test)
             plot_training_history_func(history)
-            model_results.store_results("keras", player_type, metric, y_test, y_pred, names_test)
+            model_results.store_results("keras", player_type, metric, y_test, y_pred, names_test, seasons_test)
 
 # ===== WAR ADJUSTMENT FUNCTIONS =====
 def load_position_data():
@@ -445,11 +450,11 @@ def select_best_models_by_category(model_results):
     selected_models = set()
 
     # Linear methods: pick best of linear, lasso, ridge, elasticnet
-    linear_models = ['linear', 'lasso', 'ridge', 'elasticnet']
+    linear_models = [ 'ridge', 'elasticnet']#'linear', 'lasso',
     # Tree/Ensemble: pick best of knn, randomforest, xgboost, adaboost
-    ensemble_models = ['knn', 'randomforest', 'xgboost', 'adaboost']
+    ensemble_models = ['knn', 'randomforest', 'xgboost']#, 'adaboost'
     # Non-linear: pick best of svr, gaussianprocess, keras
-    nonlinear_models = ['svr', 'gaussianprocess', 'keras']
+    nonlinear_models = ['svr', 'keras']#, 'gaussianprocess'
 
     for category_models, category_name in [(linear_models, 'linear'),
                                           (ensemble_models, 'ensemble'),

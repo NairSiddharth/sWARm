@@ -55,13 +55,18 @@ The pipeline automatically:
 
 Machine Learning Models:
 
+* I have previously implemented and removed the following models: AdaBoost, Gaussian Process Regression because in my subjective opinion I think their performance lagged behind the other ML algorithms being tested for this dataset.
+* I have compared Linear, Lasso, and Ridge Regression models and kept Ridge as the baseline model, removing the others.
+
 * Linear Models: Linear, Lasso, Ridge, ElasticNet
 * Instance-based Learning: K-Nearest Neighbors (KNN)
 * Tree-based Methods: Random Forest, XGBoost
 * Kernel / Non-linear Methods: SVR , Gaussian Process Regression
 * Deep Learning: Keras Neural Networks (with AdamW optimizer and early stopping)
 
-- [ ] (TODO - Deprecate due to poor performance) Ensemble Methods: AdaBoost 
+- [x] TODO - Deprecate due to poor performance Linear Methods: Linear, Lasso <!-- markdownlint-disable MD004 -->
+- [x] TODO - Deprecate due to poor performance Ensemble Methods: AdaBoost
+- [x] TODO - Deprecate due to poor performance Non-linear Methods: Gaussian Process
 
 **Data Processing:**
 
@@ -71,6 +76,12 @@ Machine Learning Models:
 * Enhanced defensive and baserunning statistics
 * Hitters/Pitchers with same name are properly handled
 * Made decision to ignore hitting stats/pitching stats for players not considered "2-way players" by MLB definition (i.e. a player must have pitched at least 20 Major League innings and started at least 20 games as a position player or designated hitter with at least three plate appearances in each of those games)
+* Note - Hitting has current features: strikeouts, walks, average, onbase percentage, and slugging. Pitching has current features: innings pitched, walks, strikeouts, homeruns given up, and earned runs average.
+
+- [ ] TODO: potentially add in catcher blocking
+- [x] TODO - decrease effects of park factors, currently 1.5 reduce to maybe 1.2
+- [ ] TODO: add in more features for both hitters and pitchers, have data for it just need to make sure features aren't overlapping (i.e. are the base stats OR if an advanced stat, don't include an already included base stat) Potential features to add Hitters: intentional walks (how feared of a hitter you are in comparison to the avg. joe hitting in your spot), plate appearances, look at batted_ball_profile to see if we can pick out any features to test. Get rid of walks because double counting with OBP. Pitchers: TB, HBP
+- [ ] TODO: add in more features for defense like catch_probability and outfield_jump
 
 **Visualization & Analysis:**
 
@@ -80,8 +91,9 @@ Machine Learning Models:
 * Model performance comparison across different categories
 * Interactive Plotly visualizations with player-specific hover tooltip
 
-- [ ] (TODO: make sure selectable filters apply to all graphs, maybe make a searchable filter?)
-- [ ] TODO: Implement feature where user can enter a player name and get predictions of 3 years of player performance?
+- [ ] TODO: make sure selectable filters apply to all graphs, maybe make a searchable filter?
+- [ ] TODO: Condense the different graphs for the different methods into one graph with different selectable traces, can potentially be a good way to compare them on one graph and will get rid of clutter in output
+- [ ] TODO: Implement feature where user can enter a player name and get predictions of 3 future years of player performance?
 - [ ] TODO: Implement feature where user can enter a player name and get 5 players who's career project in the same way?
 
 **Performance Metrics:**
@@ -92,6 +104,8 @@ Machine Learning Models:
 * Auto-selection of best performing models by category
 
 - [ ] TODO: Implement MAE for model evaluation (curious to see if trying to minimize RMSE vs. MAE is better for this dataset as I don't necessarily want to minimize ALL outliers, only the negative ones really and at that point it might be better to just try adjusting everything the same)
+- [ ] TODO: Implement [cross-validation graphs](https://scikit-learn.org/stable/modules/cross_validation.html)
+- [ ] TODO: Implement residual graphs so that we can see the error difference between the actual and prediction in a comparative way between ML algo's
 
 ## 🧠 Methodology
 
@@ -104,18 +118,13 @@ sWARm employs a comprehensive machine learning approach that includes:
 * Contextual adjustments for ballpark effects
 * Position value scaling based on their relative defensive importance (i.e. a shortstop will be weighted more than a first baseman due to the position being more difficult to play)
 
-- [ ] TODO: potentially add in catcher blocking
-- [ ] TODO - decrease effects of park factors, currently 1.5 reduce to maybe 1.2
-
 **Model Architecture:**
 
 * Ensemble approach using multiple algorithm types
 * Automatic model selection based on cross-validation performance
 * Feature engineering with 7-dimensional input for batters(5 hitting specific + baserunning, defense) and 5-dimensional input for pitchers
-  * Note - Hitting has features strikeouts, walks, average, onbase percentage, and slugging. Pitching has innings pitched, walks, strikeouts, homeruns given up, and earned runs average. 
+  * Note - Hitting has features strikeouts, walks, average, onbase percentage, and slugging. Pitching has innings pitched, walks, strikeouts, homeruns given up, and earned runs average.
 * Neural network architecture with dropout regularization
-
-- [ ] TODO: add in more features for both hitters and pitchers, have data for it just need to make sure features aren't overlapping (i.e. are the base stats OR if an advanced stat, don't include an already included base stat) Potential features to add Hitters: intentional walks (how feared of a hitter you are in comparison to the avg. joe hitting in your spot), plate appearances. Get rid of walks because double counting with OBP. /Pitchers: TB, HBP
 
 **Validation Framework:**
 

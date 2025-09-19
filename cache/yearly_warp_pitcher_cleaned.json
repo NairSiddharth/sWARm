@@ -1371,7 +1371,7 @@
     "Name":"Josh Smith",
     "Year":2016,
     "WARP":0.52,
-    "Team":"CIN"
+    "Team":"CHC"
   },
   {
     "Name":"Yusmeiro Petit",
@@ -1431,7 +1431,7 @@
     "Name":"JC Ramirez",
     "Year":2016,
     "WARP":0.49,
-    "Team":"LAA"
+    "Team":"ATL"
   },
   {
     "Name":"Tony Watson",
@@ -1785,7 +1785,7 @@
     "Name":"Jose Ramirez",
     "Year":2016,
     "WARP":0.23,
-    "Team":"LAA"
+    "Team":"ATL"
   },
   {
     "Name":"Tyler Glasnow",
@@ -2025,7 +2025,7 @@
     "Name":"Jacob Smith",
     "Year":2016,
     "WARP":0.11,
-    "Team":"CIN"
+    "Team":"CHC"
   },
   {
     "Name":"Hyun-jin Ryu",
@@ -3627,7 +3627,7 @@
     "Name":"Wandy Peralta",
     "Year":2016,
     "WARP":-0.31,
-    "Team":"MIL"
+    "Team":"CIN"
   },
   {
     "Name":"Ben Heller",
@@ -4089,7 +4089,7 @@
     "Name":"Wily Peralta",
     "Year":2016,
     "WARP":-0.67,
-    "Team":"MIL"
+    "Team":"CIN"
   },
   {
     "Name":"Steve Geltz",
@@ -4239,7 +4239,7 @@
     "Name":"Joe Smith",
     "Year":2016,
     "WARP":-1.01,
-    "Team":"CIN"
+    "Team":"CHC"
   },
   {
     "Name":"Anthony Ranaudo",
@@ -4593,7 +4593,7 @@
     "Name":"Ervin Santana",
     "Year":2017,
     "WARP":3.57,
-    "Team":"PIT"
+    "Team":"MIN"
   },
   {
     "Name":"Tanner Roark",
@@ -4809,7 +4809,7 @@
     "Name":"Jaime Garcia",
     "Year":2017,
     "WARP":2.19,
-    "Team":"MIA"
+    "Team":"NYY"
   },
   {
     "Name":"Blake Parker",
@@ -6051,7 +6051,7 @@
     "Name":"Jarlin Garcia",
     "Year":2017,
     "WARP":0.45,
-    "Team":"MIA"
+    "Team":"NYY"
   },
   {
     "Name":"Jose Alvarez",
@@ -6651,7 +6651,7 @@
     "Name":"Edgar Santana",
     "Year":2017,
     "WARP":0.14,
-    "Team":"PIT"
+    "Team":"MIN"
   },
   {
     "Name":"Brock Stewart",
@@ -6681,7 +6681,7 @@
     "Name":"Carson Smith",
     "Year":2017,
     "WARP":0.13,
-    "Team":"OAK"
+    "Team":"BOS"
   },
   {
     "Name":"Mike Hauschild",
@@ -6789,7 +6789,7 @@
     "Name":"Caleb Smith",
     "Year":2017,
     "WARP":0.08,
-    "Team":"OAK"
+    "Team":"BOS"
   },
   {
     "Name":"Jamie Callahan",
@@ -7623,7 +7623,7 @@
     "Name":"Chris Smith",
     "Year":2017,
     "WARP":-0.71,
-    "Team":"OAK"
+    "Team":"BOS"
   },
   {
     "Name":"Wilmer Font",
@@ -7719,7 +7719,7 @@
     "Name":"Javy Guerra",
     "Year":2017,
     "WARP":-0.11,
-    "Team":"MIL"
+    "Team":"MIA"
   },
   {
     "Name":"Timothy Melville",
@@ -8613,7 +8613,7 @@
     "Name":"Junior Guerra",
     "Year":2017,
     "WARP":-0.61,
-    "Team":"MIL"
+    "Team":"MIA"
   },
   {
     "Name":"Rob Scahill",
@@ -12627,7 +12627,7 @@
     "Name":"Andrew Romine",
     "Year":2018,
     "WARP":-0.19,
-    "Team":"SEA"
+    "Team":"NYY"
   },
   {
     "Name":"Heath Fillmyer",
@@ -14223,7 +14223,7 @@
     "Name":"Taylor Rogers",
     "Year":2019,
     "WARP":1.92,
-    "Team":"SF"
+    "Team":"MIN"
   },
   {
     "Name":"John Means",
@@ -14649,7 +14649,7 @@
     "Name":"Junior Guerra",
     "Year":2019,
     "WARP":1.2,
-    "Team":"SD"
+    "Team":"WSH"
   },
   {
     "Name":"Mark Melancon",
@@ -15567,7 +15567,7 @@
     "Name":"Tyler Rogers",
     "Year":2019,
     "WARP":0.27,
-    "Team":"SF"
+    "Team":"MIN"
   },
   {
     "Name":"Kevin McCarthy",
@@ -15903,7 +15903,7 @@
     "Name":"Javy Guerra",
     "Year":2019,
     "WARP":0.12,
-    "Team":"SD"
+    "Team":"WSH"
   },
   {
     "Name":"Matt Carasiti",
@@ -17217,7 +17217,7 @@
     "Name":"Javier Guerra",
     "Year":2019,
     "WARP":-0.07,
-    "Team":"SD"
+    "Team":"WSH"
   },
   {
     "Name":"Sean Gilmartin",
@@ -19911,7 +19911,7 @@
     "Name":"Yu Darvish",
     "Year":2020,
     "WARP":1.7,
-    "Team":"CHC"
+    "Team":"SD"
   },
   {
     "Name":"Derek Holland",
@@ -20319,7 +20319,7 @@
     "Name":"Luis Garcia",
     "Year":2021,
     "WARP":2.4,
-    "Team":"STL"
+    "Team":"HOU"
   },
   {
     "Name":"Pablo L\u00f3pez",
@@ -22041,7 +22041,7 @@
     "Name":"Wandy Peralta",
     "Year":2021,
     "WARP":0.3,
-    "Team":"DET"
+    "Team":"NYY"
   },
   {
     "Name":"Erik Swanson",
@@ -22725,7 +22725,7 @@
     "Name":"Wily Peralta",
     "Year":2021,
     "WARP":-0.4,
-    "Team":"DET"
+    "Team":"NYY"
   },
   {
     "Name":"Bryan Garcia",
