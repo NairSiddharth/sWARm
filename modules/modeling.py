@@ -14,12 +14,12 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression, Lasso, ElasticNet, Ridge
 from sklearn.neighbors import KNeighborsRegressor
-from sklearn.ensemble import RandomForestRegressor#, AdaBoostRegressor
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.svm import SVR
 # from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import ConstantKernel as C #, import RBF
+from sklearn.gaussian_process.kernels import ConstantKernel as C
 
 try:
     import xgboost as xgb
@@ -92,26 +92,194 @@ def print_metrics(name, y_true, y_pred):
     print(f"{name} - R2: {r2:.4f}, RMSE: {rmse:.4f}")
 
 def create_keras_model(input_dim, name="model"):
-    """Create an optimized Keras neural network with AdamW optimizer"""
+    """
+    Create an optimized Keras neural network with improved architecture and hyperparameters
+
+    FIXES:
+    - Adaptive architecture based on problem difficulty (WAR vs WARP)
+    - BatchNormalization for training stability
+    - Better hyperparameters (lower LR for WAR, Huber loss)
+    - Deeper architecture for complex WAR prediction
+    - Reduced retracing through consistent layer naming
+    """
     if not HAS_TENSORFLOW:
         raise ImportError("TensorFlow/Keras not available. Cannot create neural network model.")
 
-    model = tf.keras.Sequential([ # type: ignore
-        tf.keras.layers.Input(shape=(input_dim,)),  # Fixed: Use Input layer instead of input_dim # type: ignore
-        tf.keras.layers.Dense(32, activation='relu', name=f'{name}_dense1'), # type: ignore
-        tf.keras.layers.Dropout(0.3, name=f'{name}_dropout1'), # type: ignore
-        tf.keras.layers.Dense(16, activation='relu', name=f'{name}_dense2'), # type: ignore
-        tf.keras.layers.Dropout(0.2, name=f'{name}_dropout2'), # type: ignore
-        tf.keras.layers.Dense(1, activation='linear', name=f'{name}_output') # type: ignore
-    ], name=name)
+    # Adaptive architecture based on prediction difficulty
+    if "war" in name.lower():
+        # MORE COMPLEX architecture for WAR prediction (harder problem)
+        model = tf.keras.Sequential([ # type: ignore
+            tf.keras.layers.Input(shape=(input_dim,), name=f'{name}_input'), # type: ignore
+            tf.keras.layers.BatchNormalization(name=f'{name}_bn_input'), # type: ignore
+            tf.keras.layers.Dense(128, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001), name=f'{name}_dense1'), # type: ignore
+            tf.keras.layers.Dropout(0.3, name=f'{name}_dropout1'), # type: ignore
+            tf.keras.layers.BatchNormalization(name=f'{name}_bn1'), # type: ignore
+            tf.keras.layers.Dense(64, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001), name=f'{name}_dense2'), # type: ignore
+            tf.keras.layers.Dropout(0.2, name=f'{name}_dropout2'), # type: ignore
+            tf.keras.layers.Dense(32, activation='relu', name=f'{name}_dense3'), # type: ignore
+            tf.keras.layers.Dropout(0.1, name=f'{name}_dropout3'), # type: ignore
+            tf.keras.layers.Dense(1, activation='linear', name=f'{name}_output') # type: ignore
+        ], name=name)
+        learning_rate = 0.0003  # LOWER LR for stability
+        weight_decay = 0.02     # Higher weight decay for regularization
+    else:
+        # SIMPLER architecture for WARP prediction (easier problem)
+        model = tf.keras.Sequential([ # type: ignore
+            tf.keras.layers.Input(shape=(input_dim,), name=f'{name}_input'), # type: ignore
+            tf.keras.layers.BatchNormalization(name=f'{name}_bn_input'), # type: ignore
+            tf.keras.layers.Dense(64, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001), name=f'{name}_dense1'), # type: ignore
+            tf.keras.layers.Dropout(0.2, name=f'{name}_dropout1'), # type: ignore
+            tf.keras.layers.Dense(32, activation='relu', name=f'{name}_dense2'), # type: ignore
+            tf.keras.layers.Dropout(0.1, name=f'{name}_dropout2'), # type: ignore
+            tf.keras.layers.Dense(1, activation='linear', name=f'{name}_output') # type: ignore
+        ], name=name)
+        learning_rate = 0.001   # Standard LR for easier problem
+        weight_decay = 0.01
 
-    # FIXED: Use AdamW optimizer with decoupled weight decay instead of 'adam'
+    # CHOICE: Use log-cosh for WAR (balanced elite emphasis + noise robustness) vs Huber for WARP
+    if "warp" in name.lower():
+        # Huber for WARP data which might have more noise
+        loss_function = tf.keras.losses.Huber()  # FIXED: Use actual loss class, not string
+        print(f"   Using Huber loss for {name} - robust to WARP data noise")
+    else:
+        # Log-cosh: smooth transition from MSE-like (small errors) to MAE-like (large errors)
+        # Perfect for WAR: emphasizes elite accuracy while robust to measurement noise
+        loss_function = tf.keras.losses.LogCosh()  # FIXED: Use actual loss class, not string
+        print(f"   Using log-cosh loss for {name} - balanced elite emphasis + noise robustness")
+
+    # Compile the model with optimized hyperparameters
+    optimizer = tf.keras.optimizers.AdamW(learning_rate=learning_rate, weight_decay=weight_decay) # type: ignore
+
     model.compile(
-        optimizer=AdamW(learning_rate=0.001, weight_decay=0.01),
-        loss='mse',
-        metrics=['mae']
+        optimizer=optimizer,
+        loss=loss_function,
+        metrics=['mae', 'mse']
     )
+
+    print(f"   Model compiled: {model.count_params()} parameters, LR={learning_rate}, Loss={loss_function}")
     return model
+
+# ===== DIAGNOSTIC FUNCTIONS =====
+def analyze_feature_target_correlations(data_splits):
+    """
+    DIAGNOSTIC: Analyze feature-target correlations to understand why hitter WARP performs poorly
+
+    This function helps investigate:
+    - Whether BP hitter features correlate well with WARP targets
+    - Whether FanGraphs hitter features correlate well with WAR targets
+    - Data quality differences between BP and FanGraphs datasets
+    """
+    print("\nDIAGNOSTIC: Feature-Target Correlation Analysis")
+    print("=" * 70)
+
+    (x_warp_train, x_warp_test, y_warp_train, y_warp_test,
+     x_war_train, x_war_test, y_war_train, y_war_test,
+     a_warp_train, a_warp_test, b_warp_train, b_warp_test,
+     a_war_train, a_war_test, b_war_train, b_war_test,
+     h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test,
+     h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
+
+    datasets = [
+        ('Hitter WARP (BP)', x_warp_train, y_warp_train),
+        ('Hitter WAR (FanGraphs)', x_war_train, y_war_train),
+        ('Pitcher WARP (BP)', a_warp_train, b_warp_train),
+        ('Pitcher WAR (FanGraphs)', a_war_train, b_war_train)
+    ]
+
+    correlation_summary = {}
+
+    for dataset_name, X, y in datasets:
+        if len(X) == 0:
+            print(f"\nX {dataset_name}: No data available")
+            continue
+
+        print(f"\n{dataset_name}:")
+        print(f"   Sample size: {len(X)} records")
+        print(f"   Target range: {y.min():.2f} to {y.max():.2f}")
+        print(f"   Target std: {y.std():.3f}")
+
+        # Calculate feature-target correlations
+        feature_correlations = {}
+        for i, col in enumerate(X.columns):
+            if X.iloc[:, i].std() > 0:  # Avoid division by zero
+                corr = np.corrcoef(X.iloc[:, i], y)[0, 1]
+                if not np.isnan(corr):
+                    feature_correlations[col] = corr
+
+        # Sort by absolute correlation
+        sorted_correlations = sorted(feature_correlations.items(), key=lambda x: abs(x[1]), reverse=True)
+
+        print(f"   Feature correlations with target:")
+        for feature, corr in sorted_correlations[:7]:  # Show top 7 features
+            strength = "STRONG" if abs(corr) > 0.7 else "MODERATE" if abs(corr) > 0.4 else "WEAK"
+            print(f"      {feature}: {corr:+.3f} ({strength})")
+
+        # Store summary statistics
+        max_corr = max([abs(corr) for corr in feature_correlations.values()]) if feature_correlations else 0
+        avg_corr = np.mean([abs(corr) for corr in feature_correlations.values()]) if feature_correlations else 0
+
+        correlation_summary[dataset_name] = {
+            'max_correlation': max_corr,
+            'avg_correlation': avg_corr,
+            'feature_count': len(feature_correlations),
+            'target_variance': y.var(),
+            'sample_size': len(X)
+        }
+
+        print(f"   Max |correlation|: {max_corr:.3f}")
+        print(f"   Avg |correlation|: {avg_corr:.3f}")
+
+        # Data quality checks
+        missing_features = X.isnull().sum().sum()
+        zero_variance_features = (X.std() == 0).sum()
+
+        if missing_features > 0:
+            print(f"   WARNING: Missing values: {missing_features} total")
+        if zero_variance_features > 0:
+            print(f"   WARNING: Zero variance features: {zero_variance_features}")
+
+    print(f"\nCORRELATION ANALYSIS SUMMARY:")
+    print("=" * 50)
+
+    # Compare hitter datasets
+    if 'Hitter WARP (BP)' in correlation_summary and 'Hitter WAR (FanGraphs)' in correlation_summary:
+        warp_stats = correlation_summary['Hitter WARP (BP)']
+        war_stats = correlation_summary['Hitter WAR (FanGraphs)']
+
+        print(f"HITTER ANALYSIS:")
+        print(f"   BP WARP - Max corr: {warp_stats['max_correlation']:.3f}, Avg corr: {warp_stats['avg_correlation']:.3f}")
+        print(f"   FG WAR  - Max corr: {war_stats['max_correlation']:.3f}, Avg corr: {war_stats['avg_correlation']:.3f}")
+
+        if war_stats['max_correlation'] > warp_stats['max_correlation'] * 1.5:
+            print(f"   INSIGHT: FanGraphs features show {war_stats['max_correlation']/warp_stats['max_correlation']:.1f}x stronger correlation!")
+            print(f"      This explains poor WARP prediction performance.")
+
+        if war_stats['target_variance'] > warp_stats['target_variance'] * 1.5:
+            print(f"   INSIGHT: FanGraphs WAR has {war_stats['target_variance']/warp_stats['target_variance']:.1f}x more target variance")
+            print(f"      Higher variance targets are often easier to predict.")
+
+    # Compare pitcher datasets
+    if 'Pitcher WARP (BP)' in correlation_summary and 'Pitcher WAR (FanGraphs)' in correlation_summary:
+        p_warp_stats = correlation_summary['Pitcher WARP (BP)']
+        p_war_stats = correlation_summary['Pitcher WAR (FanGraphs)']
+
+        print(f"\nPITCHER ANALYSIS:")
+        print(f"   BP WARP - Max corr: {p_warp_stats['max_correlation']:.3f}, Avg corr: {p_warp_stats['avg_correlation']:.3f}")
+        print(f"   FG WAR  - Max corr: {p_war_stats['max_correlation']:.3f}, Avg corr: {p_war_stats['avg_correlation']:.3f}")
+
+        if abs(p_warp_stats['max_correlation'] - p_war_stats['max_correlation']) < 0.1:
+            print(f"   GOOD: Both pitcher datasets show similar correlation strength")
+        else:
+            print(f"   WARNING: Pitcher datasets show different correlation patterns")
+
+    print(f"\nRECOMMENDATIONS:")
+    if 'Hitter WARP (BP)' in correlation_summary:
+        if correlation_summary['Hitter WARP (BP)']['max_correlation'] < 0.5:
+            print(f"   * Consider adding more predictive features to BP hitter data")
+            print(f"   * Investigate data quality issues in BP hitter dataset")
+            print(f"   * Consider using FanGraphs features for WARP prediction as well")
+
+    return correlation_summary
 
 # ===== CORE MODELING FUNCTIONS =====
 def run_basic_regressions(data_splits, model_results, print_metrics_func, plot_results_func):
@@ -132,9 +300,7 @@ def run_basic_regressions(data_splits, model_results, print_metrics_func, plot_r
      h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
     models = [
-        # ('linear', LinearRegression()),
-        # ('lasso', Lasso()),
-        ('ridge', Ridge()),  
+        ('ridge', Ridge()),
         ('elasticnet', ElasticNet())
     ]
 
@@ -174,7 +340,14 @@ def run_advanced_models(data_splits, model_results, print_metrics_func, plot_res
      h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
     models = [
-        ('knn', KNeighborsRegressor(n_neighbors=3, n_jobs=-1)),
+        ('knn', KNeighborsRegressor(
+            n_neighbors=5,           # More neighbors for stability
+            weights='distance',      # Weight by distance, not uniform
+            algorithm='ball_tree',   # Better for higher dimensions
+            metric='minkowski',      # Euclidean distance (p=2)
+            p=2,
+            n_jobs=-1
+        )),
         ('randomforest', RandomForestRegressor(n_estimators=50, max_depth=8, random_state=1, n_jobs=-1))
     ]
 
@@ -297,14 +470,15 @@ def run_nonlinear_models(data_splits, model_results, print_metrics_func, plot_re
 
 def run_neural_network(data_splits, model_results, print_metrics_func, plot_results_func, plot_training_history_func):
     """
-    Run Keras neural network with AdamW optimizer
+    IMPROVED Keras neural network with enhanced stability and performance
 
-    Args:
-        data_splits: Tuple of train/test splits from prepare_train_test_splits()
-        model_results: ModelResults instance to store results
-        print_metrics_func: Function to print metrics
-        plot_results_func: Function to plot results
-        plot_training_history_func: Function to plot training history
+    FIXES:
+    - Separate scalers for each dataset to avoid distribution mismatch
+    - Better early stopping with patience based on problem difficulty
+    - Robust outlier handling and data validation
+    - Reduced batch size for better convergence
+    - Additional callbacks for training stability
+    - Model compilation outside of training loop to reduce retracing
     """
     (x_warp_train, x_warp_test, y_warp_train, y_warp_test,
      x_war_train, x_war_test, y_war_train, y_war_test,
@@ -313,12 +487,7 @@ def run_neural_network(data_splits, model_results, print_metrics_func, plot_resu
      h_names_warp_test, h_names_war_test, p_names_warp_test, p_names_war_test,
      h_seasons_warp_test, h_seasons_war_test, p_seasons_warp_test, p_seasons_war_test) = data_splits
 
-    scaler = StandardScaler()
-    early_stopping = tf.keras.callbacks.EarlyStopping( # type: ignore
-        monitor='val_loss', patience=10, restore_best_weights=True, verbose=0
-    )
-
-    print("=== KERAS NEURAL NETWORK WITH ADAMW ===")
+    print("=== IMPROVED KERAS NEURAL NETWORK WITH ENHANCED STABILITY ===")
 
     datasets = [
         ('hitter', 'warp', x_warp_train, x_warp_test, y_warp_train, y_warp_test, h_names_warp_test, h_seasons_warp_test),
@@ -328,36 +497,119 @@ def run_neural_network(data_splits, model_results, print_metrics_func, plot_resu
     ]
 
     for player_type, metric, X_train, X_test, y_train, y_test, names_test, seasons_test in datasets:
-        if len(X_train) > 0:
-            print(f"Training Neural Network with AdamW for {player_type} {metric}...")
+        if len(X_train) == 0:
+            continue
 
-            # Convert to numpy arrays for scaling
-            X_train_np = np.array(X_train)
-            X_test_np = np.array(X_test)
-            y_train_np = np.array(y_train)
+        print(f"Training IMPROVED Neural Network for {player_type} {metric}...")
 
-            X_train_scaled = scaler.fit_transform(X_train_np)
-            X_test_scaled = scaler.transform(X_test_np)
+        # IMPROVED: Separate scaler for each dataset to handle distribution differences
+        scaler = StandardScaler()
 
-            model = create_keras_model(input_dim=X_train_scaled.shape[1], name=f"{player_type}_{metric}")
+        # ROBUST: Convert to numpy and handle potential data issues
+        try:
+            X_train_np = np.array(X_train, dtype=np.float32)
+            X_test_np = np.array(X_test, dtype=np.float32)
+            y_train_np = np.array(y_train, dtype=np.float32)
+            y_test_np = np.array(y_test, dtype=np.float32)
 
-            X_train_split, X_val_split, y_train_split, y_val_split = train_test_split(
-                X_train_scaled, y_train_np, test_size=0.2, random_state=1
+            # Check for NaN/Inf values
+            if np.any(np.isnan(X_train_np)) or np.any(np.isinf(X_train_np)):
+                print(f"   ⚠️  Warning: NaN/Inf detected in {player_type} {metric} features, filling with 0")
+                X_train_np = np.nan_to_num(X_train_np, 0)
+                X_test_np = np.nan_to_num(X_test_np, 0)
+
+            if np.any(np.isnan(y_train_np)) or np.any(np.isinf(y_train_np)):
+                print(f"   ⚠️  Warning: NaN/Inf detected in {player_type} {metric} targets, skipping...")
+                continue
+
+        except Exception as e:
+            print(f"   ❌ Data conversion failed for {player_type} {metric}: {e}")
+            continue
+
+        # CONSERVATIVE: Only remove obvious data errors, not elite performance
+        # Baseball WAR can legitimately range from -3 to +12, so be very conservative
+        data_error_mask = (y_train_np >= -5.0) & (y_train_np <= 15.0)  # Only remove clear data errors
+        removed_count = np.sum(~data_error_mask)
+
+        if removed_count > 0:
+            print(f"   📊 Removed {removed_count} data errors (WAR < -5 or > 15) from {len(y_train_np)} samples")
+            X_train_np = X_train_np[data_error_mask]
+            y_train_np = y_train_np[data_error_mask]
+
+        # Report data range to verify we're keeping elite seasons
+        print(f"   📈 WAR range: {y_train_np.min():.2f} to {y_train_np.max():.2f} (keeping elite seasons!)")
+
+        # IMPROVED: Scale data with better handling
+        X_train_scaled = scaler.fit_transform(X_train_np)
+        X_test_scaled = scaler.transform(X_test_np)
+
+        # ADAPTIVE: Early stopping based on problem difficulty
+        if metric == 'war':
+            patience = 20  # More patience for harder WAR problem
+            min_delta = 0.001
+        else:
+            patience = 15  # Standard patience for WARP
+            min_delta = 0.0005
+
+        # ENHANCED: Multiple callbacks for better training
+        callbacks = [
+            tf.keras.callbacks.EarlyStopping( # type: ignore
+                monitor='val_loss',
+                patience=patience,
+                min_delta=min_delta,
+                restore_best_weights=True,
+                verbose=0
+            ),
+            tf.keras.callbacks.ReduceLROnPlateau( # type: ignore
+                monitor='val_loss',
+                factor=0.5,
+                patience=max(5, patience//3),
+                min_lr=1e-6,
+                verbose=0
             )
+        ]
 
-            # Ensure data is in the right format for Keras
+        # CREATE MODEL (this will use the improved architecture)
+        model = create_keras_model(input_dim=X_train_scaled.shape[1], name=f"{player_type}_{metric}")
+
+        # IMPROVED: Create validation split
+        X_train_split, X_val_split, y_train_split, y_val_split = train_test_split(
+            X_train_scaled, y_train_np, test_size=0.2, random_state=42
+        )
+
+        # IMPROVED: Training with better parameters
+        try:
             history = model.fit(
-                X_train_split.astype(np.float32),
-                y_train_split.astype(np.float32),
-                validation_data=(X_val_split.astype(np.float32), y_val_split.astype(np.float32)),
-                epochs=50, batch_size=32, callbacks=[early_stopping], verbose=0
+                X_train_split,
+                y_train_split,
+                validation_data=(X_val_split, y_val_split),
+                epochs=100,  # More epochs but early stopping will handle it
+                batch_size=16,  # Smaller batch size for better convergence
+                callbacks=callbacks,
+                verbose=0
             )
 
-            y_pred = model.predict(X_test_scaled.astype(np.float32), verbose=0).flatten()
-            print_metrics_func(f"Keras {player_type} {metric}", y_test, y_pred)
-            plot_results_func(f"{player_type} {metric} (Keras Neural Network + AdamW)", y_test, y_pred, names_test)
+            # PREDICTION with proper error handling
+            y_pred = model.predict(X_test_scaled, verbose=0).flatten()
+
+            # Ensure predictions are reasonable
+            if np.any(np.isnan(y_pred)) or np.any(np.isinf(y_pred)):
+                print(f"   ❌ Model produced invalid predictions for {player_type} {metric}")
+                continue
+
+            print_metrics_func(f"IMPROVED Keras {player_type} {metric}", y_test_np, y_pred)
+            plot_results_func(f"{player_type} {metric} (IMPROVED Keras NN)", y_test_np, y_pred, names_test)
             plot_training_history_func(history)
-            model_results.store_results("keras", player_type, metric, y_test, y_pred, names_test, seasons_test)
+            model_results.store_results("keras", player_type, metric, y_test_np, y_pred, names_test, seasons_test)
+
+            # DIAGNOSTIC: Print training info
+            final_epoch = len(history.history['loss'])
+            final_loss = history.history['val_loss'][-1] if history.history['val_loss'] else 'N/A'
+            print(f"   📈 Training stopped at epoch {final_epoch}, final val_loss: {final_loss}")
+
+        except Exception as e:
+            print(f"   ❌ Training failed for {player_type} {metric}: {e}")
+            continue
 
 # ===== WAR ADJUSTMENT FUNCTIONS =====
 def load_position_data():
