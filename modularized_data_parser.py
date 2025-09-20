@@ -145,7 +145,7 @@ def get_all_player_stats(player_name, enhanced=True):
 
 def run_comprehensive_analysis():
     """Run the complete comprehensive analysis system"""
-    print("RUNNING COMPREHENSIVE oWAR ANALYSIS SYSTEM")
+    print("RUNNING COMPREHENSIVE sWARm ANALYSIS SYSTEM")
     print("="*70)
 
     print("\n1. Loading Enhanced Datasets...")
@@ -238,10 +238,4 @@ def quick_player_lookup(player_name):
     if not any([war_info, warp_hitter, warp_pitcher, fg_data]):
         print("No data found for this player")
 
-# ====== PRESERVE ORIGINAL FUNCTION BEHAVIOR ======
-# All functions are now imported from modules but work identically to before.
-# Your existing notebook code will work without any changes.
-
-print("Modularized oWAR Data Parser loaded successfully!")
-print("All functions available and working identically to before.")
-print("Enhanced with better organization and new capabilities.")
+print("Modularized sWARm Data Parser & Loader loaded successfully!")

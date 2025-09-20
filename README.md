@@ -6,7 +6,7 @@ Welcome to **sWARm**, a personalized reimplementation of the Wins Above Replacem
 
 **Wins Above Replacement (WAR)** is a sabermetric statistic that quantifies a player's total contributions to their team in terms of wins. It combines various aspects of a player's performance, including batting, baserunning, fielding, and pitching, to estimate how many more wins a player is worth compared to a replacement-level player.
 
-* Note that replacement-level is that ambigious term but is typically defined at about 0 WAR, (average AAA player at any position should get that amount by playing a full MLB season)
+* Note that replacement-level is that ambigious term but is typically defined at about 0 WAR, (average AAAA player at any position should get that amount by playing a full MLB season)
 
 * This is something I have some minor quibbles with due to the disparity between hitting and pitching talent in baseball (i.e. I think that batters should have a slightly higher level set for their replacement level when compared to pitchers, because the average AAA batter called up will probably do better than the average AAA pitcher because I think that better pitchers get called up faster than better batters so the general level of batters stuck in the AAA is higher), but the people who came up with this are much smarter than me so consider this young man yelling at clouds.
 
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 
 ## 📊 Usage
 
-The main notebook `cleanedCode.ipynb` contains a complete machine learning pipeline for predicting WAR and WARP values:
+The main notebook `main_loader_visualizer.ipynb` contains a complete machine learning pipeline for predicting WAR and WARP values:
 
 ```python
 # Run the complete pipeline
@@ -58,15 +58,11 @@ Machine Learning Models:
 * I have previously implemented and removed the following models: AdaBoost, Gaussian Process Regression because in my subjective opinion I think their performance lagged behind the other ML algorithms being tested for this dataset.
 * I have compared Linear, Lasso, and Ridge Regression models and kept Ridge as the baseline model, removing the others.
 
-* Linear Models: Linear, Lasso, Ridge, ElasticNet
+* Linear Models: Ridge, ElasticNet
 * Instance-based Learning: K-Nearest Neighbors (KNN)
 * Tree-based Methods: Random Forest, XGBoost
 * Kernel / Non-linear Methods: SVR , Gaussian Process Regression
 * Deep Learning: Keras Neural Networks (with AdamW optimizer and early stopping)
-
-- [x] TODO - Deprecate due to poor performance Linear Methods: Linear, Lasso <!-- markdownlint-disable MD004 -->
-- [x] TODO - Deprecate due to poor performance Ensemble Methods: AdaBoost
-- [x] TODO - Deprecate due to poor performance Non-linear Methods: Gaussian Process
 
 **Data Processing:**
 
@@ -78,11 +74,6 @@ Machine Learning Models:
 * Made decision to ignore hitting stats/pitching stats for players not considered "2-way players" by MLB definition (i.e. a player must have pitched at least 20 Major League innings and started at least 20 games as a position player or designated hitter with at least three plate appearances in each of those games)
 * Note - Hitting has current features: strikeouts, walks, average, onbase percentage, and slugging. Pitching has current features: innings pitched, walks, strikeouts, homeruns given up, and earned runs average.
 
-- [ ] TODO: potentially add in catcher blocking
-- [x] TODO - decrease effects of park factors, currently 1.5 reduce to maybe 1.2
-- [ ] TODO: add in more features for both hitters and pitchers, have data for it just need to make sure features aren't overlapping (i.e. are the base stats OR if an advanced stat, don't include an already included base stat) Potential features to add Hitters: intentional walks (how feared of a hitter you are in comparison to the avg. joe hitting in your spot), plate appearances, look at batted_ball_profile to see if we can pick out any features to test. Get rid of walks because double counting with OBP. Pitchers: TB, HBP
-- [ ] TODO: add in more features for defense like catch_probability and outfield_jump
-
 **Visualization & Analysis:**
 
 * Quadrant analysis showing prediction error patterns
@@ -91,21 +82,12 @@ Machine Learning Models:
 * Model performance comparison across different categories
 * Interactive Plotly visualizations with player-specific hover tooltip
 
-- [ ] TODO: make sure selectable filters apply to all graphs, maybe make a searchable filter?
-- [ ] TODO: Condense the different graphs for the different methods into one graph with different selectable traces, can potentially be a good way to compare them on one graph and will get rid of clutter in output
-- [ ] TODO: Implement feature where user can enter a player name and get predictions of 3 future years of player performance?
-- [ ] TODO: Implement feature where user can enter a player name and get 5 players who's career project in the same way?
-
 **Performance Metrics:**
 
 * R-squared and RMSE for model evaluation
 * Individual metric accuracy (WAR-only and WARP-only predictions)
 * Cross-validation and intersection analysis for delta-1 margins
 * Auto-selection of best performing models by category
-
-- [ ] TODO: Implement MAE for model evaluation (curious to see if trying to minimize RMSE vs. MAE is better for this dataset as I don't necessarily want to minimize ALL outliers, only the negative ones really and at that point it might be better to just try adjusting everything the same)
-- [ ] TODO: Implement [cross-validation graphs](https://scikit-learn.org/stable/modules/cross_validation.html)
-- [ ] TODO: Implement residual graphs so that we can see the error difference between the actual and prediction in a comparative way between ML algo's
 
 ## 🧠 Methodology
 
