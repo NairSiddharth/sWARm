@@ -14,7 +14,7 @@ Functions:
 import os
 import json
 import pandas as pd
-from cleanedDataParser import load_yearly_bp_data, create_player_team_mapping, CACHE_DIR
+from modularized_dataparser import load_yearly_bp_data, create_player_team_mapping, CACHE_DIR
 
 
 def identify_two_way_players():

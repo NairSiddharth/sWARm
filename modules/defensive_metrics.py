@@ -473,7 +473,7 @@ def compare_oaa_calculations():
     Returns comparison statistics and calibration suggestions
     """
     # Import required function from parent context
-    from cleanedDataParser import create_name_mapping
+    from modularized_dataparser import create_name_mapping
 
     our_oaa = calculate_outs_above_average_from_fielding_notes()
     official_oaa = load_official_oaa_data()

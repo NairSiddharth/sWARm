@@ -102,9 +102,14 @@ def load_mapping_from_file(source_names, target_names):
     Returns:
         dict or None: Cached mapping if valid, None otherwise
     """
-    from cleanedDataParser import get_cache_filename  # Import helper function
-
-    filename = get_cache_filename(source_names, target_names)
+    # Generate cache filename locally to avoid circular imports
+    import hashlib
+    source_str = '|'.join(sorted([str(x) for x in source_names if pd.notna(x)]))
+    target_str = '|'.join(sorted([str(x) for x in target_names if pd.notna(x)]))
+    combined = f"{source_str}||{target_str}"
+    hash_obj = hashlib.md5(combined.encode())
+    hash_str = hash_obj.hexdigest()[:16]
+    filename = f"name_mapping_{hash_str}.json"
     filepath = os.path.join(CACHE_DIR, filename)
 
     if not os.path.exists(filepath):

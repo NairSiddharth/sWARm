@@ -362,7 +362,7 @@ def run_neural_network(data_splits, model_results, print_metrics_func, plot_resu
 # ===== WAR ADJUSTMENT FUNCTIONS =====
 def load_position_data():
     """Load position data from FanGraphs Leaderboard"""
-    from cleanedDataParser import clean_war
+    from modularized_dataparser import clean_war
 
     war_values = clean_war()
     position_mapping = {}
