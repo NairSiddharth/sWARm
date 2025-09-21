@@ -104,8 +104,8 @@ sWARm employs a comprehensive machine learning approach that includes:
 
 * Ensemble approach using multiple algorithm types
 * Automatic model selection based on cross-validation performance
-* Feature engineering with 7-dimensional input for batters(5 hitting specific + baserunning, defense) and 5-dimensional input for pitchers
-  * Note - Hitting has features strikeouts, walks, average, onbase percentage, and slugging. Pitching has innings pitched, walks, strikeouts, homeruns given up, and earned runs average.
+* Feature engineering with 9-dimensional input for batters(5 hitting specific + baserunning, defense, park factor, positional adjustment) and 6-dimensional input for pitchers (pitching features + park factor)
+  * Note - Hitting has features k%, bb%, average, onbase percentage, and slugging. Pitching has innings pitched, walks, strikeouts, homeruns given up, and earned runs average.
 * Neural network architecture with dropout regularization
 
 **Validation Framework:**

@@ -121,11 +121,11 @@ def plot_consolidated_model_comparison(model_results, model_names=None, show_res
     if model_names is None:
         from modules.modeling import select_best_models_by_category
         model_names = select_best_models_by_category(model_results)
-        print(f"🎯 Auto-selected models for comparison: {[m.upper() for m in model_names]}")
+        print(f"TARGET Auto-selected models for comparison: {[m.upper() for m in model_names]}")
 
-    print("\n📊 CONSOLIDATED MODEL COMPARISON SYSTEM")
+    print("\nCHART CONSOLIDATED MODEL COMPARISON SYSTEM")
     print("="*70)
-    print("🔍 Replacing individual graphs with unified selectable trace visualizations...")
+    print("  Replacing individual graphs with unified selectable trace visualizations...")
 
     # Collect all data for consolidated visualizations
     all_data = []
@@ -172,7 +172,7 @@ def plot_consolidated_model_comparison(model_results, model_names=None, show_res
                             })
 
     if not all_data:
-        print("❌ No data available for consolidated comparison")
+        print("ERROR No data available for consolidated comparison")
         return {}
 
     df = pd.DataFrame(all_data)
@@ -215,7 +215,7 @@ def plot_consolidated_model_comparison(model_results, model_names=None, show_res
 
     # 1. CONSOLIDATED SCATTER PLOTS WITH SELECTABLE TRACES
     if show_metrics:
-        print("\n📈 Creating consolidated prediction accuracy plots...")
+        print("\nTREND Creating consolidated prediction accuracy plots...")
 
         fig_scatter = make_subplots(
             rows=2, cols=2,
@@ -284,7 +284,7 @@ def plot_consolidated_model_comparison(model_results, model_names=None, show_res
 
     # 2. CONSOLIDATED RESIDUAL ANALYSIS
     if show_residuals:
-        print("\n🔍 Creating consolidated residual analysis...")
+        print("\n  Creating consolidated residual analysis...")
 
         fig_residuals = make_subplots(
             rows=2, cols=2,
@@ -374,7 +374,7 @@ def plot_consolidated_model_comparison(model_results, model_names=None, show_res
 
         # Model Performance Comparison
         models = list(model_stats.keys())
-        metrics = ['R²', 'RMSE', 'MAE']
+        metrics = ['R^2', 'RMSE', 'MAE']
 
         for metric_name in metrics:
             metric_values = []
@@ -382,7 +382,7 @@ def plot_consolidated_model_comparison(model_results, model_names=None, show_res
                 # Average across all model variants
                 values = []
                 for key, model_stat_data in model_stats[model].items():
-                    if metric_name == 'R²':
+                    if metric_name == 'R^2':
                         values.append(model_stat_data['r2'])
                     elif metric_name == 'RMSE':
                         values.append(model_stat_data['rmse'])
@@ -413,34 +413,34 @@ def plot_consolidated_model_comparison(model_results, model_names=None, show_res
         fig_residuals.show()
 
     # 3. COMPREHENSIVE STATISTICAL SUMMARY
-    print("\n📋 CONSOLIDATED MODEL PERFORMANCE SUMMARY")
+    print("\n  CONSOLIDATED MODEL PERFORMANCE SUMMARY")
     print("="*70)
 
     for model_name in model_names:
         if model_name in model_stats:
-            print(f"\n🤖 {model_name.upper()} MODEL:")
+            print(f"\n  {model_name.upper()} MODEL:")
 
             total_predictions = sum(model_stat_data['count'] for model_stat_data in model_stats[model_name].values())
             avg_r2 = np.mean([model_stat_data['r2'] for model_stat_data in model_stats[model_name].values()])
             avg_rmse = np.mean([model_stat_data['rmse'] for model_stat_data in model_stats[model_name].values()])
             avg_mae = np.mean([model_stat_data['mae'] for model_stat_data in model_stats[model_name].values()])
 
-            print(f"   📊 Overall Performance:")
-            print(f"      • Total Predictions: {total_predictions}")
-            print(f"      • Average R²: {avg_r2:.4f}")
-            print(f"      • Average RMSE: {avg_rmse:.4f}")
-            print(f"      • Average MAE: {avg_mae:.4f}")
+            print(f"   CHART Overall Performance:")
+            print(f"      - Total Predictions: {total_predictions}")
+            print(f"      - Average R^2: {avg_r2:.4f}")
+            print(f"      - Average RMSE: {avg_rmse:.4f}")
+            print(f"      - Average MAE: {avg_mae:.4f}")
 
-            print(f"   📈 By Category:")
+            print(f"   TREND By Category:")
             for key, model_stat_data in model_stats[model_name].items():
                 category = key.replace('_', ' ').title()
-                print(f"      • {category}: R²={model_stat_data['r2']:.4f}, RMSE={model_stat_data['rmse']:.4f}, Count={model_stat_data['count']}")
+                print(f"      - {category}: R^2={model_stat_data['r2']:.4f}, RMSE={model_stat_data['rmse']:.4f}, Count={model_stat_data['count']}")
 
-    print(f"\n✅ CONSOLIDATED COMPARISON COMPLETE")
-    print(f"   📈 Unified scatter plots: All models on same plots with toggleable traces")
-    print(f"   🔍 Integrated residual analysis: Comprehensive diagnostic plots")
-    print(f"   📊 Statistical summary: Complete performance metrics")
-    print(f"   🖱️  Interactive legends: Click to show/hide individual models, use buttons for group control")
+    print(f"\nSUCCESS CONSOLIDATED COMPARISON COMPLETE")
+    print(f"   TREND Unified scatter plots: All models on same plots with toggleable traces")
+    print(f"     Integrated residual analysis: Comprehensive diagnostic plots")
+    print(f"   CHART Statistical summary: Complete performance metrics")
+    print(f"   CLICK  Interactive legends: Click to show/hide individual models, use buttons for group control")
 
     return model_stats
 
@@ -477,13 +477,13 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
     if model_names is None:
         from modules.modeling import select_best_models_by_category
         model_names = select_best_models_by_category(model_results)
-        print(f"🎯 Auto-selected models: {[m.upper() for m in model_names]}")
+        print(f"TARGET Auto-selected models: {[m.upper() for m in model_names]}")
 
     # FIXED: More robust data collection with debugging
     data = []
     data_found = False
 
-    print("🔍 Collecting data from model results...")
+    print("  Collecting data from model results...")
     for model in model_names:
         for player_type in ["hitter", "pitcher"]:
             for metric in ["war", "warp"]:
@@ -521,12 +521,12 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
                     print(f"   Key {key} not found in results")
 
     if not data_found or not data:
-        print("❌ No data available for quadrant analysis.")
+        print("ERROR No data available for quadrant analysis.")
         print("Available keys in model_results:", list(model_results.results.keys())[:10])
         return
 
     df = pd.DataFrame(data)
-    print(f"✅ Collected {len(df)} data points for analysis")
+    print(f"SUCCESS Collected {len(df)} data points for analysis")
 
     # Enhanced delta and error calculations
     df["WAR_Delta"] = df["Actual WAR"] - df["Predicted WAR"]
@@ -543,8 +543,8 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
     df["Both_Delta_1"] = df["WAR_Delta_1"] & df["WARP_Delta_1"]  # Green intersection
     df["Either_Delta_1"] = df["WAR_Delta_1"] | df["WARP_Delta_1"]  # Orange cross
 
-    df["AccuracyZone"] = df["In_Accuracy_Zone"].map({True: "≤10% Error Both", False: "Outside Zone"})
-    df["Delta1Zone"] = df["Both_Delta_1"].map({True: "Both ≤1", False: "Outside ±1"})
+    df["AccuracyZone"] = df["In_Accuracy_Zone"].map({True: "<=10% Error Both", False: "Outside Zone"})
+    df["Delta1Zone"] = df["Both_Delta_1"].map({True: "Both <=1", False: "Outside +-1"})
 
     # FIXED: Proper chronological sorting for animation frames
     unique_seasons = df[season_col].unique()
@@ -555,12 +555,12 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
         sorted_season_strings = [str(s) for s in sorted_seasons]
         # Create categorical with proper order
         df[season_col] = pd.Categorical(df[season_col], categories=sorted_season_strings, ordered=True)
-        print(f"📅 Sorted seasons chronologically: {sorted_season_strings}")
+        print(f"DATE Sorted seasons chronologically: {sorted_season_strings}")
     except (ValueError, TypeError):
         # Fallback to string sorting
         sorted_season_strings = sorted([str(s) for s in unique_seasons if s is not None])
         df[season_col] = pd.Categorical(df[season_col], categories=sorted_season_strings, ordered=True)
-        print(f"📅 Sorted seasons as strings: {sorted_season_strings}")
+        print(f"DATE Sorted seasons as strings: {sorted_season_strings}")
 
     min_val = min(df["WAR_Delta"].min(), df["WARP_Delta"].min())
     max_val = max(df["WAR_Delta"].max(), df["WARP_Delta"].max())
@@ -596,7 +596,7 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
     # Add dual accuracy zone visualization
     accuracy_shapes = []
 
-    # Orange cross lines (±1 margins)
+    # Orange cross lines (+-1 margins)
     accuracy_shapes.extend([
         dict(type="line", x0=-1, y0=min_val-buffer, x1=-1, y1=max_val+buffer,
              line=dict(color="orange", width=2, dash="dot")),
@@ -666,7 +666,7 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
 
     # Enhanced statistical summary with better formatting
     print("\n" + "="*60)
-    print("📊 INTERACTIVE QUADRANT ANALYSIS SUMMARY")
+    print("CHART INTERACTIVE QUADRANT ANALYSIS SUMMARY")
     print("="*60)
 
     for model in df["Model"].unique():
@@ -677,26 +677,26 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
         both_delta1 = mdf["Both_Delta_1"].sum()
         either_delta1 = mdf["Either_Delta_1"].sum()
 
-        print(f"\n🔍 {model.upper()} MODEL ({total} predictions):")
-        print(f"   📈 10% Accuracy Zone (both WAR & WARP): {acc_10pct}/{total} ({acc_10pct/total*100:.1f}%)")
-        print(f"   🎯 Delta 1 Cross (either ≤1): {either_delta1}/{total} ({either_delta1/total*100:.1f}%)")
-        print(f"   ✅ Delta 1 Intersection (both ≤1): {both_delta1}/{total} ({both_delta1/total*100:.1f}%)")
+        print(f"\n  {model.upper()} MODEL ({total} predictions):")
+        print(f"   TREND 10% Accuracy Zone (both WAR & WARP): {acc_10pct}/{total} ({acc_10pct/total*100:.1f}%)")
+        print(f"   TARGET Delta 1 Cross (either <=1): {either_delta1}/{total} ({either_delta1/total*100:.1f}%)")
+        print(f"   SUCCESS Delta 1 Intersection (both <=1): {both_delta1}/{total} ({both_delta1/total*100:.1f}%)")
 
         # Sample accurate players
         accurate_players = mdf[mdf["In_Accuracy_Zone"]]["Player"].unique()
         if len(accurate_players) > 0:
             sample = ", ".join(list(accurate_players[:3]))
-            print(f"   🌟 Sample accurate: {sample}{'...' if len(accurate_players) > 3 else ''}")
+            print(f"     Sample accurate: {sample}{'...' if len(accurate_players) > 3 else ''}")
 
-    print(f"\n💡 INTERACTIVE FEATURES:")
-    print(f"   🖱️  Legend: Click PlayerType/AccuracyZone to show/hide")
-    print(f"   🎬 Animation: Chronologically ordered year progression")
-    print(f"   🔘 Accuracy Zones: Toggle orange cross vs green intersection")
-    print(f"   🎯 Hover: Detailed player performance information")
+    print(f"\n  INTERACTIVE FEATURES:")
+    print(f"   CLICK  Legend: Click PlayerType/AccuracyZone to show/hide")
+    print(f"   ANIMATION Animation: Chronologically ordered year progression")
+    print(f"     Accuracy Zones: Toggle orange cross vs green intersection")
+    print(f"   TARGET Hover: Detailed player performance information")
 
 def plot_war_warp_animated(model_results, season_col="Season", model_names=None, show_hitters=True, show_pitchers=True):
     """
-    🎬 SOPHISTICATED ANIMATED WAR vs WARP ANALYSIS
+    ANIMATION SOPHISTICATED ANIMATED WAR vs WARP ANALYSIS
 
     Creates aesthetically pleasing animated visualizations with advanced Plotly features:
     - Smooth temporal transitions with custom easing
@@ -715,9 +715,9 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
     if model_names is None:
         from modules.modeling import select_best_models_by_category
         model_names = select_best_models_by_category(model_results)
-        print(f"🎯 Auto-selected models for cinematic animation: {[m.upper() for m in model_names]}")
+        print(f"TARGET Auto-selected models for cinematic animation: {[m.upper() for m in model_names]}")
 
-    print("🎬 Creating sophisticated animated analysis with enhanced aesthetics...")
+    print("ANIMATION Creating sophisticated animated analysis with enhanced aesthetics...")
 
     # Enhanced data collection with performance metrics
     data = []
@@ -738,21 +738,26 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
                 warp_data = model_results.results[warp_key]
 
                 # Enhanced player matching with performance tracking
-                for i, war_player in enumerate(war_data["player_names"]):
+                for i, (war_player, war_true, war_pred, war_season) in enumerate(zip(
+                    war_data["player_names"],
+                    war_data["y_true"],
+                    war_data["y_pred"],
+                    war_data.get(season_col, ["2021"] * len(war_data["player_names"]))
+                )):
                     if war_player in warp_data["player_names"]:
-                        warp_idx = warp_data["player_names"].index(war_player)
+                        warp_idx = list(warp_data["player_names"]).index(war_player)
+                        warp_true = list(warp_data["y_true"])[warp_idx]
+                        warp_pred = list(warp_data["y_pred"])[warp_idx]
 
                         # Enhanced season handling with chronological sorting
-                        season_value = "2021"
-                        if season_col in war_data and len(war_data[season_col]) > i:
-                            try:
-                                season_value = str(int(war_data[season_col][i]))
-                            except (ValueError, TypeError):
-                                season_value = str(war_data[season_col][i])
+                        try:
+                            season_value = str(int(war_season))
+                        except (ValueError, TypeError):
+                            season_value = str(war_season)
 
                         # Calculate accuracy metrics for enhanced visualization
-                        war_error = abs(war_data["y_true"][i] - war_data["y_pred"][i])
-                        warp_error = abs(warp_data["y_true"][warp_idx] - warp_data["y_pred"][warp_idx])
+                        war_error = abs(war_true - war_pred)
+                        warp_error = abs(warp_true - warp_pred)
                         combined_error = (war_error + warp_error) / 2
                         is_accurate = war_error <= 1.0 and warp_error <= 1.0
 
@@ -765,20 +770,20 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
                             "Model": model.title(),
                             "PlayerType": player_type.title(),
                             season_col: season_value,
-                            "Actual_WAR": war_data["y_true"][i],
-                            "Predicted_WAR": war_data["y_pred"][i],
-                            "Actual_WARP": warp_data["y_true"][warp_idx],
-                            "Predicted_WARP": warp_data["y_pred"][warp_idx],
+                            "Actual_WAR": war_true,
+                            "Predicted_WAR": war_pred,
+                            "Actual_WARP": warp_true,
+                            "Predicted_WARP": warp_pred,
                             "WAR_Error": war_error,
                             "WARP_Error": warp_error,
                             "Combined_Error": combined_error,
                             "Accuracy_Status": "High Accuracy" if is_accurate else "Lower Accuracy",
                             "Performance_Score": max(0, 5 - combined_error),  # 0-5 scale for sizing
-                            "Elite_Player": war_data["y_true"][i] > 3.0 or warp_data["y_true"][warp_idx] > 3.0
+                            "Elite_Player": war_true > 3.0 or warp_true > 3.0
                         })
 
     if not data:
-        print("❌ No matching WAR/WARP data available for animation")
+        print("ERROR No matching WAR/WARP data available for animation")
         return
 
     df = pd.DataFrame(data)
@@ -789,7 +794,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
         sorted_seasons = sorted([int(s) for s in unique_seasons])
         sorted_season_strings = [str(s) for s in sorted_seasons]
         df[season_col] = pd.Categorical(df[season_col], categories=sorted_season_strings, ordered=True)
-        print(f"📅 Temporal sequence: {sorted_season_strings}")
+        print(f"DATE Temporal sequence: {sorted_season_strings}")
     except (ValueError, TypeError):
         sorted_season_strings = sorted([str(s) for s in unique_seasons])
         df[season_col] = pd.Categorical(df[season_col], categories=sorted_season_strings, ordered=True)
@@ -797,7 +802,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
     # ENHANCED AESTHETIC FEATURES - Multiple visualization modes
 
     # 1. CINEMATIC BUBBLE ANIMATION with sophisticated styling
-    print("   🎨 Creating cinematic bubble animation...")
+    print("   STYLE Creating cinematic bubble animation...")
 
     fig_bubble = px.scatter(
         df,
@@ -810,7 +815,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
         animation_frame=season_col,
         animation_group="Player",
         facet_col="Model",
-        title="🎬 Cinematic WAR vs WARP Performance Analysis",
+        title="ANIMATION Cinematic WAR vs WARP Performance Analysis",
         color_continuous_scale="viridis_r",  # Beautiful gradient from purple to yellow
         size_max=25,
         template="plotly_dark",  # Cinematic dark theme
@@ -826,7 +831,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
         paper_bgcolor="rgba(0,0,0,0.95)",
         coloraxis_colorbar=dict(
             title="Prediction Error",
-            titlefont=dict(color="white"),
+            title_font=dict(color="white"),
             tickfont=dict(color="white")
         )
     )
@@ -851,7 +856,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
     fig_bubble.show()
 
     # 2. PERFORMANCE HEATMAP ANIMATION with gradient aesthetics
-    print("   🌈 Creating performance heatmap animation...")
+    print("     Creating performance heatmap animation...")
 
     # Create aggregated performance data for heatmap
     heatmap_data = df.groupby([season_col, "Model", "PlayerType"]).agg({
@@ -867,7 +872,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
         y="PlayerType",
         z="Performance_Score",
         animation_frame=season_col,
-        title="🌈 Performance Heatmap: Model Accuracy Over Time",
+        title="  Performance Heatmap: Model Accuracy Over Time",
         color_continuous_scale="plasma",  # Beautiful plasma gradient
         template="plotly_white",
         width=1000,
@@ -882,7 +887,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
     fig_heatmap.show()
 
     # 3. SOPHISTICATED 3D TEMPORAL SURFACE with advanced aesthetics
-    print("   📊 Creating 3D temporal performance surface...")
+    print("   CHART Creating 3D temporal performance surface...")
 
     # Sample data for 3D visualization (prevent overcrowding)
     sample_df = df.sample(n=min(200, len(df)), random_state=42) if len(df) > 200 else df
@@ -915,7 +920,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
         ))
 
     fig_3d.update_layout(
-        title="📊 3D Performance Landscape: WAR vs WARP vs Accuracy",
+        title="CHART 3D Performance Landscape: WAR vs WARP vs Accuracy",
         scene=dict(
             xaxis_title="Actual WAR",
             yaxis_title="Actual WARP",
@@ -935,7 +940,7 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
 
     # Enhanced statistical summary with aesthetic formatting
     print("\n" + "="*70)
-    print("🎬 SOPHISTICATED ANIMATION ANALYSIS SUMMARY")
+    print("ANIMATION SOPHISTICATED ANIMATION ANALYSIS SUMMARY")
     print("="*70)
 
     for model in model_names:
@@ -943,28 +948,28 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
             stats = performance_stats[model]
             accuracy_rate = (stats["accuracy_count"] / stats["total_count"] * 100) if stats["total_count"] > 0 else 0
 
-            print(f"\n🎯 {model.upper()} MODEL PERFORMANCE:")
-            print(f"   📊 Total Predictions: {stats['total_count']}")
-            print(f"   ✅ High Accuracy Rate: {accuracy_rate:.1f}% ({stats['accuracy_count']}/{stats['total_count']})")
+            print(f"\nTARGET {model.upper()} MODEL PERFORMANCE:")
+            print(f"   CHART Total Predictions: {stats['total_count']}")
+            print(f"   SUCCESS High Accuracy Rate: {accuracy_rate:.1f}% ({stats['accuracy_count']}/{stats['total_count']})")
 
             model_data = df[df["Model"] == model.title()]
             avg_error = model_data["Combined_Error"].mean()
-            print(f"   📈 Average Combined Error: {avg_error:.3f}")
+            print(f"   TREND Average Combined Error: {avg_error:.3f}")
 
-    print(f"\n🎨 AESTHETIC FEATURES IMPLEMENTED:")
-    print(f"   🎬 Cinematic bubble animation with smooth transitions")
-    print(f"   🌈 Performance heatmap with gradient aesthetics")
-    print(f"   📊 3D performance landscape visualization")
-    print(f"   🎯 Advanced color schemes (viridis, plasma, rainbow)")
-    print(f"   ⚡ Enhanced animation controls with cubic easing")
-    print(f"   🖱️  Interactive legends and hover details")
+    print(f"\nSTYLE AESTHETIC FEATURES IMPLEMENTED:")
+    print(f"   ANIMATION Cinematic bubble animation with smooth transitions")
+    print(f"     Performance heatmap with gradient aesthetics")
+    print(f"   CHART 3D performance landscape visualization")
+    print(f"   TARGET Advanced color schemes (viridis, plasma, rainbow)")
+    print(f"   ? Enhanced animation controls with cubic easing")
+    print(f"   CLICK  Interactive legends and hover details")
 
-    print(f"\n💫 VISUAL ENHANCEMENTS:")
-    print(f"   • Dark cinematic themes for professional presentation")
-    print(f"   • Gradient color scales for intuitive data interpretation")
-    print(f"   • Smooth animation transitions with custom timing")
-    print(f"   • 3D perspectives for comprehensive data exploration")
-    print(f"   • Performance-based sizing for visual emphasis")
+    print(f"\n  VISUAL ENHANCEMENTS:")
+    print(f"   - Dark cinematic themes for professional presentation")
+    print(f"   - Gradient color scales for intuitive data interpretation")
+    print(f"   - Smooth animation transitions with custom timing")
+    print(f"   - 3D perspectives for comprehensive data exploration")
+    print(f"   - Performance-based sizing for visual emphasis")
 
     return {
         'performance_stats': performance_stats,
