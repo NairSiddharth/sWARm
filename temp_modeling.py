@@ -121,6 +121,120 @@ def load_expanded_fangraphs_data(data_dir=None):
     else:
         return pd.DataFrame()
 
+def load_expanded_fangraphs_pitcher_data(data_dir=None):
+    """
+    Load expanded FanGraphs pitcher data with full appearance spectrum (0 to max appearances)
+    Uses new file structure: fangraphs_pitchers_xxxx.csv (main files with WAR)
+    """
+    import glob
+    print("Loading expanded FanGraphs pitcher data...")
+
+    if data_dir is None:
+        data_dir = r"C:\Users\nairs\Documents\GithubProjects\oWAR\MLB Player Data"
+
+    # Load main pitcher files (these contain WAR)
+    pitcher_files = glob.glob(os.path.join(data_dir, "FanGraphs_Data", "pitchers", "fangraphs_pitchers_*.csv"))
+    # Exclude the suffixed files, we only want the main files
+    pitcher_files = [f for f in pitcher_files if not any(suffix in f for suffix in ['_standard', '_advanced', '_battedball'])]
+
+    all_pitcher_data = []
+    for file in sorted(pitcher_files):
+        year = int(os.path.basename(file).split('_')[-1].replace('.csv', ''))
+
+        try:
+            df = pd.read_csv(file, encoding='utf-8-sig')
+
+            if 'WAR' in df.columns:
+                # Add year column
+                df['Year'] = year
+
+                all_pitcher_data.append(df)
+                print(f"   SUCCESS {year}: {len(df)} pitcher records loaded")
+            else:
+                print(f"   WARNING {year}: No WAR column found, skipping")
+
+        except Exception as e:
+            print(f"   ERROR {year}: Error loading - {e}")
+
+    if all_pitcher_data:
+        combined_pitchers = pd.concat(all_pitcher_data, ignore_index=True)
+
+        # Check appearance distribution to confirm expansion
+        if 'G' in combined_pitchers.columns:
+            print(f"\nExpanded FanGraphs pitcher data: {len(combined_pitchers)} total records")
+            print(f"   Games range: {combined_pitchers['G'].min()} to {combined_pitchers['G'].max()}")
+            print(f"   Pitchers with 0 G: {(combined_pitchers['G'] == 0).sum()}")
+            print(f"   Pitchers with <10 G: {(combined_pitchers['G'] < 10).sum()}")
+            print(f"   Pitchers with 30+ G: {(combined_pitchers['G'] >= 30).sum()}")
+
+        return combined_pitchers
+    else:
+        return pd.DataFrame()
+
+def filter_position_players_pitching(pitcher_df, two_way_analysis, data_source='war'):
+    """
+    Filter out position players who pitched but aren't qualified two-way players
+
+    Args:
+        pitcher_df: DataFrame with pitcher data
+        two_way_analysis: Result from get_cleaned_two_way_data()
+        data_source: 'war' or 'warp'
+
+    Returns:
+        Filtered DataFrame with only legitimate pitchers and qualified two-way players
+    """
+    if len(pitcher_df) == 0:
+        return pitcher_df
+
+    print(f"Filtering position players from {data_source.upper()} pitcher data...")
+
+    # Get data from updated two-way analysis structure
+    two_way_players = two_way_analysis['two_way_players']
+    emergency_pitching = two_way_analysis['filtered_data']['emergency_pitching']
+
+    # Create a set of legitimate pitcher names
+    legitimate_pitcher_names = set()
+
+    # Add qualified two-way players (these should definitely be included)
+    for player_key in two_way_players.keys():
+        name, year = player_key.rsplit('_', 1)
+        legitimate_pitcher_names.add(name)
+
+    # Create a set of emergency pitcher names to exclude
+    emergency_pitcher_names = set()
+    for emergency_player in emergency_pitching:
+        emergency_pitcher_names.add(emergency_player['name'])
+
+    # Filter the DataFrame
+    year_col = 'Season' if data_source == 'warp' else 'Year'
+
+    if 'Name' in pitcher_df.columns and year_col in pitcher_df.columns:
+        # Filtering logic:
+        # 1. Keep all pitchers who are NOT in the emergency pitcher list
+        # 2. Always keep qualified two-way players even if they might appear in other lists
+
+        # Create boolean mask
+        is_not_emergency = ~pitcher_df['Name'].isin(emergency_pitcher_names)
+        is_two_way_qualified = pitcher_df['Name'].isin(legitimate_pitcher_names)
+
+        # Keep if: not emergency OR is qualified two-way
+        keep_mask = is_not_emergency | is_two_way_qualified
+        filtered_df = pitcher_df[keep_mask].copy()
+
+        removed_count = len(pitcher_df) - len(filtered_df)
+        emergency_removed = len(pitcher_df[pitcher_df['Name'].isin(emergency_pitcher_names)])
+        two_way_kept = len(pitcher_df[pitcher_df['Name'].isin(legitimate_pitcher_names)])
+
+        print(f"  Removed {removed_count} emergency/position player pitching records")
+        print(f"  Emergency pitchers filtered: {emergency_removed}")
+        print(f"  Qualified two-way players kept: {two_way_kept}")
+        print(f"  Total legitimate pitcher records: {len(filtered_df)}")
+
+        return filtered_df
+    else:
+        print(f"  WARNING: Expected columns not found, returning original data")
+        return pitcher_df
+
 def filter_pitchers_from_hitting_data(df, data_source='war', year_col='Year'):
     """
     Filter out pitchers from hitting data, except qualified two-way players (2020+)
@@ -247,9 +361,23 @@ def prepare_data_for_kfold():
     hitter_warp = hitter_warp.reset_index(drop=True)
     hitter_war = hitter_war.reset_index(drop=True)
 
-    # For now, we'll focus on hitters since that's where the expansion happened
-    # Pitcher data will come later
-    pitcher_war = pd.DataFrame()  # Empty for now until pitcher expansion is done
+    # Load expanded pitcher data with two-way player logic
+    print("Loading EXPANDED pitcher data...")
+    pitcher_war_raw = load_expanded_fangraphs_pitcher_data()
+
+    # Apply two-way player logic to filter out position players pitching
+    from modules.two_way_players import get_cleaned_two_way_data
+    two_way_analysis = get_cleaned_two_way_data()
+
+    # Filter pitcher data using two-way logic
+    pitcher_war = filter_position_players_pitching(pitcher_war_raw, two_way_analysis, data_source='war')
+    pitcher_warp = filter_position_players_pitching(pitcher_warp, two_way_analysis, data_source='warp')
+
+    # Reset indices after filtering
+    pitcher_warp = pitcher_warp.reset_index(drop=True)
+    pitcher_war = pitcher_war.reset_index(drop=True)
+
+    print(f"Pitcher data after two-way filtering: {len(pitcher_warp)} WARP, {len(pitcher_war)} WAR")
 
     # Enhanced features
     enhanced_baserunning = calculate_enhanced_baserunning_values()
@@ -330,18 +458,29 @@ def prepare_data_for_kfold():
         print(f"Selected WARP features: {warp_features} (from {len(warp_available)} available)")
         print(f"Selected WAR features: {war_features} (from {len(war_available)} available)")
 
-        # Extract features and targets
-        warp_X = warp_enhanced[warp_features].fillna(0)
-        warp_y = warp_enhanced['WARP']
-        warp_names = warp_enhanced['Name']
-        # WARP data: Look for Season first, then Year - SAME AS MAIN NOTEBOOK
-        warp_years = warp_enhanced['Season'].tolist() if 'Season' in warp_enhanced.columns else warp_enhanced['Year'].tolist() if 'Year' in warp_enhanced.columns else ['2021'] * len(warp_enhanced)
+        # Extract features and targets with NaN cleaning
+        # Clean NaN values from target variables
+        warp_valid_mask = warp_enhanced['WARP'].notna()
+        war_valid_mask = war_enhanced['WAR'].notna()
 
-        war_X = war_enhanced[war_features].fillna(0)
-        war_y = war_enhanced['WAR']
-        war_names = war_enhanced['Name']
+        print(f"  WARP data: {warp_valid_mask.sum()}/{len(warp_enhanced)} records with valid WARP values")
+        print(f"  WAR data: {war_valid_mask.sum()}/{len(war_enhanced)} records with valid WAR values")
+
+        # Filter to only valid records
+        warp_clean = warp_enhanced[warp_valid_mask].reset_index(drop=True)
+        war_clean = war_enhanced[war_valid_mask].reset_index(drop=True)
+
+        warp_X = warp_clean[warp_features].fillna(0)
+        warp_y = warp_clean['WARP']
+        warp_names = warp_clean['Name']
+        # WARP data: Look for Season first, then Year - SAME AS MAIN NOTEBOOK
+        warp_years = warp_clean['Season'].tolist() if 'Season' in warp_clean.columns else warp_clean['Year'].tolist() if 'Year' in warp_clean.columns else ['2021'] * len(warp_clean)
+
+        war_X = war_clean[war_features].fillna(0)
+        war_y = war_clean['WAR']
+        war_names = war_clean['Name']
         # WAR data: Look for Year - SAME AS MAIN NOTEBOOK
-        war_years = war_enhanced['Year'].tolist() if 'Year' in war_enhanced.columns else ['2021'] * len(war_enhanced)
+        war_years = war_clean['Year'].tolist() if 'Year' in war_clean.columns else ['2021'] * len(war_clean)
 
         return {
             'warp': {'X': warp_X, 'y': warp_y, 'names': warp_names, 'years': warp_years},

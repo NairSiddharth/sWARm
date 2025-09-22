@@ -52,16 +52,16 @@ def load_primary_datasets():
 
     try:
         _primary_dataframes = {
-            'hitter_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "hittersByGame(player_offense_data).csv"), low_memory=False),
-            'pitcher_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "pitchersByGame(pitcher_data).csv"), low_memory=False),
-            'baserunning_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "baserunningNotes(player_offense_data).csv")),
-            'fielding_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "fieldingNotes(player_defensive_data).csv")),
-            'warp_hitter_df': pd.read_csv(os.path.join(DATA_DIR, "bp_hitters_2021.csv")),
-            'warp_pitcher_df': pd.read_csv(os.path.join(DATA_DIR, "bp_pitchers_2021.csv")),
-            'oaa_hitter_df': pd.read_csv(os.path.join(DATA_DIR, "outs_above_average.csv")),
-            'fielding_df': pd.read_csv(os.path.join(DATA_DIR, "fieldingNotes(player_defensive_data).csv")),
-            'baserunning_df': pd.read_csv(os.path.join(DATA_DIR, "baserunningNotes(player_offense_data).csv")),
-            'war_df': pd.read_csv(os.path.join(DATA_DIR, "FanGraphs Leaderboard.csv"))
+            'hitter_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "Original_Data", "game_by_game", "hittersByGame(player_offense_data).csv"), low_memory=False),
+            'pitcher_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "Original_Data", "game_by_game", "pitchersByGame(pitcher_data).csv"), low_memory=False),
+            'baserunning_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "Original_Data", "game_by_game", "baserunningNotes(player_offense_data).csv")),
+            'fielding_by_game_df': pd.read_csv(os.path.join(DATA_DIR, "Original_Data", "game_by_game", "fieldingNotes(player_defensive_data).csv")),
+            'warp_hitter_df': pd.read_csv(os.path.join(DATA_DIR, "BP_Data", "hitters", "bp_hitters_2021.csv")),
+            'warp_pitcher_df': pd.read_csv(os.path.join(DATA_DIR, "BP_Data", "pitchers", "bp_pitchers_2021.csv")),
+            'oaa_hitter_df': pd.read_csv(os.path.join(DATA_DIR, "Statcast_Data", "outs_above_average.csv")),
+            'fielding_df': pd.read_csv(os.path.join(DATA_DIR, "Original_Data", "game_by_game", "fieldingNotes(player_defensive_data).csv")),
+            'baserunning_df': pd.read_csv(os.path.join(DATA_DIR, "Original_Data", "game_by_game", "baserunningNotes(player_offense_data).csv")),
+            'war_df': pd.read_csv(os.path.join(DATA_DIR, "FanGraphs_Data", "FanGraphs Leaderboard.csv"))
         }
 
         print(f"Successfully loaded {len(_primary_dataframes)} primary datasets:")
@@ -235,13 +235,13 @@ def load_comprehensive_fangraphs_data():
 
     # Load hitters data (3 types per year: basic, advanced, standard)
     for year in range(2016, 2025):  # 2016-2024
-        print(f"\n📅 Processing {year}...")
+        print(f"\nProcessing {year}...")
 
         # Hitters - combine 3 data types
         hitter_files = {
-            'basic': os.path.join(DATA_DIR, f'fangraphs_hitters_{year}.csv'),
-            'advanced': os.path.join(DATA_DIR, f'fangraphs_hitters_advanced_{year}.csv'),
-            'standard': os.path.join(DATA_DIR, f'fangraphs_hitters_standard_{year}.csv')
+            'basic': os.path.join(DATA_DIR, "FanGraphs_Data", "hitters", f'fangraphs_hitters_{year}.csv'),
+            'advanced': os.path.join(DATA_DIR, "FanGraphs_Data", "hitters", f'fangraphs_hitters_advanced_{year}.csv'),
+            'standard': os.path.join(DATA_DIR, "FanGraphs_Data", "hitters", f'fangraphs_hitters_standard_{year}.csv')
         }
 
         hitter_data = {}
@@ -258,11 +258,14 @@ def load_comprehensive_fangraphs_data():
                             if key not in hitter_data:
                                 hitter_data[key] = {'name': name, 'year': year, 'team': row.get('Team', 'UNK')}
 
-                            # Add all columns with prefix for data type
+                            # Add all columns with prefix for data type (preserve MLBAMID)
                             for col, val in row.items():
-                                if col not in ['Name', 'Team', 'NameASCII', 'PlayerId', 'MLBAMID']:
+                                if col not in ['Name', 'Team', 'NameASCII', 'PlayerId']:
                                     prefixed_col = f"{data_type}_{col}" if data_type != 'basic' else col
                                     hitter_data[key][prefixed_col] = val
+                                elif col == 'MLBAMID':
+                                    # Always preserve MLBAMID for player identification
+                                    hitter_data[key]['MLBAMID'] = val
 
                     print(f"  Hitters {data_type}: {len(df)} players loaded")
                 except Exception as e:
@@ -274,9 +277,9 @@ def load_comprehensive_fangraphs_data():
 
         # Pitchers - combine 3 data types
         pitcher_files = {
-            'basic': os.path.join(DATA_DIR, f'fangraphs_pitchers_{year}.csv'),
-            'advanced': os.path.join(DATA_DIR, f'fangraphs_pitchers_advanced_{year}.csv'),
-            'standard': os.path.join(DATA_DIR, f'fangraphs_pitchers_standard_{year}.csv')
+            'basic': os.path.join(DATA_DIR, "FanGraphs_Data", "pitchers", f'fangraphs_pitchers_{year}.csv'),
+            'advanced': os.path.join(DATA_DIR, "FanGraphs_Data", "pitchers", f'fangraphs_pitchers_advanced_{year}.csv'),
+            'standard': os.path.join(DATA_DIR, "FanGraphs_Data", "pitchers", f'fangraphs_pitchers_standard_{year}.csv')
         }
 
         pitcher_data = {}
@@ -293,11 +296,14 @@ def load_comprehensive_fangraphs_data():
                             if key not in pitcher_data:
                                 pitcher_data[key] = {'name': name, 'year': year, 'team': row.get('Team', 'UNK')}
 
-                            # Add all columns with prefix for data type
+                            # Add all columns with prefix for data type (preserve MLBAMID)
                             for col, val in row.items():
-                                if col not in ['Name', 'Team', 'NameASCII', 'PlayerId', 'MLBAMID']:
+                                if col not in ['Name', 'Team', 'NameASCII', 'PlayerId']:
                                     prefixed_col = f"{data_type}_{col}" if data_type != 'basic' else col
                                     pitcher_data[key][prefixed_col] = val
+                                elif col == 'MLBAMID':
+                                    # Always preserve MLBAMID for player identification
+                                    pitcher_data[key]['MLBAMID'] = val
 
                     print(f"  Pitchers {data_type}: {len(df)} players loaded")
                 except Exception as e:
@@ -309,8 +315,8 @@ def load_comprehensive_fangraphs_data():
 
         # Defensive data - combine advanced and standard
         defensive_files = {
-            'advanced': os.path.join(DATA_DIR, f'fangraphs_defensive_advanced_{year}.csv'),
-            'standard': os.path.join(DATA_DIR, f'fangraphs_defensive_standard_{year}.csv')
+            'advanced': os.path.join(DATA_DIR, "FanGraphs_Data", "defensive", f'fangraphs_defensive_advanced_{year}.csv'),
+            'standard': os.path.join(DATA_DIR, "FanGraphs_Data", "defensive", f'fangraphs_defensive_standard_{year}.csv')
         }
 
         defensive_data = {}
@@ -345,7 +351,7 @@ def load_comprehensive_fangraphs_data():
     try:
         with open(cache_file, 'w', encoding='utf-8') as f:
             json.dump(fangraphs_data, f, indent=2, default=str)  # default=str handles pandas dtypes
-        print(f"\n💾 Cached comprehensive FanGraphs data:")
+        print(f"\nCached comprehensive FanGraphs data:")
         print(f"  Hitters: {len(fangraphs_data['hitters'])} player-seasons")
         print(f"  Pitchers: {len(fangraphs_data['pitchers'])} player-seasons")
         print(f"  Defensive: {len(fangraphs_data['defensive'])} player-seasons")
@@ -384,7 +390,7 @@ def load_yearly_bp_data():
 
     # Load hitters data (2016-2024)
     for year in range(2016, 2025):  # 2016-2024
-        filename = os.path.join(DATA_DIR, f'bp_hitters_{year}.csv')
+        filename = os.path.join(DATA_DIR, "BP_Data", "hitters", f'bp_hitters_{year}.csv')
         if not os.path.exists(filename):
             continue
 
@@ -421,11 +427,11 @@ def load_yearly_bp_data():
         # For 2022-2024, load both regular and standard versions as user requested
         if year >= 2022:
             filenames = [
-                os.path.join(DATA_DIR, f'bp_pitchers_{year}.csv'),
-                os.path.join(DATA_DIR, f'bp_pitchers_{year}_standard.csv')
+                os.path.join(DATA_DIR, "BP_Data", "pitchers", f'bp_pitchers_{year}.csv'),
+                os.path.join(DATA_DIR, "BP_Data", "pitchers", f'bp_pitchers_{year}_standard.csv')
             ]
         else:
-            filenames = [os.path.join(DATA_DIR, f'bp_pitchers_{year}.csv')]
+            filenames = [os.path.join(DATA_DIR, "BP_Data", "pitchers", f'bp_pitchers_{year}.csv')]
 
         players_loaded = 0
         for filename in filenames:
@@ -513,7 +519,7 @@ def load_yearly_catcher_framing_data():
     }
 
     for year in range(2016, 2022):
-        filename = os.path.join(DATA_DIR, f'catcher_framing_{year}.csv')
+        filename = os.path.join(DATA_DIR, "Statcast_Data", f'catcher_framing_{year}.csv')
         if not os.path.exists(filename):
             print(f"  Missing file: {filename}")
             continue
