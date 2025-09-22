@@ -97,7 +97,7 @@ def load_fixed_bp_data(data_dir=None):
 
     # Load hitter data
     print("\nProcessing BP Hitter Data:")
-    hitter_files = glob.glob(os.path.join(data_dir, "bp_hitters_*.csv"))
+    hitter_files = glob.glob(os.path.join(data_dir, "BP_Data", "hitters", "bp_hitters_*.csv"))
     hitter_files = [f for f in hitter_files if STANDARD_FILE_FILTER not in f]  # Exclude standard files
 
     all_hitter_data = []
@@ -111,6 +111,10 @@ def load_fixed_bp_data(data_dir=None):
                 # Standardize WARP column name
                 if 'BWARP' in df.columns and 'WARP' not in df.columns:
                     df = df.rename(columns={'BWARP': 'WARP'})
+
+                # Standardize Name column (pre-2020 uses 'NAME', post-2020 uses 'Name')
+                if 'NAME' in df.columns and 'Name' not in df.columns:
+                    df = df.rename(columns={'NAME': 'Name'})
 
                 # Add year and season info
                 df['Season'] = year
@@ -129,7 +133,7 @@ def load_fixed_bp_data(data_dir=None):
 
     # Load pitcher data
     print("\nProcessing BP Pitcher Data:")
-    pitcher_files = glob.glob(os.path.join(data_dir, "bp_pitchers_*.csv"))
+    pitcher_files = glob.glob(os.path.join(data_dir, "BP_Data", "pitchers", "bp_pitchers_*.csv"))
     pitcher_files = [f for f in pitcher_files if STANDARD_FILE_FILTER not in f]  # Exclude standard files
 
     all_pitcher_data = []
@@ -143,6 +147,10 @@ def load_fixed_bp_data(data_dir=None):
                 # Standardize WARP column name
                 if 'PWARP' in df.columns and 'WARP' not in df.columns:
                     df = df.rename(columns={'PWARP': 'WARP'})
+
+                # Standardize Name column (pre-2020 uses 'NAME', post-2020 uses 'Name')
+                if 'NAME' in df.columns and 'Name' not in df.columns:
+                    df = df.rename(columns={'NAME': 'Name'})
 
                 # Add year and season info
                 df['Season'] = year

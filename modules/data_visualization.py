@@ -696,14 +696,15 @@ def plot_quadrant_analysis_px_toggle(model_results, season_col="Season", model_n
 
 def plot_war_warp_animated(model_results, season_col="Season", model_names=None, show_hitters=True, show_pitchers=True):
     """
-    ANIMATION SOPHISTICATED ANIMATED WAR vs WARP ANALYSIS
+    ANIMATION SOPHISTICATED ANIMATED WAR vs WARP PREDICTION ANALYSIS
 
-    Creates aesthetically pleasing animated visualizations with advanced Plotly features:
+    Creates aesthetically pleasing animated visualizations showing predicted vs actual values:
+    - 4 subplots: Predicted Hitter WAR, Predicted Pitcher WAR, Predicted Hitter WARP, Predicted Pitcher WARP
+    - X-axis: Predicted values, Y-axis: Actual values
     - Smooth temporal transitions with custom easing
     - Dynamic color schemes and visual themes
-    - Interactive accuracy zones with gradient fills
-    - Performance metrics overlay with animated counters
-    - Professional styling with enhanced typography
+    - Perfect prediction diagonal lines for reference
+    - Reduced dot size to prevent overlap
 
     Args:
         model_results: ModelResults object with prediction data
@@ -717,113 +718,138 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
         model_names = select_best_models_by_category(model_results)
         print(f"TARGET Auto-selected models for cinematic animation: {[m.upper() for m in model_names]}")
 
-    print("ANIMATION Creating sophisticated animated analysis with enhanced aesthetics...")
+    print("ANIMATION Creating sophisticated predicted vs actual animated analysis...")
+    print("DEBUG Available model result keys:", list(model_results.results.keys())[:10])
 
-    # Enhanced data collection with performance metrics
-    data = []
+    # FIXED: Use exact same data collection approach as consolidated model comparison
+    all_data = []
     performance_stats = {}
 
-    for model in model_names:
-        performance_stats[model] = {"accuracy_count": 0, "total_count": 0}
+    print(f"DEBUG Selected models: {model_names}")
+    print(f"DEBUG First 10 available keys: {list(model_results.results.keys())[:10]}")
 
-        for player_type in ["hitter", "pitcher"]:
+    for model_name in model_names:
+        performance_stats[model_name] = {"accuracy_count": 0, "total_count": 0}
+        print(f"DEBUG Processing model: {model_name}")
+
+        for player_type in ['hitter', 'pitcher']:
             if (player_type == "hitter" and not show_hitters) or (player_type == "pitcher" and not show_pitchers):
                 continue
 
-            war_key = f"{model}_{player_type}_war"
-            warp_key = f"{model}_{player_type}_warp"
+            for metric in ['war', 'warp']:
+                key = f"{model_name}_{player_type}_{metric}"
+                print(f"DEBUG Checking key: {key}")
 
-            if war_key in model_results.results and warp_key in model_results.results:
-                war_data = model_results.results[war_key]
-                warp_data = model_results.results[warp_key]
+                if key in model_results.results:
+                    data = model_results.results[key]
+                    print(f"DEBUG Found {len(data['y_true'])} data points for {key}")
 
-                # Enhanced player matching with performance tracking
-                for i, (war_player, war_true, war_pred, war_season) in enumerate(zip(
-                    war_data["player_names"],
-                    war_data["y_true"],
-                    war_data["y_pred"],
-                    war_data.get(season_col, ["2021"] * len(war_data["player_names"]))
-                )):
-                    if war_player in warp_data["player_names"]:
-                        warp_idx = list(warp_data["player_names"]).index(war_player)
-                        warp_true = list(warp_data["y_true"])[warp_idx]
-                        warp_pred = list(warp_data["y_pred"])[warp_idx]
+                    if len(data['y_true']) > 0:
+                        y_true = np.array(data['y_true'])
+                        y_pred = np.array(data['y_pred'])
 
-                        # Enhanced season handling with chronological sorting
-                        try:
-                            season_value = str(int(war_season))
-                        except (ValueError, TypeError):
-                            season_value = str(war_season)
+                        # Add to plotting data - using exact same approach as consolidated function
+                        for i in range(len(y_true)):
+                            # Get season data if available
+                            if season_col in data and i < len(data[season_col]):
+                                season = data[season_col][i]
+                                try:
+                                    season_str = str(int(float(str(season))))
+                                except (ValueError, TypeError):
+                                    season_str = str(season) if season is not None else "2021"
+                            else:
+                                season_str = "2021"
 
-                        # Calculate accuracy metrics for enhanced visualization
-                        war_error = abs(war_true - war_pred)
-                        warp_error = abs(warp_true - warp_pred)
-                        combined_error = (war_error + warp_error) / 2
-                        is_accurate = war_error <= 1.0 and warp_error <= 1.0
+                            error = abs(y_true[i] - y_pred[i])
+                            is_accurate = error <= 1.0
 
-                        performance_stats[model]["total_count"] += 1
-                        if is_accurate:
-                            performance_stats[model]["accuracy_count"] += 1
+                            performance_stats[model_name]["total_count"] += 1
+                            if is_accurate:
+                                performance_stats[model_name]["accuracy_count"] += 1
 
-                        data.append({
-                            "Player": war_player,
-                            "Model": model.title(),
-                            "PlayerType": player_type.title(),
-                            season_col: season_value,
-                            "Actual_WAR": war_true,
-                            "Predicted_WAR": war_pred,
-                            "Actual_WARP": warp_true,
-                            "Predicted_WARP": warp_pred,
-                            "WAR_Error": war_error,
-                            "WARP_Error": warp_error,
-                            "Combined_Error": combined_error,
-                            "Accuracy_Status": "High Accuracy" if is_accurate else "Lower Accuracy",
-                            "Performance_Score": max(0, 5 - combined_error),  # 0-5 scale for sizing
-                            "Elite_Player": war_true > 3.0 or warp_true > 3.0
-                        })
+                            all_data.append({
+                                'Model': model_name.title(),
+                                'PlayerType': player_type.title(),
+                                'Metric': metric.upper(),
+                                'Category': f"{player_type.title()} {metric.upper()}",
+                                'Actual': y_true[i],
+                                'Predicted': y_pred[i],
+                                'Error': error,
+                                'Player': data['player_names'][i] if 'player_names' in data and i < len(data['player_names']) else f"Player_{i}",
+                                season_col: season_str,
+                                "Accuracy_Status": "High Accuracy" if is_accurate else "Lower Accuracy",
+                                "Performance_Score": max(0.5, 3 - error),
+                                "Elite_Player": y_true[i] > 3.0
+                            })
+                else:
+                    print(f"WARNING: Key {key} not found in model_results.results")
+
+    # Rename for consistency with rest of function
+    data = all_data
 
     if not data:
         print("ERROR No matching WAR/WARP data available for animation")
+        print("Available keys:", list(model_results.results.keys()))
         return
 
     df = pd.DataFrame(data)
+    print(f"SUCCESS Collected {len(df)} total data points")
+    print("DEBUG Data breakdown by category:")
+    for category in df["Category"].unique():
+        count = len(df[df["Category"] == category])
+        print(f"  {category}: {count} points")
 
-    # Enhanced chronological sorting for smooth animation
+    # FIXED: Enhanced chronological sorting for smooth animation
     unique_seasons = df[season_col].unique()
-    try:
-        sorted_seasons = sorted([int(s) for s in unique_seasons])
+    print(f"DEBUG Raw seasons found: {sorted(unique_seasons)}")
+
+    # Better season cleaning and sorting
+    clean_seasons = []
+    for s in unique_seasons:
+        if s is not None and str(s).strip():
+            try:
+                season_int = int(float(str(s)))  # Handle potential float strings
+                clean_seasons.append(season_int)
+            except (ValueError, TypeError):
+                print(f"WARNING: Could not convert season '{s}' to integer")
+
+    if clean_seasons:
+        sorted_seasons = sorted(set(clean_seasons))  # Remove duplicates and sort
         sorted_season_strings = [str(s) for s in sorted_seasons]
         df[season_col] = pd.Categorical(df[season_col], categories=sorted_season_strings, ordered=True)
-        print(f"DATE Temporal sequence: {sorted_season_strings}")
-    except (ValueError, TypeError):
-        sorted_season_strings = sorted([str(s) for s in unique_seasons])
-        df[season_col] = pd.Categorical(df[season_col], categories=sorted_season_strings, ordered=True)
+        print(f"DATE FIXED Chronological sequence: {sorted_season_strings}")
+    else:
+        print("ERROR: No valid seasons found")
+        return
 
-    # ENHANCED AESTHETIC FEATURES - Multiple visualization modes
-
-    # 1. CINEMATIC BUBBLE ANIMATION with sophisticated styling
-    print("   STYLE Creating cinematic bubble animation...")
+    # Create the main predicted vs actual animation with 4 subplots
+    print("   STYLE Creating predicted vs actual comparison animation...")
 
     fig_bubble = px.scatter(
         df,
-        x="Actual_WAR",
-        y="Actual_WARP",
+        x="Predicted",
+        y="Actual",
         size="Performance_Score",
-        color="Combined_Error",
-        symbol="PlayerType",
+        color="Error",
         hover_name="Player",
         animation_frame=season_col,
         animation_group="Player",
-        facet_col="Model",
+        facet_col="Category",
+        facet_col_wrap=2,  # 2x2 grid layout
         title="ANIMATION Cinematic WAR vs WARP Performance Analysis",
-        color_continuous_scale="viridis_r",  # Beautiful gradient from purple to yellow
-        size_max=25,
-        template="plotly_dark",  # Cinematic dark theme
+        color_continuous_scale="viridis_r",
+        size_max=12,  # Restored per user request
+        template="plotly_dark",
         width=1400,
-        height=800
+        height=800,
+        labels={
+            "Predicted": "Predicted Value",
+            "Actual": "Actual Value",
+            "Error": "Prediction Error"
+        }
     )
 
-    # Enhanced styling for cinematic effect
+    # FIXED: Enhanced styling with visible axes
     fig_bubble.update_layout(
         font=dict(family="Arial Black", size=12, color="white"),
         title=dict(font=dict(size=20), x=0.5, xanchor="center"),
@@ -836,146 +862,130 @@ def plot_war_warp_animated(model_results, season_col="Season", model_names=None,
         )
     )
 
-    # Add aesthetic reference lines with gradients
-    val_range = max(df["Actual_WAR"].max(), df["Actual_WARP"].max())
-    val_min = min(df["Actual_WAR"].min(), df["Actual_WARP"].min())
-
-    fig_bubble.add_shape(
-        type="line",
-        x0=val_min, y0=val_min, x1=val_range, y1=val_range,
-        line=dict(color="rgba(255,255,255,0.3)", width=2, dash="dash"),
-        name="Perfect Correlation"
+    # FIXED: Make axes numbers visible and granular
+    fig_bubble.update_xaxes(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='rgba(255,255,255,0.2)',
+        tickfont=dict(color="white", size=10),
+        dtick=1,  # Show tick every 1 unit
+        tickcolor="white",
+        showticklabels=True
     )
 
+    fig_bubble.update_yaxes(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='rgba(255,255,255,0.2)',
+        tickfont=dict(color="white", size=10),
+        dtick=1,  # Show tick every 1 unit
+        tickcolor="white",
+        showticklabels=True
+    )
+
+    # FIXED: Add perfect prediction diagonal lines and regression trendlines
+    from scipy.stats import linregress
+
+    categories = df['Category'].unique()
+    subplot_positions = [(1, 1), (1, 2), (2, 1), (2, 2)]  # row, col for 2x2 grid
+
+    for i, category in enumerate(categories):
+        category_data = df[df['Category'] == category]
+        if len(category_data) > 0:
+            predicted_vals = category_data["Predicted"].values
+            actual_vals = category_data["Actual"].values
+
+            min_val = min(predicted_vals.min(), actual_vals.min())
+            max_val = max(predicted_vals.max(), actual_vals.max())
+
+            # Add buffer for better visualization
+            buffer = (max_val - min_val) * 0.1
+            min_val -= buffer
+            max_val += buffer
+
+            if i < len(subplot_positions):
+                row, col = subplot_positions[i]
+
+                # Perfect prediction diagonal line (y=x)
+                fig_bubble.add_shape(
+                    type="line",
+                    x0=min_val, y0=min_val,
+                    x1=max_val, y1=max_val,
+                    line=dict(color="rgba(255,255,255,0.8)", width=2, dash="dash"),
+                    row=row, col=col
+                )
+
+                # Add regression trendline
+                if len(predicted_vals) > 1:
+                    slope, intercept, r_value, p_value, std_err = linregress(predicted_vals, actual_vals)
+
+                    # Calculate trendline points
+                    x_trend = np.array([min_val, max_val])
+                    y_trend = slope * x_trend + intercept
+
+                    fig_bubble.add_shape(
+                        type="line",
+                        x0=x_trend[0], y0=y_trend[0],
+                        x1=x_trend[1], y1=y_trend[1],
+                        line=dict(color="rgba(255,165,0,0.9)", width=3, dash="solid"),
+                        row=row, col=col
+                    )
+
     # Enhanced animation controls with smooth transitions
-    fig_bubble.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1500
-    fig_bubble.layout.updatemenus[0].buttons[0].args[1]["frame"]["redraw"] = True
-    fig_bubble.layout.updatemenus[0].buttons[0].args[1]["transition"]["duration"] = 800
-    fig_bubble.layout.updatemenus[0].buttons[0].args[1]["transition"]["easing"] = "cubic-in-out"
+    if fig_bubble.layout.updatemenus and len(fig_bubble.layout.updatemenus) > 0:
+        fig_bubble.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1500
+        fig_bubble.layout.updatemenus[0].buttons[0].args[1]["frame"]["redraw"] = True
+        fig_bubble.layout.updatemenus[0].buttons[0].args[1]["transition"]["duration"] = 800
+        fig_bubble.layout.updatemenus[0].buttons[0].args[1]["transition"]["easing"] = "cubic-in-out"
 
     fig_bubble.show()
 
-    # 2. PERFORMANCE HEATMAP ANIMATION with gradient aesthetics
-    print("     Creating performance heatmap animation...")
-
-    # Create aggregated performance data for heatmap
-    heatmap_data = df.groupby([season_col, "Model", "PlayerType"]).agg({
-        "Combined_Error": "mean",
-        "Performance_Score": "mean",
-        "Player": "count"
-    }).reset_index()
-    heatmap_data.rename(columns={"Player": "Player_Count"}, inplace=True)
-
-    fig_heatmap = px.density_heatmap(
-        heatmap_data,
-        x="Model",
-        y="PlayerType",
-        z="Performance_Score",
-        animation_frame=season_col,
-        title="  Performance Heatmap: Model Accuracy Over Time",
-        color_continuous_scale="plasma",  # Beautiful plasma gradient
-        template="plotly_white",
-        width=1000,
-        height=600
-    )
-
-    fig_heatmap.update_layout(
-        font=dict(family="Arial", size=12),
-        title=dict(font=dict(size=18), x=0.5, xanchor="center")
-    )
-
-    fig_heatmap.show()
-
-    # 3. SOPHISTICATED 3D TEMPORAL SURFACE with advanced aesthetics
-    print("   CHART Creating 3D temporal performance surface...")
-
-    # Sample data for 3D visualization (prevent overcrowding)
-    sample_df = df.sample(n=min(200, len(df)), random_state=42) if len(df) > 200 else df
-
-    fig_3d = go.Figure()
-
-    # Add 3D scatter with sophisticated styling
-    for model in sample_df["Model"].unique():
-        model_data = sample_df[sample_df["Model"] == model]
-
-        fig_3d.add_trace(go.Scatter3d(
-            x=model_data["Actual_WAR"],
-            y=model_data["Actual_WARP"],
-            z=model_data["Performance_Score"],
-            mode="markers",
-            marker=dict(
-                size=8,
-                color=model_data["Combined_Error"],
-                colorscale="rainbow",
-                opacity=0.8,
-                line=dict(width=2, color="white")
-            ),
-            text=model_data["Player"],
-            name=f"{model} Model",
-            hovertemplate="<b>%{text}</b><br>" +
-                         "WAR: %{x:.2f}<br>" +
-                         "WARP: %{y:.2f}<br>" +
-                         "Performance: %{z:.2f}<br>" +
-                         "<extra></extra>"
-        ))
-
-    fig_3d.update_layout(
-        title="CHART 3D Performance Landscape: WAR vs WARP vs Accuracy",
-        scene=dict(
-            xaxis_title="Actual WAR",
-            yaxis_title="Actual WARP",
-            zaxis_title="Performance Score",
-            bgcolor="rgba(0,0,0,0.1)",
-            xaxis=dict(gridcolor="rgba(255,255,255,0.3)"),
-            yaxis=dict(gridcolor="rgba(255,255,255,0.3)"),
-            zaxis=dict(gridcolor="rgba(255,255,255,0.3)")
-        ),
-        template="plotly_dark",
-        width=1200,
-        height=800,
-        font=dict(family="Arial", size=11)
-    )
-
-    fig_3d.show()
-
     # Enhanced statistical summary with aesthetic formatting
     print("\n" + "="*70)
-    print("ANIMATION SOPHISTICATED ANIMATION ANALYSIS SUMMARY")
+    print("ANIMATION PREDICTED VS ACTUAL ANALYSIS SUMMARY")
     print("="*70)
+
+    # Group by category to show performance for each subplot
+    for category in df["Category"].unique():
+        category_data = df[df["Category"] == category]
+        total_points = len(category_data)
+        accurate_points = len(category_data[category_data["Accuracy_Status"] == "High Accuracy"])
+        accuracy_rate = (accurate_points / total_points * 100) if total_points > 0 else 0
+        avg_error = category_data["Error"].mean()
+
+        print(f"\n{category.upper()}:")
+        print(f"   CHART Total Predictions: {total_points}")
+        print(f"   SUCCESS High Accuracy Rate: {accuracy_rate:.1f}% ({accurate_points}/{total_points})")
+        print(f"   TREND Average Error: {avg_error:.3f}")
 
     for model in model_names:
         if model in performance_stats:
             stats = performance_stats[model]
             accuracy_rate = (stats["accuracy_count"] / stats["total_count"] * 100) if stats["total_count"] > 0 else 0
 
-            print(f"\nTARGET {model.upper()} MODEL PERFORMANCE:")
+            print(f"\nTARGET {model.upper()} MODEL OVERALL:")
             print(f"   CHART Total Predictions: {stats['total_count']}")
             print(f"   SUCCESS High Accuracy Rate: {accuracy_rate:.1f}% ({stats['accuracy_count']}/{stats['total_count']})")
 
-            model_data = df[df["Model"] == model.title()]
-            avg_error = model_data["Combined_Error"].mean()
-            print(f"   TREND Average Combined Error: {avg_error:.3f}")
-
-    print(f"\nSTYLE AESTHETIC FEATURES IMPLEMENTED:")
-    print(f"   ANIMATION Cinematic bubble animation with smooth transitions")
-    print(f"     Performance heatmap with gradient aesthetics")
-    print(f"   CHART 3D performance landscape visualization")
-    print(f"   TARGET Advanced color schemes (viridis, plasma, rainbow)")
-    print(f"   ? Enhanced animation controls with cubic easing")
+    print(f"\nSTYLE UPDATED FEATURES IMPLEMENTED:")
+    print(f"   ANIMATION Predicted vs Actual comparison with 4 subplots")
+    print(f"   CHART X-axis: Predicted values, Y-axis: Actual values")
+    print(f"   TARGET Perfect prediction diagonal lines for reference")
+    print(f"   ? Reduced dot size (12 max) to prevent overlap")
+    print(f"   DATE Proper chronological year ordering")
     print(f"   CLICK  Interactive legends and hover details")
 
-    print(f"\n  VISUAL ENHANCEMENTS:")
-    print(f"   - Dark cinematic themes for professional presentation")
-    print(f"   - Gradient color scales for intuitive data interpretation")
-    print(f"   - Smooth animation transitions with custom timing")
-    print(f"   - 3D perspectives for comprehensive data exploration")
-    print(f"   - Performance-based sizing for visual emphasis")
+    print(f"\n  SUBPLOT BREAKDOWN:")
+    print(f"   - Hitter WAR: Predicted Hitter WAR vs Actual Hitter WAR")
+    print(f"   - Hitter WARP: Predicted Hitter WARP vs Actual Hitter WARP")
+    print(f"   - Pitcher WAR: Predicted Pitcher WAR vs Actual Pitcher WAR")
+    print(f"   - Pitcher WARP: Predicted Pitcher WARP vs Actual Pitcher WARP")
 
     return {
         'performance_stats': performance_stats,
         'total_observations': len(df),
         'temporal_range': sorted_season_strings,
-        'aesthetic_features': ['cinematic_animation', 'gradient_heatmap', '3d_surface', 'smooth_transitions']
+        'aesthetic_features': ['predicted_vs_actual', 'four_subplots', 'chronological_animation', 'reduced_overlap']
     }
 
 # Export all functions for easy import

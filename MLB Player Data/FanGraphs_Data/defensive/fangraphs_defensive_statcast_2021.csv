@@ -1,0 +1,2411 @@
+﻿Name,Team,Pos,G,GS,Inn,Throwing,Blocking,Framing,Arm,Range,FRV,NameASCII,PlayerId,MLBAMID
+"Nicky Lopez","KCR","SS",148,141,1233.2,,,,1,18,21,"Nicky Lopez",19339,670032
+"Michael A. Taylor","KCR","CF",139,135,1186,,,,7,13,20,"Michael A. Taylor",11489,572191
+"Francisco Lindor","NYM","SS",124,122,1029.1,,,,0,16,16,"Francisco Lindor",12916,596019
+"Matt Chapman","OAK","3B",150,150,1314.2,,,,0,13,15,"Matt Chapman",16505,656305
+"Nick Ahmed","ARI","SS",127,118,1028,,,,0,14,14,"Nick Ahmed",12147,605113
+"Tucker Barnhart","CIN","C",102,97,846,1,2,9,,,13,"Tucker Barnhart",10200,571466
+"Andrelton Simmons","MIN","SS",131,126,1091.2,,,,0,12,13,"Andrelton Simmons",10847,592743
+"Enrique Hernández","BOS","CF",93,81,716,,,,4,7,12,"Enrique Hernandez",10472,571771
+"Kevin Kiermaier","TBR","CF",116,101,894.2,,,,3,9,12,"Kevin Kiermaier",11038,595281
+"Jose Trevino","TEX","C",88,81,713,-3,2,13,,,12,"Jose Trevino",16725,624431
+"Harrison Bader","STL","CF",103,101,886.2,,,,0,12,12,"Harrison Bader",18030,664056
+"Jacob Stallings","PIT","C",104,103,892,0,5,6,,,11,"Jacob Stallings",13723,607732
+"Max Stassi","LAA","C",86,80,703,-1,1,11,,,10,"Max Stassi",10059,545358
+"Joey Gallo","- - -","RF",92,89,764.2,,,,4,6,10,"Joey Gallo",14128,608336
+"Ke'Bryan Hayes","PIT","3B",95,89,766.1,,,,0,9,10,"Ke'Bryan Hayes",18577,663647
+"Bryan Reynolds","PIT","CF",137,131,1133.2,,,,0,10,10,"Bryan Reynolds",19326,668804
+"Brandon Crawford","SFG","SS",135,130,1165.2,,,,0,11,9,"Brandon Crawford",5343,543063
+"Tomás Nido","NYM","C",52,45,365.2,3,0,7,,,9,"Tomas Nido",13755,621512
+"Carlos Correa","HOU","SS",148,147,1304.2,,,,1,8,9,"Carlos Correa",14162,621043
+"Jonah Heim","TEX","C",78,73,641,-1,-1,11,,,9,"Jonah Heim",16930,641680
+"Myles Straw","- - -","CF",156,149,1338,,,,0,8,9,"Myles Straw",17620,664702
+"Sean Murphy","OAK","C",112,104,923.1,1,3,5,,,9,"Sean Murphy",19352,669221
+"Jean Segura","PHI","2B",128,127,1080.1,,,,0,6,8,"Jean Segura",5933,516416
+"Yadier Molina","STL","C",118,118,1001.1,4,1,3,,,8,"Yadier Molina",7007,425877
+"Buster Posey","SFG","C",106,102,892,1,4,3,,,8,"Buster Posey",9166,457763
+"Nolan Arenado","STL","3B",155,155,1312,,,,0,7,8,"Nolan Arenado",9777,571448
+"Kyle Seager","SEA","3B",149,148,1302.2,,,,0,4,8,"Kyle Seager",9785,572122
+"J.T. Realmuto","PHI","C",118,112,973,1,2,5,,,8,"J.T. Realmuto",11739,592663
+"Max Kepler","MIN","RF",97,90,785.2,,,,1,7,8,"Max Kepler",12144,596146
+"Byron Buxton","MIN","CF",60,59,509.2,,,,1,7,8,"Byron Buxton",14161,621439
+"Ryan McMahon","COL","3B",113,95,848.2,,,,0,7,8,"Ryan McMahon",15112,641857
+"Cedric Mullins","BAL","CF",153,146,1264,,,,-2,10,8,"Cedric Mullins",17929,656775
+"Josh Harrison","- - -","2B",102,91,799.1,,,,0,6,7,"Josh Harrison",8202,543281
+"Christian Vázquez","BOS","C",132,119,1051.1,2,2,3,,,7,"Christian Vazquez",9774,543877
+"Rougned Odor","NYY","2B",74,60,539.2,,,,0,6,7,"Rougned Odor",12282,596059
+"Mike Zunino","TBR","C",105,97,860.1,-1,-2,9,,,7,"Mike Zunino",13265,572287
+"José Ramírez","CLE","3B",133,132,1141,,,,0,6,7,"Jose Ramirez",13510,608070
+"Tyler O'Neill","STL","LF",131,129,1105,,,,3,4,7,"Tyler O'Neill",15711,641933
+"David Fletcher","LAA","2B",142,140,1211.2,,,,0,6,7,"David Fletcher",17992,664058
+"Adolis García","TEX","RF",51,50,448,,,,3,4,7,"Adolis Garcia",19287,666969
+"Tommy Edman","STL","2B",130,115,1032.1,,,,0,9,7,"Tommy Edman",19470,669242
+"Nico Hoerner","CHC","2B",30,30,251.1,,,,0,7,7,"Nico Hoerner",21479,663538
+"Manny Piña","MIL","C",65,52,452.1,3,2,1,,,6,"Manny Pina",2829,444489
+"Yan Gomes","- - -","C",92,90,771.1,4,4,-2,,,6,"Yan Gomes",9627,543228
+"Whit Merrifield","KCR","2B",149,147,1255.2,,,,0,4,6,"Whit Merrifield",11281,593160
+"Cam Gallagher","KCR","C",46,33,308.2,0,3,4,,,6,"Cam Gallagher",12981,595956
+"Brett Phillips","TBR","CF",52,39,372.1,,,,0,6,6,"Brett Phillips",14735,621433
+"Reese McGuire","TOR","C",73,61,523,1,1,4,,,6,"Reese McGuire",15674,624512
+"Aledmys Díaz","HOU","3B",30,28,248,,,,0,6,6,"Aledmys Diaz",15937,649557
+"Bradley Zimmer","CLE","CF",54,45,394.2,,,,0,6,6,"Bradley Zimmer",16221,605548
+"Sergio Alcántara","CHC","SS",55,44,388.1,,,,0,4,6,"Sergio Alcantara",16417,642727
+"Leody Taveras","TEX","CF",48,46,402,,,,0,6,6,"Leody Taveras",18900,665750
+"Adolis García","TEX","CF",79,76,668.1,,,,1,4,6,"Adolis Garcia",19287,666969
+"Ryan Jeffers","MIN","C",84,77,670.2,-1,1,6,,,6,"Ryan Jeffers",24618,680777
+"Jason Heyward","CHC","RF",97,92,784,,,,1,4,5,"Jason Heyward",4940,518792
+"Paul Goldschmidt","STL","1B",153,153,1313,,,,0,5,5,"Paul Goldschmidt",9218,502671
+"Starling Marte","- - -","CF",120,117,1022.2,,,,4,0,5,"Starling Marte",9241,516782
+"Darin Ruf","SFG","1B",44,31,300.2,,,,0,4,5,"Darin Ruf",9929,573131
+"Odúbel Herrera","PHI","CF",104,92,819.1,,,,1,4,5,"Odubel Herrera",11476,546318
+"Austin Hedges","CLE","C",87,85,743.2,0,3,2,,,5,"Austin Hedges",12976,595978
+"Max Muncy","LAD","1B",122,101,901,,,,0,6,5,"Max Muncy",13301,571970
+"Patrick Wisdom","CHC","3B",77,63,572.2,,,,0,4,5,"Patrick Wisdom",13602,621550
+"Manuel Margot","TBR","LF",24,12,122.2,,,,0,4,5,"Manuel Margot",14712,622534
+"Manuel Margot","TBR","RF",86,70,656.2,,,,-3,8,5,"Manuel Margot",14712,622534
+"Hunter Renfroe","BOS","RF",138,133,1166,,,,7,-2,5,"Hunter Renfroe",15464,592669
+"Steven Duggar","SFG","CF",93,66,599,,,,1,4,5,"Steven Duggar",17719,621453
+"Ronald Acuña Jr.","ATL","RF",80,79,662.1,,,,3,1,5,"Ronald Acuna Jr.",18401,660670
+"Will Smith","LAD","C",117,111,1004.2,2,0,3,,,5,"Will Smith",19197,669257
+"Chas McCormick","HOU","RF",22,20,183,,,,0,5,5,"Chas McCormick",19599,676801
+"Luis Robert Jr.","CHW","CF",67,67,575.1,,,,1,4,5,"Luis Robert Jr.",20043,673357
+"Ben Rortvedt","MIN","C",39,28,256,1,1,3,,,5,"Ben Rortvedt",20287,666163
+"Jazz Chisholm Jr.","MIA","2B",91,87,739.1,,,,0,4,5,"Jazz Chisholm Jr.",20454,665862
+"Anthony Rizzo","- - -","1B",139,137,1190,,,,0,4,4,"Anthony Rizzo",3473,519203
+"Jose Altuve","HOU","2B",144,143,1263,,,,0,3,4,"Jose Altuve",5417,514888
+"Elvis Andrus","OAK","SS",143,141,1246.1,,,,0,4,4,"Elvis Andrus",8709,462101
+"Lorenzo Cain","MIL","CF",70,69,592.2,,,,-1,5,4,"Lorenzo Cain",9077,456715
+"Adam Duvall","- - -","RF",78,59,537,,,,2,1,4,"Adam Duvall",10950,594807
+"Jonathan Schoop","DET","1B",114,103,905.2,,,,0,3,4,"Jonathan Schoop",11265,570731
+"Jesús Aguilar","MIA","1B",113,112,962.1,,,,0,2,4,"Jesus Aguilar",11342,542583
+"Ronald Torreyes","PHI","3B",50,40,354.1,,,,0,3,4,"Ronald Torreyes",11400,591720
+"Manny Machado","SDP","3B",144,144,1238.1,,,,0,2,4,"Manny Machado",11493,592518
+"Marcus Semien","TOR","2B",147,146,1246.1,,,,0,5,4,"Marcus Semien",12533,543760
+"José Peraza","NYM","2B",36,32,257,,,,0,5,4,"Jose Peraza",13593,606299
+"Brett Phillips","TBR","RF",46,35,310,,,,2,2,4,"Brett Phillips",14735,621433
+"Kyle Farmer","CIN","SS",121,115,1008.2,,,,0,4,4,"Kyle Farmer",14813,571657
+"Kevin Newman","PIT","SS",132,123,1074.1,,,,0,3,4,"Kevin Newman",17696,621028
+"Dylan Moore","SEA","2B",66,56,507.1,,,,0,3,4,"Dylan Moore",18042,664238
+"Dylan Moore","SEA","LF",48,34,285.1,,,,0,4,4,"Dylan Moore",18042,664238
+"Trent Grisham","SDP","CF",127,118,1043.1,,,,0,4,4,"Trent Grisham",18564,663757
+"Guillermo Heredia","ATL","CF",108,82,718.2,,,,-1,5,4,"Guillermo Heredia",18721,628338
+"Garrett Hampson","COL","CF",91,74,649.1,,,,-1,5,4,"Garrett Hampson",19262,641658
+"Chas McCormick","HOU","CF",33,29,253.1,,,,1,3,4,"Chas McCormick",19599,676801
+"Ryan McKenna","BAL","LF",50,24,235.2,,,,1,3,4,"Ryan McKenna",19928,663630
+"Santiago Espinal","TOR","3B",81,62,551.2,,,,0,3,4,"Santiago Espinal",19997,669289
+"Jake Meyers","HOU","CF",39,31,293.1,,,,0,4,4,"Jake Meyers",20308,676694
+"David Peralta","ARI","LF",137,123,1074.2,,,,-1,4,3,"David Peralta",2136,444482
+"Roberto Pérez","CLE","C",43,43,364,0,2,1,,,3,"Roberto Perez",2900,547379
+"Eduardo Escobar","ARI","2B",42,31,284.1,,,,0,2,3,"Eduardo Escobar",6153,500871
+"Adam Duvall","- - -","CF",30,25,210.2,,,,1,2,3,"Adam Duvall",10950,594807
+"Adrián Sanchez","WSN","2B",9,7,69.1,,,,0,3,3,"Adrian Sanchez",11338,506703
+"Niko Goodrum","DET","SS",66,60,534.1,,,,0,2,3,"Niko Goodrum",12092,592348
+"Brandon Nimmo","NYM","CF",84,82,678.2,,,,0,3,3,"Brandon Nimmo",12927,607043
+"Omar Narváez","MIL","C",111,100,886.1,1,-3,5,,,3,"Omar Narvaez",13338,553882
+"Erik González","PIT","3B",38,31,282,,,,0,3,3,"Erik Gonzalez",13369,570481
+"Joey Wendle","TBR","3B",107,82,766,,,,0,3,3,"Joey Wendle",13853,621563
+"Tim Anderson","CHW","SS",122,122,1048,,,,0,2,3,"Tim Anderson",15172,641313
+"Jake Bauers","- - -","1B",54,37,354,,,,0,3,3,"Jake Bauers",15194,641343
+"Jake Bauers","SEA","RF",23,20,175,,,,2,1,3,"Jake Bauers",15194,641343
+"Adam Frazier","- - -","2B",140,134,1159.2,,,,0,1,3,"Adam Frazier",15223,624428
+"Mike Tauchman","- - -","LF",45,22,229,,,,0,3,3,"Mike Tauchman",15274,643565
+"Jack Mayfield","- - -","3B",68,59,529,,,,0,2,3,"Jack Mayfield",15402,608686
+"J.P. Crawford","SEA","SS",160,159,1412.1,,,,0,0,3,"J.P. Crawford",15491,641487
+"Billy McKinney","- - -","RF",48,41,357.2,,,,1,2,3,"Billy McKinney",15654,641856
+"Yonathan Daza","COL","RF",22,15,138,,,,1,2,3,"Yonathan Daza",15794,602074
+"Austin Nola","SDP","C",48,46,399,0,0,3,,,3,"Austin Nola",15941,543592
+"Derek Hill","DET","CF",45,41,341,,,,2,1,3,"Derek Hill",16947,656537
+"Magneuris Sierra","MIA","CF",54,36,336,,,,1,2,3,"Magneuris Sierra",17023,642423
+"Ramón Laureano","OAK","CF",75,75,653,,,,3,0,3,"Ramon Laureano",17128,657656
+"Paul DeJong","STL","SS",107,100,873,,,,0,3,3,"Paul DeJong",18015,657557
+"Dansby Swanson","ATL","SS",159,158,1372,,,,0,2,3,"Dansby Swanson",18314,621020
+"Victor Robles","WSN","CF",104,93,792.1,,,,1,2,3,"Victor Robles",18363,645302
+"Lewin Díaz","MIA","1B",32,29,258.2,,,,0,3,3,"Lewin Diaz",18365,650331
+"Andy Ibáñez","TEX","2B",31,28,248.1,,,,0,3,3,"Andy Ibanez",18819,628451
+"Eli White","TEX","LF",30,28,247.2,,,,-1,4,3,"Eli White",19346,642201
+"Andrés Giménez","CLE","SS",42,36,322.1,,,,0,3,3,"Andres Gimenez",19950,665926
+"Taylor Trammell","SEA","CF",37,36,312.2,,,,0,2,3,"Taylor Trammell",19960,666211
+"Nico Hoerner","CHC","SS",12,12,98,,,,0,3,3,"Nico Hoerner",21479,663538
+"Charlie Culberson","TEX","3B",68,60,516,,,,0,3,2,"Charlie Culberson",3298,518586
+"Eric Hosmer","SDP","1B",131,129,1113.1,,,,0,1,2,"Eric Hosmer",3516,543333
+"Jarrod Dyson","- - -","CF",38,20,195.1,,,,0,2,2,"Jarrod Dyson",4866,502481
+"Freddie Freeman","ATL","1B",159,158,1358,,,,0,3,2,"Freddie Freeman",5361,518692
+"Juan Lagares","LAA","CF",62,51,470.1,,,,0,2,2,"Juan Lagares",5384,501571
+"Kyle Higashioka","NYY","C",66,58,519.1,-3,1,4,,,2,"Kyle Higashioka",5517,543309
+"Martín Maldonado","HOU","C",123,118,1010.2,2,1,-1,,,2,"Martin Maldonado",6887,455117
+"Travis d'Arnaud","ATL","C",57,53,470.2,-1,1,2,,,2,"Travis d'Arnaud",7739,518595
+"Josh Harrison","- - -","3B",23,15,136.2,,,,0,2,2,"Josh Harrison",8202,543281
+"Ehire Adrianza","ATL","3B",16,8,81,,,,0,2,2,"Ehire Adrianza",8418,501303
+"Jonathan Villar","NYM","SS",26,23,199,,,,0,1,2,"Jonathan Villar",10071,542340
+"Randal Grichuk","TOR","CF",96,87,735.1,,,,0,2,2,"Randal Grichuk",10243,545341
+"Adam Duvall","- - -","LF",51,48,407.1,,,,2,1,2,"Adam Duvall",10950,594807
+"Jake Marisnick","SDP","LF",20,6,78.1,,,,0,2,2,"Jake Marisnick",11339,545350
+"Mark Canha","OAK","CF",23,21,187.2,,,,1,1,2,"Mark Canha",11445,592192
+"Willson Contreras","CHC","C",116,112,935.2,0,2,0,,,2,"Willson Contreras",11609,575929
+"Elias Díaz","COL","C",98,87,775,3,2,-3,,,2,"Elias Diaz",11680,553869
+"Joe Panik","- - -","2B",27,21,186.1,,,,0,1,2,"Joe Panik",11936,605412
+"Jon Berti","MIA","2B",27,17,181.1,,,,0,1,2,"Jon Berti",12037,542932
+"Austin Barnes","LAD","C",52,51,442.1,-1,0,3,,,2,"Austin Barnes",12158,605131
+"Kolten Wong","MIL","2B",113,108,937,,,,0,1,2,"Kolten Wong",12532,543939
+"George Springer","TOR","CF",40,40,327.2,,,,-1,3,2,"George Springer",12856,543807
+"Javier Báez","NYM","2B",35,32,285.2,,,,0,2,2,"Javier Baez",12979,595879
+"Jackie Bradley Jr.","MIL","RF",17,9,105,,,,1,1,2,"Jackie Bradley Jr.",12984,598265
+"Josh Bell","WSN","1B",119,116,983,,,,0,3,2,"Josh Bell",13145,605137
+"Christian Walker","ARI","1B",107,99,866,,,,0,2,2,"Christian Walker",13419,572233
+"Roman Quinn","PHI","CF",21,10,106,,,,1,1,2,"Roman Quinn",13546,596451
+"Adalberto Mondesi","KCR","3B",20,20,175,,,,0,2,2,"Adalberto Mondesi",13769,609275
+"Adalberto Mondesi","KCR","SS",11,10,82.1,,,,0,1,2,"Adalberto Mondesi",13769,609275
+"Joey Wendle","TBR","SS",25,23,198.2,,,,0,2,2,"Joey Wendle",13853,621563
+"Anthony Alford","PIT","LF",32,28,253,,,,-1,3,2,"Anthony Alford",14329,546990
+"David Bote","CHC","2B",61,54,468.2,,,,0,0,2,"David Bote",14593,623520
+"Manuel Margot","TBR","CF",24,22,182,,,,0,2,2,"Manuel Margot",14712,622534
+"Yu Chang","CLE","3B",21,13,120,,,,0,2,2,"Yu Chang",14773,644374
+"Mike Yastrzemski","SFG","CF",34,29,227.1,,,,1,1,2,"Mike Yastrzemski",14854,573262
+"Pat Valaika","BAL","2B",72,58,505.1,,,,0,4,2,"Pat Valaika",14885,642162
+"Jonathan Davis","- - -","CF",55,25,248.1,,,,1,1,2,"Jonathan Davis",15104,641505
+"Mitch Garver","MIN","C",59,53,451.2,-1,0,3,,,2,"Mitch Garver",15161,641598
+"Jeff McNeil","NYM","2B",79,73,605.2,,,,0,3,2,"Jeff McNeil",15362,643446
+"Jeff McNeil","NYM","LF",28,26,217,,,,1,1,2,"Jeff McNeil",15362,643446
+"Justin Williams","STL","LF",19,16,139.2,,,,2,0,2,"Justin Williams",15490,642211
+"Mike Ford","NYY","1B",21,18,156.2,,,,0,1,2,"Mike Ford",15585,645801
+"Cody Bellinger","LAD","CF",87,74,674.2,,,,0,2,2,"Cody Bellinger",15998,641355
+"Bradley Zimmer","CLE","RF",43,37,347.1,,,,0,3,2,"Bradley Zimmer",16221,605548
+"Nick Gordon","MIN","2B",17,13,110,,,,0,1,2,"Nick Gordon",16337,624503
+"Sergio Alcántara","CHC","2B",22,18,158.2,,,,0,2,2,"Sergio Alcantara",16417,642727
+"Thairo Estrada","SFG","2B",16,7,80.2,,,,1,1,2,"Thairo Estrada",16426,642731
+"Luis Guillorme","NYM","2B",18,13,114,,,,0,1,2,"Luis Guillorme",16451,641645
+"Mauricio Dubón","SFG","CF",27,13,133.1,,,,0,2,2,"Mauricio Dubon",16530,643289
+"Yandy Díaz","TBR","1B",81,66,603.2,,,,0,2,2,"Yandy Diaz",16578,650490
+"Michael Chavis","- - -","2B",29,20,181.2,,,,0,2,2,"Michael Chavis",17321,656308
+"Alex Bregman","HOU","3B",90,90,782.2,,,,0,0,2,"Alex Bregman",17678,608324
+"Ty France","SEA","1B",106,101,915,,,,0,1,2,"Ty France",17982,664034
+"Dylan Moore","SEA","3B",10,4,48,,,,0,2,2,"Dylan Moore",18042,664238
+"Seth Brown","OAK","CF",4,2,20,,,,1,1,2,"Seth Brown",18171,664913
+"Seth Brown","OAK","RF",75,50,472,,,,-1,3,2,"Seth Brown",18171,664913
+"Pete Alonso","NYM","1B",148,148,1243.2,,,,0,3,2,"Pete Alonso",19251,624413
+"Garrett Hampson","COL","2B",47,30,288.1,,,,0,1,2,"Garrett Hampson",19262,641658
+"DJ Peters","- - -","CF",29,22,210,,,,0,2,2,"DJ Peters",19348,656847
+"Austin Hays","BAL","RF",54,42,360,,,,0,2,2,"Austin Hays",19363,669720
+"Chas McCormick","HOU","LF",51,20,249.2,,,,0,3,2,"Chas McCormick",19599,676801
+"Fernando Tatis Jr.","SDP","SS",102,101,842.1,,,,0,1,2,"Fernando Tatis Jr.",19709,665487
+"Daulton Varsho","ARI","CF",30,21,199.1,,,,2,1,2,"Daulton Varsho",19918,662139
+"Luke Williams","PHI","CF",15,11,73.1,,,,0,2,2,"Luke Williams",19931,663897
+"Gavin Lux","LAD","2B",27,26,206,,,,0,3,2,"Gavin Lux",19955,666158
+"Tres Barrera","WSN","C",29,27,233,-1,0,2,,,2,"Tres Barrera",19977,668663
+"Isaac Paredes","DET","2B",10,9,80,,,,0,1,2,"Isaac Paredes",20036,670623
+"Alex Kirilloff","MIN","1B",29,25,213.2,,,,0,2,2,"Alex Kirilloff",20325,666135
+"Ernie Clement","CLE","2B",22,22,188.1,,,,0,1,2,"Ernie Clement",20352,676391
+"Ernie Clement","CLE","3B",16,13,112.1,,,,0,2,2,"Ernie Clement",20352,676391
+"Cal Raleigh","SEA","C",43,36,333,-1,-1,3,,,2,"Cal Raleigh",21534,663728
+"Tucupita Marcano","SDP","2B",8,5,41.2,,,,0,2,2,"Tucupita Marcano",22871,672779
+"José Barrero","CIN","SS",9,7,65,,,,0,1,2,"Jose Barrero",23378,676480
+"Owen Miller","CLE","2B",29,25,220,,,,0,1,2,"Owen Miller",24655,680911
+"Shogo Akiyama","CIN","CF",48,29,295,,,,0,1,2,"Shogo Akiyama",27461,673451
+"Ha-Seong Kim","SDP","2B",21,20,148,,,,0,1,2,"Ha-Seong Kim",27506,673490
+"Pete Kozma","OAK","SS",3,3,25.1,,,,0,1,1,"Pete Kozma",2539,518902
+"Tommy Pham","SDP","CF",11,10,91,,,,0,1,1,"Tommy Pham",2967,502054
+"Charlie Culberson","TEX","2B",4,3,26.1,,,,0,0,1,"Charlie Culberson",3298,518586
+"Charlie Culberson","TEX","LF",6,5,41.2,,,,1,0,1,"Charlie Culberson",3298,518586
+"Joey Votto","CIN","1B",123,122,1042.2,,,,0,1,1,"Joey Votto",4314,458015
+"Jarrod Dyson","KCR","RF",34,7,115,,,,-1,2,1,"Jarrod Dyson",4866,502481
+"Ender Inciarte","ATL","CF",37,17,169.1,,,,0,1,1,"Ender Inciarte",4922,542255
+"Stephen Vogt","- - -","C",63,57,496,-1,1,2,,,1,"Stephen Vogt",5000,519390
+"Josh Donaldson","MIN","3B",92,91,761,,,,0,2,1,"Josh Donaldson",5038,518626
+"Marwin Gonzalez","- - -","1B",17,14,113,,,,0,1,1,"Marwin Gonzalez",5497,503556
+"Marwin Gonzalez","- - -","2B",39,32,277.1,,,,0,0,1,"Marwin Gonzalez",5497,503556
+"Marwin Gonzalez","BOS","SS",12,9,85,,,,0,0,1,"Marwin Gonzalez",5497,503556
+"J.D. Martinez","BOS","LF",30,28,247.1,,,,1,0,1,"J.D. Martinez",6184,502110
+"Freddy Galvis","PHI","3B",19,17,154.1,,,,0,0,1,"Freddy Galvis",6609,520471
+"Eric Sogard","CHC","SS",4,3,22,,,,0,1,1,"Eric Sogard",7927,519299
+"DJ LeMahieu","NYY","1B",55,33,321,,,,0,1,1,"DJ LeMahieu",9874,518934
+"DJ LeMahieu","NYY","2B",83,77,663,,,,0,0,1,"DJ LeMahieu",9874,518934
+"Darin Ruf","SFG","RF",5,3,29.2,,,,2,-1,1,"Darin Ruf",9929,573131
+"Wil Myers","SDP","LF",13,10,87,,,,1,0,1,"Wil Myers",10047,571976
+"Wil Myers","SDP","RF",118,107,934.1,,,,1,0,1,"Wil Myers",10047,571976
+"Billy Hamilton","CHW","LF",18,5,68.1,,,,0,0,1,"Billy Hamilton",10199,571740
+"Jose Iglesias","BOS","2B",18,14,123,,,,0,1,1,"Jose Iglesias",10231,578428
+"Brandon Belt","SFG","1B",93,85,764.2,,,,0,2,1,"Brandon Belt",10264,474832
+"Danny Santana","BOS","1B",14,11,98.1,,,,0,1,1,"Danny Santana",10322,542454
+"Danny Santana","BOS","LF",7,4,42.2,,,,1,0,1,"Danny Santana",10322,542454
+"Corey Dickerson","TOR","CF",10,9,62,,,,0,1,1,"Corey Dickerson",10762,572816
+"Jurickson Profar","SDP","1B",20,12,127.1,,,,0,1,1,"Jurickson Profar",10815,595777
+"Phil Gosselin","LAA","1B",23,21,171,,,,0,1,1,"Phil Gosselin",10953,594838
+"Mike Freeman","CIN","3B",7,2,27.2,,,,0,1,1,"Mike Freeman",11241,502273
+"Jonathan Schoop","DET","2B",38,38,313.1,,,,0,0,1,"Jonathan Schoop",11265,570731
+"Jake Marisnick","- - -","CF",52,30,283,,,,-1,2,1,"Jake Marisnick",11339,545350
+"Ronald Torreyes","PHI","SS",44,38,333.1,,,,0,1,1,"Ronald Torreyes",11400,591720
+"Mark Canha","OAK","RF",27,20,174.2,,,,-1,1,1,"Mark Canha",11445,592192
+"Tony Wolters","CHC","C",8,5,54.1,0,1,1,,,1,"Tony Wolters",11470,547172
+"Hanser Alberto","KCR","3B",49,30,294,,,,0,1,1,"Hanser Alberto",11902,593643
+"Niko Goodrum","DET","CF",8,4,39.1,,,,0,1,1,"Niko Goodrum",12092,592348
+"Taylor Motter","COL","RF",1,1,8,,,,1,0,1,"Taylor Motter",12399,600301
+"Kevin Pillar","NYM","CF",57,49,401.2,,,,2,-1,1,"Kevin Pillar",12434,607680
+"Kevin Pillar","NYM","LF",52,16,182.2,,,,0,0,1,"Kevin Pillar",12434,607680
+"Breyvic Valera","TOR","3B",21,17,140,,,,0,2,1,"Breyvic Valera",12758,591971
+"Brad Miller","PHI","2B",13,8,74.1,,,,0,1,1,"Brad Miller",12775,543543
+"Phillip Evans","PIT","3B",14,12,101.2,,,,0,1,1,"Phillip Evans",12950,595943
+"Jackie Bradley Jr.","MIL","CF",89,79,722,,,,0,1,1,"Jackie Bradley Jr.",12984,598265
+"Teoscar Hernández","TOR","LF",58,24,250,,,,0,2,1,"Teoscar Hernandez",13066,606192
+"Robel García","HOU","2B",9,6,59,,,,0,1,1,"Robel Garcia",13167,596825
+"Orlando Arcia","MIL","3B",3,2,18,,,,0,1,1,"Orlando Arcia",13185,606115
+"Orlando Arcia","- - -","SS",5,3,33,,,,0,1,1,"Orlando Arcia",13185,606115
+"Jacob Wilson","- - -","3B",6,4,33,,,,0,1,1,"Jacob Wilson",13254,607111
+"Erik González","PIT","1B",13,10,84.1,,,,0,1,1,"Erik Gonzalez",13369,570481
+"Roman Quinn","PHI","LF",2,1,10,,,,0,1,1,"Roman Quinn",13546,596451
+"Mookie Betts","LAD","CF",30,25,212,,,,0,2,1,"Mookie Betts",13611,605141
+"Tyrone Taylor","MIL","RF",29,20,183.1,,,,-1,1,1,"Tyrone Taylor",13675,621438
+"David Dahl","TEX","RF",12,11,91.1,,,,0,1,1,"David Dahl",13744,621311
+"Travis Jankowski","PHI","CF",45,26,248,,,,-1,2,1,"Travis Jankowski",13768,608671
+"Rob Refsnyder","MIN","CF",22,20,181,,,,0,1,1,"Rob Refsnyder",13770,608701
+"Rob Refsnyder","MIN","LF",20,10,101.1,,,,0,0,1,"Rob Refsnyder",13770,608701
+"Joey Wendle","TBR","2B",16,13,116.2,,,,0,1,1,"Joey Wendle",13853,621563
+"Anthony Bemboom","LAA","C",7,7,60.2,0,0,1,,,1,"Anthony Bemboom",13854,621532
+"Albert Almora Jr.","NYM","CF",32,10,112,,,,0,1,1,"Albert Almora Jr.",14109,546991
+"Eric Haase","DET","LF",22,20,168.2,,,,1,0,1,"Eric Haase",14111,606992
+"Daniel Robertson","MIL","SS",8,6,58,,,,0,1,1,"Daniel Robertson",14145,621002
+"Matt Olson","OAK","1B",152,152,1338.2,,,,0,0,1,"Matt Olson",14344,621566
+"Raimel Tapia","COL","CF",3,2,15,,,,0,1,1,"Raimel Tapia",14350,606132
+"Raimel Tapia","COL","LF",118,110,952,,,,0,1,1,"Raimel Tapia",14350,606132
+"Lewis Brinson","MIA","LF",51,35,332.1,,,,-1,2,1,"Lewis Brinson",14352,621446
+"Jake Cave","MIN","LF",37,16,177.2,,,,1,0,1,"Jake Cave",14477,595909
+"Nomar Mazara","DET","RF",41,39,332,,,,0,1,1,"Nomar Mazara",14553,608577
+"Webster Rivas","SDP","C",24,20,168.2,1,1,-1,,,1,"Webster Rivas",14636,593590
+"Yu Chang","CLE","2B",8,3,37,,,,0,1,1,"Yu Chang",14773,644374
+"Kyle Farmer","CIN","2B",9,3,41.1,,,,0,1,1,"Kyle Farmer",14813,571657
+"JaCoby Jones","DET","CF",30,26,237,,,,0,0,1,"JaCoby Jones",14818,592444
+"Tony Kemp","OAK","LF",49,37,336.2,,,,-1,2,1,"Tony Kemp",14894,643393
+"Adam Engel","CHW","CF",26,24,212,,,,0,1,1,"Adam Engel",15082,641553
+"Adam Engel","CHW","LF",4,2,17,,,,0,1,1,"Adam Engel",15082,641553
+"Adam Engel","CHW","RF",10,8,71,,,,1,1,1,"Adam Engel",15082,641553
+"Ryan McMahon","COL","2B",52,44,368.1,,,,0,1,1,"Ryan McMahon",15112,641857
+"Hunter Dozier","KCR","1B",19,12,122.1,,,,0,1,1,"Hunter Dozier",15117,641531
+"Tim Locastro","- - -","CF",28,21,177.2,,,,0,1,1,"Tim Locastro",15124,641796
+"Chad Pinder","OAK","RF",39,29,244,,,,0,1,1,"Chad Pinder",15191,640461
+"Mike Tauchman","- - -","RF",14,11,77.1,,,,0,1,1,"Mike Tauchman",15274,643565
+"Garrett Cooper","MIA","1B",19,14,131.2,,,,0,2,1,"Garrett Cooper",15279,643265
+"Jack Mayfield","SEA","2B",9,8,67,,,,0,1,1,"Jack Mayfield",15402,608686
+"Kris Bryant","- - -","CF",19,13,110.1,,,,0,1,1,"Kris Bryant",15429,592178
+"Aristides Aquino","CIN","RF",27,11,132,,,,0,1,1,"Aristides Aquino",15482,606157
+"Willians Astudillo","MIN","1B",27,22,200.2,,,,0,1,1,"Willians Astudillo",15608,553902
+"Aaron Judge","NYY","RF",114,101,912,,,,1,0,1,"Aaron Judge",15640,592450
+"Tyler Wade","NYY","2B",19,6,63.1,,,,0,1,1,"Tyler Wade",15730,642180
+"Yonathan Daza","COL","CF",57,46,404.2,,,,0,1,1,"Yonathan Daza",15794,602074
+"Yonathan Daza","COL","LF",12,10,79.1,,,,0,1,1,"Yonathan Daza",15794,602074
+"Miguel Andujar","NYY","1B",2,2,17,,,,0,1,1,"Miguel Andujar",15878,609280
+"Aledmys Díaz","HOU","1B",12,10,94,,,,0,0,1,"Aledmys Diaz",15937,649557
+"Aledmys Díaz","HOU","2B",13,9,87,,,,0,1,1,"Aledmys Diaz",15937,649557
+"Kean Wong","LAA","2B",10,5,62,,,,0,0,1,"Kean Wong",15994,642221
+"Austin Slater","SFG","CF",77,39,386,,,,-1,1,1,"Austin Slater",16153,596103
+"Austin Slater","SFG","RF",24,7,93,,,,1,0,1,"Austin Slater",16153,596103
+"Alex Blandino","CIN","3B",9,2,31,,,,0,1,1,"Alex Blandino",16271,607468
+"Michael Hermosillo","CHC","CF",5,3,29,,,,0,1,1,"Michael Hermosillo",16285,641684
+"Nick Gordon","MIN","SS",14,8,75,,,,0,1,1,"Nick Gordon",16337,624503
+"Pablo Reyes","MIL","3B",28,12,129.2,,,,0,0,1,"Pablo Reyes",16357,622569
+"Óscar Mercado","CLE","RF",20,14,124,,,,0,1,1,"Oscar Mercado",16375,640458
+"Jordan Luplow","TBR","1B",17,14,107.1,,,,0,1,1,"Jordan Luplow",16424,656669
+"Christian Arroyo","BOS","2B",51,43,387,,,,0,1,1,"Christian Arroyo",16434,624414
+"Ryan O'Hearn","KCR","RF",25,22,167,,,,0,0,1,"Ryan O'Hearn",16442,656811
+"Johneshwy Fargas","CHC","LF",2,2,17,,,,0,1,1,"Johneshwy Fargas",16446,641561
+"Mauricio Dubón","SFG","SS",21,18,151.1,,,,0,1,1,"Mauricio Dubon",16530,643289
+"Danny Jansen","TOR","C",69,54,481.1,0,2,-1,,,1,"Danny Jansen",16535,643376
+"Shed Long Jr.","SEA","2B",10,9,71,,,,0,1,1,"Shed Long Jr.",16542,643418
+"Kevin Padlo","TBR","3B",6,4,36,,,,0,1,1,"Kevin Padlo",16593,656821
+"Greg Allen","NYY","CF",4,3,28,,,,0,1,1,"Greg Allen",16623,656185
+"Brian O'Grady","SDP","CF",2,0,4,,,,1,0,1,"Brian O'Grady",16729,657434
+"Joshua Fuentes","COL","1B",32,9,124.2,,,,0,0,1,"Joshua Fuentes",16885,658069
+"Lane Thomas","- - -","2B",2,0,3.1,,,,0,1,1,"Lane Thomas",16939,657041
+"Edmundo Sosa","STL","2B",25,15,138.2,,,,0,1,1,"Edmundo Sosa",17022,624641
+"Edmundo Sosa","STL","SS",71,59,518,,,,0,3,1,"Edmundo Sosa",17022,624641
+"Alex Verdugo","BOS","LF",90,79,678,,,,1,0,1,"Alex Verdugo",17027,657077
+"Monte Harrison","MIA","RF",3,0,3.1,,,,0,1,1,"Monte Harrison",17216,656509
+"Jorge Mateo","SDP","CF",11,6,67,,,,0,0,1,"Jorge Mateo",17273,622761
+"Cole Tucker","PIT","2B",9,8,66.1,,,,0,1,1,"Cole Tucker",17326,657061
+"Jose Siri","HOU","CF",5,5,38.2,,,,1,0,1,"Jose Siri",17452,642350
+"Taylor Ward","LAA","RF",51,42,368.1,,,,1,0,1,"Taylor Ward",17548,621493
+"Matt Beaty","LAD","1B",21,16,116,,,,0,1,1,"Matt Beaty",17710,607461
+"Skye Bolt","OAK","CF",16,9,92,,,,0,2,1,"Skye Bolt",17723,621450
+"Sam Hilliard","COL","CF",46,38,323,,,,1,0,1,"Sam Hilliard",17954,656541
+"Hoy Park","PIT","2B",16,12,112,,,,0,0,1,"Hoy Park",18027,660829
+"Hoy Park","PIT","3B",9,8,61,,,,0,1,1,"Hoy Park",18027,660829
+"Jake Cronenworth","SDP","1B",24,20,171.1,,,,0,1,1,"Jake Cronenworth",18036,630105
+"Jake Cronenworth","SDP","2B",94,89,791.1,,,,0,0,1,"Jake Cronenworth",18036,630105
+"Austin Allen","OAK","C",2,2,16,1,0,0,,,1,"Austin Allen",18083,664119
+"LaMonte Wade Jr.","SFG","LF",42,17,187,,,,1,0,1,"LaMonte Wade Jr.",18126,664774
+"LaMonte Wade Jr.","SFG","RF",52,40,343,,,,0,1,1,"LaMonte Wade Jr.",18126,664774
+"Seth Brown","OAK","LF",19,10,98,,,,1,1,1,"Seth Brown",18171,664913
+"Brian Anderson","MIA","3B",65,63,554.2,,,,0,0,1,"Brian Anderson",18289,605119
+"Edwin Ríos","LAD","1B",10,5,55.1,,,,0,1,1,"Edwin Rios",18316,621458
+"Austin Riley","ATL","1B",10,3,46.2,,,,0,1,1,"Austin Riley",18360,663586
+"P.J. Higgins","CHC","C",6,5,46,0,0,1,,,1,"P.J. Higgins",18433,664731
+"Chris Gittens","NYY","1B",13,10,89,,,,0,1,1,"Chris Gittens",18482,656467
+"Guillermo Heredia","ATL","LF",21,2,43,,,,0,1,1,"Guillermo Heredia",18721,628338
+"Ramón Urías","BAL","3B",10,10,75,,,,0,1,1,"Ramon Urias",18795,602104
+"Andy Ibáñez","TEX","1B",12,11,92,,,,0,1,1,"Andy Ibanez",18819,628451
+"Josh Naylor","CLE","1B",15,11,97.1,,,,0,1,1,"Josh Naylor",18839,647304
+"Danny Mendick","CHW","2B",28,21,196.1,,,,0,1,1,"Danny Mendick",18889,664901
+"Estevan Florial","NYY","CF",11,7,63.2,,,,0,1,1,"Estevan Florial",19151,664314
+"Lourdes Gurriel Jr.","TOR","1B",11,7,68.1,,,,0,1,1,"Lourdes Gurriel Jr.",19238,666971
+"Lourdes Gurriel Jr.","TOR","LF",119,115,943.2,,,,8,-8,1,"Lourdes Gurriel Jr.",19238,666971
+"Jake Fraley","SEA","LF",51,36,333,,,,-1,2,1,"Jake Fraley",19260,641584
+"Randy Arozarena","TBR","LF",81,69,612.1,,,,2,-1,1,"Randy Arozarena",19290,668227
+"Donovan Walton","SEA","SS",2,1,10,,,,0,1,1,"Donovan Walton",19314,622268
+"Bryan Reynolds","PIT","LF",17,17,139,,,,0,1,1,"Bryan Reynolds",19326,668804
+"Nicky Lopez","KCR","2B",4,3,27,,,,0,1,1,"Nicky Lopez",19339,670032
+"Eli White","TEX","CF",22,18,160,,,,1,0,1,"Eli White",19346,642201
+"DJ Peters","TEX","LF",22,18,162,,,,0,0,1,"DJ Peters",19348,656847
+"Zach McKinstry","LAD","3B",12,6,65,,,,0,1,1,"Zach McKinstry",19392,656716
+"Zach McKinstry","LAD","RF",23,18,147,,,,2,-1,1,"Zach McKinstry",19392,656716
+"Yonny Hernández","TEX","2B",9,8,73,,,,0,0,1,"Yonny Hernandez",19432,660634
+"Yonny Hernández","TEX","SS",6,4,39,,,,0,1,1,"Yonny Hernandez",19432,660634
+"TJ Friedl","CIN","LF",5,2,24,,,,1,0,1,"TJ Friedl",19522,670770
+"Taylor Jones","HOU","1B",14,8,87,,,,0,1,1,"Taylor Jones",19533,622100
+"Taylor Jones","HOU","LF",10,8,75.1,,,,1,-1,1,"Taylor Jones",19533,622100
+"Nick Heath","ARI","CF",18,9,89,,,,-1,2,1,"Nick Heath",19577,670084
+"Keibert Ruiz","- - -","C",23,20,182,0,1,0,,,1,"Keibert Ruiz",19610,660688
+"Luis Barrera","OAK","CF",1,0,1,,,,0,1,1,"Luis Barrera",19615,642456
+"Sheldon Neuse","LAD","3B",8,3,34,,,,0,1,1,"Sheldon Neuse",19635,641914
+"Sheldon Neuse","LAD","LF",4,3,24.2,,,,0,1,1,"Sheldon Neuse",19635,641914
+"Daniel Johnson","CLE","RF",19,16,131.2,,,,0,1,1,"Daniel Johnson",19643,669288
+"Mike Brosseau","TBR","2B",27,22,184,,,,0,1,1,"Mike Brosseau",19683,670712
+"Joshua Palacios","TOR","CF",2,2,17,,,,1,0,1,"Joshua Palacios",19818,641943
+"Greg Deichmann","CHC","RF",7,6,52,,,,1,0,1,"Greg Deichmann",19872,656364
+"Pavin Smith","ARI","1B",54,42,368.2,,,,0,1,1,"Pavin Smith",19892,656976
+"Anderson Tejeda","TEX","3B",5,5,43,,,,0,1,1,"Anderson Tejeda",19909,660731
+"Jesús Sánchez","MIA","RF",41,41,344.1,,,,-1,2,1,"Jesus Sanchez",19913,660821
+"Daulton Varsho","ARI","LF",12,6,60.2,,,,0,1,1,"Daulton Varsho",19918,662139
+"Daulton Varsho","ARI","RF",12,9,78.1,,,,0,1,1,"Daulton Varsho",19918,662139
+"Ryan McKenna","BAL","CF",18,13,108,,,,0,1,1,"Ryan McKenna",19928,663630
+"Luke Williams","PHI","1B",6,0,9.1,,,,0,0,1,"Luke Williams",19931,663897
+"Luke Williams","PHI","2B",8,5,44,,,,0,0,1,"Luke Williams",19931,663897
+"Cristian Pache","ATL","CF",22,20,168.1,,,,0,1,1,"Cristian Pache",19948,665506
+"Gavin Lux","LAD","CF",6,6,45.1,,,,0,1,1,"Gavin Lux",19955,666158
+"Mickey Moniak","PHI","CF",8,7,52.2,,,,1,0,1,"Mickey Moniak",19956,666160
+"Isaac Paredes","DET","3B",8,8,71,,,,0,1,1,"Isaac Paredes",20036,670623
+"Brian Miller","MIA","LF",2,2,17,,,,1,0,1,"Brian Miller",20047,675649
+"Evan White","SEA","1B",30,28,237.2,,,,0,1,1,"Evan White",20078,657108
+"Juan Soto","WSN","RF",144,144,1226,,,,-3,4,1,"Juan Soto",20123,665742
+"Brandon Marsh","LAA","CF",70,63,568,,,,-1,2,1,"Brandon Marsh",20202,669016
+"Gilberto Celestino","MIN","RF",2,0,11,,,,1,0,1,"Gilberto Celestino",20233,665482
+"Jonathan Araúz","BOS","SS",13,9,91,,,,0,1,1,"Jonathan Arauz",20275,660620
+"Luis González","CHW","RF",3,2,16.2,,,,1,0,1,"Luis Gonzalez",20332,670768
+"José Devers","MIA","2B",13,7,64.2,,,,0,0,1,"Jose Devers",20540,672701
+"Lars Nootbaar","STL","LF",9,4,40.2,,,,0,1,1,"Lars Nootbaar",21454,663457
+"Lars Nootbaar","STL","RF",26,19,181,,,,0,1,1,"Lars Nootbaar",21454,663457
+"Trevor Larnach","MIN","RF",20,18,145,,,,0,1,1,"Trevor Larnach",21501,663616
+"Matt Vierling","PHI","RF",6,1,16,,,,0,1,1,"Matt Vierling",21558,663837
+"Jake McCarthy","ARI","CF",14,12,103,,,,0,1,1,"Jake McCarthy",21622,664983
+"Payton Henry","MIA","C",5,5,38.1,0,0,1,,,1,"Payton Henry",22164,668721
+"Jake Burger","CHW","3B",8,7,62,,,,0,1,1,"Jake Burger",22275,669394
+"José Barrero","CIN","CF",7,5,40.1,,,,0,1,1,"Jose Barrero",23378,676480
+"Yoshi Tsutsugo","- - -","1B",31,20,188.2,,,,0,1,1,"Yoshi Tsutsugo",27459,660294
+"Ha-Seong Kim","SDP","3B",23,18,165.2,,,,0,0,1,"Ha-Seong Kim",27506,673490
+"Ha-Seong Kim","SDP","SS",35,25,260,,,,0,1,1,"Ha-Seong Kim",27506,673490
+"Todd Frazier","PIT","1B",4,3,32.1,,,,0,0,0,"Todd Frazier",785,453943
+"Todd Frazier","PIT","3B",3,2,18,,,,0,0,0,"Todd Frazier",785,453943
+"Andrew Romine","CHC","2B",2,1,12,,,,0,0,0,"Andrew Romine",1159,461865
+"Andrew Romine","CHC","SS",16,14,118.1,,,,0,0,0,"Andrew Romine",1159,461865
+"Carlos Santana","KCR","1B",136,136,1167,,,,0,1,0,"Carlos Santana",2396,467793
+"Nelson Cruz","TBR","1B",1,1,7,,,,0,0,0,"Nelson Cruz",2434,443558
+"Roberto Pérez","CLE","1B",1,0,2,,,,0,0,0,"Roberto Perez",2900,547379
+"Tommy Pham","SDP","RF",1,1,7,,,,0,0,0,"Tommy Pham",2967,502054
+"Mitch Moreland","OAK","1B",7,7,61,,,,0,0,0,"Mitch Moreland",3086,519048
+"Robinson Chirinos","CHC","C",27,21,190.2,1,-1,0,,,0,"Robinson Chirinos",3142,455139
+"Charlie Culberson","TEX","RF",1,0,2,,,,0,0,0,"Charlie Culberson",3298,518586
+"Charlie Culberson","TEX","SS",3,3,25.1,,,,0,0,0,"Charlie Culberson",3298,518586
+"Matt Joyce","PHI","LF",9,4,37.1,,,,0,0,0,"Matt Joyce",3353,459964
+"Matt Joyce","PHI","RF",9,5,50.1,,,,0,0,0,"Matt Joyce",3353,459964
+"Jeff Mathis","ATL","C",3,3,26,0,0,0,,,0,"Jeff Mathis",3448,425772
+"Josh Reddick","ARI","CF",4,2,20,,,,0,0,0,"Josh Reddick",3892,502210
+"Josh Reddick","ARI","LF",1,0,5,,,,0,0,0,"Josh Reddick",3892,502210
+"Dexter Fowler","LAA","RF",7,6,49.2,,,,0,0,0,"Dexter Fowler",4062,451594
+"Jed Lowrie","OAK","3B",1,0,3,,,,0,0,0,"Jed Lowrie",4418,476704
+"Starlin Castro","WSN","3B",85,84,715,,,,0,0,0,"Starlin Castro",4579,516770
+"Starlin Castro","WSN","SS",1,1,5,,,,0,0,0,"Starlin Castro",4579,516770
+"Jarrod Dyson","- - -","LF",20,6,83,,,,0,0,0,"Jarrod Dyson",4866,502481
+"Mike Moustakas","CIN","1B",11,7,57,,,,0,0,0,"Mike Moustakas",4892,519058
+"Ender Inciarte","ATL","LF",4,0,4,,,,0,0,0,"Ender Inciarte",4922,542255
+"Giancarlo Stanton","NYY","LF",10,10,70.2,,,,0,-1,0,"Giancarlo Stanton",4949,519317
+"Asdrúbal Cabrera","- - -","1B",19,15,122.1,,,,0,0,0,"Asdrubal Cabrera",4962,452678
+"Cameron Maybin","NYM","CF",6,4,40.1,,,,0,-1,0,"Cameron Maybin",5223,457727
+"Cameron Maybin","NYM","LF",4,3,18.1,,,,0,0,0,"Cameron Maybin",5223,457727
+"Cameron Maybin","NYM","RF",3,2,19,,,,0,0,0,"Cameron Maybin",5223,457727
+"Jon Jay","LAA","LF",5,3,29,,,,0,-1,0,"Jon Jay",5227,445055
+"Justin Turner","LAD","3B",143,135,1173.2,,,,0,0,0,"Justin Turner",5235,457759
+"Sandy León","MIA","3B",1,0,1,,,,0,0,0,"Sandy Leon",5273,506702
+"Sandy León","MIA","C",60,48,437.1,0,1,0,,,0,"Sandy Leon",5273,506702
+"Aaron Hicks","NYY","CF",32,30,272.2,,,,1,-1,0,"Aaron Hicks",5297,543305
+"Juan Lagares","LAA","LF",23,7,83.2,,,,0,1,0,"Juan Lagares",5384,501571
+"Pablo Sandoval","ATL","1B",2,0,4,,,,0,0,0,"Pablo Sandoval",5409,467055
+"Abraham Almonte","ATL","RF",4,1,20.2,,,,0,0,0,"Abraham Almonte",5486,501659
+"Marwin Gonzalez","- - -","3B",11,8,80,,,,0,0,0,"Marwin Gonzalez",5497,503556
+"Marwin Gonzalez","BOS","LF",12,8,70.1,,,,0,0,0,"Marwin Gonzalez",5497,503556
+"Marwin Gonzalez","BOS","RF",2,2,18,,,,0,0,0,"Marwin Gonzalez",5497,503556
+"Steven Souza Jr.","LAD","LF",5,1,13,,,,0,0,0,"Steven Souza Jr.",5667,519306
+"Steven Souza Jr.","LAD","RF",8,7,54,,,,0,0,0,"Steven Souza Jr.",5667,519306
+"Hernán Pérez","WSN","1B",2,1,8,,,,0,0,0,"Hernan Perez",5751,541650
+"Hernán Pérez","WSN","2B",3,2,15,,,,0,0,0,"Hernan Perez",5751,541650
+"Hernán Pérez","WSN","LF",1,1,5,,,,0,0,0,"Hernan Perez",5751,541650
+"Hernán Pérez","WSN","RF",1,1,7,,,,0,0,0,"Hernan Perez",5751,541650
+"Avisaíl García","MIL","CF",1,1,9,,,,0,0,0,"Avisail Garcia",5760,541645
+"Avisaíl García","MIL","RF",121,117,1007,,,,2,-2,0,"Avisail Garcia",5760,541645
+"Wilmer Flores","SFG","1B",34,21,181.2,,,,0,1,0,"Wilmer Flores",5827,527038
+"Leury García","CHW","3B",11,8,74,,,,0,0,0,"Leury Garcia",5913,544725
+"Leury García","CHW","CF",26,22,164.1,,,,0,0,0,"Leury Garcia",5913,544725
+"Leury García","CHW","LF",26,8,110.2,,,,0,1,0,"Leury Garcia",5913,544725
+"Leury García","CHW","RF",34,28,235,,,,0,0,0,"Leury Garcia",5913,544725
+"Leury García","CHW","SS",19,18,156.1,,,,0,0,0,"Leury Garcia",5913,544725
+"Jordy Mercer","WSN","3B",14,10,95.1,,,,0,0,0,"Jordy Mercer",6547,474568
+"Jordy Mercer","WSN","SS",6,0,15,,,,0,0,0,"Jordy Mercer",6547,474568
+"Freddy Galvis","PHI","2B",2,2,15,,,,0,0,0,"Freddy Galvis",6609,520471
+"Martín Maldonado","HOU","1B",1,1,9,,,,0,0,0,"Martin Maldonado",6887,455117
+"Eric Campbell","SEA","1B",1,1,8,,,,0,0,0,"Eric Campbell",6938,493472
+"Eric Campbell","SEA","3B",2,2,18,,,,0,0,0,"Eric Campbell",6938,493472
+"Yadier Molina","STL","1B",1,0,3,,,,0,0,0,"Yadier Molina",7007,425877
+"Alex Avila","WSN","2B",1,1,5,,,,0,0,0,"Alex Avila",7476,488671
+"Matt Carpenter","STL","1B",14,9,90,,,,0,-1,0,"Matt Carpenter",8090,572761
+"Matt Carpenter","STL","3B",6,4,37.2,,,,0,0,0,"Matt Carpenter",8090,572761
+"Josh Harrison","WSN","CF",2,2,10,,,,0,0,0,"Josh Harrison",8202,543281
+"Ehire Adrianza","ATL","2B",7,4,37,,,,0,0,0,"Ehire Adrianza",8418,501303
+"Ehire Adrianza","ATL","CF",1,0,2,,,,0,0,0,"Ehire Adrianza",8418,501303
+"Ehire Adrianza","ATL","LF",6,5,43.2,,,,0,0,0,"Ehire Adrianza",8418,501303
+"Ehire Adrianza","ATL","SS",5,1,17.2,,,,0,0,0,"Ehire Adrianza",8418,501303
+"Gerardo Parra","WSN","LF",19,11,112.2,,,,0,0,0,"Gerardo Parra",8553,467827
+"Gerardo Parra","WSN","RF",3,2,17,,,,0,0,0,"Gerardo Parra",8553,467827
+"Donovan Solano","SFG","SS",2,0,6,,,,0,0,0,"Donovan Solano",8623,456781
+"Ryan Lavarnway","CLE","C",8,8,70.2,0,0,-1,,,0,"Ryan Lavarnway",8879,543432
+"Khris Davis","- - -","LF",3,2,17,,,,0,1,0,"Khris Davis",9112,501981
+"AJ Pollock","LAD","CF",8,5,48,,,,0,0,0,"AJ Pollock",9256,572041
+"Evan Longoria","SFG","3B",78,67,610.2,,,,0,1,0,"Evan Longoria",9368,446334
+"Christian Vázquez","BOS","2B",2,0,5,,,,0,0,0,"Christian Vazquez",9774,543877
+"DJ LeMahieu","NYY","3B",39,36,299,,,,0,-1,0,"DJ LeMahieu",9874,518934
+"Jay Bruce","NYY","1B",10,10,84,,,,0,0,0,"Jay Bruce",9892,457803
+"Darin Ruf","SFG","LF",33,26,197,,,,1,0,0,"Darin Ruf",9929,573131
+"Trayce Thompson","CHC","CF",3,2,17,,,,0,0,0,"Trayce Thompson",9952,572204
+"Chris Owings","COL","2B",3,3,26,,,,0,-1,0,"Chris Owings",10030,572008
+"Chris Owings","COL","CF",1,1,5,,,,0,0,0,"Chris Owings",10030,572008
+"Chris Owings","COL","LF",3,2,19.1,,,,0,0,0,"Chris Owings",10030,572008
+"Chris Owings","COL","SS",1,1,9,,,,0,0,0,"Chris Owings",10030,572008
+"Jonathan Villar","NYM","2B",9,8,63.1,,,,0,0,0,"Jonathan Villar",10071,542340
+"Mike Trout","LAA","CF",36,36,295,,,,0,1,0,"Mike Trout",10155,545361
+"Billy Hamilton","CHW","CF",47,22,241.1,,,,0,1,0,"Billy Hamilton",10199,571740
+"Billy Hamilton","CHW","RF",2,1,13,,,,0,0,0,"Billy Hamilton",10199,571740
+"Tucker Barnhart","CIN","1B",2,0,4,,,,0,0,0,"Tucker Barnhart",10200,571466
+"Jose Iglesias","- - -","SS",119,114,992.2,,,,0,0,0,"Jose Iglesias",10231,578428
+"Randal Grichuk","TOR","RF",71,34,330.1,,,,0,0,0,"Randal Grichuk",10243,545341
+"Danny Santana","BOS","CF",13,12,104,,,,0,-1,0,"Danny Santana",10322,542454
+"Rafael Ortega","CHC","LF",13,3,41.2,,,,0,0,0,"Rafael Ortega",10323,542364
+"Wilfredo Tovar","NYM","2B",4,1,23.2,,,,0,0,0,"Wilfredo Tovar",10416,541600
+"Enrique Hernández","BOS","SS",8,4,37,,,,0,0,0,"Enrique Hernandez",10472,571771
+"César Hernández","- - -","2B",142,142,1227,,,,0,-1,0,"Cesar Hernandez",10556,514917
+"Gio Urshela","NYY","SS",28,24,200,,,,0,0,0,"Gio Urshela",10681,570482
+"Ryan LaMarre","NYY","CF",1,1,8,,,,0,0,0,"Ryan LaMarre",10700,534606
+"Ryan LaMarre","NYY","LF",4,4,27,,,,0,0,0,"Ryan LaMarre",10700,534606
+"Ryan LaMarre","NYY","RF",4,2,18,,,,0,0,0,"Ryan LaMarre",10700,534606
+"Corey Dickerson","TOR","RF",5,3,22,,,,0,0,0,"Corey Dickerson",10762,572816
+"Phil Gosselin","LAA","2B",4,4,26,,,,0,0,0,"Phil Gosselin",10953,594838
+"Adam Eaton","- - -","LF",2,1,9,,,,0,0,0,"Adam Eaton",11205,594809
+"Mike Freeman","CIN","1B",9,2,25.2,,,,0,0,0,"Mike Freeman",11241,502273
+"Mike Freeman","CIN","2B",2,0,5.2,,,,0,0,0,"Mike Freeman",11241,502273
+"Mike Freeman","CIN","CF",3,0,1,,,,0,0,0,"Mike Freeman",11241,502273
+"Mike Freeman","CIN","SS",12,8,75,,,,0,0,0,"Mike Freeman",11241,502273
+"Jonathan Schoop","DET","3B",1,0,1,,,,0,0,0,"Jonathan Schoop",11265,570731
+"Whit Merrifield","KCR","LF",2,2,17,,,,0,0,0,"Whit Merrifield",11281,593160
+"Adrián Sanchez","WSN","3B",2,1,10,,,,0,0,0,"Adrian Sanchez",11338,506703
+"Jake Marisnick","SDP","RF",2,1,11,,,,0,0,0,"Jake Marisnick",11339,545350
+"Jesús Aguilar","MIA","3B",2,0,2,,,,0,0,0,"Jesus Aguilar",11342,542583
+"Yasmani Grandal","CHW","C",80,76,627.1,-1,-1,2,,,0,"Yasmani Grandal",11368,518735
+"Delino DeShields","CIN","LF",3,3,21.1,,,,0,0,0,"Delino DeShields",11379,592261
+"Ronald Torreyes","PHI","2B",11,4,48,,,,0,-1,0,"Ronald Torreyes",11400,591720
+"Ronald Torreyes","PHI","CF",1,0,2.1,,,,0,0,0,"Ronald Torreyes",11400,591720
+"Henry Ramos","ARI","LF",5,5,40,,,,0,1,0,"Henry Ramos",11481,592656
+"Willson Contreras","CHC","3B",1,0,1,,,,0,0,0,"Willson Contreras",11609,575929
+"Brandon Drury","NYM","1B",3,1,14,,,,0,0,0,"Brandon Drury",11615,592273
+"Brandon Drury","NYM","2B",2,2,15,,,,0,0,0,"Brandon Drury",11615,592273
+"Brandon Drury","NYM","LF",6,4,25.1,,,,0,0,0,"Brandon Drury",11615,592273
+"Brandon Drury","NYM","RF",6,5,31.1,,,,0,0,0,"Brandon Drury",11615,592273
+"J.T. Realmuto","PHI","1B",16,7,65,,,,0,0,0,"J.T. Realmuto",11739,592663
+"Mason Williams","NYM","CF",15,10,89,,,,0,0,0,"Mason Williams",11859,592863
+"Mason Williams","NYM","LF",1,0,2.1,,,,0,0,0,"Mason Williams",11859,592863
+"Joc Pederson","- - -","RF",39,21,205.2,,,,-1,0,0,"Joc Pederson",11899,592626
+"Joe Panik","- - -","1B",9,7,62,,,,0,0,0,"Joe Panik",11936,605412
+"Nick Martini","CHC","LF",7,2,22.1,,,,0,0,0,"Nick Martini",12005,605361
+"Jon Berti","MIA","CF",4,0,11.2,,,,0,0,0,"Jon Berti",12037,542932
+"Jon Berti","MIA","LF",7,4,29.2,,,,0,0,0,"Jon Berti",12037,542932
+"Jon Berti","MIA","RF",1,0,3,,,,0,0,0,"Jon Berti",12037,542932
+"Jon Berti","MIA","SS",2,1,8,,,,0,0,0,"Jon Berti",12037,542932
+"Niko Goodrum","DET","2B",9,8,68.2,,,,0,0,0,"Niko Goodrum",12092,592348
+"Niko Goodrum","DET","LF",7,6,44,,,,0,0,0,"Niko Goodrum",12092,592348
+"Max Kepler","MIN","CF",22,19,164,,,,-1,0,0,"Max Kepler",12144,596146
+"Austin Barnes","LAD","2B",7,0,18.1,,,,0,0,0,"Austin Barnes",12158,605131
+"Jorge Bonifacio","PHI","CF",3,3,18,,,,0,0,0,"Jorge Bonifacio",12174,593528
+"Jorge Bonifacio","PHI","LF",2,0,3,,,,0,0,0,"Jorge Bonifacio",12174,593528
+"Jorge Alfaro","MIA","1B",3,2,17,,,,0,0,0,"Jorge Alfaro",12180,595751
+"Jorge Alfaro","MIA","LF",21,18,141.2,,,,1,-1,0,"Jorge Alfaro",12180,595751
+"Jake Hager","ARI","2B",5,5,42,,,,0,0,0,"Jake Hager",12198,606993
+"Jake Hager","NYM","LF",2,0,5.1,,,,0,0,0,"Jake Hager",12198,606993
+"Jake Hager","NYM","RF",1,1,8,,,,0,0,0,"Jake Hager",12198,606993
+"Jake Hager","ARI","SS",1,0,1,,,,0,0,0,"Jake Hager",12198,606993
+"Scott Schebler","LAA","CF",4,3,30.2,,,,0,0,0,"Scott Schebler",12225,594988
+"Scott Schebler","LAA","LF",3,2,17,,,,0,0,0,"Scott Schebler",12225,594988
+"Scott Schebler","LAA","RF",4,3,28,,,,0,0,0,"Scott Schebler",12225,594988
+"Rougned Odor","NYY","3B",33,29,247,,,,0,0,0,"Rougned Odor",12282,596059
+"Jace Peterson","MIL","1B",26,7,102.1,,,,0,0,0,"Jace Peterson",12325,607054
+"Jace Peterson","MIL","3B",11,9,76,,,,0,0,0,"Jace Peterson",12325,607054
+"Jace Peterson","MIL","LF",11,7,65.2,,,,0,0,0,"Jace Peterson",12325,607054
+"Tommy La Stella","SFG","2B",54,47,403.2,,,,0,0,0,"Tommy La Stella",12371,600303
+"Tommy La Stella","SFG","3B",5,5,32,,,,0,0,0,"Tommy La Stella",12371,600303
+"Taylor Motter","BOS","2B",2,1,11,,,,0,0,0,"Taylor Motter",12399,600301
+"Taylor Motter","COL","3B",3,2,16,,,,0,0,0,"Taylor Motter",12399,600301
+"Kevin Pillar","NYM","RF",22,17,135,,,,0,0,0,"Kevin Pillar",12434,607680
+"C.J. Cron","COL","1B",130,129,1095,,,,0,0,0,"C.J. Cron",12546,543068
+"Eugenio Suárez","CIN","3B",104,102,886,,,,0,0,0,"Eugenio Suarez",12552,553993
+"Dillon Thomas","SEA","CF",1,1,8,,,,1,-1,0,"Dillon Thomas",12719,605504
+"Dillon Thomas","SEA","LF",2,0,3,,,,0,0,0,"Dillon Thomas",12719,605504
+"Dillon Thomas","SEA","RF",1,1,11,,,,0,0,0,"Dillon Thomas",12719,605504
+"Brad Miller","PHI","1B",58,47,392,,,,0,0,0,"Brad Miller",12775,543543
+"Andy Burns","LAD","1B",2,0,5,,,,0,0,0,"Andy Burns",12779,542992
+"Andy Burns","LAD","3B",2,0,6,,,,0,0,0,"Andy Burns",12779,542992
+"Taylor Davis","PIT","C",2,2,16,0,0,1,,,0,"Taylor Davis",12782,543089
+"George Springer","TOR","RF",4,0,6,,,,0,0,0,"George Springer",12856,543807
+"Brian Goodwin","CHW","LF",6,2,23,,,,0,1,0,"Brian Goodwin",12858,571718
+"James McCann","NYM","1B",6,5,45,,,,0,0,0,"James McCann",12859,543510
+"Brandon Nimmo","NYM","LF",10,3,33,,,,0,0,0,"Brandon Nimmo",12927,607043
+"Javier Báez","- - -","SS",100,98,834.2,,,,0,0,0,"Javier Baez",12979,595879
+"Jackie Bradley Jr.","MIL","LF",14,11,88.1,,,,0,0,0,"Jackie Bradley Jr.",12984,598265
+"John Andreoli","SDP","CF",2,0,4,,,,0,0,0,"John Andreoli",13012,607430
+"John Andreoli","SDP","LF",3,0,6,,,,0,0,0,"John Andreoli",13012,607430
+"Teoscar Hernández","TOR","CF",2,1,7,,,,0,0,0,"Teoscar Hernandez",13066,606192
+"Josh Bell","WSN","RF",1,1,8,,,,0,0,0,"Josh Bell",13145,605137
+"Jorge Polanco","MIN","2B",120,112,971.1,,,,0,-1,0,"Jorge Polanco",13152,593871
+"Jacob Wilson","- - -","2B",4,2,16,,,,0,0,0,"Jacob Wilson",13254,607111
+"Jacob Wilson","OAK","LF",1,1,6,,,,0,0,0,"Jacob Wilson",13254,607111
+"Max Muncy","LAD","3B",7,3,27.1,,,,0,0,0,"Max Muncy",13301,571970
+"Ildemaro Vargas","- - -","2B",9,7,56.1,,,,0,0,0,"Ildemaro Vargas",13324,545121
+"Ildemaro Vargas","PIT","LF",2,1,9,,,,0,0,0,"Ildemaro Vargas",13324,545121
+"Deven Marrero","MIA","2B",1,1,9,,,,0,0,0,"Deven Marrero",13325,571918
+"Deven Marrero","MIA","3B",3,2,19.1,,,,0,1,0,"Deven Marrero",13325,571918
+"Deven Marrero","MIA","SS",4,1,14,,,,0,0,0,"Deven Marrero",13325,571918
+"Jake Lamb","- - -","1B",3,3,16,,,,0,0,0,"Jake Lamb",13329,571875
+"Jake Lamb","CHW","LF",16,13,84.1,,,,0,0,0,"Jake Lamb",13329,571875
+"Luke Maile","MIL","C",12,7,72.1,0,0,0,,,0,"Luke Maile",13355,571912
+"Roman Quinn","PHI","RF",4,3,23.1,,,,0,0,0,"Roman Quinn",13546,596451
+"Jesse Winker","CIN","CF",1,1,6,,,,0,0,0,"Jesse Winker",13590,608385
+"Jesse Winker","CIN","RF",5,1,15.2,,,,0,0,0,"Jesse Winker",13590,608385
+"José Peraza","NYM","3B",9,5,47.1,,,,0,0,0,"Jose Peraza",13593,606299
+"Humberto Arteaga","WSN","SS",1,1,9,,,,0,0,0,"Humberto Arteaga",13595,600858
+"Patrick Wisdom","CHC","LF",15,12,97.2,,,,1,-1,0,"Patrick Wisdom",13602,621550
+"Patrick Wisdom","CHC","RF",3,2,15.1,,,,0,0,0,"Patrick Wisdom",13602,621550
+"Mookie Betts","LAD","2B",7,5,46,,,,0,0,0,"Mookie Betts",13611,605141
+"Mookie Betts","LAD","RF",98,86,751.2,,,,0,0,0,"Mookie Betts",13611,605141
+"Jack López","BOS","2B",6,5,41,,,,0,0,0,"Jack Lopez",13663,605346
+"Tyrone Taylor","MIL","CF",16,13,112.1,,,,0,1,0,"Tyrone Taylor",13675,621438
+"Tyrone Taylor","MIL","LF",37,24,230.1,,,,-1,1,0,"Tyrone Taylor",13675,621438
+"David Dahl","TEX","CF",1,1,8,,,,0,0,0,"David Dahl",13744,621311
+"Chris Taylor","LAD","LF",30,16,170,,,,0,0,0,"Chris Taylor",13757,621035
+"Chris Taylor","LAD","RF",8,7,69.2,,,,0,0,0,"Chris Taylor",13757,621035
+"Chris Taylor","LAD","SS",23,19,153.2,,,,0,0,0,"Chris Taylor",13757,621035
+"Travis Jankowski","PHI","LF",6,3,28.2,,,,0,0,0,"Travis Jankowski",13768,608671
+"Travis Jankowski","PHI","RF",8,1,23.2,,,,0,0,0,"Travis Jankowski",13768,608671
+"Rob Refsnyder","MIN","RF",9,7,60,,,,0,0,0,"Rob Refsnyder",13770,608701
+"Matt Duffy","CHC","1B",2,0,3.2,,,,0,0,0,"Matt Duffy",13836,622110
+"Matt Duffy","CHC","LF",3,3,22,,,,0,0,0,"Matt Duffy",13836,622110
+"Matt Duffy","CHC","SS",5,2,30.2,,,,0,0,0,"Matt Duffy",13836,622110
+"Anthony Bemboom","LAA","LF",1,0,2,,,,0,0,0,"Anthony Bemboom",13854,621532
+"Patrick Kivlehan","SDP","RF",2,2,12,,,,0,0,0,"Patrick Kivlehan",13910,623182
+"Rio Ruiz","COL","1B",1,1,8,,,,0,0,0,"Rio Ruiz",14103,547004
+"Rio Ruiz","- - -","3B",17,8,87,,,,0,1,0,"Rio Ruiz",14103,547004
+"Rio Ruiz","COL","LF",2,0,3,,,,0,0,0,"Rio Ruiz",14103,547004
+"Albert Almora Jr.","NYM","LF",3,0,3,,,,0,0,0,"Albert Almora Jr.",14109,546991
+"Albert Almora Jr.","NYM","RF",1,1,5,,,,0,0,0,"Albert Almora Jr.",14109,546991
+"Eric Haase","DET","1B",1,0,2,,,,0,0,0,"Eric Haase",14111,606992
+"Joey Gallo","NYY","LF",51,46,413.2,,,,1,-1,0,"Joey Gallo",14128,608336
+"José Rondón","STL","2B",2,1,11,,,,0,0,0,"Jose Rondon",14140,602922
+"José Rondón","STL","3B",7,1,27,,,,0,0,0,"Jose Rondon",14140,602922
+"José Rondón","STL","LF",2,0,9,,,,0,0,0,"Jose Rondon",14140,602922
+"Daniel Robertson","MIL","1B",3,0,6.1,,,,0,0,0,"Daniel Robertson",14145,621002
+"Wilmer Difo","PIT","2B",28,14,150.2,,,,0,-1,0,"Wilmer Difo",14320,594694
+"Wilmer Difo","PIT","CF",4,3,29.2,,,,0,0,0,"Wilmer Difo",14320,594694
+"Anthony Alford","PIT","CF",6,5,40.1,,,,0,0,0,"Anthony Alford",14329,546990
+"Anthony Alford","PIT","RF",1,1,9,,,,0,0,0,"Anthony Alford",14329,546990
+"Nick Williams","CHW","LF",3,3,28,,,,0,0,0,"Nick Williams",14330,608384
+"Raimel Tapia","COL","RF",4,1,17,,,,0,0,0,"Raimel Tapia",14350,606132
+"Lewis Brinson","MIA","CF",33,31,240.1,,,,1,-2,0,"Lewis Brinson",14352,621446
+"Lewis Brinson","MIA","RF",4,3,28.1,,,,0,0,0,"Lewis Brinson",14352,621446
+"Harold Ramírez","CLE","1B",1,0,5,,,,0,0,0,"Harold Ramirez",14387,623912
+"Ronald Guzmán","TEX","1B",4,3,28,,,,0,0,0,"Ronald Guzman",14388,608597
+"Scott Heineman","CIN","1B",2,0,7,,,,0,0,0,"Scott Heineman",14453,595981
+"Scott Heineman","CIN","CF",8,7,52.2,,,,0,0,0,"Scott Heineman",14453,595981
+"Scott Heineman","CIN","LF",2,0,2.1,,,,0,0,0,"Scott Heineman",14453,595981
+"Scott Heineman","CIN","RF",2,0,3,,,,0,0,0,"Scott Heineman",14453,595981
+"Jake Cave","MIN","CF",29,18,168,,,,0,0,0,"Jake Cave",14477,595909
+"Jake Cave","MIN","RF",11,7,66,,,,-1,0,0,"Jake Cave",14477,595909
+"Luis Marté","MIA","2B",1,1,8,,,,0,0,0,"Luis Marte",14515,606336
+"Luis Marté","MIA","3B",1,0,3,,,,0,0,0,"Luis Marte",14515,606336
+"Luis Marté","MIA","SS",1,1,7,,,,0,0,0,"Luis Marte",14515,606336
+"Anthony Santander","BAL","LF",4,4,29,,,,0,0,0,"Anthony Santander",14551,623993
+"Wyatt Mathisen","ARI","1B",13,6,68,,,,0,-1,0,"Wyatt Mathisen",14555,621500
+"Wyatt Mathisen","ARI","LF",2,2,10,,,,0,0,0,"Wyatt Mathisen",14555,621500
+"Max Moroff","STL","2B",4,2,19,,,,0,0,0,"Max Moroff",14556,621559
+"Franchy Cordero","BOS","1B",11,8,65,,,,0,0,0,"Franchy Cordero",14567,614173
+"Franchy Cordero","BOS","LF",33,27,240,,,,0,0,0,"Franchy Cordero",14567,614173
+"Franchy Cordero","BOS","RF",2,1,10,,,,0,0,0,"Franchy Cordero",14567,614173
+"David Bote","CHC","3B",24,21,173,,,,0,0,0,"David Bote",14593,623520
+"Tzu-Wei Lin","MIN","LF",1,0,2,,,,0,0,0,"Tzu-Wei Lin",14678,624407
+"Brett Phillips","TBR","LF",19,0,31,,,,0,0,0,"Brett Phillips",14735,621433
+"Yu Chang","CLE","1B",49,41,340.1,,,,0,0,0,"Yu Chang",14773,644374
+"Yu Chang","CLE","SS",7,6,55,,,,0,0,0,"Yu Chang",14773,644374
+"Kyle Farmer","CIN","LF",2,0,2,,,,0,0,0,"Kyle Farmer",14813,571657
+"Michael Lorenzen","CIN","CF",1,0,1,,,,0,0,0,"Michael Lorenzen",14843,547179
+"Michael Lorenzen","CIN","RF",1,0,1,,,,0,0,0,"Michael Lorenzen",14843,547179
+"Pat Valaika","BAL","1B",6,3,34,,,,0,0,0,"Pat Valaika",14885,642162
+"Pat Valaika","BAL","3B",2,1,9.1,,,,0,0,0,"Pat Valaika",14885,642162
+"Pat Valaika","BAL","LF",3,0,9,,,,0,0,0,"Pat Valaika",14885,642162
+"Tony Kemp","OAK","2B",89,53,520.1,,,,0,0,0,"Tony Kemp",14894,643393
+"Tony Kemp","OAK","SS",1,0,2,,,,0,0,0,"Tony Kemp",14894,643393
+"Andrew Knapp","PHI","2B",1,0,1.1,,,,0,0,0,"Andrew Knapp",14942,595284
+"Johan Camargo","ATL","2B",1,0,6,,,,0,0,0,"Johan Camargo",14950,622666
+"Johan Camargo","ATL","3B",1,0,2,,,,0,0,0,"Johan Camargo",14950,622666
+"Victor Caratini","SDP","1B",5,0,7,,,,0,0,0,"Victor Caratini",14968,605170
+"Victor Caratini","SDP","3B",2,0,2,,,,0,0,0,"Victor Caratini",14968,605170
+"Dom Nuñez","COL","C",77,74,622,0,-1,1,,,0,"Dom Nunez",15055,624513
+"Jonathan Davis","- - -","LF",3,0,4,,,,0,0,0,"Jonathan Davis",15104,641505
+"Tim Locastro","- - -","LF",14,10,75.1,,,,0,0,0,"Tim Locastro",15124,641796
+"Mitch Garver","MIN","1B",4,1,9,,,,0,-1,0,"Mitch Garver",15161,641598
+"Josh VanMeter","ARI","1B",1,1,6,,,,0,0,0,"Josh VanMeter",15170,642165
+"Josh VanMeter","ARI","2B",52,46,372.1,,,,0,0,0,"Josh VanMeter",15170,642165
+"Josh VanMeter","ARI","LF",1,0,1,,,,0,0,0,"Josh VanMeter",15170,642165
+"Josh VanMeter","ARI","RF",1,0,3,,,,0,0,0,"Josh VanMeter",15170,642165
+"Jake Bauers","SEA","LF",21,13,125.2,,,,1,-1,0,"Jake Bauers",15194,641343
+"Mike Tauchman","- - -","CF",12,11,81.2,,,,-1,0,0,"Mike Tauchman",15274,643565
+"Jeff McNeil","NYM","3B",2,0,5,,,,0,0,0,"Jeff McNeil",15362,643446
+"Kris Bryant","- - -","LF",48,35,309.2,,,,-1,0,0,"Kris Bryant",15429,592178
+"Hunter Renfroe","BOS","CF",8,6,47,,,,0,-1,0,"Hunter Renfroe",15464,592669
+"Victor Reyes","DET","CF",20,19,162.2,,,,1,-1,0,"Victor Reyes",15487,622682
+"Victor Reyes","DET","LF",1,1,9,,,,0,0,0,"Victor Reyes",15487,622682
+"Joseph Odom","TBR","C",1,0,2,0,0,0,,,0,"Joseph Odom",15535,641929
+"Billy McKinney","- - -","1B",10,3,38,,,,0,0,0,"Billy McKinney",15654,641856
+"Billy McKinney","NYM","CF",3,0,2.1,,,,0,0,0,"Billy McKinney",15654,641856
+"Billy McKinney","- - -","LF",27,20,178.1,,,,0,0,0,"Billy McKinney",15654,641856
+"Tyler Wade","NYY","3B",27,9,107.2,,,,0,0,0,"Tyler Wade",15730,642180
+"Tyler Wade","NYY","CF",10,1,23.2,,,,0,0,0,"Tyler Wade",15730,642180
+"Tyler Wade","NYY","LF",8,4,40,,,,0,0,0,"Tyler Wade",15730,642180
+"Tyler Wade","NYY","RF",7,1,28.2,,,,0,0,0,"Tyler Wade",15730,642180
+"José Marmolejos","SEA","1B",14,13,111.2,,,,0,0,0,"Jose Marmolejos",15767,592530
+"José Marmolejos","SEA","RF",2,2,15,,,,0,0,0,"Jose Marmolejos",15767,592530
+"Miguel Andujar","NYY","3B",4,3,27,,,,0,0,0,"Miguel Andujar",15878,609280
+"Luis Torrens","SEA","3B",2,0,2,,,,0,0,0,"Luis Torrens",15905,620443
+"Aledmys Díaz","HOU","LF",15,11,93,,,,0,0,0,"Aledmys Diaz",15937,649557
+"Aledmys Díaz","HOU","RF",1,1,6,,,,0,0,0,"Aledmys Diaz",15937,649557
+"Austin Nola","SDP","2B",4,0,6,,,,0,0,0,"Austin Nola",15941,543592
+"Ivan Castillo","SDP","3B",1,0,2,,,,0,0,0,"Ivan Castillo",15971,622668
+"Kean Wong","LAA","3B",6,3,25.1,,,,0,0,0,"Kean Wong",15994,642221
+"Kean Wong","LAA","LF",4,2,17,,,,0,0,0,"Kean Wong",15994,642221
+"Kean Wong","LAA","RF",4,3,21,,,,0,0,0,"Kean Wong",15994,642221
+"Cody Bellinger","LAD","1B",4,2,20,,,,0,0,0,"Cody Bellinger",15998,641355
+"Cody Bellinger","LAD","RF",7,4,39.2,,,,0,0,0,"Cody Bellinger",15998,641355
+"Stevie Wilkerson","BAL","LF",3,1,12,,,,0,0,0,"Stevie Wilkerson",16041,592859
+"Stevie Wilkerson","BAL","RF",1,0,1,,,,0,0,0,"Stevie Wilkerson",16041,592859
+"Mark Payton","CIN","LF",1,0,3,,,,0,0,0,"Mark Payton",16042,592622
+"Taylor Gushue","CHC","1B",1,0,5.1,,,,0,0,0,"Taylor Gushue",16098,656494
+"Taylor Gushue","CHC","C",1,0,1,0,0,0,,,0,"Taylor Gushue",16098,656494
+"Austin Slater","SFG","LF",37,9,123.2,,,,0,1,0,"Austin Slater",16153,596103
+"Derek Fisher","MIL","RF",2,1,11.1,,,,0,0,0,"Derek Fisher",16192,605233
+"Bradley Zimmer","CLE","LF",3,2,18,,,,0,0,0,"Bradley Zimmer",16221,605548
+"Trea Turner","LAD","2B",49,48,436.2,,,,0,2,0,"Trea Turner",16252,607208
+"Alex Blandino","CIN","2B",5,1,14.2,,,,0,0,0,"Alex Blandino",16271,607468
+"Alex Blandino","CIN","LF",3,0,6.2,,,,0,0,0,"Alex Blandino",16271,607468
+"Michael Hermosillo","CHC","LF",2,1,11,,,,0,0,0,"Michael Hermosillo",16285,641684
+"Michael Hermosillo","CHC","RF",6,3,32,,,,0,0,0,"Michael Hermosillo",16285,641684
+"Yairo Muñoz","BOS","LF",1,1,9,,,,0,0,0,"Yairo Munoz",16313,622168
+"Nick Gordon","MIN","3B",2,0,2,,,,0,0,0,"Nick Gordon",16337,624503
+"Nick Gordon","MIN","RF",1,0,3,,,,0,0,0,"Nick Gordon",16337,624503
+"Pablo Reyes","MIL","2B",2,2,16,,,,0,0,0,"Pablo Reyes",16357,622569
+"Pablo Reyes","MIL","LF",1,0,2,,,,0,0,0,"Pablo Reyes",16357,622569
+"Pablo Reyes","MIL","SS",2,2,16,,,,0,0,0,"Pablo Reyes",16357,622569
+"Óscar Mercado","CLE","CF",7,6,40,,,,0,0,0,"Oscar Mercado",16375,640458
+"Óscar Mercado","CLE","LF",45,36,344.1,,,,0,0,0,"Oscar Mercado",16375,640458
+"Francisco Mejía","TBR","1B",2,1,11.1,,,,0,0,0,"Francisco Mejia",16403,642336
+"Domingo Leyba","- - -","3B",10,8,70.1,,,,0,0,0,"Domingo Leyba",16404,642736
+"Sergio Alcántara","CHC","3B",3,2,17,,,,0,0,0,"Sergio Alcantara",16417,642727
+"Jordan Luplow","CLE","RF",11,6,65.1,,,,0,0,0,"Jordan Luplow",16424,656669
+"Thairo Estrada","SFG","3B",4,1,19,,,,0,0,0,"Thairo Estrada",16426,642731
+"Thairo Estrada","SFG","LF",4,4,27,,,,0,0,0,"Thairo Estrada",16426,642731
+"Thairo Estrada","SFG","RF",1,1,6,,,,0,0,0,"Thairo Estrada",16426,642731
+"Thairo Estrada","SFG","SS",19,14,132,,,,0,1,0,"Thairo Estrada",16426,642731
+"Jason Martin","TEX","CF",3,3,25,,,,0,0,0,"Jason Martin",16429,641829
+"Jason Martin","TEX","RF",3,0,5,,,,0,0,0,"Jason Martin",16429,641829
+"Christian Arroyo","BOS","SS",2,0,2,,,,0,0,0,"Christian Arroyo",16434,624414
+"Ryan O'Hearn","KCR","1B",20,13,117,,,,0,0,0,"Ryan O'Hearn",16442,656811
+"Ryan O'Hearn","KCR","LF",1,1,5,,,,0,0,0,"Ryan O'Hearn",16442,656811
+"Johneshwy Fargas","CHC","RF",2,1,8,,,,0,0,0,"Johneshwy Fargas",16446,641561
+"Jacob Nottingham","SEA","1B",4,4,33,,,,0,0,0,"Jacob Nottingham",16448,641924
+"Matt Chapman","OAK","SS",3,0,4,,,,0,0,0,"Matt Chapman",16505,656305
+"Mauricio Dubón","SFG","2B",20,6,86.2,,,,0,0,0,"Mauricio Dubon",16530,643289
+"Mauricio Dubón","SFG","3B",12,3,51.1,,,,0,-1,0,"Mauricio Dubon",16530,643289
+"Ozzie Albies","ATL","2B",156,156,1358.2,,,,0,0,0,"Ozzie Albies",16556,645277
+"Connor Joe","COL","1B",14,13,101.1,,,,0,0,0,"Connor Joe",16572,656582
+"Connor Joe","COL","LF",32,27,238.1,,,,1,-1,0,"Connor Joe",16572,656582
+"Kevin Padlo","TBR","1B",3,0,4,,,,0,0,0,"Kevin Padlo",16593,656821
+"Greg Allen","NYY","LF",5,0,18.1,,,,0,0,0,"Greg Allen",16623,656185
+"Greg Allen","NYY","RF",8,8,58.2,,,,0,0,0,"Greg Allen",16623,656185
+"Jason Vosler","SFG","2B",3,2,14.2,,,,0,0,0,"Jason Vosler",16686,613564
+"Jason Vosler","SFG","LF",2,1,4.2,,,,0,0,0,"Jason Vosler",16686,613564
+"Brian O'Grady","SDP","1B",1,0,2,,,,0,0,0,"Brian O'Grady",16729,657434
+"Brian O'Grady","SDP","LF",4,2,23.1,,,,0,0,0,"Brian O'Grady",16729,657434
+"Brian O'Grady","SDP","RF",10,7,61.2,,,,0,0,0,"Brian O'Grady",16729,657434
+"Joshua Fuentes","COL","3B",60,56,452.1,,,,0,0,0,"Joshua Fuentes",16885,658069
+"Joshua Fuentes","COL","LF",2,0,3,,,,0,0,0,"Joshua Fuentes",16885,658069
+"Colin Moran","PIT","3B",1,0,1,,,,0,0,0,"Colin Moran",16909,592567
+"Lane Thomas","STL","RF",10,6,63,,,,0,0,0,"Lane Thomas",16939,657041
+"Chadwick Tromp","SFG","C",8,4,44.2,0,0,0,,,0,"Chadwick Tromp",16953,644433
+"Edmundo Sosa","STL","3B",9,1,31.1,,,,0,0,0,"Edmundo Sosa",17022,624641
+"Magneuris Sierra","MIA","RF",8,2,25,,,,0,0,0,"Magneuris Sierra",17023,642423
+"Alex Verdugo","BOS","RF",24,19,173,,,,1,-1,0,"Alex Verdugo",17027,657077
+"Dustin Fowler","PIT","CF",12,12,94,,,,0,0,0,"Dustin Fowler",17098,641583
+"Dustin Fowler","PIT","RF",1,0,1,,,,0,0,0,"Dustin Fowler",17098,641583
+"Ramón Laureano","OAK","RF",8,8,71,,,,1,-1,0,"Ramon Laureano",17128,657656
+"Monte Harrison","MIA","CF",4,2,20.1,,,,0,0,0,"Monte Harrison",17216,656509
+"Yoán Moncada","CHW","3B",138,138,1182.1,,,,0,0,0,"Yoan Moncada",17232,660162
+"Jorge Mateo","BAL","2B",18,12,112,,,,0,0,0,"Jorge Mateo",17273,622761
+"Jorge Mateo","- - -","LF",6,2,28.1,,,,0,0,0,"Jorge Mateo",17273,622761
+"Jorge Mateo","- - -","RF",7,3,46.1,,,,0,0,0,"Jorge Mateo",17273,622761
+"Bobby Bradley","CLE","1B",68,65,543,,,,0,0,0,"Bobby Bradley",17278,656252
+"Michael Chavis","- - -","1B",9,5,56.2,,,,0,0,0,"Michael Chavis",17321,656308
+"Michael Chavis","PIT","3B",4,3,29.1,,,,0,1,0,"Michael Chavis",17321,656308
+"Michael Chavis","PIT","RF",1,1,4,,,,0,0,0,"Michael Chavis",17321,656308
+"Cole Tucker","PIT","CF",2,1,10.2,,,,0,0,0,"Cole Tucker",17326,657061
+"Willi Castro","DET","2B",91,81,713.2,,,,0,1,0,"Willi Castro",17338,650489
+"Willi Castro","DET","SS",20,19,156.2,,,,0,0,0,"Willi Castro",17338,650489
+"Rafael Devers","BOS","2B",2,0,3,,,,0,0,0,"Rafael Devers",17350,646240
+"Yermín Mercedes","CHW","C",2,0,2,0,0,0,,,0,"Yermin Mercedes",17423,606213
+"Jose Siri","HOU","LF",4,2,22,,,,0,0,0,"Jose Siri",17452,642350
+"Jose Siri","HOU","RF",9,4,42,,,,0,0,0,"Jose Siri",17452,642350
+"Kelvin Gutiérrez","- - -","3B",84,74,662,,,,0,0,0,"Kelvin Gutierrez",17468,642721
+"Troy Stokes Jr.","PIT","RF",4,4,36,,,,-1,1,0,"Troy Stokes Jr.",17478,657011
+"Taylor Ward","LAA","C",1,0,2,0,0,0,,,0,"Taylor Ward",17548,621493
+"Taylor Ward","LAA","CF",12,9,56.1,,,,0,-1,0,"Taylor Ward",17548,621493
+"JT Riddle","MIN","SS",3,2,16,,,,0,0,0,"JT Riddle",17642,595375
+"Vimael Machín","OAK","2B",3,3,23,,,,0,0,0,"Vimael Machin",17684,605353
+"Vimael Machín","OAK","SS",8,7,58,,,,0,-1,0,"Vimael Machin",17684,605353
+"Steven Duggar","SFG","LF",4,1,13,,,,0,0,0,"Steven Duggar",17719,621453
+"Steven Duggar","SFG","RF",1,0,2.2,,,,0,0,0,"Steven Duggar",17719,621453
+"Skye Bolt","- - -","LF",6,1,20,,,,0,0,0,"Skye Bolt",17723,621450
+"Skye Bolt","OAK","RF",4,2,19.2,,,,0,0,0,"Skye Bolt",17723,621450
+"Max Schrock","CIN","2B",8,5,47.1,,,,0,0,0,"Max Schrock",17750,621011
+"Max Schrock","CIN","RF",1,1,7,,,,0,0,0,"Max Schrock",17750,621011
+"Braden Bishop","SEA","LF",8,1,20,,,,0,0,0,"Braden Bishop",17806,623323
+"Jakson Reetz","WSN","C",1,0,2,0,0,0,,,0,"Jakson Reetz",17837,656883
+"Ian Happ","CHC","3B",2,0,1.1,,,,0,0,0,"Ian Happ",17919,664023
+"Ian Happ","CHC","LF",65,52,459.1,,,,-1,0,0,"Ian Happ",17919,664023
+"Andrew Stevenson","WSN","CF",31,24,208.1,,,,0,0,0,"Andrew Stevenson",17932,664057
+"Andrew Stevenson","WSN","RF",11,3,42,,,,0,0,0,"Andrew Stevenson",17932,664057
+"Sam Hilliard","COL","LF",17,10,86,,,,0,0,0,"Sam Hilliard",17954,656541
+"Scott Kingery","PHI","2B",4,1,12,,,,0,0,0,"Scott Kingery",17975,664068
+"Scott Kingery","PHI","3B",1,0,5.1,,,,0,0,0,"Scott Kingery",17975,664068
+"Scott Kingery","PHI","CF",1,0,3,,,,0,0,0,"Scott Kingery",17975,664068
+"Scott Kingery","PHI","RF",5,1,12.1,,,,0,0,0,"Scott Kingery",17975,664068
+"Tyler Stephenson","CIN","1B",23,17,146.2,,,,0,0,0,"Tyler Stephenson",17988,663886
+"David Fletcher","LAA","SS",20,16,145,,,,0,0,0,"David Fletcher",17992,664058
+"Hoy Park","PIT","CF",4,2,16,,,,0,0,0,"Hoy Park",18027,660829
+"Hoy Park","- - -","RF",2,1,10,,,,0,0,0,"Hoy Park",18027,660829
+"Hoy Park","PIT","SS",8,8,58,,,,0,0,0,"Hoy Park",18027,660829
+"Jake Cronenworth","SDP","SS",41,36,326.2,,,,0,0,0,"Jake Cronenworth",18036,630105
+"Dylan Moore","SEA","RF",9,5,49.2,,,,0,0,0,"Dylan Moore",18042,664238
+"Dylan Moore","SEA","SS",4,2,18,,,,0,0,0,"Dylan Moore",18042,664238
+"Sam Haggerty","SEA","2B",4,1,16,,,,0,0,0,"Sam Haggerty",18054,664059
+"Sam Haggerty","SEA","CF",3,2,19,,,,0,0,0,"Sam Haggerty",18054,664059
+"Sam Haggerty","SEA","LF",20,15,130.1,,,,-1,1,0,"Sam Haggerty",18054,664059
+"Kyle Garlick","MIN","CF",5,2,22,,,,0,0,0,"Kyle Garlick",18063,664247
+"Kyle Garlick","MIN","LF",12,9,85,,,,0,0,0,"Kyle Garlick",18063,664247
+"Kyle Garlick","MIN","RF",18,13,117,,,,1,0,0,"Kyle Garlick",18063,664247
+"Garrett Stubbs","HOU","LF",2,0,3,,,,0,0,0,"Garrett Stubbs",18067,596117
+"LaMonte Wade Jr.","SFG","1B",31,24,191,,,,0,0,0,"LaMonte Wade Jr.",18126,664774
+"Ka'ai Tom","OAK","RF",4,3,26,,,,0,0,0,"Ka'ai Tom",18136,664789
+"Patrick Mazeika","NYM","1B",1,1,6,,,,0,0,0,"Patrick Mazeika",18142,664850
+"Austin Dean","STL","RF",3,1,12.1,,,,0,0,0,"Austin Dean",18288,621573
+"Brian Anderson","MIA","SS",1,0,6,,,,0,0,0,"Brian Anderson",18289,605119
+"Edwin Ríos","LAD","3B",6,5,46,,,,0,0,0,"Edwin Rios",18316,621458
+"Kyle Tucker","HOU","RF",133,126,1129,,,,-2,2,0,"Kyle Tucker",18345,663656
+"Daz Cameron","DET","LF",1,0,2,,,,0,0,0,"Daz Cameron",18353,663662
+"Daz Cameron","DET","RF",18,15,138.2,,,,0,0,0,"Daz Cameron",18353,663662
+"Austin Riley","ATL","RF",1,0,2,,,,0,-1,0,"Austin Riley",18360,663586
+"Travis Blankenhorn","NYM","LF",1,0,3,,,,0,0,0,"Travis Blankenhorn",18395,663905
+"Travis Blankenhorn","NYM","RF",1,0,1,,,,0,0,0,"Travis Blankenhorn",18395,663905
+"Ronald Acuña Jr.","ATL","CF",2,1,13,,,,0,0,0,"Ronald Acuna Jr.",18401,660670
+"Trey Amburgey","NYY","RF",2,2,11,,,,0,0,0,"Trey Amburgey",18425,664011
+"Ali Sánchez","STL","C",2,1,9,0,0,0,,,0,"Ali Sanchez",18551,645305
+"Luis Arraez","MIN","3B",55,46,414.2,,,,0,0,0,"Luis Arraez",18568,650333
+"Jared Walsh","LAA","RF",18,17,147.2,,,,0,0,0,"Jared Walsh",18607,665120
+"Andy Ibáñez","TEX","LF",1,1,9,,,,0,0,0,"Andy Ibanez",18819,628451
+"Josh Naylor","CLE","RF",51,50,422.2,,,,1,-1,0,"Josh Naylor",18839,647304
+"Yohel Pozo","TEX","C",2,2,18,0,0,0,,,0,"Yohel Pozo",18848,650968
+"Curtis Terry","TEX","1B",1,1,8,,,,0,-1,0,"Curtis Terry",18881,663799
+"Brandon Lowe","TBR","LF",10,6,43,,,,0,-1,0,"Brandon Lowe",18882,664040
+"Danny Mendick","CHW","3B",4,1,11,,,,0,0,0,"Danny Mendick",18889,664901
+"Corey Ray","MIL","RF",1,0,5,,,,0,0,0,"Corey Ray",19170,641999
+"Will Smith","LAD","3B",1,0,2,,,,0,0,0,"Will Smith",19197,669257
+"Yuli Gurriel","HOU","1B",142,139,1222,,,,0,-1,0,"Yuli Gurriel",19198,493329
+"Cavan Biggio","TOR","LF",1,1,9,,,,0,0,0,"Cavan Biggio",19252,624415
+"Jake Fraley","SEA","CF",16,14,132,,,,-1,0,0,"Jake Fraley",19260,641584
+"Garrett Hampson","COL","3B",2,1,8,,,,0,0,0,"Garrett Hampson",19262,641658
+"Garrett Hampson","COL","SS",5,2,21,,,,0,0,0,"Garrett Hampson",19262,641658
+"Randy Arozarena","TBR","CF",1,0,3,,,,0,0,0,"Randy Arozarena",19290,668227
+"Randy Arozarena","TBR","RF",53,48,410,,,,-1,1,0,"Randy Arozarena",19290,668227
+"Nick Senzel","CIN","3B",3,2,19,,,,0,0,0,"Nick Senzel",19293,669222
+"Nick Senzel","CIN","CF",29,21,190.2,,,,-1,1,0,"Nick Senzel",19293,669222
+"Matt Thaiss","LAA","1B",2,2,16,,,,0,0,0,"Matt Thaiss",19318,642136
+"Jose Rojas","LAA","2B",14,10,96,,,,0,0,0,"Jose Rojas",19331,670351
+"Jose Rojas","LAA","3B",12,11,87.2,,,,0,0,0,"Jose Rojas",19331,670351
+"Jose Rojas","LAA","LF",9,1,35.2,,,,0,0,0,"Jose Rojas",19331,670351
+"Yadiel Hernandez","WSN","RF",13,10,86.1,,,,0,0,0,"Yadiel Hernandez",19334,628450
+"Eli White","TEX","2B",3,3,25,,,,0,0,0,"Eli White",19346,642201
+"Eli White","TEX","RF",11,6,63,,,,0,0,0,"Eli White",19346,642201
+"DJ Peters","- - -","RF",16,15,130.1,,,,-1,1,0,"DJ Peters",19348,656847
+"Luke Raley","LAD","LF",13,7,78,,,,0,0,0,"Luke Raley",19354,670042
+"Luke Raley","LAD","RF",16,8,80.2,,,,-1,0,0,"Luke Raley",19354,670042
+"Austin Hays","BAL","CF",6,3,30,,,,0,0,0,"Austin Hays",19363,669720
+"Zach McKinstry","LAD","LF",14,5,41.2,,,,0,0,0,"Zach McKinstry",19392,656716
+"Yonny Hernández","TEX","3B",29,28,242.1,,,,0,0,0,"Yonny Hernandez",19432,660634
+"Tommy Edman","STL","RF",41,35,284.1,,,,0,1,0,"Tommy Edman",19470,669242
+"Tommy Edman","STL","SS",4,3,26,,,,0,0,0,"Tommy Edman",19470,669242
+"Alex De Goti","HOU","2B",2,2,16,,,,0,0,0,"Alex De Goti",19477,621008
+"Kyle Lewis","SEA","CF",34,34,294,,,,0,0,0,"Kyle Lewis",19508,641786
+"Jacob Robson","DET","LF",3,1,14,,,,0,0,0,"Jacob Robson",19528,615699
+"Jaylin Davis","SFG","LF",2,1,8,,,,0,0,0,"Jaylin Davis",19552,664041
+"Jaylin Davis","SFG","RF",1,1,7,,,,0,0,0,"Jaylin Davis",19552,664041
+"Zack Short","DET","2B",2,1,11,,,,0,1,0,"Zack Short",19562,670097
+"Zack Short","DET","3B",3,1,15,,,,0,0,0,"Zack Short",19562,670097
+"Nathaniel Lowe","TEX","3B",1,0,1,,,,0,0,0,"Nathaniel Lowe",19566,663993
+"Bryan De La Cruz","MIA","CF",24,23,199.1,,,,1,-1,0,"Bryan De La Cruz",19600,650559
+"Bryan De La Cruz","MIA","LF",16,11,98.2,,,,0,0,0,"Bryan De La Cruz",19600,650559
+"Luis Barrera","OAK","LF",2,1,9,,,,0,0,0,"Luis Barrera",19615,642456
+"Luis Barrera","OAK","RF",2,1,9,,,,0,0,0,"Luis Barrera",19615,642456
+"Jack Kruger","LAA","C",1,0,1,0,0,0,,,0,"Jack Kruger",19634,667674
+"Sheldon Neuse","LAD","RF",1,0,2.1,,,,0,0,0,"Sheldon Neuse",19635,641914
+"Daniel Johnson","CLE","LF",9,7,59.1,,,,0,0,0,"Daniel Johnson",19643,669288
+"Zach Reks","LAD","LF",3,2,12,,,,0,0,0,"Zach Reks",19667,676646
+"Zach Reks","LAD","RF",2,0,6,,,,0,0,0,"Zach Reks",19667,676646
+"Mike Brosseau","TBR","1B",10,2,36,,,,0,0,0,"Mike Brosseau",19683,670712
+"Mike Brosseau","TBR","LF",1,0,6,,,,0,0,0,"Mike Brosseau",19683,670712
+"Mike Brosseau","TBR","RF",1,0,3,,,,0,0,0,"Mike Brosseau",19683,670712
+"Edward Olivares","KCR","CF",4,3,24,,,,0,0,0,"Edward Olivares",19698,658668
+"Edward Olivares","KCR","LF",11,10,84.1,,,,0,-1,0,"Edward Olivares",19698,658668
+"Fernando Tatis Jr.","SDP","RF",20,16,151.1,,,,1,-1,0,"Fernando Tatis Jr.",19709,665487
+"Josh Rojas","ARI","3B",14,7,66,,,,0,-1,0,"Josh Rojas",19734,668942
+"Josh Rojas","ARI","LF",18,12,91.2,,,,1,-1,0,"Josh Rojas",19734,668942
+"Josh Rojas","ARI","RF",37,27,247.2,,,,0,0,0,"Josh Rojas",19734,668942
+"Shohei Ohtani","LAA","RF",6,0,7.1,,,,0,0,0,"Shohei Ohtani",19755,660271
+"Joshua Palacios","TOR","LF",4,2,25.2,,,,0,0,0,"Joshua Palacios",19818,641943
+"Joshua Palacios","TOR","RF",8,7,49,,,,0,0,0,"Joshua Palacios",19818,641943
+"Abraham Toro","- - -","3B",32,29,263.1,,,,0,1,0,"Abraham Toro",19844,647351
+"Luis Rengifo","LAA","2B",4,3,26,,,,0,0,0,"Luis Rengifo",19858,650859
+"Greg Deichmann","CHC","LF",2,0,5,,,,0,0,0,"Greg Deichmann",19872,656364
+"Drew Ellis","ARI","2B",4,4,24.1,,,,0,0,0,"Drew Ellis",19873,656403
+"Adam Haseley","PHI","LF",2,0,5,,,,0,0,0,"Adam Haseley",19878,656514
+"Emmanuel Rivera","KCR","1B",1,1,9,,,,0,0,0,"Emmanuel Rivera",19890,656896
+"Pavin Smith","ARI","LF",22,9,96,,,,0,0,0,"Pavin Smith",19892,656976
+"Connor Wong","BOS","C",5,3,31,0,0,0,,,0,"Connor Wong",19896,657136
+"Gavin Sheets","CHW","1B",10,10,81,,,,0,0,0,"Gavin Sheets",19901,657757
+"Gavin Sheets","CHW","LF",4,3,23,,,,0,0,0,"Gavin Sheets",19901,657757
+"Jesús Sánchez","MIA","LF",21,20,182.2,,,,0,0,0,"Jesus Sanchez",19913,660821
+"Luke Williams","PHI","3B",8,3,32.2,,,,0,0,0,"Luke Williams",19931,663897
+"Luke Williams","PHI","LF",7,2,25.1,,,,0,0,0,"Luke Williams",19931,663897
+"Luke Williams","PHI","RF",3,0,7,,,,0,0,0,"Luke Williams",19931,663897
+"Andrés Giménez","CLE","2B",25,23,196.2,,,,0,-1,0,"Andres Gimenez",19950,665926
+"Josh Lowe","TBR","LF",1,0,2,,,,0,0,0,"Josh Lowe",19953,666139
+"Josh Lowe","TBR","RF",1,1,7,,,,0,0,0,"Josh Lowe",19953,666139
+"Mickey Moniak","PHI","RF",3,0,5.2,,,,0,0,0,"Mickey Moniak",19956,666160
+"Colton Welker","COL","1B",2,2,17.2,,,,0,0,0,"Colton Welker",19961,666213
+"Colton Welker","COL","3B",5,5,44,,,,0,0,0,"Colton Welker",19961,666213
+"Bobby Dalbec","BOS","SS",2,0,4,,,,0,0,0,"Bobby Dalbec",19966,666915
+"Jared Oliva","PIT","CF",2,0,2,,,,0,0,0,"Jared Oliva",19968,666931
+"Jared Oliva","PIT","RF",12,7,65,,,,-1,1,0,"Jared Oliva",19968,666931
+"Keston Hiura","MIL","1B",49,42,357,,,,0,0,0,"Keston Hiura",20003,669374
+"Keston Hiura","MIL","LF",1,0,3.1,,,,0,0,0,"Keston Hiura",20003,669374
+"Hunter Owen","PIT","RF",1,1,5,,,,0,0,0,"Hunter Owen",20034,670462
+"Brian Miller","MIA","CF",2,1,11,,,,0,0,0,"Brian Miller",20047,675649
+"Alan Trejo","COL","2B",10,6,53.2,,,,0,-1,0,"Alan Trejo",20056,676701
+"Alan Trejo","COL","SS",9,2,28.1,,,,0,0,0,"Alan Trejo",20056,676701
+"Dylan Carlson","STL","LF",9,8,67.2,,,,0,0,0,"Dylan Carlson",20126,666185
+"Jo Adell","LAA","LF",25,17,158,,,,0,0,0,"Jo Adell",20220,666176
+"Jo Adell","LAA","RF",19,18,144.2,,,,1,0,0,"Jo Adell",20220,666176
+"Gilberto Celestino","MIN","LF",1,0,1,,,,0,0,0,"Gilberto Celestino",20233,665482
+"Kevin Smith","TOR","3B",14,8,78,,,,0,0,0,"Kevin Smith",20242,675656
+"Kevin Smith","TOR","LF",1,1,6,,,,0,0,0,"Kevin Smith",20242,675656
+"Jonathan Araúz","BOS","3B",2,1,9,,,,0,0,0,"Jonathan Arauz",20275,660620
+"Jake Meyers","HOU","LF",4,2,16.1,,,,0,0,0,"Jake Meyers",20308,676694
+"Jake Meyers","HOU","RF",3,3,24,,,,0,0,0,"Jake Meyers",20308,676694
+"Stuart Fairchild","ARI","CF",5,2,18,,,,0,0,0,"Stuart Fairchild",20321,656413
+"Stuart Fairchild","ARI","LF",2,1,9.1,,,,0,0,0,"Stuart Fairchild",20321,656413
+"Stuart Fairchild","ARI","RF",1,1,6,,,,0,0,0,"Stuart Fairchild",20321,656413
+"Luis González","CHW","LF",2,1,7.1,,,,0,0,0,"Luis Gonzalez",20332,670768
+"Ernie Clement","CLE","LF",2,0,8,,,,0,0,0,"Ernie Clement",20352,676391
+"Ernie Clement","CLE","SS",1,1,3,,,,0,0,0,"Ernie Clement",20352,676391
+"Scott Hurst","STL","CF",6,0,10,,,,0,0,0,"Scott Hurst",20501,656568
+"Nick Madrigal","CHW","2B",53,53,452.1,,,,0,0,0,"Nick Madrigal",20521,663611
+"Vidal Bruján","TBR","CF",1,0,3.2,,,,0,0,0,"Vidal Brujan",20536,660644
+"Vidal Bruján","TBR","RF",2,2,16,,,,0,0,0,"Vidal Brujan",20536,660644
+"Alejo Lopez","CIN","2B",3,1,10,,,,0,0,0,"Alejo Lopez",21127,664670
+"Alejo Lopez","CIN","LF",2,0,4,,,,0,0,0,"Alejo Lopez",21127,664670
+"Tyler Payne","CHC","C",1,0,3,0,0,0,,,0,"Tyler Payne",21139,665066
+"Nico Hoerner","CHC","CF",2,0,3,,,,0,0,0,"Nico Hoerner",21479,663538
+"Joey Bart","SFG","C",1,1,9,0,0,0,,,0,"Joey Bart",21524,663698
+"Matt Vierling","PHI","1B",9,6,55,,,,0,0,0,"Matt Vierling",21558,663837
+"Matt Vierling","PHI","CF",8,6,50,,,,0,0,0,"Matt Vierling",21558,663837
+"Matt Vierling","PHI","LF",7,2,21.1,,,,0,0,0,"Matt Vierling",21558,663837
+"Alfonso Rivas III","CHC","1B",5,3,28,,,,0,0,0,"Alfonso Rivas III",21560,663845
+"Alfonso Rivas III","CHC","LF",5,3,31,,,,0,0,0,"Alfonso Rivas III",21560,663845
+"Romy Gonzalez","CHW","2B",1,1,8,,,,0,0,0,"Romy Gonzalez",21562,663853
+"Romy Gonzalez","CHW","LF",1,1,7,,,,0,0,0,"Romy Gonzalez",21562,663853
+"Romy Gonzalez","CHW","RF",3,2,18,,,,0,0,0,"Romy Gonzalez",21562,663853
+"Romy Gonzalez","CHW","SS",1,0,2,,,,0,0,0,"Romy Gonzalez",21562,663853
+"Kyle Isbel","KCR","CF",9,7,64,,,,0,0,0,"Kyle Isbel",21614,664728
+"Kyle Isbel","KCR","LF",4,1,19,,,,0,0,0,"Kyle Isbel",21614,664728
+"Kyle Isbel","KCR","RF",14,12,101.1,,,,0,1,0,"Kyle Isbel",21614,664728
+"Jake McCarthy","ARI","RF",6,6,49.1,,,,1,-1,0,"Jake McCarthy",21622,664983
+"Nick Maton","PHI","2B",21,15,143.2,,,,0,0,0,"Nick Maton",21635,665155
+"Oneil Cruz","PIT","SS",2,2,18,,,,0,0,0,"Oneil Cruz",21711,665833
+"Rodolfo Castro","PIT","2B",20,19,148.1,,,,0,0,0,"Rodolfo Castro",21987,666801
+"Rodolfo Castro","PIT","3B",5,4,32,,,,0,0,0,"Rodolfo Castro",21987,666801
+"Ryan Vilade","COL","LF",2,2,16,,,,0,0,0,"Ryan Vilade",22165,668723
+"Akil Baddoo","DET","LF",56,46,407,,,,-1,1,0,"Akil Baddoo",22168,668731
+"Akil Baddoo","DET","RF",5,3,32.2,,,,0,0,0,"Akil Baddoo",22168,668731
+"Luis Campusano","SDP","C",9,9,75,0,1,0,,,0,"Luis Campusano",22217,669134
+"Taylor Walls","TBR","2B",3,2,23,,,,0,0,0,"Taylor Walls",22458,670764
+"Taylor Walls","TBR","SS",49,41,378,,,,0,0,0,"Taylor Walls",22458,670764
+"Jarred Kelenic","SEA","RF",3,2,18,,,,0,0,0,"Jarred Kelenic",22558,672284
+"Geraldo Perdomo","ARI","SS",10,9,81.1,,,,0,0,0,"Geraldo Perdomo",22799,672695
+"Tucupita Marcano","SDP","LF",4,2,16,,,,0,0,0,"Tucupita Marcano",22871,672779
+"Ryan Dorow","TEX","3B",3,2,20,,,,0,0,0,"Ryan Dorow",23559,676900
+"Wander Franco","TBR","2B",1,1,8,,,,0,0,0,"Wander Franco",23667,677551
+"Jarren Duran","BOS","CF",28,25,215,,,,0,0,0,"Jarren Duran",24617,680776
+"Jarren Duran","BOS","LF",1,1,8,,,,0,0,0,"Jarren Duran",24617,680776
+"Owen Miller","CLE","3B",7,4,34.2,,,,0,0,0,"Owen Miller",24655,680911
+"Owen Miller","CLE","SS",1,1,8,,,,0,0,0,"Owen Miller",24655,680911
+"Andrew Vaughn","CHW","1B",15,10,99.2,,,,0,0,0,"Andrew Vaughn",26197,683734
+"Andrew Vaughn","CHW","2B",1,1,8,,,,0,0,0,"Andrew Vaughn",26197,683734
+"Shogo Akiyama","CIN","RF",4,0,7,,,,0,0,0,"Shogo Akiyama",27461,673451
+"Albert Pujols","- - -","1B",76,57,506.1,,,,0,0,-1,"Albert Pujols",1177,405395
+"Miguel Cabrera","DET","1B",44,44,367.1,,,,0,-1,-1,"Miguel Cabrera",1744,408234
+"Charlie Culberson","TEX","1B",4,3,27,,,,0,-1,-1,"Charlie Culberson",3298,518586
+"Michael Brantley","HOU","RF",8,8,61,,,,0,-1,-1,"Michael Brantley",4106,488726
+"Ryan Zimmerman","WSN","1B",54,45,400.2,,,,0,0,-1,"Ryan Zimmerman",4220,475582
+"Giancarlo Stanton","NYY","RF",16,16,129,,,,0,-1,-1,"Giancarlo Stanton",4949,519317
+"Asdrúbal Cabrera","- - -","3B",65,55,489.1,,,,0,-1,-1,"Asdrubal Cabrera",4962,452678
+"Ji Man Choi","TBR","1B",73,67,587.1,,,,0,-1,-1,"Ji Man Choi",5452,596847
+"Austin Romine","CHC","C",21,14,132,-1,1,-1,,,-1,"Austin Romine",5491,519222
+"Wilmer Flores","SFG","3B",58,51,430.2,,,,0,1,-1,"Wilmer Flores",5827,527038
+"Eduardo Escobar","MIL","1B",18,14,126,,,,0,-1,-1,"Eduardo Escobar",6153,500871
+"J.D. Martinez","BOS","RF",8,7,52,,,,1,-1,-1,"J.D. Martinez",6184,502110
+"Alcides Escobar","WSN","2B",17,17,134.1,,,,0,0,-1,"Alcides Escobar",6310,444876
+"Jordy Mercer","WSN","2B",21,19,158,,,,0,-1,-1,"Jordy Mercer",6547,474568
+"Miguel Rojas","MIA","SS",128,124,1073,,,,0,-3,-1,"Miguel Rojas",7802,500743
+"Eric Sogard","CHC","2B",43,32,284.2,,,,0,-2,-1,"Eric Sogard",7927,519299
+"Eric Sogard","CHC","3B",10,3,36,,,,0,-1,-1,"Eric Sogard",7927,519299
+"Matt Carpenter","STL","2B",34,29,214.2,,,,0,0,-1,"Matt Carpenter",8090,572761
+"Josh Harrison","OAK","SS",8,7,57,,,,0,-1,-1,"Josh Harrison",8202,543281
+"Gerardo Parra","WSN","CF",8,4,45.2,,,,0,-1,-1,"Gerardo Parra",8553,467827
+"AJ Pollock","LAD","LF",103,92,806,,,,0,0,-1,"AJ Pollock",9256,572041
+"Brock Holt","TEX","3B",69,57,516.1,,,,0,1,-1,"Brock Holt",9345,571788
+"Matt Adams","COL","1B",7,7,50,,,,0,-1,-1,"Matt Adams",9393,571431
+"Dustin Garneau","DET","C",20,19,165,1,0,-2,,,-1,"Dustin Garneau",9433,572863
+"Christian Vázquez","BOS","1B",1,0,2,,,,0,-1,-1,"Christian Vazquez",9774,543877
+"Christian Vázquez","BOS","3B",2,0,4,,,,0,-1,-1,"Christian Vazquez",9774,543877
+"Brett Gardner","NYY","LF",35,21,223.1,,,,0,-1,-1,"Brett Gardner",9927,458731
+"Trayce Thompson","CHC","RF",8,6,53.2,,,,0,-1,-1,"Trayce Thompson",9952,572204
+"Chris Owings","COL","RF",3,3,19,,,,0,-1,-1,"Chris Owings",10030,572008
+"Rafael Ortega","CHC","RF",13,7,71,,,,0,-1,-1,"Rafael Ortega",10323,542364
+"Marcell Ozuna","ATL","LF",48,48,411.1,,,,-1,0,-1,"Marcell Ozuna",10324,542303
+"Rob Brantly","NYY","C",5,4,36.2,0,-1,0,,,-1,"Rob Brantly",10655,542963
+"Corey Dickerson","- - -","LF",77,69,586,,,,-1,0,-1,"Corey Dickerson",10762,572816
+"Jurickson Profar","SDP","LF",36,28,257.1,,,,1,-2,-1,"Jurickson Profar",10815,595777
+"Whit Merrifield","KCR","RF",18,11,100,,,,0,-1,-1,"Whit Merrifield",11281,593160
+"Yasmani Grandal","CHW","1B",8,5,53.2,,,,0,-1,-1,"Yasmani Grandal",11368,518735
+"Delino DeShields","CIN","CF",18,10,91.2,,,,0,-1,-1,"Delino DeShields",11379,592261
+"Odúbel Herrera","PHI","LF",23,14,142,,,,-1,0,-1,"Odubel Herrera",11476,546318
+"Christian Yelich","MIL","LF",107,103,893.2,,,,-3,2,-1,"Christian Yelich",11477,592885
+"Henry Ramos","ARI","RF",8,6,62,,,,0,-1,-1,"Henry Ramos",11481,592656
+"Brandon Drury","NYM","3B",7,5,40,,,,0,0,-1,"Brandon Drury",11615,592273
+"Hanser Alberto","KCR","2B",31,12,134.2,,,,0,-1,-1,"Hanser Alberto",11902,593643
+"Hanser Alberto","KCR","SS",17,11,101.1,,,,0,0,-1,"Hanser Alberto",11902,593643
+"Travis Shaw","- - -","1B",31,8,107.2,,,,0,-1,-1,"Travis Shaw",11982,543768
+"Nick Martini","CHC","RF",7,4,42,,,,0,-2,-1,"Nick Martini",12005,605361
+"Ben Gamel","PIT","1B",4,0,9,,,,0,-1,-1,"Ben Gamel",12160,592325
+"Miguel Sanó","MIN","3B",9,3,37,,,,0,-1,-1,"Miguel Sano",12164,593934
+"Jorge Alfaro","MIA","C",61,57,476,2,-5,1,,,-1,"Jorge Alfaro",12180,595751
+"Jace Peterson","MIL","2B",35,28,254.1,,,,0,0,-1,"Jace Peterson",12325,607054
+"Curt Casali","SFG","C",64,55,509.1,-1,-1,1,,,-1,"Curt Casali",12510,592200
+"John Hicks","TEX","C",8,6,52.1,0,0,-1,,,-1,"John Hicks",12547,543308
+"Breyvic Valera","TOR","2B",10,4,48,,,,0,-1,-1,"Breyvic Valera",12758,591971
+"Brad Miller","PHI","3B",8,4,38.1,,,,0,-1,-1,"Brad Miller",12775,543543
+"Brad Miller","PHI","LF",6,5,37,,,,0,-1,-1,"Brad Miller",12775,543543
+"Andy Burns","LAD","2B",3,2,13,,,,0,-1,-1,"Andy Burns",12779,542992
+"Phillip Evans","PIT","1B",20,15,135.1,,,,0,-1,-1,"Phillip Evans",12950,595943
+"Phillip Evans","PIT","RF",15,12,102.1,,,,-1,-1,-1,"Phillip Evans",12950,595943
+"Erick Castillo","CHC","C",4,2,21,0,0,-1,,,-1,"Erick Castillo",12990,602080
+"Teoscar Hernández","TOR","RF",110,105,881,,,,1,-2,-1,"Teoscar Hernandez",13066,606192
+"Josh Bell","WSN","LF",9,5,51.2,,,,0,-1,-1,"Josh Bell",13145,605137
+"Robel García","HOU","SS",13,8,81,,,,0,-1,-1,"Robel Garcia",13167,596825
+"Orlando Arcia","ATL","2B",1,1,9,,,,0,-1,-1,"Orlando Arcia",13185,606115
+"Orlando Arcia","ATL","LF",14,13,102,,,,0,-1,-1,"Orlando Arcia",13185,606115
+"Jake Lamb","- - -","3B",16,12,110,,,,0,-1,-1,"Jake Lamb",13329,571875
+"Omar Narváez","MIL","2B",1,0,1,,,,0,-1,-1,"Omar Narvaez",13338,553882
+"Tyler Naquin","CIN","LF",22,13,131.1,,,,0,-2,-1,"Tyler Naquin",13359,571980
+"Patrick Wisdom","CHC","1B",13,8,73.2,,,,0,-1,-1,"Patrick Wisdom",13602,621550
+"Ketel Marte","ARI","2B",20,14,129.1,,,,0,-1,-1,"Ketel Marte",13613,606466
+"Jeimer Candelario","DET","3B",142,142,1237.2,,,,0,0,-1,"Jeimer Candelario",13621,600869
+"Chris Taylor","LAD","2B",46,33,294,,,,0,-1,-1,"Chris Taylor",13757,621035
+"Matt Duffy","CHC","3B",56,47,416,,,,0,0,-1,"Matt Duffy",13836,622110
+"Rio Ruiz","BAL","2B",20,17,154.1,,,,0,0,-1,"Rio Ruiz",14103,547004
+"Tim Lopes","MIL","2B",3,1,17.1,,,,0,-1,-1,"Tim Lopes",14137,621005
+"José Rondón","STL","RF",7,6,47,,,,0,-1,-1,"Jose Rondon",14140,602922
+"Wilmer Difo","PIT","3B",18,12,95,,,,0,-1,-1,"Wilmer Difo",14320,594694
+"Wilmer Difo","PIT","SS",4,3,29,,,,0,-1,-1,"Wilmer Difo",14320,594694
+"Max Moroff","STL","3B",1,1,9,,,,0,-1,-1,"Max Moroff",14556,621559
+"Franmil Reyes","CLE","RF",11,11,76,,,,1,-2,-1,"Franmil Reyes",14566,614177
+"Harold Castro","DET","3B",12,11,94,,,,0,-1,-1,"Harold Castro",14691,605612
+"Harold Castro","DET","CF",2,2,12,,,,0,-1,-1,"Harold Castro",14691,605612
+"Harold Castro","DET","LF",3,1,12,,,,0,-1,-1,"Harold Castro",14691,605612
+"Kyle Farmer","CIN","1B",5,2,23,,,,0,0,-1,"Kyle Farmer",14813,571657
+"Kyle Farmer","CIN","3B",10,8,65.2,,,,0,-1,-1,"Kyle Farmer",14813,571657
+"JaCoby Jones","DET","LF",2,1,11,,,,0,-1,-1,"JaCoby Jones",14818,592444
+"Mike Yastrzemski","SFG","RF",115,90,831.2,,,,-2,2,-1,"Mike Yastrzemski",14854,573262
+"Tim Locastro","ARI","RF",9,3,41.1,,,,0,0,-1,"Tim Locastro",15124,641796
+"Trey Mancini","BAL","1B",77,75,641,,,,0,0,-1,"Trey Mancini",15149,641820
+"Chad Pinder","OAK","2B",7,5,44,,,,0,-1,-1,"Chad Pinder",15191,640461
+"Chad Pinder","OAK","SS",8,4,40.1,,,,0,0,-1,"Chad Pinder",15191,640461
+"Adam Frazier","- - -","LF",12,5,55,,,,0,-1,-1,"Adam Frazier",15223,624428
+"Frank Schwindel","- - -","1B",52,50,429.1,,,,0,-2,-1,"Frank Schwindel",15351,643524
+"Jack Mayfield","LAA","SS",12,10,88,,,,0,-1,-1,"Jack Mayfield",15402,608686
+"Kris Bryant","CHC","1B",12,10,92,,,,0,-1,-1,"Kris Bryant",15429,592178
+"Kris Bryant","CHC","SS",1,0,2,,,,0,-1,-1,"Kris Bryant",15429,592178
+"Victor Reyes","DET","RF",43,36,331.2,,,,-1,0,-1,"Victor Reyes",15487,622682
+"Amed Rosario","CLE","CF",18,14,123.1,,,,0,0,-1,"Amed Rosario",15518,642708
+"Willians Astudillo","MIN","2B",4,2,16,,,,0,-1,-1,"Willians Astudillo",15608,553902
+"Willians Astudillo","MIN","C",10,4,41,0,0,-1,,,-1,"Willians Astudillo",15608,553902
+"Willians Astudillo","MIN","RF",1,1,6,,,,0,0,-1,"Willians Astudillo",15608,553902
+"Aaron Judge","NYY","CF",23,21,158,,,,-1,0,-1,"Aaron Judge",15640,592450
+"Dominic Smith","NYM","1B",15,7,70.2,,,,0,0,-1,"Dominic Smith",15653,642086
+"Austin Meadows","TBR","LF",78,72,615.2,,,,0,-1,-1,"Austin Meadows",15672,640457
+"José Abreu","CHW","1B",135,134,1153,,,,0,-1,-1,"Jose Abreu",15676,547989
+"José Marmolejos","SEA","LF",11,11,83,,,,0,-2,-1,"Jose Marmolejos",15767,592530
+"Luis Torrens","SEA","1B",5,5,39,,,,0,-1,-1,"Luis Torrens",15905,620443
+"Aledmys Díaz","HOU","SS",9,7,59.1,,,,0,-1,-1,"Aledmys Diaz",15937,649557
+"Mark Payton","CIN","RF",4,0,9,,,,0,-1,-1,"Mark Payton",16042,592622
+"J.D. Davis","NYM","3B",50,48,382.2,,,,0,-1,-1,"J.D. Davis",16219,605204
+"Trea Turner","- - -","SS",98,98,817.2,,,,0,0,-1,"Trea Turner",16252,607208
+"Alex Blandino","CIN","1B",17,8,87.1,,,,0,-1,-1,"Alex Blandino",16271,607468
+"Nick Ciuffo","BAL","C",2,2,17,0,0,-1,,,-1,"Nick Ciuffo",16291,624419
+"Yairo Muñoz","BOS","2B",3,1,20,,,,0,-1,-1,"Yairo Munoz",16313,622168
+"Nick Gordon","MIN","LF",11,7,64,,,,-1,0,-1,"Nick Gordon",16337,624503
+"Michael Conforto","NYM","RF",117,111,956.1,,,,-2,1,-1,"Michael Conforto",16376,624424
+"Jordan Luplow","CLE","CF",22,19,155.1,,,,-1,0,-1,"Jordan Luplow",16424,656669
+"Jason Martin","TEX","LF",41,34,317.2,,,,-1,0,-1,"Jason Martin",16429,641829
+"Johneshwy Fargas","- - -","CF",12,10,83.1,,,,0,0,-1,"Johneshwy Fargas",16446,641561
+"Jacob Nottingham","MIL","C",3,3,25,0,0,0,,,-1,"Jacob Nottingham",16448,641924
+"Luis Guillorme","NYM","3B",27,18,154.1,,,,0,0,-1,"Luis Guillorme",16451,641645
+"Luis Guillorme","NYM","SS",11,5,57.2,,,,0,-1,-1,"Luis Guillorme",16451,641645
+"Jason Vosler","SFG","1B",3,1,13,,,,0,-1,-1,"Jason Vosler",16686,613564
+"Lane Thomas","- - -","CF",42,41,357,,,,2,-2,-1,"Lane Thomas",16939,657041
+"Lane Thomas","- - -","LF",12,5,53.2,,,,0,0,-1,"Lane Thomas",16939,657041
+"Eddy Alvarez","MIA","2B",4,3,27,,,,0,0,-1,"Eddy Alvarez",16959,657193
+"Magneuris Sierra","MIA","LF",16,6,71,,,,0,0,-1,"Magneuris Sierra",17023,642423
+"Chad Wallach","MIA","C",20,18,158.2,-1,-1,0,,,-1,"Chad Wallach",17161,595453
+"Jorge Mateo","- - -","3B",9,0,27,,,,0,-1,-1,"Jorge Mateo",17273,622761
+"Jorge Mateo","- - -","SS",18,15,120,,,,0,-1,-1,"Jorge Mateo",17273,622761
+"Cole Tucker","PIT","RF",12,5,58.2,,,,-1,0,-1,"Cole Tucker",17326,657061
+"Willi Castro","DET","LF",10,10,84,,,,0,-1,-1,"Willi Castro",17338,650489
+"Eloy Jiménez","CHW","LF",37,37,304,,,,0,-1,-1,"Eloy Jimenez",17484,650391
+"Taylor Ward","LAA","LF",18,8,85,,,,0,-1,-1,"Taylor Ward",17548,621493
+"Vimael Machín","OAK","3B",3,1,10,,,,0,-1,-1,"Vimael Machin",17684,605353
+"Kevin Newman","PIT","2B",15,11,92,,,,0,-1,-1,"Kevin Newman",17696,621028
+"Matt Beaty","LAD","3B",5,0,11,,,,0,-1,-1,"Matt Beaty",17710,607461
+"Max Schrock","CIN","1B",5,2,23,,,,0,-1,-1,"Max Schrock",17750,621011
+"Max Schrock","CIN","3B",9,2,24.1,,,,0,-1,-1,"Max Schrock",17750,621011
+"Max Schrock","CIN","LF",23,18,149.1,,,,-1,0,-1,"Max Schrock",17750,621011
+"Tyler Nevin","BAL","1B",2,2,14,,,,0,-1,-1,"Tyler Nevin",17893,663527
+"Tyler Nevin","BAL","LF",4,3,23,,,,0,-1,-1,"Tyler Nevin",17893,663527
+"Andrew Benintendi","KCR","LF",129,129,1116,,,,-1,0,-1,"Andrew Benintendi",17901,643217
+"Brendan Rodgers","COL","SS",26,18,163.2,,,,0,-1,-1,"Brendan Rodgers",17907,663898
+"Ian Happ","CHC","2B",8,4,34.2,,,,0,-1,-1,"Ian Happ",17919,664023
+"Ian Happ","CHC","RF",16,11,94.2,,,,0,-1,-1,"Ian Happ",17919,664023
+"Andrew Stevenson","WSN","LF",24,12,122.2,,,,-1,-1,-1,"Andrew Stevenson",17932,664057
+"Sam Hilliard","COL","RF",11,7,69.2,,,,0,-1,-1,"Sam Hilliard",17954,656541
+"Ty France","SEA","3B",5,5,39,,,,0,-1,-1,"Ty France",17982,664034
+"Tyler Stephenson","CIN","C",78,65,588.1,-1,-1,1,,,-1,"Tyler Stephenson",17988,663886
+"Tyler Stephenson","CIN","LF",1,0,1,,,,0,-1,-1,"Tyler Stephenson",17988,663886
+"Hoy Park","PIT","LF",4,3,26,,,,0,-1,-1,"Hoy Park",18027,660829
+"Sam Haggerty","SEA","RF",6,4,38,,,,0,-1,-1,"Sam Haggerty",18054,664059
+"Garrett Stubbs","HOU","C",14,7,79,1,-1,-1,,,-1,"Garrett Stubbs",18067,596117
+"LaMonte Wade Jr.","SFG","CF",2,2,13,,,,0,-1,-1,"LaMonte Wade Jr.",18126,664774
+"Patrick Mazeika","NYM","C",24,18,168,-1,0,0,,,-1,"Patrick Mazeika",18142,664850
+"Seth Brown","OAK","1B",6,3,30.1,,,,0,-1,-1,"Seth Brown",18171,664913
+"Kyle Tucker","HOU","CF",4,4,28,,,,0,-1,-1,"Kyle Tucker",18345,663656
+"Travis Blankenhorn","- - -","2B",6,1,15.2,,,,0,-1,-1,"Travis Blankenhorn",18395,663905
+"Luis Arraez","MIN","LF",27,23,165.1,,,,1,-2,-1,"Luis Arraez",18568,650333
+"Andy Ibáñez","TEX","3B",11,10,85.2,,,,0,-1,-1,"Andy Ibanez",18819,628451
+"Danny Mendick","CHW","SS",28,22,195,,,,0,-1,-1,"Danny Mendick",18889,664901
+"Trent Giambrone","CHC","2B",4,3,27.2,,,,0,0,-1,"Trent Giambrone",19250,623508
+"Cavan Biggio","TOR","1B",7,3,34,,,,0,-1,-1,"Cavan Biggio",19252,624415
+"Cavan Biggio","TOR","2B",7,4,40,,,,0,-1,-1,"Cavan Biggio",19252,624415
+"Jake Fraley","SEA","RF",6,6,53,,,,-1,-1,-1,"Jake Fraley",19260,641584
+"Adolis García","TEX","LF",9,8,66,,,,0,-1,-1,"Adolis Garcia",19287,666969
+"Nick Senzel","CIN","2B",8,6,45.2,,,,0,-1,-1,"Nick Senzel",19293,669222
+"Nick Solak","TEX","2B",121,120,1050.2,,,,1,0,-1,"Nick Solak",19294,669256
+"Donovan Walton","SEA","3B",2,1,9.2,,,,0,-1,-1,"Donovan Walton",19314,622268
+"Donovan Walton","SEA","LF",5,4,35,,,,0,-1,-1,"Donovan Walton",19314,622268
+"Andrew Young","ARI","3B",2,0,2.2,,,,0,-1,-1,"Andrew Young",19521,670370
+"TJ Friedl","CIN","CF",6,6,50,,,,-1,0,-1,"TJ Friedl",19522,670770
+"Yordan Alvarez","HOU","LF",41,39,319,,,,0,0,-1,"Yordan Alvarez",19556,670541
+"Nathaniel Lowe","TEX","1B",148,144,1269.1,,,,0,-2,-1,"Nathaniel Lowe",19566,663993
+"Bryan De La Cruz","MIA","RF",23,19,175,,,,0,0,-1,"Bryan De La Cruz",19600,650559
+"Sheldon Neuse","LAD","2B",13,7,72,,,,0,-1,-1,"Sheldon Neuse",19635,641914
+"Mike Brosseau","TBR","3B",23,16,140.1,,,,0,-1,-1,"Mike Brosseau",19683,670712
+"Edward Olivares","KCR","RF",22,14,135,,,,0,-1,-1,"Edward Olivares",19698,658668
+"Fernando Tatis Jr.","SDP","CF",7,7,56,,,,-1,-1,-1,"Fernando Tatis Jr.",19709,665487
+"Josh Rojas","ARI","2B",55,37,356,,,,0,0,-1,"Josh Rojas",19734,668942
+"Abraham Toro","HOU","1B",2,2,17,,,,0,-1,-1,"Abraham Toro",19844,647351
+"Pavin Smith","ARI","RF",54,42,344.2,,,,0,-1,-1,"Pavin Smith",19892,656976
+"Ryan McKenna","BAL","RF",18,12,113.2,,,,-1,-1,-1,"Ryan McKenna",19928,663630
+"Luke Williams","PHI","SS",5,2,18,,,,0,-1,-1,"Luke Williams",19931,663897
+"Khalil Lee","NYM","RF",11,4,44.2,,,,0,-1,-1,"Khalil Lee",19952,666137
+"Gavin Lux","LAD","3B",1,1,6,,,,0,-1,-1,"Gavin Lux",19955,666158
+"Gavin Lux","LAD","LF",11,10,86,,,,0,-1,-1,"Gavin Lux",19955,666158
+"Gavin Lux","LAD","RF",1,0,3,,,,0,-1,-1,"Gavin Lux",19955,666158
+"Bobby Dalbec","BOS","3B",14,4,52,,,,0,-1,-1,"Bobby Dalbec",19966,666915
+"Jared Oliva","PIT","LF",5,2,21,,,,0,-1,-1,"Jared Oliva",19968,666931
+"Keston Hiura","MIL","2B",7,4,36,,,,0,-1,-1,"Keston Hiura",20003,669374
+"Isaac Paredes","DET","SS",5,4,38.2,,,,0,-1,-1,"Isaac Paredes",20036,670623
+"Dylan Carlson","STL","CF",60,59,501,,,,0,0,-1,"Dylan Carlson",20126,666185
+"Dylan Carlson","STL","RF",87,78,674.2,,,,1,-3,-1,"Dylan Carlson",20126,666185
+"Jonathan Araúz","BOS","2B",12,9,68,,,,0,-1,-1,"Jonathan Arauz",20275,660620
+"Alex Kirilloff","MIN","LF",13,11,93,,,,0,-1,-1,"Alex Kirilloff",20325,666135
+"Alex Kirilloff","MIN","RF",27,19,172,,,,0,-1,-1,"Alex Kirilloff",20325,666135
+"Vidal Bruján","TBR","2B",4,4,29,,,,0,0,-1,"Vidal Brujan",20536,660644
+"Alejo Lopez","CIN","3B",3,2,15.1,,,,0,-1,-1,"Alejo Lopez",21127,664670
+"Nico Hoerner","CHC","LF",3,1,13.1,,,,0,-1,-1,"Nico Hoerner",21479,663538
+"Alfonso Rivas III","CHC","RF",5,5,37,,,,0,0,-1,"Alfonso Rivas III",21560,663845
+"Romy Gonzalez","CHW","3B",4,3,25.2,,,,0,0,-1,"Romy Gonzalez",21562,663853
+"Alec Bohm","PHI","1B",7,3,34.1,,,,0,-1,-1,"Alec Bohm",21618,664761
+"Alec Bohm","PHI","3B",103,98,833.2,,,,0,-2,-1,"Alec Bohm",21618,664761
+"Sebastián  Rivero","KCR","C",17,9,106,0,0,0,,,-1,"Sebastian  Rivero",21735,665861
+"Tucupita Marcano","SDP","RF",4,2,16,,,,0,-1,-1,"Tucupita Marcano",22871,672779
+"José Barrero","CIN","2B",2,1,10.2,,,,0,-1,-1,"Jose Barrero",23378,676480
+"Wander Franco","TBR","SS",63,61,543,,,,0,-1,-1,"Wander Franco",23667,677551
+"Owen Miller","CLE","1B",18,18,162.1,,,,0,-2,-1,"Owen Miller",24655,680911
+"Andrew Vaughn","CHW","3B",2,1,10,,,,0,-1,-1,"Andrew Vaughn",26197,683734
+"Yoshi Tsutsugo","- - -","LF",10,8,74.1,,,,0,-1,-1,"Yoshi Tsutsugo",27459,660294
+"Shogo Akiyama","CIN","LF",9,4,48,,,,-1,0,-1,"Shogo Akiyama",27461,673451
+"Michael Brantley","HOU","LF",84,80,666.2,,,,-2,0,-2,"Michael Brantley",4106,488726
+"Stephen Vogt","ARI","1B",2,0,4,,,,0,-2,-2,"Stephen Vogt",5000,519390
+"Juan Lagares","LAA","RF",37,25,230.1,,,,0,-2,-2,"Juan Lagares",5384,501571
+"Wilmer Flores","SFG","2B",30,22,182,,,,0,-1,-2,"Wilmer Flores",5827,527038
+"Leury García","CHW","2B",36,33,277.2,,,,0,-2,-2,"Leury Garcia",5913,544725
+"Alex Avila","WSN","C",27,27,232,0,2,-4,,,-2,"Alex Avila",7476,488671
+"Jonathan Lucroy","- - -","C",6,6,50,0,0,-1,,,-2,"Jonathan Lucroy",7870,518960
+"Ehire Adrianza","ATL","RF",14,11,108,,,,-1,-1,-2,"Ehire Adrianza",8418,501303
+"Donovan Solano","SFG","2B",91,78,687.1,,,,0,0,-2,"Donovan Solano",8623,456781
+"Brett Gardner","NYY","CF",105,92,816.1,,,,-2,0,-2,"Brett Gardner",9927,458731
+"Gio Urshela","NYY","3B",96,85,754.2,,,,0,-3,-2,"Gio Urshela",10681,570482
+"Jurickson Profar","SDP","2B",10,6,59.2,,,,0,-2,-2,"Jurickson Profar",10815,595777
+"Jurickson Profar","SDP","CF",20,19,147.2,,,,0,-2,-2,"Jurickson Profar",10815,595777
+"Phil Gosselin","LAA","3B",32,24,209.2,,,,0,-2,-2,"Phil Gosselin",10953,594838
+"Kole Calhoun","ARI","RF",39,36,309,,,,-1,-1,-2,"Kole Calhoun",11200,594777
+"Bryan Holaday","ARI","C",10,10,85,0,0,-2,,,-2,"Bryan Holaday",11287,592407
+"Jon Berti","MIA","3B",46,41,336,,,,0,-1,-2,"Jon Berti",12037,542932
+"Eddie Rosario","- - -","LF",100,96,818,,,,-1,-2,-2,"Eddie Rosario",12155,592696
+"Ben Gamel","- - -","CF",20,11,108,,,,0,-2,-2,"Ben Gamel",12160,592325
+"Ben Gamel","PIT","RF",18,12,118,,,,1,-2,-2,"Ben Gamel",12160,592325
+"Kevan Smith","- - -","C",31,28,237.2,0,-2,0,,,-2,"Kevan Smith",12284,607345
+"Jace Peterson","MIL","RF",17,15,119,,,,-1,-1,-2,"Jace Peterson",12325,607054
+"Marcus Semien","TOR","SS",21,14,134,,,,0,-1,-2,"Marcus Semien",12533,543760
+"Michael Pérez","PIT","C",58,57,488.1,-1,3,-4,,,-2,"Michael Perez",12977,605421
+"Jorge Polanco","MIN","SS",39,26,236.2,,,,0,-2,-2,"Jorge Polanco",13152,593871
+"Robel García","HOU","3B",15,10,102,,,,0,-2,-2,"Robel Garcia",13167,596825
+"Max Muncy","LAD","2B",39,31,254,,,,0,-1,-2,"Max Muncy",13301,571970
+"Ildemaro Vargas","- - -","3B",10,7,60,,,,0,-2,-2,"Ildemaro Vargas",13324,545121
+"Ildemaro Vargas","- - -","SS",5,3,32,,,,0,-1,-2,"Ildemaro Vargas",13324,545121
+"Jake Lamb","CHW","RF",9,8,66.2,,,,0,-1,-2,"Jake Lamb",13329,571875
+"Tyler Naquin","CIN","CF",92,78,645.1,,,,1,-3,-2,"Tyler Naquin",13359,571980
+"Tyler Naquin","CIN","RF",21,15,136.2,,,,0,-2,-2,"Tyler Naquin",13359,571980
+"Erik González","PIT","SS",17,12,100.1,,,,0,-1,-2,"Erik Gonzalez",13369,570481
+"Carson Kelly","ARI","C",91,80,706.2,-1,0,-1,,,-2,"Carson Kelly",13620,608348
+"David Dahl","TEX","LF",31,27,241.2,,,,1,-2,-2,"David Dahl",13744,621311
+"Chris Taylor","LAD","3B",11,9,81,,,,0,-2,-2,"Chris Taylor",13757,621035
+"Daniel Vogelbach","MIL","1B",59,52,407.2,,,,0,-2,-2,"Daniel Vogelbach",14130,596129
+"Daniel Robertson","MIL","2B",9,3,38,,,,0,-2,-2,"Daniel Robertson",14145,621002
+"Daniel Robertson","MIL","3B",24,4,75.1,,,,0,-2,-2,"Daniel Robertson",14145,621002
+"Wilmer Difo","PIT","RF",8,7,53.1,,,,0,-3,-2,"Wilmer Difo",14320,594694
+"Harold Ramírez","CLE","CF",20,19,150.1,,,,0,-3,-2,"Harold Ramirez",14387,623912
+"Renato Núñez","DET","1B",8,8,67,,,,0,-2,-2,"Renato Nunez",14503,600524
+"Harold Castro","DET","1B",15,7,77.2,,,,0,-2,-2,"Harold Castro",14691,605612
+"Harold Castro","DET","2B",33,25,233,,,,0,-1,-2,"Harold Castro",14691,605612
+"Luke Voit","NYY","1B",42,42,344.1,,,,0,-2,-2,"Luke Voit",14811,572228
+"Hunter Dozier","KCR","LF",14,13,96,,,,-1,-1,-2,"Hunter Dozier",15117,641531
+"Chad Pinder","OAK","3B",6,4,34.1,,,,0,-2,-2,"Chad Pinder",15191,640461
+"Chad Pinder","OAK","LF",17,15,125,,,,0,-2,-2,"Chad Pinder",15191,640461
+"Kris Bryant","- - -","3B",55,47,386,,,,0,-3,-2,"Kris Bryant",15429,592178
+"Aristides Aquino","CIN","CF",14,5,60.1,,,,0,-2,-2,"Aristides Aquino",15482,606157
+"Aristides Aquino","CIN","LF",35,24,209.2,,,,-1,-2,-2,"Aristides Aquino",15482,606157
+"Justin Williams","STL","RF",24,17,154.2,,,,-1,-1,-2,"Justin Williams",15490,642211
+"Willians Astudillo","MIN","3B",29,22,204.2,,,,0,-2,-2,"Willians Astudillo",15608,553902
+"Austin Meadows","TBR","RF",1,1,8,,,,0,-2,-2,"Austin Meadows",15672,640457
+"Tyler Wade","NYY","SS",31,14,139.1,,,,0,-1,-2,"Tyler Wade",15730,642180
+"José Godoy","SEA","C",14,11,95,-1,0,-2,,,-2,"Jose Godoy",15808,608422
+"Miguel Andujar","NYY","LF",37,37,306.1,,,,1,-3,-2,"Miguel Andujar",15878,609280
+"Stevie Wilkerson","BAL","2B",26,18,164.1,,,,0,-2,-2,"Stevie Wilkerson",16041,592859
+"Nick Gordon","MIN","CF",34,24,222.2,,,,1,-3,-2,"Nick Gordon",16337,624503
+"Domingo Leyba","- - -","2B",21,16,136.1,,,,0,-2,-2,"Domingo Leyba",16404,642736
+"Jordan Luplow","- - -","LF",6,5,39,,,,-1,-1,-2,"Jordan Luplow",16424,656669
+"Rhys Hoskins","PHI","1B",103,99,854.2,,,,0,-1,-2,"Rhys Hoskins",16472,656555
+"Yandy Díaz","TBR","3B",58,52,443.1,,,,0,-3,-2,"Yandy Diaz",16578,650490
+"Luis Urías","MIL","2B",25,16,136.1,,,,0,-2,-2,"Luis Urias",16622,649966
+"John Nogowski","- - -","1B",32,28,237.2,,,,0,-1,-2,"John Nogowski",16852,596056
+"Colin Moran","PIT","1B",84,81,669,,,,0,-2,-2,"Colin Moran",16909,592567
+"Gleyber Torres","NYY","2B",19,19,169.1,,,,0,-1,-2,"Gleyber Torres",16997,650402
+"Grayson Greiner","DET","C",31,25,214,1,-1,-3,,,-2,"Grayson Greiner",17062,606988
+"Alex Jackson","- - -","C",43,37,324.2,1,0,-3,,,-2,"Alex Jackson",17276,656577
+"Matt Beaty","LAD","LF",28,20,162.1,,,,1,-3,-2,"Matt Beaty",17710,607461
+"DJ Stewart","BAL","LF",39,36,281,,,,1,-3,-2,"DJ Stewart",17766,621466
+"Brendan Rodgers","COL","2B",81,78,660.2,,,,0,-1,-2,"Brendan Rodgers",17907,663898
+"Ian Happ","CHC","CF",56,52,438.2,,,,1,-4,-2,"Ian Happ",17919,664023
+"Isan Díaz","MIA","2B",35,33,270.1,,,,0,-2,-2,"Isan Diaz",17922,656371
+"Ty France","SEA","2B",21,19,153.1,,,,0,-2,-2,"Ty France",17982,664034
+"Austin Dean","STL","LF",6,3,32.1,,,,0,-1,-2,"Austin Dean",18288,621573
+"Daz Cameron","DET","CF",15,12,110.1,,,,-1,-1,-2,"Daz Cameron",18353,663662
+"Brandon Lowe","TBR","RF",6,5,45,,,,-1,-1,-2,"Brandon Lowe",18882,664040
+"Seby Zavala","CHW","C",33,31,267.2,-2,-2,1,,,-2,"Seby Zavala",18887,664874
+"Danny Mendick","CHW","RF",8,7,49,,,,-1,-2,-2,"Danny Mendick",18889,664901
+"Cavan Biggio","TOR","3B",52,49,411.2,,,,0,-2,-2,"Cavan Biggio",19252,624415
+"Will Craig","PIT","1B",18,16,140,,,,0,-2,-2,"Will Craig",19267,643269
+"Jose Rojas","LAA","RF",25,20,169.1,,,,1,-3,-2,"Jose Rojas",19331,670351
+"Austin Hays","BAL","LF",88,75,662.1,,,,1,-2,-2,"Austin Hays",19363,669720
+"Jake Rogers","DET","C",37,35,310.2,2,-1,-3,,,-2,"Jake Rogers",19452,668670
+"Andrew Young","ARI","LF",1,1,5,,,,0,-2,-2,"Andrew Young",19521,670370
+"Vladimir Guerrero Jr.","TOR","1B",133,133,1143.2,,,,0,-3,-2,"Vladimir Guerrero Jr.",19611,665489
+"Brent Rooker","MIN","RF",8,7,53.2,,,,-1,-1,-2,"Brent Rooker",19627,667670
+"Luis Rengifo","LAA","RF",14,9,87,,,,-1,-1,-2,"Luis Rengifo",19858,650859
+"Luis Rengifo","LAA","SS",26,25,227,,,,0,-2,-2,"Luis Rengifo",19858,650859
+"Adam Haseley","PHI","CF",8,7,46,,,,0,-1,-2,"Adam Haseley",19878,656514
+"Gavin Sheets","CHW","RF",13,11,82,,,,0,-1,-2,"Gavin Sheets",19901,657757
+"Daulton Varsho","ARI","C",41,37,319,0,-1,-2,,,-2,"Daulton Varsho",19918,662139
+"Taylor Trammell","SEA","LF",14,12,104,,,,-1,0,-2,"Taylor Trammell",19960,666211
+"Gilberto Celestino","MIN","CF",22,20,152,,,,-1,-1,-2,"Gilberto Celestino",20233,665482
+"José Devers","MIA","SS",5,4,29,,,,0,-2,-2,"Jose Devers",20540,672701
+"Trevor Larnach","MIN","LF",60,51,466,,,,-2,0,-2,"Trevor Larnach",21501,663616
+"Rafael Marchán","PHI","C",17,13,115,0,0,-2,,,-2,"Rafael Marchan",21646,665561
+"Jarred Kelenic","SEA","CF",77,75,674.2,,,,-1,-1,-2,"Jarred Kelenic",22558,672284
+"Jarred Kelenic","SEA","LF",14,14,123,,,,-1,-1,-2,"Jarred Kelenic",22558,672284
+"Wander Franco","TBR","3B",8,7,62,,,,0,-2,-2,"Wander Franco",23667,677551
+"Andrew Vaughn","CHW","RF",18,14,118.1,,,,-1,-2,-2,"Andrew Vaughn",26197,683734
+"Yoshi Tsutsugo","PIT","RF",20,20,150.1,,,,1,-3,-2,"Yoshi Tsutsugo",27459,660294
+"Drew Butera","LAA","C",12,12,98,0,0,-3,,,-3,"Drew Butera",3411,460077
+"René Rivera","- - -","C",24,21,186,1,0,-4,,,-3,"Rene Rivera",3648,425784
+"Josh Reddick","ARI","RF",36,32,276,,,,-1,-2,-3,"Josh Reddick",3892,502210
+"Jose Lobaton","CHC","C",5,3,29,-1,0,-1,,,-3,"Jose Lobaton",4243,446653
+"Jed Lowrie","OAK","2B",71,69,584.2,,,,0,-2,-3,"Jed Lowrie",4418,476704
+"Robbie Grossman","DET","LF",82,76,668,,,,-2,-1,-3,"Robbie Grossman",5254,543257
+"Robbie Grossman","DET","RF",73,69,584.2,,,,-1,-2,-3,"Robbie Grossman",5254,543257
+"Abraham Almonte","ATL","LF",40,36,297,,,,-1,-2,-3,"Abraham Almonte",5486,501659
+"Alcides Escobar","WSN","SS",61,58,503.1,,,,0,-1,-3,"Alcides Escobar",6310,444876
+"Josh Harrison","- - -","LF",19,15,122,,,,0,-3,-3,"Josh Harrison",8202,543281
+"Jason Castro","HOU","C",52,37,355.1,0,-1,-2,,,-3,"Jason Castro",8722,488771
+"Jonathan Villar","NYM","3B",97,86,748,,,,0,-4,-3,"Jonathan Villar",10071,542340
+"Rafael Ortega","CHC","CF",73,63,534.2,,,,-1,-1,-3,"Rafael Ortega",10323,542364
+"Jurickson Profar","SDP","RF",29,24,195.1,,,,0,-3,-3,"Jurickson Profar",10815,595777
+"Adam Eaton","- - -","RF",79,67,587.1,,,,-1,-1,-3,"Adam Eaton",11205,594809
+"Bryce Harper","PHI","RF",139,138,1174,,,,3,-6,-3,"Bryce Harper",11579,547180
+"Joc Pederson","- - -","CF",26,24,194.1,,,,0,-3,-3,"Joc Pederson",11899,592626
+"Joc Pederson","CHC","LF",66,63,518.1,,,,-1,-2,-3,"Joc Pederson",11899,592626
+"Joe Panik","- - -","3B",32,27,226,,,,0,-4,-3,"Joe Panik",11936,605412
+"Travis Shaw","MIL","3B",48,45,360,,,,0,-3,-3,"Travis Shaw",11982,543768
+"Maikel Franco","BAL","3B",99,97,819.2,,,,0,-2,-3,"Maikel Franco",12179,596748
+"Brad Miller","PHI","RF",14,12,97.1,,,,-1,-2,-3,"Brad Miller",12775,543543
+"Brian Goodwin","CHW","CF",27,27,205.1,,,,0,-3,-3,"Brian Goodwin",12858,571718
+"Brian Goodwin","CHW","RF",43,33,313.2,,,,-1,-2,-3,"Brian Goodwin",12858,571718
+"James McCann","NYM","C",107,97,826.1,1,-1,-2,,,-3,"James McCann",12859,543510
+"Phillip Evans","PIT","LF",16,13,113.1,,,,0,-2,-3,"Phillip Evans",12950,595943
+"Chris Taylor","LAD","CF",61,48,423,,,,-1,-2,-3,"Chris Taylor",13757,621035
+"Matt Duffy","CHC","2B",21,17,146,,,,1,-3,-3,"Matt Duffy",13836,622110
+"Harold Ramírez","CLE","RF",34,28,241,,,,-1,-2,-3,"Harold Ramirez",14387,623912
+"Pat Valaika","BAL","SS",17,11,101,,,,0,-3,-3,"Pat Valaika",14885,642162
+"Kris Bryant","- - -","RF",39,33,276,,,,0,-4,-3,"Kris Bryant",15429,592178
+"Amed Rosario","CLE","SS",121,118,1019.2,,,,0,-3,-3,"Amed Rosario",15518,642708
+"Rowdy Tellez","- - -","1B",65,57,485.1,,,,0,-3,-3,"Rowdy Tellez",15679,642133
+"Kyle Schwarber","BOS","1B",10,9,75,,,,0,-3,-3,"Kyle Schwarber",16478,656941
+"Luis Urías","MIL","3B",68,58,508.1,,,,0,-2,-3,"Luis Urias",16622,649966
+"Jason Vosler","SFG","3B",19,14,120.2,,,,0,-3,-3,"Jason Vosler",16686,613564
+"Aramis Garcia","OAK","C",30,26,232.1,0,-3,0,,,-3,"Aramis Garcia",16925,605244
+"Eddy Alvarez","MIA","3B",17,17,144.1,,,,0,-2,-3,"Eddy Alvarez",16959,657193
+"Matt Beaty","LAD","RF",20,8,86,,,,0,-2,-3,"Matt Beaty",17710,607461
+"DJ Stewart","BAL","RF",33,29,249,,,,-2,-1,-3,"DJ Stewart",17766,621466
+"Isan Díaz","MIA","3B",37,30,278.2,,,,0,-3,-3,"Isan Diaz",17922,656371
+"Ryan Mountcastle","BAL","1B",84,82,704,,,,0,-3,-3,"Ryan Mountcastle",18373,663624
+"Luis Arraez","MIN","2B",48,35,321.1,,,,0,-3,-3,"Luis Arraez",18568,650333
+"Jared Walsh","LAA","1B",128,119,1065,,,,0,-3,-3,"Jared Walsh",18607,665120
+"Ramón Urías","BAL","2B",32,27,212.2,,,,0,-3,-3,"Ramon Urias",18795,602104
+"Brandon Lowe","TBR","2B",133,120,1093,,,,0,-4,-3,"Brandon Lowe",18882,664040
+"Cavan Biggio","TOR","RF",15,13,117,,,,-1,-2,-3,"Cavan Biggio",19252,624415
+"Donovan Walton","SEA","2B",14,11,101,,,,0,-3,-3,"Donovan Walton",19314,622268
+"Zach McKinstry","LAD","2B",20,10,112,,,,0,-3,-3,"Zach McKinstry",19392,656716
+"Luis Rengifo","LAA","3B",12,9,83,,,,0,-3,-3,"Luis Rengifo",19858,650859
+"Emmanuel Rivera","KCR","3B",28,26,222.1,,,,0,-2,-3,"Emmanuel Rivera",19890,656896
+"Pavin Smith","ARI","CF",39,29,252,,,,0,-3,-3,"Pavin Smith",19892,656976
+"Nick Fortes","MIA","C",7,4,44,0,-1,-2,,,-3,"Nick Fortes",21538,663743
+"Nick Maton","PHI","SS",20,16,144.2,,,,0,-3,-3,"Nick Maton",21635,665155
+"Akil Baddoo","DET","CF",66,58,513.1,,,,0,-3,-3,"Akil Baddoo",22168,668731
+"Alejandro Kirk","TOR","C",44,40,338,0,-1,-2,,,-3,"Alejandro Kirk",22581,672386
+"Mike Moustakas","CIN","3B",44,41,349.1,,,,0,-3,-4,"Mike Moustakas",4892,519058
+"Justin Upton","LAA","LF",87,86,687.1,,,,0,-4,-4,"Justin Upton",5222,457708
+"Eduardo Escobar","- - -","3B",99,93,767.1,,,,0,-2,-4,"Eduardo Escobar",6153,500871
+"Enrique Hernández","BOS","2B",47,45,366.2,,,,0,-4,-4,"Enrique Hernandez",10472,571771
+"Phil Gosselin","LAA","LF",39,36,302,,,,-1,-3,-4,"Phil Gosselin",10953,594838
+"Mark Canha","OAK","LF",106,93,806.1,,,,-2,-1,-4,"Mark Canha",11445,592192
+"Trevor Story","COL","SS",138,138,1175,,,,0,-5,-4,"Trevor Story",12564,596115
+"Stephen Piscotty","OAK","RF",67,49,416.2,,,,-1,-2,-4,"Stephen Piscotty",13367,572039
+"Tom Murphy","SEA","C",88,83,727.2,-3,-1,-1,,,-4,"Tom Murphy",13499,608596
+"Kevin Plawecki","BOS","C",53,40,336.2,-4,-1,2,,,-4,"Kevin Plawecki",13807,608700
+"Andrew Velazquez","NYY","SS",28,20,180.1,,,,0,-3,-4,"Andrew Velazquez",14196,623205
+"Harold Ramírez","CLE","LF",49,43,360.2,,,,-2,-1,-4,"Harold Ramirez",14387,623912
+"Harold Castro","DET","SS",43,34,291,,,,0,-3,-4,"Harold Castro",14691,605612
+"Andrew Knapp","PHI","C",47,37,330.2,-1,-3,0,,,-4,"Andrew Knapp",14942,595284
+"Josh VanMeter","ARI","3B",25,19,182.2,,,,0,-4,-4,"Josh VanMeter",15170,642165
+"Chance Sisco","- - -","C",25,21,179,1,0,-5,,,-4,"Chance Sisco",15694,642082
+"Clint Frazier","NYY","RF",33,26,220,,,,-1,-2,-4,"Clint Frazier",15983,640449
+"Isiah Kiner-Falefa","TEX","SS",156,155,1360,,,,0,-5,-4,"Isiah Kiner-Falefa",16512,643396
+"Shed Long Jr.","SEA","LF",25,22,198,,,,-1,-3,-4,"Shed Long Jr.",16542,643418
+"Alex Verdugo","BOS","CF",42,38,337,,,,1,-5,-4,"Alex Verdugo",17027,657077
+"Willie Calhoun","TEX","LF",41,38,321,,,,-2,-2,-4,"Willie Calhoun",17838,641432
+"Ka'ai Tom","- - -","LF",32,31,252.2,,,,-1,-2,-4,"Ka'ai Tom",18136,664789
+"Jahmai Jones","BAL","2B",23,19,156,,,,0,-4,-4,"Jahmai Jones",18872,663330
+"Andrew Knizner","STL","C",57,43,406.2,0,0,-4,,,-4,"Andrew Knizner",19514,668800
+"Bo Bichette","TOR","SS",148,148,1271.1,,,,0,-4,-4,"Bo Bichette",19612,666182
+"Brent Rooker","MIN","LF",38,35,264,,,,-1,-3,-4,"Brent Rooker",19627,667670
+"Drew Ellis","ARI","3B",17,15,137.1,,,,0,-3,-4,"Drew Ellis",19873,656403
+"Gavin Lux","LAD","SS",59,50,471.1,,,,0,-4,-4,"Gavin Lux",19955,666158
+"Bobby Dalbec","BOS","1B",123,111,969.1,,,,0,-5,-4,"Bobby Dalbec",19966,666915
+"Luis García Jr.","WSN","SS",8,7,68.1,,,,0,-5,-4,"Luis Garcia Jr.",20391,671277
+"Andrew Vaughn","CHW","LF",95,86,720.1,,,,0,-4,-4,"Andrew Vaughn",26197,683734
+"Xander Bogaerts","BOS","SS",138,137,1169,,,,0,-7,-5,"Xander Bogaerts",12161,593428
+"Miguel Sanó","MIN","1B",118,114,996,,,,0,-4,-5,"Miguel Sano",12164,593934
+"Alex Dickerson","SFG","LF",82,69,552.1,,,,-1,-4,-5,"Alex Dickerson",12649,543105
+"Anthony Rendon","LAA","3B",57,57,497,,,,0,-5,-5,"Anthony Rendon",12861,543685
+"Ketel Marte","ARI","CF",71,67,567.1,,,,-1,-3,-5,"Ketel Marte",13613,606466
+"Hunter Dozier","KCR","RF",60,50,454,,,,2,-8,-5,"Hunter Dozier",15117,641531
+"Austin Wynns","BAL","C",44,39,342.1,2,1,-8,,,-5,"Austin Wynns",15271,642851
+"Luis Torrens","SEA","C",35,32,284.2,0,-1,-4,,,-5,"Luis Torrens",15905,620443
+"Francisco Mejía","TBR","C",76,64,582.2,0,-1,-4,,,-5,"Francisco Mejia",16403,642336
+"Luis Urías","MIL","SS",68,59,535.2,,,,0,-5,-5,"Luis Urias",16622,649966
+"Gleyber Torres","NYY","SS",108,104,915.2,,,,0,-6,-5,"Gleyber Torres",16997,650402
+"Cole Tucker","PIT","SS",17,14,116.2,,,,0,-5,-5,"Cole Tucker",17326,657061
+"Austin Riley","ATL","3B",156,153,1326.2,,,,0,-4,-5,"Austin Riley",18360,663586
+"Ryan Mountcastle","BAL","LF",21,18,144,,,,0,-6,-5,"Ryan Mountcastle",18373,663624
+"Yadiel Hernandez","WSN","LF",48,46,374,,,,-1,-5,-5,"Yadiel Hernandez",19334,628450
+"Andrew Young","ARI","2B",21,16,138,,,,0,-4,-5,"Andrew Young",19521,670370
+"Josh Rojas","ARI","SS",42,33,283,,,,1,-6,-5,"Josh Rojas",19734,668942
+"Luis García Jr.","WSN","2B",59,55,458.1,,,,0,-5,-5,"Luis Garcia Jr.",20391,671277
+"Freddy Galvis","- - -","SS",82,79,648.1,,,,0,-3,-6,"Freddy Galvis",6609,520471
+"Ben Gamel","- - -","LF",73,66,561.1,,,,-2,-5,-6,"Ben Gamel",12160,592325
+"Hunter Dozier","KCR","3B",57,52,422.2,,,,0,-6,-6,"Hunter Dozier",15117,641531
+"Garrett Cooper","MIA","RF",41,39,315,,,,-2,-4,-6,"Garrett Cooper",15279,643265
+"Clint Frazier","NYY","LF",37,30,254.2,,,,-1,-5,-6,"Clint Frazier",15983,640449
+"Willy Adames","- - -","SS",136,131,1150,,,,0,-7,-6,"Willy Adames",15986,642715
+"Kyle Schwarber","- - -","LF",87,86,724,,,,-1,-6,-6,"Kyle Schwarber",16478,656941
+"Richie Martin","BAL","SS",37,29,262.2,,,,0,-4,-6,"Richie Martin",17736,621006
+"Ramón Urías","BAL","SS",48,36,344.1,,,,0,-4,-6,"Ramon Urias",18795,602104
+"Zack Short","DET","SS",52,45,399,,,,0,-5,-6,"Zack Short",19562,670097
+"Abraham Toro","SEA","2B",58,58,524.2,,,,0,-5,-6,"Abraham Toro",19844,647351
+"Riley Adams","- - -","C",34,27,237.1,-1,0,-5,,,-6,"Riley Adams",19864,656180
+"William Contreras","ATL","C",49,47,415.2,-1,-1,-4,,,-6,"William Contreras",20503,661388
+"Wilson Ramos","- - -","C",34,31,264.1,-1,-2,-4,,,-7,"Wilson Ramos",1433,467092
+"Eugenio Suárez","CIN","SS",34,32,285.1,,,,0,-7,-7,"Eugenio Suarez",12552,553993
+"Gregory Polanco","PIT","RF",92,91,784.2,,,,-6,-1,-7,"Gregory Polanco",12907,570256
+"Jesse Winker","CIN","LF",101,98,831.2,,,,-1,-6,-7,"Jesse Winker",13590,608385
+"Corey Seager","LAD","SS",92,90,803,,,,0,-4,-7,"Corey Seager",13624,608369
+"Eric Haase","DET","C",66,61,543.1,1,-1,-7,,,-7,"Eric Haase",14111,606992
+"Anthony Santander","BAL","RF",81,78,669.1,,,,-3,-4,-7,"Anthony Santander",14551,623993
+"Victor Caratini","SDP","C",101,87,787.1,-1,1,-7,,,-7,"Victor Caratini",14968,605170
+"Jazz Chisholm Jr.","MIA","SS",37,31,278,,,,0,-6,-7,"Jazz Chisholm Jr.",20454,665862
+"Tommy Pham","SDP","LF",113,108,899,,,,-2,-5,-8,"Tommy Pham",2967,502054
+"Charlie Blackmon","COL","RF",137,134,1144.1,,,,0,-8,-8,"Charlie Blackmon",7859,453568
+"Kurt Suzuki","LAA","C",69,63,557,-1,-2,-5,,,-8,"Kurt Suzuki",8259,435559
+"Jonathan India","CIN","2B",148,144,1248.1,,,,0,-6,-8,"Jonathan India",21523,663697
+"Andrew McCutchen","PHI","LF",135,131,1099,,,,-3,-6,-9,"Andrew McCutchen",9847,457705
+"Nick Castellanos","CIN","RF",135,134,1123,,,,-2,-6,-9,"Nick Castellanos",11737,592206
+"Jorge Soler","- - -","RF",96,95,752,,,,-4,-5,-9,"Jorge Soler",14221,624585
+"Rafael Devers","BOS","3B",151,151,1299,,,,0,-9,-9,"Rafael Devers",17350,646240
+"Mitch Haniger","SEA","RF",123,122,1080.2,,,,-3,-7,-10,"Mitch Haniger",14274,571745
+"Dominic Smith","NYM","LF",114,107,859.2,,,,-2,-8,-10,"Dominic Smith",15653,642086
+"Carter Kieboom","WSN","3B",60,59,507.1,,,,0,-9,-10,"Carter Kieboom",19958,666198
+"Gary Sánchez","NYY","C",110,100,879.1,-2,-4,-5,,,-11,"Gary Sanchez",11442,596142
+"Salvador Perez","KCR","C",124,120,1002.2,4,-1,-15,,,-12,"Salvador Perez",7304,521692
+"Didi Gregorius","PHI","SS",101,98,848.1,,,,0,-13,-13,"Didi Gregorius",6012,544369
+"Zack Collins","CHW","C",73,55,506.1,-2,-2,-13,,,-17,"Zack Collins",19181,641470
+"Pedro Severino","BAL","C",109,102,883,-2,-6,-12,,,-21,"Pedro Severino",14523,600474
+"Neftalí Feliz","- - -","P",5,0,4,,,,,,,"Neftali Feliz",18,491703
+"Tommy Hunter","NYM","P",4,1,8,,,,,,,"Tommy Hunter",1157,488984
+"Andrew Romine","CHC","P",1,0,1,,,,,,,"Andrew Romine",1159,461865
+"Albert Pujols","LAA","3B",1,0,1,,,,,,,"Albert Pujols",1177,405395
+"Matt Bush","TEX","P",4,0,4,,,,,,,"Matt Bush",1246,456713
+"Adam Ottavino","BOS","P",69,0,62,,,,,,,"Adam Ottavino",1247,493603
+"Oliver Pérez","CLE","P",5,0,3.2,,,,,,,"Oliver Perez",1514,424144
+"Sean Doolittle","- - -","P",56,0,49.2,,,,,,,"Sean Doolittle",1581,448281
+"Matt Moore","PHI","P",24,13,73,,,,,,,"Matt Moore",1890,519043
+"Zack Greinke","HOU","P",30,29,171,,,,,,,"Zack Greinke",1943,425844
+"Clayton Kershaw","LAD","P",22,22,121.2,,,,,,,"Clayton Kershaw",2036,477132
+"David Peralta","ARI","P",1,0,1,,,,,,,"David Peralta",2136,444482
+"Adam Wainwright","STL","P",32,32,206.1,,,,,,,"Adam Wainwright",2233,425794
+"Corey Kluber","NYY","P",16,16,80,,,,,,,"Corey Kluber",2429,446372
+"Lance Lynn","CHW","P",28,28,157,,,,,,,"Lance Lynn",2520,458681
+"Jhoulys Chacín","COL","P",46,1,64.1,,,,,,,"Jhoulys Chacin",2608,468504
+"Ross Detwiler","- - -","P",53,5,52.1,,,,,,,"Ross Detwiler",2859,446321
+"Luis Avilán","WSN","P",4,0,5,,,,,,,"Luis Avilan",2882,501593
+"Mitch Moreland","OAK","P",1,0,1,,,,,,,"Mitch Moreland",3086,519048
+"Kenley Jansen","LAD","P",69,0,69,,,,,,,"Kenley Jansen",3096,445276
+"Tony Watson","- - -","P",62,0,57.1,,,,,,,"Tony Watson",3132,453265
+"Max Scherzer","- - -","P",30,30,179.1,,,,,,,"Max Scherzer",3137,453286
+"Robinson Chirinos","CHC","2B",2,0,2.1,,,,,,,"Robinson Chirinos",3142,455139
+"David Price","LAD","P",39,11,73.2,,,,,,,"David Price",3184,456034
+"Will Harris","WSN","P",8,0,6,,,,,,,"Will Harris",3192,501789
+"Ervin Santana","KCR","P",38,2,65.1,,,,,,,"Ervin Santana",3200,429722
+"T.J. McFarland","STL","P",38,0,38.2,,,,,,,"T.J. McFarland",3237,519008
+"Zack Britton","NYY","P",22,0,18.1,,,,,,,"Zack Britton",3240,502154
+"Joe Smith","- - -","P",50,0,39.2,,,,,,,"Joe Smith",3281,501925
+"Charlie Culberson","TEX","P",2,0,2,,,,,,,"Charlie Culberson",3298,518586
+"Darren O'Day","NYY","P",12,0,10.2,,,,,,,"Darren O'Day",3321,503285
+"Danny Duffy","KCR","P",13,12,61,,,,,,,"Danny Duffy",3542,518633
+"Liam Hendriks","CHW","P",69,0,71,,,,,,,"Liam Hendriks",3548,521230
+"Yusmeiro Petit","OAK","P",78,0,78,,,,,,,"Yusmeiro Petit",4020,433589
+"Héctor Santiago","SEA","P",13,1,26.1,,,,,,,"Hector Santiago",4026,502327
+"Pedro Strop","CHC","P",2,0,2,,,,,,,"Pedro Strop",4070,467008
+"Derek Holland","DET","P",39,1,49.2,,,,,,,"Derek Holland",4141,502706
+"Jake Arrieta","- - -","P",24,24,98.2,,,,,,,"Jake Arrieta",4153,453562
+"Rafael Dolis","TOR","P",39,0,32,,,,,,,"Rafael Dolis",4185,503569
+"Mark Melancon","SDP","P",64,0,64.2,,,,,,,"Mark Melancon",4264,453343
+"Justin Wilson","- - -","P",42,0,34,,,,,,,"Justin Wilson",4301,458677
+"Tyler Chatwood","- - -","P",32,0,32,,,,,,,"Tyler Chatwood",4338,543022
+"Jordan Zimmermann","MIL","P",2,0,5.2,,,,,,,"Jordan Zimmermann",4505,519455
+"Charlie Morton","ATL","P",33,33,185.2,,,,,,,"Charlie Morton",4676,450203
+"Nate Jones","- - -","P",20,0,19,,,,,,,"Nate Jones",4696,518858
+"Matt Shoemaker","MIN","P",16,11,60.1,,,,,,,"Matt Shoemaker",4776,533167
+"Rich Hill","- - -","P",32,31,158.2,,,,,,,"Rich Hill",4806,448179
+"Mike Moustakas","CIN","2B",1,1,10.2,,,,,,,"Mike Moustakas",4892,519058
+"Scott Kazmir","SFG","P",5,4,11.1,,,,,,,"Scott Kazmir",4897,431148
+"Jon Lester","- - -","P",28,28,141.1,,,,,,,"Jon Lester",4930,452657
+"Asdrúbal Cabrera","ARI","P",2,0,1.1,,,,,,,"Asdrubal Cabrera",4962,452678
+"Asdrúbal Cabrera","ARI","SS",1,0,1,,,,,,,"Asdrubal Cabrera",4962,452678
+"Fernando Abad","BAL","P",16,0,17.2,,,,,,,"Fernando Abad",4994,472551
+"Jake Diekman","OAK","P",67,0,60.2,,,,,,,"Jake Diekman",5003,518617
+"Anthony Gose","CLE","P",6,0,6.2,,,,,,,"Anthony Gose",5097,543238
+"Jeurys Familia","NYM","P",65,0,59.1,,,,,,,"Jeurys Familia",5114,544727
+"Wade LeBlanc","- - -","P",18,9,49,,,,,,,"Wade LeBlanc",5221,453281
+"Justin Upton","LAA","CF",1,0,1.1,,,,,,,"Justin Upton",5222,457708
+"Blake Parker","CLE","P",47,0,43.2,,,,,,,"Blake Parker",5224,453284
+"Justin Turner","LAD","P",1,0,1,,,,,,,"Justin Turner",5235,457759
+"Sandy León","MIA","P",6,0,6,,,,,,,"Sandy Leon",5273,506702
+"Jose Alvarez","SFG","P",67,1,64.2,,,,,,,"Jose Alvarez",5358,501625
+"Michael Pineda","MIN","P",22,21,109.1,,,,,,,"Michael Pineda",5372,501381
+"Brad Peacock","BOS","P",2,1,5.1,,,,,,,"Brad Peacock",5401,502748
+"Pablo Sandoval","ATL","3B",1,0,1,,,,,,,"Pablo Sandoval",5409,467055
+"Pedro Báez","HOU","P",4,0,4.1,,,,,,,"Pedro Baez",5420,520980
+"Jesse Chavez","ATL","P",30,4,33.2,,,,,,,"Jesse Chavez",5448,445926
+"Marwin Gonzalez","BOS","P",1,0,1,,,,,,,"Marwin Gonzalez",5497,503556
+"Madison Bumgarner","ARI","P",26,26,146.1,,,,,,,"Madison Bumgarner",5524,518516
+"Ryan Brasier","BOS","P",13,0,12,,,,,,,"Ryan Brasier",5615,518489
+"Tyler Clippard","ARI","P",26,0,25.1,,,,,,,"Tyler Clippard",5640,461325
+"Junior Guerra","LAA","P",41,1,65.1,,,,,,,"Junior Guerra",5702,448855
+"Hernán Pérez","WSN","P",2,0,2,,,,,,,"Hernan Perez",5751,541650
+"Jean Segura","PHI","SS",1,0,1,,,,,,,"Jean Segura",5933,516416
+"Eduardo Escobar","ARI","SS",1,0,2,,,,,,,"Eduardo Escobar",6153,500871
+"Dellin Betances","NYM","P",1,0,1,,,,,,,"Dellin Betances",6216,476454
+"Trevor Cahill","PIT","P",9,8,37,,,,,,,"Trevor Cahill",6249,502239
+"David Phelps","TOR","P",12,1,10.1,,,,,,,"David Phelps",6316,475479
+"Chris Archer","TBR","P",6,5,19.1,,,,,,,"Chris Archer",6345,502042
+"Jake Odorizzi","HOU","P",24,23,104.2,,,,,,,"Jake Odorizzi",6397,543606
+"Trevor May","NYM","P",68,0,62.2,,,,,,,"Trevor May",6398,543507
+"José Cisnero","DET","P",67,0,61.2,,,,,,,"Jose Cisnero",6399,542585
+"Steve Cishek","LAA","P",74,0,68.1,,,,,,,"Steve Cishek",6483,518553
+"Blaine Hardy","MIL","P",1,0,1,,,,,,,"Blaine Hardy",6499,543278
+"Jordy Mercer","WSN","1B",2,0,2.2,,,,,,,"Jordy Mercer",6547,474568
+"Alex Cobb","LAA","P",18,18,93.1,,,,,,,"Alex Cobb",6562,502171
+"Robert Stock","- - -","P",3,3,9,,,,,,,"Robert Stock",6576,476594
+"Freddy Galvis","PHI","1B",1,0,1,,,,,,,"Freddy Galvis",6609,520471
+"Brad Brach","CIN","P",35,0,30,,,,,,,"Brad Brach",6627,542960
+"Carlos Carrasco","NYM","P",12,12,53.2,,,,,,,"Carlos Carrasco",6632,471911
+"Craig Kimbrel","- - -","P",63,0,59.2,,,,,,,"Craig Kimbrel",6655,518886
+"Alex Colomé","MIN","P",67,0,65,,,,,,,"Alex Colome",6661,517008
+"Andrew Miller","STL","P",40,0,36,,,,,,,"Andrew Miller",6785,453192
+"Julio Teheran","DET","P",1,1,5,,,,,,,"Julio Teheran",6797,527054
+"Johnny Cueto","SFG","P",22,21,114.2,,,,,,,"Johnny Cueto",6893,456501
+"Chase Anderson","PHI","P",14,9,48,,,,,,,"Chase Anderson",6895,502624
+"Martín Pérez","BOS","P",36,22,114,,,,,,,"Martin Perez",6902,527048
+"Joakim Soria","- - -","P",41,0,37.1,,,,,,,"Joakim Soria",6941,465657
+"Brandon Dickson","STL","P",2,0,2,,,,,,,"Brandon Dickson",6979,505447
+"Luis García","STL","P",34,0,33.1,,,,,,,"Luis Garcia",6984,472610
+"Ian Kennedy","- - -","P",55,0,56.1,,,,,,,"Ian Kennedy",6986,453178
+"Ryan Pressly","HOU","P",64,0,64,,,,,,,"Ryan Pressly",7005,519151
+"Daniel Bard","COL","P",67,0,65.2,,,,,,,"Daniel Bard",7115,453268
+"Daniel Hudson","- - -","P",54,0,51.2,,,,,,,"Daniel Hudson",7146,543339
+"Greg Holland","KCR","P",57,0,55.2,,,,,,,"Greg Holland",7196,518813
+"Craig Stammen","SDP","P",67,4,88.1,,,,,,,"Craig Stammen",7274,489334
+"Preston Guilmet","MIA","P",2,0,2,,,,,,,"Preston Guilmet",7303,543258
+"Javy Guerra","WSN","P",6,0,6,,,,,,,"Javy Guerra",7407,457915
+"J.A. Happ","- - -","P",30,30,152.1,,,,,,,"J.A. Happ",7410,457918
+"Jay Jackson","SFG","P",23,1,21.2,,,,,,,"Jay Jackson",7432,543351
+"Wade Davis","KCR","P",40,0,42.2,,,,,,,"Wade Davis",7441,451584
+"Anthony Swarzak","- - -","P",13,0,12.1,,,,,,,"Anthony Swarzak",7466,461872
+"Collin McHugh","TBR","P",37,7,64,,,,,,,"Collin McHugh",7531,543521
+"Jake McGee","SFG","P",62,0,59.2,,,,,,,"Jake McGee",7550,459429
+"Nick Vincent","MIN","P",7,0,12.2,,,,,,,"Nick Vincent",7555,543883
+"Jordan Lyles","TEX","P",32,30,180,,,,,,,"Jordan Lyles",7593,543475
+"Tommy Milone","TOR","P",6,1,14,,,,,,,"Tommy Milone",7608,543548
+"Wily Peralta","DET","P",19,18,93.2,,,,,,,"Wily Peralta",7738,503449
+"Mike Fiers","OAK","P",2,2,9.1,,,,,,,"Mike Fiers",7754,571666
+"Richard Bleier","MIA","P",68,0,58,,,,,,,"Richard Bleier",7803,542947
+"Hunter Strickland","- - -","P",57,0,58.2,,,,,,,"Hunter Strickland",7836,519326
+"Andrew Albers","MIN","P",5,3,19,,,,,,,"Andrew Albers",7853,452027
+"Josh Lindblom","MIL","P",8,0,16.2,,,,,,,"Josh Lindblom",7882,458676
+"Eric Sogard","CHC","P",5,0,4.1,,,,,,,"Eric Sogard",7927,519299
+"Anthony Bass","MIA","P",70,1,61.1,,,,,,,"Anthony Bass",7982,542914
+"Will Smith","ATL","P",71,0,68,,,,,,,"Will Smith",8048,519293
+"Matt Carpenter","STL","P",1,0,1.1,,,,,,,"Matt Carpenter",8090,572761
+"Bryan Shaw","CLE","P",81,0,77.1,,,,,,,"Bryan Shaw",8110,543766
+"Josh Harrison","WSN","RF",1,1,7,,,,,,,"Josh Harrison",8202,543281
+"Brett Anderson","MIL","P",24,24,96,,,,,,,"Brett Anderson",8223,474463
+"David Robertson","TBR","P",12,1,12,,,,,,,"David Robertson",8241,502085
+"Paolo Espino","WSN","P",35,19,109.2,,,,,,,"Paolo Espino",8246,502179
+"Lucas Luetge","NYY","P",57,1,72.1,,,,,,,"Lucas Luetge",8337,476595
+"AJ Ramos","LAA","P",4,0,4.2,,,,,,,"AJ Ramos",8350,573109
+"Deolis Guerra","OAK","P",53,0,65.2,,,,,,,"Deolis Guerra",8410,500610
+"Justin Miller","- - -","P",23,0,19,,,,,,,"Justin Miller",8580,502522
+"Tanner Roark","TOR","P",3,1,7,,,,,,,"Tanner Roark",8753,543699
+"Wade Miley","CIN","P",28,28,163,,,,,,,"Wade Miley",8779,489119
+"César Valdez","BAL","P",39,0,46,,,,,,,"Cesar Valdez",9013,491624
+"Brad Hand","- - -","P",68,0,64.2,,,,,,,"Brad Hand",9111,543272
+"Nathan Eovaldi","BOS","P",32,32,182.1,,,,,,,"Nathan Eovaldi",9132,543135
+"Kyle Lobstein","WSN","P",3,0,1.1,,,,,,,"Kyle Lobstein",9178,543456
+"Patrick Corbin","WSN","P",31,31,171.2,,,,,,,"Patrick Corbin",9323,571578
+"Brock Holt","TEX","P",1,0,1,,,,,,,"Brock Holt",9345,571788
+"Josh Tomlin","ATL","P",35,0,49.1,,,,,,,"Josh Tomlin",9388,458708
+"Zac Rosscup","COL","P",4,0,3,,,,,,,"Zac Rosscup",9419,573127
+"Dallas Keuchel","CHW","P",32,30,162,,,,,,,"Dallas Keuchel",9434,572971
+"Ryan Buchter","ARI","P",18,0,16.1,,,,,,,"Ryan Buchter",9456,488748
+"David Hale","PHI","P",17,1,26.2,,,,,,,"David Hale",9756,571735
+"Joe Kelly","LAD","P",48,0,44,,,,,,,"Joe Kelly",9761,523260
+"Garrett Richards","BOS","P",40,22,136.2,,,,,,,"Garrett Richards",9784,572070
+"Rex Brothers","CHC","P",57,0,53,,,,,,,"Rex Brothers",9794,571521
+"Miles Mikolas","STL","P",9,9,44.2,,,,,,,"Miles Mikolas",9803,571945
+"Sergio Romo","OAK","P",66,0,61.2,,,,,,,"Sergio Romo",9817,489265
+"Darin Ruf","SFG","P",1,0,1,,,,,,,"Darin Ruf",9929,573131
+"Brandon Kintzler","PHI","P",29,1,29.2,,,,,,,"Brandon Kintzler",9939,445213
+"Trayce Thompson","CHC","LF",2,0,1.1,,,,,,,"Trayce Thompson",9952,572204
+"Mike Minor","KCR","P",28,28,158.2,,,,,,,"Mike Minor",10021,501985
+"Chris Owings","COL","3B",1,0,3,,,,,,,"Chris Owings",10030,572008
+"Tyler Matzek","ATL","P",69,0,63,,,,,,,"Tyler Matzek",10058,554431
+"Brooks Raley","HOU","P",58,0,49,,,,,,,"Brooks Raley",10061,548384
+"Ian Krol","DET","P",18,0,18.2,,,,,,,"Ian Krol",10066,571871
+"Caleb Thielbar","MIN","P",59,0,64,,,,,,,"Caleb Thielbar",10078,573204
+"Kyle Gibson","- - -","P",31,30,182,,,,,,,"Kyle Gibson",10123,502043
+"Stephen Strasburg","WSN","P",5,5,21.2,,,,,,,"Stephen Strasburg",10131,544931
+"Brad Boxberger","MIL","P",71,0,64.2,,,,,,,"Brad Boxberger",10133,502202
+"Manny Barreda","BAL","P",3,0,2.2,,,,,,,"Manny Barreda",10148,518435
+"Ryan Weber","- - -","P",4,0,9.2,,,,,,,"Ryan Weber",10160,543901
+"Shelby Miller","- - -","P",13,0,12.2,,,,,,,"Shelby Miller",10197,571946
+"Aaron Northcraft","SDP","P",5,0,8,,,,,,,"Aaron Northcraft",10218,573062
+"Aroldis Chapman","NYY","P",61,0,56.1,,,,,,,"Aroldis Chapman",10233,547973
+"Ryan Tepera","- - -","P",65,0,61.1,,,,,,,"Ryan Tepera",10291,572193
+"Zack Wheeler","PHI","P",32,32,213.1,,,,,,,"Zack Wheeler",10310,554430
+"Erasmo Ramírez","DET","P",17,0,26.2,,,,,,,"Erasmo Ramirez",10314,541640
+"Juan Minaya","MIN","P",29,0,40,,,,,,,"Juan Minaya",10341,573668
+"Aaron Loup","NYM","P",65,2,56.2,,,,,,,"Aaron Loup",10343,571901
+"Mychal Givens","- - -","P",54,0,51,,,,,,,"Mychal Givens",10430,571710
+"Jake Petricka","LAA","P",7,0,6,,,,,,,"Jake Petricka",10534,502593
+"Jimmy Nelson","LAD","P",28,1,29,,,,,,,"Jimmy Nelson",10547,519076
+"César Hernández","CHW","SS",1,0,2,,,,,,,"Cesar Hernandez",10556,514917
+"Scott Alexander","LAD","P",18,0,15.1,,,,,,,"Scott Alexander",10591,518397
+"Chris Sale","BOS","P",9,9,42.2,,,,,,,"Chris Sale",10603,519242
+"Rob Brantly","NYY","1B",1,1,9,,,,,,,"Rob Brantly",10655,542963
+"Andrew Bellatti","MIA","P",3,0,3.1,,,,,,,"Andrew Bellatti",10657,571479
+"Drew Hutchison","DET","P",9,2,21.1,,,,,,,"Drew Hutchison",10732,571800
+"Shane Greene","- - -","P",28,0,23.2,,,,,,,"Shane Greene",10756,572888
+"Mike Foltynewicz","TEX","P",28,24,139,,,,,,,"Mike Foltynewicz",10811,592314
+"R.J. Alaniz","CIN","P",3,0,2.2,,,,,,,"R.J. Alaniz",10819,595798
+"Asher Wojciechowski","NYY","P",1,1,4,,,,,,,"Asher Wojciechowski",10836,592879
+"Adam Kolarek","OAK","P",12,0,9,,,,,,,"Adam Kolarek",10843,592473
+"Chasen Shreve","PIT","P",57,0,56.1,,,,,,,"Chasen Shreve",10855,592741
+"Jared Hoying","TOR","LF",1,1,6,,,,,,,"Jared Hoying",10882,592419
+"Phil Gosselin","LAA","RF",1,0,1,,,,,,,"Phil Gosselin",10953,594838
+"Jacob deGrom","NYM","P",15,15,92,,,,,,,"Jacob deGrom",10954,594798
+"Ben Rowen","LAA","P",8,0,11.1,,,,,,,"Ben Rowen",10983,594985
+"Mickey Jannis","BAL","P",1,0,3.1,,,,,,,"Mickey Jannis",11071,595263
+"Merrill Kelly","ARI","P",27,27,158,,,,,,,"Merrill Kelly",11156,518876
+"Vince Velasquez","- - -","P",25,21,94.1,,,,,,,"Vince Velasquez",11189,592826
+"Grant Dayton","ATL","P",13,0,13,,,,,,,"Grant Dayton",11203,594795
+"Adam Eaton","LAA","1B",1,0,1,,,,,,,"Adam Eaton",11205,594809
+"Adam Eaton","LAA","P",1,0,1,,,,,,,"Adam Eaton",11205,594809
+"Casey Sadler","SEA","P",42,0,40.1,,,,,,,"Casey Sadler",11209,594987
+"Bryan Holaday","ARI","P",1,0,1,,,,,,,"Bryan Holaday",11287,592407
+"Adrián Sanchez","WSN","RF",1,0,1,,,,,,,"Adrian Sanchez",11338,506703
+"Sean Nolin","WSN","P",10,5,26.2,,,,,,,"Sean Nolin",11341,543594
+"Seth Frankoff","ARI","P",4,3,14.2,,,,,,,"Seth Frankoff",11346,571676
+"Ronald Torreyes","PHI","P",2,0,2.2,,,,,,,"Ronald Torreyes",11400,591720
+"Jose Quintana","- - -","P",29,10,63,,,,,,,"Jose Quintana",11423,500779
+"Drew Pomeranz","SDP","P",27,0,25.2,,,,,,,"Drew Pomeranz",11426,519141
+"Brandon Workman","- - -","P",29,0,28,,,,,,,"Brandon Workman",11428,519443
+"Jesse Biddle","ATL","P",8,0,10.2,,,,,,,"Jesse Biddle",11437,592145
+"Mark Canha","OAK","1B",2,0,2,,,,,,,"Mark Canha",11445,592192
+"A.J. Cole","TOR","P",6,0,8,,,,,,,"A.J. Cole",11467,595918
+"Tony Wolters","CHC","2B",2,0,1.1,,,,,,,"Tony Wolters",11470,547172
+"Odúbel Herrera","PHI","RF",1,1,9,,,,,,,"Odubel Herrera",11476,546318
+"Christian Yelich","MIL","RF",1,0,3.1,,,,,,,"Christian Yelich",11477,592885
+"Bryan Mitchell","MIA","P",2,0,4,,,,,,,"Bryan Mitchell",11479,571951
+"Robbie Ray","TOR","P",32,32,193.1,,,,,,,"Robbie Ray",11486,592662
+"Joely Rodríguez","- - -","P",52,0,46.1,,,,,,,"Joely Rodriguez",11487,570257
+"Aaron Sanchez","SFG","P",9,7,35.1,,,,,,,"Aaron Sanchez",11490,592717
+"Josh Osich","CIN","P",17,0,14.1,,,,,,,"Josh Osich",11528,592612
+"José Ureña","DET","P",26,18,100.2,,,,,,,"Jose Urena",11589,570632
+"Willson Contreras","CHC","LF",1,0,1,,,,,,,"Willson Contreras",11609,575929
+"Mike Kickham","LAD","P",1,0,2,,,,,,,"Mike Kickham",11618,592464
+"Heath Hembree","- - -","P",60,0,58,,,,,,,"Heath Hembree",11632,592390
+"Jameson Taillon","NYY","P",29,29,144.1,,,,,,,"Jameson Taillon",11674,592791
+"Carlos Martinez","STL","P",16,16,82.1,,,,,,,"Carlos Martinez",11682,593372
+"Matt Harvey","BAL","P",28,28,127.2,,,,,,,"Matt Harvey",11713,518774
+"Luke Jackson","ATL","P",71,0,63.2,,,,,,,"Luke Jackson",11752,592426
+"Kyle Ryan","CHC","P",13,0,13.1,,,,,,,"Kyle Ryan",11753,594986
+"Drew Smyly","ATL","P",29,23,126.2,,,,,,,"Drew Smyly",11760,592767
+"Noah Syndergaard","NYM","P",2,2,2,,,,,,,"Noah Syndergaard",11762,592789
+"Hansel Robles","- - -","P",72,0,69,,,,,,,"Hansel Robles",11801,570663
+"Héctor Neris","PHI","P",74,0,74.1,,,,,,,"Hector Neris",11804,593576
+"Alberto Baldonado","WSN","P",14,0,10.2,,,,,,,"Alberto Baldonado",11812,593604
+"James Paxton","SEA","P",1,1,1.1,,,,,,,"James Paxton",11828,572020
+"Taijuan Walker","NYM","P",30,29,159,,,,,,,"Taijuan Walker",11836,592836
+"Chris Martin","ATL","P",46,0,43.1,,,,,,,"Chris Martin",11847,455119
+"Jason Adam","CHC","P",12,0,10.2,,,,,,,"Jason Adam",11861,592094
+"Joc Pederson","CHC","1B",1,0,1,,,,,,,"Joc Pederson",11899,592626
+"Michael Feliz","- - -","P",21,0,20,,,,,,,"Michael Feliz",11903,593140
+"Matt Andriese","- - -","P",34,0,48.1,,,,,,,"Matt Andriese",12022,542882
+"Kyle Hendricks","CHC","P",32,32,181,,,,,,,"Kyle Hendricks",12049,543294
+"Yimi García","- - -","P",62,0,57.2,,,,,,,"Yimi Garcia",12095,554340
+"Eddie Rosario","ATL","RF",1,0,1,,,,,,,"Eddie Rosario",12155,592696
+"Domingo Tapia","- - -","P",34,0,33.2,,,,,,,"Domingo Tapia",12178,593619
+"Maikel Franco","BAL","1B",2,0,8,,,,,,,"Maikel Franco",12179,596748
+"Dan Winkler","CHC","P",47,0,39.2,,,,,,,"Dan Winkler",12237,595465
+"Ryan Sherriff","TBR","P",16,0,14.2,,,,,,,"Ryan Sherriff",12249,595411
+"Evan Marshall","CHW","P",27,0,27.1,,,,,,,"Evan Marshall",12297,605359
+"Chris Bassitt","OAK","P",27,27,157.1,,,,,,,"Chris Bassitt",12304,605135
+"Colin Rea","MIL","P",1,0,6,,,,,,,"Colin Rea",12317,607067
+"Jacob Barnes","- - -","P",29,0,28.2,,,,,,,"Jacob Barnes",12323,606930
+"Jace Peterson","MIL","P",2,0,2,,,,,,,"Jace Peterson",12325,607054
+"Spencer Patton","TEX","P",42,0,42.1,,,,,,,"Spencer Patton",12361,607359
+"Nick Tropeano","- - -","P",5,0,8,,,,,,,"Nick Tropeano",12385,607374
+"Seth Lugo","NYM","P",46,0,46.1,,,,,,,"Seth Lugo",12447,607625
+"Curt Casali","SFG","1B",3,0,4,,,,,,,"Curt Casali",12510,592200
+"Blake Treinen","LAD","P",72,0,72.1,,,,,,,"Blake Treinen",12572,595014
+"Nick Ramirez","SDP","P",13,0,20.1,,,,,,,"Nick Ramirez",12575,598286
+"DJ Johnson","- - -","P",4,0,4.1,,,,,,,"DJ Johnson",12578,597113
+"Adam Morgan","CHC","P",34,0,25.1,,,,,,,"Adam Morgan",12580,605388
+"Mike Wright Jr.","CHW","P",13,0,18,,,,,,,"Mike Wright Jr.",12586,605541
+"Jerad Eickhoff","NYM","P",5,4,19.2,,,,,,,"Jerad Eickhoff",12664,595191
+"Ryne Harper","WSN","P",34,0,35.2,,,,,,,"Ryne Harper",12680,607560
+"Trevor Bauer","LAD","P",17,17,107.2,,,,,,,"Trevor Bauer",12703,545333
+"Adrian Houser","MIL","P",28,26,142.1,,,,,,,"Adrian Houser",12718,605288
+"Rafael Montero","- - -","P",44,0,49.1,,,,,,,"Rafael Montero",12760,606160
+"Chris Devenski","ARI","P",8,0,7.1,,,,,,,"Chris Devenski",12763,606965
+"Sonny Gray","CIN","P",26,26,135.1,,,,,,,"Sonny Gray",12768,543243
+"John Brebbia","SFG","P",18,0,18.1,,,,,,,"John Brebbia",12777,605154
+"Andy Burns","LAD","P",1,0,1,,,,,,,"Andy Burns",12779,542992
+"Burch Smith","OAK","P",31,0,43.1,,,,,,,"Burch Smith",12784,572143
+"Noé Ramirez","- - -","P",38,0,36,,,,,,,"Noe Ramirez",12800,598287
+"Matt Wisler","- - -","P",48,0,48.2,,,,,,,"Matt Wisler",12804,605538
+"Andrew Kittredge","TBR","P",57,4,71.2,,,,,,,"Andrew Kittredge",12828,552640
+"Shawn Armstrong","- - -","P",31,0,36,,,,,,,"Shawn Armstrong",12857,542888
+"Matt Barnes","BOS","P",60,0,54.2,,,,,,,"Matt Barnes",12863,598264
+"Tyler Anderson","- - -","P",31,31,167,,,,,,,"Tyler Anderson",12880,542881
+"Alex Claudio","LAA","P",41,0,32.2,,,,,,,"Alex Claudio",12890,592222
+"Dylan Bundy","LAA","P",23,19,90.2,,,,,,,"Dylan Bundy",12917,605164
+"Archie Bradley","PHI","P",53,0,51,,,,,,,"Archie Bradley",12918,605151
+"Phillip Evans","PIT","P",1,0,1,,,,,,,"Phillip Evans",12950,595943
+"Joe Musgrove","SDP","P",32,31,181.1,,,,,,,"Joe Musgrove",12970,605397
+"Joe Ross","WSN","P",20,19,108,,,,,,,"Joe Ross",12972,605452
+"Michael Pérez","PIT","1B",1,0,1,,,,,,,"Michael Perez",12977,605421
+"Andrew Chafin","- - -","P",71,0,68.2,,,,,,,"Andrew Chafin",12988,605177
+"Colten Brewer","BOS","P",1,0,1,,,,,,,"Colten Brewer",12997,605155
+"John Andreoli","SDP","RF",2,0,4,,,,,,,"John Andreoli",13012,607430
+"Anthony DeSclafani","SFG","P",31,31,167.2,,,,,,,"Anthony DeSclafani",13050,543101
+"Reymin Guduan","OAK","P",11,0,14.1,,,,,,,"Reymin Guduan",13058,594056
+"Yu Darvish","SDP","P",30,30,166.1,,,,,,,"Yu Darvish",13074,506433
+"Gerrit Cole","NYY","P",30,30,181.1,,,,,,,"Gerrit Cole",13125,543037
+"Derek Law","MIN","P",9,0,15,,,,,,,"Derek Law",13133,571882
+"Eduardo Rodriguez","BOS","P",32,31,157.2,,,,,,,"Eduardo Rodriguez",13164,593958
+"Robel García","HOU","1B",1,0,2,,,,,,,"Robel Garcia",13167,596825
+"Robel García","HOU","P",1,0,1,,,,,,,"Robel Garcia",13167,596825
+"Kyle Crick","PIT","P",27,0,24.1,,,,,,,"Kyle Crick",13182,605195
+"Zach Davies","CHC","P",32,32,148,,,,,,,"Zach Davies",13183,605200
+"Jordan Weems","- - -","P",7,0,5.2,,,,,,,"Jordan Weems",13190,607179
+"Joe Biagini","CHC","P",1,0,3,,,,,,,"Joe Biagini",13194,607352
+"Michael Fulmer","DET","P",52,4,69.2,,,,,,,"Michael Fulmer",13218,605242
+"Louis Head","TBR","P",27,2,35,,,,,,,"Louis Head",13259,545343
+"Ross Stripling","TOR","P",24,19,101.1,,,,,,,"Ross Stripling",13273,548389
+"Jesse Hahn","KCR","P",5,0,3.1,,,,,,,"Jesse Hahn",13287,534910
+"Danny Coulombe","MIN","P",29,1,34.1,,,,,,,"Danny Coulombe",13293,543056
+"Adrian Sampson","CHC","P",10,5,35.1,,,,,,,"Adrian Sampson",13339,592716
+"Luis Cessa","- - -","P",53,0,64.2,,,,,,,"Luis Cessa",13345,570666
+"Hoby Milner","MIL","P",19,0,21.2,,,,,,,"Hoby Milner",13346,571948
+"Luke Maile","MIL","P",1,0,1,,,,,,,"Luke Maile",13355,571912
+"Cam Bedrosian","- - -","P",26,1,25,,,,,,,"Cam Bedrosian",13360,592135
+"Steven Matz","TOR","P",29,29,150.2,,,,,,,"Steven Matz",13361,571927
+"Dylan Floro","MIA","P",68,0,64,,,,,,,"Dylan Floro",13394,571670
+"Sam Selman","- - -","P",25,0,25,,,,,,,"Sam Selman",13397,572125
+"Félix Peña","LAA","P",2,0,1.2,,,,,,,"Felix Pena",13403,570240
+"Marcus Stroman","NYM","P",33,33,179,,,,,,,"Marcus Stroman",13431,573186
+"Pierce Johnson","SDP","P",63,2,58.2,,,,,,,"Pierce Johnson",13435,572955
+"Taylor Rogers","MIN","P",40,0,40.1,,,,,,,"Taylor Rogers",13449,573124
+"Lucas Sims","CIN","P",47,0,47,,,,,,,"Lucas Sims",13470,608371
+"Daniel Norris","- - -","P",56,0,57,,,,,,,"Daniel Norris",13475,596057
+"Brandon Brennan","BOS","P",1,0,3,,,,,,,"Brandon Brennan",13527,592165
+"Blake Snell","SDP","P",27,27,128.2,,,,,,,"Blake Snell",13543,605483
+"Richard Rodríguez","- - -","P",64,0,64.1,,,,,,,"Richard Rodriguez",13549,593144
+"Steven Okert","MIA","P",34,0,36,,,,,,,"Steven Okert",13580,595345
+"José Peraza","NYM","LF",1,0,1,,,,,,,"Jose Peraza",13593,606299
+"José Peraza","NYM","SS",1,0,1,,,,,,,"Jose Peraza",13593,606299
+"Robert Stephenson","COL","P",49,0,46,,,,,,,"Robert Stephenson",13594,596112
+"Shawn Morimando","MIA","P",4,0,10.1,,,,,,,"Shawn Morimando",13606,596049
+"Carl Edwards Jr.","- - -","P",7,0,5.2,,,,,,,"Carl Edwards Jr.",13607,605218
+"Jakob Junis","KCR","P",16,6,39.1,,,,,,,"Jakob Junis",13619,596001
+"Clay Holmes","- - -","P",69,0,70,,,,,,,"Clay Holmes",13649,605280
+"Jharel Cotton","TEX","P",23,0,30.2,,,,,,,"Jharel Cotton",13654,605194
+"Corey Oswalt","NYM","P",3,1,10.1,,,,,,,"Corey Oswalt",13677,621261
+"John Gant","- - -","P",39,21,110,,,,,,,"John Gant",13684,607231
+"Sal Romano","- - -","P",19,0,25,,,,,,,"Sal Romano",13690,607219
+"Robert Gsellman","NYM","P",17,1,28.2,,,,,,,"Robert Gsellman",13696,607229
+"Jake Faria","ARI","P",24,3,32.2,,,,,,,"Jake Faria",13699,607188
+"Joey Krehbiel","- - -","P",6,0,8.1,,,,,,,"Joey Krehbiel",13707,607216
+"Kyle Barraclough","MIN","P",10,0,13,,,,,,,"Kyle Barraclough",13713,607457
+"Jacob Stallings","PIT","1B",1,0,1,,,,,,,"Jacob Stallings",13723,607732
+"Max Fried","ATL","P",28,28,165.2,,,,,,,"Max Fried",13743,608331
+"Tomás Nido","NYM","3B",1,0,2,,,,,,,"Tomas Nido",13755,621512
+"Tyler Duffey","MIN","P",64,0,62.1,,,,,,,"Tyler Duffey",13758,608648
+"Chris Stratton","PIT","P",68,0,79.1,,,,,,,"Chris Stratton",13761,608717
+"Dominic Leone","SFG","P",57,4,53.2,,,,,,,"Dominic Leone",13763,608678
+"JT Chargois","- - -","P",56,0,53.2,,,,,,,"JT Chargois",13767,608638
+"Zach Eflin","PHI","P",18,18,105.2,,,,,,,"Zach Eflin",13774,621107
+"Alex Wood","SFG","P",26,26,138.2,,,,,,,"Alex Wood",13781,622072
+"Matt Strahm","SDP","P",6,1,6.2,,,,,,,"Matt Strahm",13799,621381
+"Austin Adams","SDP","P",65,0,52.2,,,,,,,"Austin Adams",13801,613534
+"Kevin Plawecki","BOS","1B",2,0,2,,,,,,,"Kevin Plawecki",13807,608700
+"Kevin Plawecki","BOS","P",1,0,1,,,,,,,"Kevin Plawecki",13807,608700
+"Alec Mills","CHC","P",32,20,119,,,,,,,"Alec Mills",13834,621219
+"Anthony Bemboom","LAA","P",1,0,1,,,,,,,"Anthony Bemboom",13854,621532
+"Paul Sewald","SEA","P",62,0,64.2,,,,,,,"Paul Sewald",13892,623149
+"Chris Flexen","SEA","P",31,31,179.2,,,,,,,"Chris Flexen",13896,623167
+"Dietrich Enns","TBR","P",9,0,22.1,,,,,,,"Dietrich Enns",13932,608650
+"Brent Suter","MIL","P",61,1,73.1,,,,,,,"Brent Suter",13942,608718
+"Michael Wacha","TBR","P",29,23,124.2,,,,,,,"Michael Wacha",14078,608379
+"Kevin Gausman","SFG","P",33,33,192,,,,,,,"Kevin Gausman",14107,592332
+"Albert Almora Jr.","NYM","P",1,0,1,,,,,,,"Albert Almora Jr.",14109,546991
+"Lance McCullers Jr.","HOU","P",28,28,162.1,,,,,,,"Lance McCullers Jr.",14120,621121
+"José Rondón","STL","1B",1,0,2,,,,,,,"Jose Rondon",14140,602922
+"Daniel Robertson","MIL","P",1,0,1,,,,,,,"Daniel Robertson",14145,621002
+"Chris Mazza","TBR","P",14,0,27.1,,,,,,,"Chris Mazza",14151,607391
+"José Berríos","- - -","P",32,32,192,,,,,,,"Jose Berrios",14168,621244
+"Kyle Zimmer","KCR","P",52,2,54,,,,,,,"Kyle Zimmer",14169,622092
+"Josh Hader","MIL","P",60,0,58.2,,,,,,,"Josh Hader",14212,623352
+"Wandy Peralta","- - -","P",56,1,51,,,,,,,"Wandy Peralta",14295,593974
+"Frankie Montas","OAK","P",32,32,187,,,,,,,"Frankie Montas",14309,593423
+"Wilmer Difo","PIT","P",2,0,2,,,,,,,"Wilmer Difo",14320,594694
+"Joel Payamps","- - -","P",37,1,50.1,,,,,,,"Joel Payamps",14332,606303
+"Tyler Glasnow","TBR","P",14,14,88,,,,,,,"Tyler Glasnow",14374,607192
+"Amir Garrett","CIN","P",63,0,47.2,,,,,,,"Amir Garrett",14375,607237
+"Ronald Guzmán","TEX","LF",2,1,1.2,,,,,,,"Ronald Guzman",14388,608597
+"Hyun Jin Ryu","TOR","P",31,31,169,,,,,,,"Hyun Jin Ryu",14444,547943
+"Adam Conley","TBR","P",17,0,19.2,,,,,,,"Adam Conley",14457,543045
+"Daniel Camarena","SDP","P",6,0,9.1,,,,,,,"Daniel Camarena",14467,547176
+"J.B. Wendelken","- - -","P",46,0,43.2,,,,,,,"J.B. Wendelken",14506,605525
+"Jorge López","BAL","P",33,25,121.2,,,,,,,"Jorge Lopez",14527,605347
+"Carlos Estévez","COL","P",64,0,61.2,,,,,,,"Carlos Estevez",14542,608032
+"José Ruiz","CHW","P",59,0,65,,,,,,,"Jose Ruiz",14552,614179
+"Wyatt Mathisen","ARI","3B",4,0,5.2,,,,,,,"Wyatt Mathisen",14555,621500
+"Wyatt Mathisen","ARI","P",1,0,1,,,,,,,"Wyatt Mathisen",14555,621500
+"James Hoyt","LAA","P",9,0,8,,,,,,,"James Hoyt",14605,624586
+"Rowan Wick","CHC","P",22,0,23,,,,,,,"Rowan Wick",14646,592858
+"Konner Wade","BAL","P",7,0,12.1,,,,,,,"Konner Wade",14655,592831
+"Chi Chi González","COL","P",24,18,101.2,,,,,,,"Chi Chi Gonzalez",14663,592346
+"Jandel Gustave","MIL","P",14,0,18.1,,,,,,,"Jandel Gustave",14665,594311
+"Dillon Maples","CHC","P",28,0,31.1,,,,,,,"Dillon Maples",14672,596027
+"Duane Underwood Jr.","PIT","P",43,0,72.2,,,,,,,"Duane Underwood Jr.",14677,621249
+"Andrés Machado","WSN","P",40,0,35.2,,,,,,,"Andres Machado",14681,600921
+"Harold Castro","DET","P",3,0,2.2,,,,,,,"Harold Castro",14691,605612
+"Keone Kela","SDP","P",12,0,10.2,,,,,,,"Keone Kela",14696,605309
+"Anthony Banda","- - -","P",30,0,33.2,,,,,,,"Anthony Banda",14706,607455
+"Brady Lail","SEA","P",2,0,2,,,,,,,"Brady Lail",14707,621078
+"Edwin Díaz","NYM","P",63,0,62.2,,,,,,,"Edwin Diaz",14710,621242
+"Brett Phillips","TBR","P",1,0,1,,,,,,,"Brett Phillips",14735,621433
+"Paul Blackburn","OAK","P",9,9,38.1,,,,,,,"Paul Blackburn",14739,621112
+"Julio Urías","LAD","P",32,32,185.2,,,,,,,"Julio Urias",14765,628711
+"Emilio Pagán","SDP","P",67,0,63.1,,,,,,,"Emilio Pagan",14771,641941
+"Buck Farmer","DET","P",36,0,35.1,,,,,,,"Buck Farmer",14814,571656
+"Michael Lorenzen","CIN","P",27,0,29,,,,,,,"Michael Lorenzen",14843,547179
+"Joe Mantiply","ARI","P",57,0,39.2,,,,,,,"Joe Mantiply",14857,573009
+"Zack Godley","MIL","P",2,1,3.1,,,,,,,"Zack Godley",14862,643327
+"Sam Moll","OAK","P",8,0,10.1,,,,,,,"Sam Moll",14874,594580
+"Caleb Smith","ARI","P",45,13,113.2,,,,,,,"Caleb Smith",14875,592761
+"Pat Valaika","BAL","P",2,0,1.1,,,,,,,"Pat Valaika",14885,642162
+"Taylor Williams","- - -","P",11,0,11.2,,,,,,,"Taylor Williams",14899,592865
+"Jon Gray","COL","P",29,29,149,,,,,,,"Jon Gray",14916,592351
+"Andrew Knapp","PHI","1B",6,0,6,,,,,,,"Andrew Knapp",14942,595284
+"Johan Camargo","ATL","1B",1,0,2,,,,,,,"Johan Camargo",14950,622666
+"Reyes Moronta","SFG","P",4,0,4,,,,,,,"Reyes Moronta",14966,606625
+"Tyler Webb","STL","P",22,0,16.1,,,,,,,"Tyler Webb",14974,643778
+"Chad Kuhl","PIT","P",28,14,80.1,,,,,,,"Chad Kuhl",14975,641771
+"Giovanny Gallegos","STL","P",73,0,80.1,,,,,,,"Giovanny Gallegos",14986,606149
+"Scott Barlow","KCR","P",71,0,74.1,,,,,,,"Scott Barlow",14993,605130
+"Yacksel Ríos","- - -","P",23,0,27.1,,,,,,,"Yacksel Rios",15007,605441
+"Kyle Finnegan","WSN","P",68,0,66,,,,,,,"Kyle Finnegan",15009,640448
+"Corey Knebel","LAD","P",27,4,25.2,,,,,,,"Corey Knebel",15010,608349
+"Alex Reyes","STL","P",70,0,72.1,,,,,,,"Alex Reyes",15015,621052
+"Chase De Jong","PIT","P",9,9,43.2,,,,,,,"Chase De Jong",15036,608328
+"Germán Márquez","COL","P",32,32,180,,,,,,,"German Marquez",15038,608566
+"Tim Mayza","TOR","P",61,0,53,,,,,,,"Tim Mayza",15042,641835
+"Lou Trivino","OAK","P",71,0,73.2,,,,,,,"Lou Trivino",15043,642152
+"Austin Voth","WSN","P",49,1,57.1,,,,,,,"Austin Voth",15047,608723
+"Yency Almonte","COL","P",48,0,47.2,,,,,,,"Yency Almonte",15068,622075
+"Kyle McGowin","WSN","P",27,0,30,,,,,,,"Kyle McGowin",15071,641851
+"Hunter Wood","TEX","P",5,0,5,,,,,,,"Hunter Wood",15091,621056
+"Luke Farrell","MIN","P",20,1,24.2,,,,,,,"Luke Farrell",15101,608652
+"Jimmie Sherfy","- - -","P",14,0,15,,,,,,,"Jimmie Sherfy",15118,642073
+"Drew Anderson","TEX","P",9,1,22,,,,,,,"Drew Anderson",15130,623454
+"Jake Newberry","KCR","P",4,0,4.1,,,,,,,"Jake Newberry",15136,623470
+"Ashton Goudeau","- - -","P",16,1,34.1,,,,,,,"Ashton Goudeau",15139,623485
+"Justin Topa","MIL","P",4,0,3.1,,,,,,,"Justin Topa",15145,623437
+"Aaron Slegers","LAA","P",29,0,31,,,,,,,"Aaron Slegers",15231,642083
+"Cody Reed","TBR","P",12,0,9.2,,,,,,,"Cody Reed",15232,642003
+"Cole Sulser","BAL","P",60,0,63.1,,,,,,,"Cole Sulser",15256,642121
+"Keynan Middleton","SEA","P",32,1,31,,,,,,,"Keynan Middleton",15264,641871
+"Austin Wynns","BAL","1B",1,0,1,,,,,,,"Austin Wynns",15271,642851
+"Austin Wynns","BAL","P",1,0,1,,,,,,,"Austin Wynns",15271,642851
+"Mike Tauchman","SFG","P",1,0,1,,,,,,,"Mike Tauchman",15274,643565
+"Adam Cimber","- - -","P",72,0,71.2,,,,,,,"Adam Cimber",15288,643256
+"Austin Pruitt","- - -","P",6,0,7.1,,,,,,,"Austin Pruitt",15290,643493
+"Steven Brault","PIT","P",7,7,27.2,,,,,,,"Steven Brault",15291,643230
+"Andrew Heaney","- - -","P",30,23,129.2,,,,,,,"Andrew Heaney",15423,571760
+"Matthew Boyd","DET","P",15,15,78.2,,,,,,,"Matthew Boyd",15440,571510
+"Mike Mayers","LAA","P",72,2,75,,,,,,,"Mike Mayers",15451,594577
+"Nick Pivetta","BOS","P",31,30,155,,,,,,,"Nick Pivetta",15454,601713
+"José De León","CIN","P",9,2,18.1,,,,,,,"Jose De Leon",15463,592254
+"Marco Gonzales","SEA","P",25,25,143.1,,,,,,,"Marco Gonzales",15467,594835
+"Lucas Giolito","CHW","P",31,31,178.2,,,,,,,"Lucas Giolito",15474,608337
+"Antonio Senzatela","COL","P",28,28,156.2,,,,,,,"Antonio Senzatela",15488,622608
+"Stephen Gonsalves","BOS","P",3,0,4.1,,,,,,,"Stephen Gonsalves",15492,624427
+"Kohl Stewart","CHC","P",4,3,13.2,,,,,,,"Kohl Stewart",15502,640464
+"Hunter Harvey","BAL","P",9,0,8.2,,,,,,,"Hunter Harvey",15507,640451
+"Kendall Graveman","- - -","P",53,0,56,,,,,,,"Kendall Graveman",15514,608665
+"Eric Yardley","MIL","P",17,0,18.2,,,,,,,"Eric Yardley",15538,642233
+"Tyler Rogers","SFG","P",80,0,81,,,,,,,"Tyler Rogers",15541,643511
+"Chad Green","NYY","P",67,0,83.2,,,,,,,"Chad Green",15552,643338
+"Nick Wittgren","CLE","P",60,1,62.1,,,,,,,"Nick Wittgren",15594,621295
+"Phillips Valdez","BOS","P",28,0,40,,,,,,,"Phillips Valdez",15605,570488
+"Willians Astudillo","MIN","P",4,0,4,,,,,,,"Willians Astudillo",15608,553902
+"Yefry Ramírez","LAD","P",1,0,2,,,,,,,"Yefry Ramirez",15655,606162
+"Miguel Castro","NYM","P",69,2,70.1,,,,,,,"Miguel Castro",15684,612434
+"Luis Castillo","CIN","P",33,33,187.2,,,,,,,"Luis Castillo",15689,622491
+"Brad Keller","KCR","P",26,26,133.2,,,,,,,"Brad Keller",15734,641745
+"Joe Jiménez","DET","P",52,0,45.1,,,,,,,"Joe Jimenez",15761,641729
+"Devin Williams","MIL","P",58,0,54,,,,,,,"Devin Williams",15816,642207
+"Zack Littell","SFG","P",63,2,61.2,,,,,,,"Zack Littell",15823,641793
+"Paul Fry","BAL","P",52,0,47.1,,,,,,,"Paul Fry",15832,643316
+"Adam Plutko","BAL","P",38,1,56.1,,,,,,,"Adam Plutko",15846,592644
+"Kent Emanuel","HOU","P",10,0,17.2,,,,,,,"Kent Emanuel",15849,592288
+"Wander Suero","WSN","P",45,0,42.2,,,,,,,"Wander Suero",15855,593833
+"Sean Manaea","OAK","P",32,32,179.1,,,,,,,"Sean Manaea",15873,640455
+"Luis Severino","NYY","P",4,0,6,,,,,,,"Luis Severino",15890,622663
+"Lewis Thorpe","MIN","P",5,4,15.1,,,,,,,"Lewis Thorpe",15906,626929
+"Austin Nola","SDP","1B",1,1,9,,,,,,,"Austin Nola",15941,543592
+"Ryne Stanek","HOU","P",72,0,68.1,,,,,,,"Ryne Stanek",15947,592773
+"Keury Mella","ARI","P",2,0,1.2,,,,,,,"Keury Mella",15964,622492
+"Ivan Castillo","SDP","2B",1,0,4,,,,,,,"Ivan Castillo",15971,622668
+"Akeem Bostick","NYM","P",1,0,1,,,,,,,"Akeem Bostick",15979,641384
+"Stevie Wilkerson","BAL","P",1,0,1,,,,,,,"Stevie Wilkerson",16041,592859
+"Stefan Crichton","ARI","P",31,0,23.1,,,,,,,"Stefan Crichton",16058,592233
+"Zach Thompson","MIA","P",26,14,75,,,,,,,"Zach Thompson",16094,605507
+"Daniel Ponce de Leon","STL","P",24,2,33.1,,,,,,,"Daniel Ponce de Leon",16110,594965
+"Jordan Romano","TOR","P",62,0,63,,,,,,,"Jordan Romano",16122,605447
+"Chris Ellis","- - -","P",7,6,29.1,,,,,,,"Chris Ellis",16125,595939
+"John Curtiss","- - -","P",42,2,44.1,,,,,,,"John Curtiss",16128,595928
+"David Hess","- - -","P",15,1,20,,,,,,,"David Hess",16130,605276
+"Carlos Rodón","CHW","P",24,24,132.2,,,,,,,"Carlos Rodon",16137,607074
+"Aaron Nola","PHI","P",32,32,180.2,,,,,,,"Aaron Nola",16149,605400
+"Jace Fry","CHW","P",6,0,6.2,,,,,,,"Jace Fry",16159,605240
+"Brandon Woodruff","MIL","P",30,30,179.1,,,,,,,"Brandon Woodruff",16162,605540
+"Derek Fisher","MIL","LF",1,0,3,,,,,,,"Derek Fisher",16192,605233
+"Spencer Turnbull","DET","P",9,9,50,,,,,,,"Spencer Turnbull",16207,605513
+"Jake Reed","- - -","P",10,1,10,,,,,,,"Jake Reed",16209,596082
+"Tejay Antone","CIN","P",23,0,33.2,,,,,,,"Tejay Antone",16233,622088
+"Kyle Freeland","COL","P",23,23,120.2,,,,,,,"Kyle Freeland",16256,607536
+"Kyle Freeland","COL","RF",1,0,1,,,,,,,"Kyle Freeland",16256,607536
+"Aaron Bummer","CHW","P",62,0,56.1,,,,,,,"Aaron Bummer",16258,607481
+"Sam Howard","PIT","P",54,1,45,,,,,,,"Sam Howard",16265,607572
+"John Means","BAL","P",26,26,146.2,,,,,,,"John Means",16269,607644
+"Alex Blandino","CIN","P",4,0,3.2,,,,,,,"Alex Blandino",16271,607468
+"Sam Clay","WSN","P",58,0,45,,,,,,,"Sam Clay",16279,621348
+"Jesus Tinoco","COL","P",1,0,1.1,,,,,,,"Jesus Tinoco",16300,622786
+"Alex McRae","CHW","P",2,0,2,,,,,,,"Alex McRae",16317,656725
+"Ryan Borucki","TOR","P",24,0,23.2,,,,,,,"Ryan Borucki",16350,621366
+"Tyler Mahle","CIN","P",33,33,180,,,,,,,"Tyler Mahle",16358,641816
+"Ryan Castellani","COL","P",1,1,3.1,,,,,,,"Ryan Castellani",16377,624418
+"Brad Wieck","CHC","P",15,0,17,,,,,,,"Brad Wieck",16390,623364
+"Reynaldo López","CHW","P",20,9,57.2,,,,,,,"Reynaldo Lopez",16400,625643
+"Francisco Mejía","TBR","P",2,0,2,,,,,,,"Francisco Mejia",16403,642336
+"Victor González","LAD","P",44,1,35.1,,,,,,,"Victor Gonzalez",16408,624647
+"Blake Taylor","HOU","P",51,0,42.2,,,,,,,"Blake Taylor",16418,642130
+"Jordan Luplow","TBR","2B",1,0,1,,,,,,,"Jordan Luplow",16424,656669
+"Jordan Luplow","TBR","3B",1,0,1,,,,,,,"Jordan Luplow",16424,656669
+"Jordan Luplow","TBR","P",1,0,1,,,,,,,"Jordan Luplow",16424,656669
+"Scott Blewett","KCR","P",3,0,5,,,,,,,"Scott Blewett",16427,656240
+"Christian Arroyo","BOS","1B",1,1,2.2,,,,,,,"Christian Arroyo",16434,624414
+"Christian Arroyo","BOS","P",1,0,1,,,,,,,"Christian Arroyo",16434,624414
+"James Norwood","SDP","P",5,0,5,,,,,,,"James Norwood",16440,656803
+"Luis Guillorme","NYM","P",1,0,1,,,,,,,"Luis Guillorme",16451,641645
+"Conner Greene","- - -","P",24,1,25.1,,,,,,,"Conner Greene",16455,641632
+"Brent Honeywell","TBR","P",3,2,4.1,,,,,,,"Brent Honeywell",16466,641703
+"Ryan Yarbrough","TBR","P",30,21,155,,,,,,,"Ryan Yarbrough",16502,642232
+"Dan Altavilla","SDP","P",2,0,1.1,,,,,,,"Dan Altavilla",16507,656186
+"Jordan Montgomery","NYY","P",30,30,157.1,,,,,,,"Jordan Montgomery",16511,656756
+"Dusten Knight","BAL","P",7,0,8.2,,,,,,,"Dusten Knight",16537,643400
+"Austin Gomber","COL","P",23,23,115.1,,,,,,,"Austin Gomber",16561,596295
+"Yandy Díaz","TBR","2B",1,0,1,,,,,,,"Yandy Diaz",16578,650490
+"Erik Swanson","SEA","P",33,2,35.1,,,,,,,"Erik Swanson",16587,657024
+"Bryan Abreu","HOU","P",31,0,36,,,,,,,"Bryan Abreu",16609,650556
+"J.P. Feyereisen","- - -","P",55,0,56,,,,,,,"J.P. Feyereisen",16610,656420
+"Ryan Thompson","TBR","P",36,0,34,,,,,,,"Ryan Thompson",16647,657044
+"Julian Merryweather","TOR","P",13,1,13,,,,,,,"Julian Merryweather",16703,657240
+"Vinny Nittoli","SEA","P",1,0,1,,,,,,,"Vinny Nittoli",16754,657697
+"Josh James","HOU","P",5,0,5,,,,,,,"Josh James",16794,657624
+"Tim Hill","SDP","P",78,0,59.2,,,,,,,"Tim Hill",16814,657612
+"John Nogowski","PIT","P",3,0,3,,,,,,,"John Nogowski",16852,596056
+"John Nogowski","PIT","RF",1,0,1,,,,,,,"John Nogowski",16852,596056
+"Joshua Fuentes","COL","P",1,0,1,,,,,,,"Joshua Fuentes",16885,658069
+"Luke Weaver","ARI","P",13,13,65.2,,,,,,,"Luke Weaver",16918,596133
+"Touki Toussaint","ATL","P",11,10,50,,,,,,,"Touki Toussaint",16929,657053
+"Elieser Hernández","MIA","P",11,11,51.2,,,,,,,"Elieser Hernandez",16933,622694
+"Sean Newcomb","ATL","P",32,0,32.1,,,,,,,"Sean Newcomb",16943,656794
+"Jake Jewell","CHC","P",10,0,10,,,,,,,"Jake Jewell",16958,657228
+"Trevor Williams","- - -","P",23,15,91,,,,,,,"Trevor Williams",16977,592866
+"Tyler Beede","SFG","P",1,0,1,,,,,,,"Tyler Beede",16981,595881
+"Trevor Hildenberger","NYM","P",2,0,2.1,,,,,,,"Trevor Hildenberger",17002,657610
+"Jefry Rodriguez","WSN","P",14,1,24.1,,,,,,,"Jefry Rodriguez",17018,622446
+"Sean Reid-Foley","NYM","P",12,0,20.2,,,,,,,"Sean Reid-Foley",17034,656887
+"Pablo López","MIA","P",20,20,102.2,,,,,,,"Pablo Lopez",17085,641154
+"Domingo Acevedo","OAK","P",10,0,11,,,,,,,"Domingo Acevedo",17092,642758
+"Austin Davis","- - -","P",29,0,26.1,,,,,,,"Austin Davis",17117,656354
+"Raisel Iglesias","LAA","P",65,0,70,,,,,,,"Raisel Iglesias",17130,628452
+"Domingo Germán","NYY","P",22,18,98.1,,,,,,,"Domingo German",17149,593334
+"Gabe Speier","KCR","P",7,0,7.2,,,,,,,"Gabe Speier",17170,642100
+"Yoan López","ARI","P",13,0,12.1,,,,,,,"Yoan Lopez",17181,661255
+"Dinelson Lamet","SDP","P",22,9,47,,,,,,,"Dinelson Lamet",17186,659275
+"Austin Brice","BOS","P",13,0,13.2,,,,,,,"Austin Brice",17237,592169
+"Sam Coonrod","PHI","P",42,2,42.1,,,,,,,"Sam Coonrod",17264,656322
+"Alex Jackson","MIA","RF",1,0,1,,,,,,,"Alex Jackson",17276,656577
+"Ranger Suárez","PHI","P",39,12,106,,,,,,,"Ranger Suarez",17277,624133
+"Michael Kopech","CHW","P",44,4,69.1,,,,,,,"Michael Kopech",17282,656629
+"Justus Sheffield","SEA","P",21,15,80.1,,,,,,,"Justus Sheffield",17285,656954
+"Javy Guerra","SDP","P",4,0,3.2,,,,,,,"Javy Guerra",17292,642770
+"Framber Valdez","HOU","P",22,22,134.2,,,,,,,"Framber Valdez",17295,664285
+"Justin Steele","CHC","P",20,9,57,,,,,,,"Justin Steele",17312,657006
+"Cole Tucker","PIT","1B",1,0,1,,,,,,,"Cole Tucker",17326,657061
+"Edgar Santana","ATL","P",41,0,42.2,,,,,,,"Edgar Santana",17355,650828
+"Josh Taylor","BOS","P",61,0,47.2,,,,,,,"Josh Taylor",17359,657031
+"Brett Martin","TEX","P",66,0,62.1,,,,,,,"Brett Martin",17369,656685
+"David Paulino","PHI","P",1,0,2,,,,,,,"David Paulino",17418,600944
+"Yermín Mercedes","CHW","1B",1,1,4,,,,,,,"Yermin Mercedes",17423,606213
+"Yermín Mercedes","CHW","P",1,0,1,,,,,,,"Yermin Mercedes",17423,606213
+"Erick Fedde","WSN","P",29,27,133.1,,,,,,,"Erick Fedde",17425,607200
+"Jeff Hoffman","CIN","P",31,11,73,,,,,,,"Jeff Hoffman",17432,656546
+"Kelvin Gutiérrez","KCR","1B",1,0,2,,,,,,,"Kelvin Gutierrez",17468,642721
+"Kelvin Gutiérrez","BAL","2B",1,0,1,,,,,,,"Kelvin Gutierrez",17468,642721
+"Jack Flaherty","STL","P",17,15,78.1,,,,,,,"Jack Flaherty",17479,656427
+"Albert Abreu","NYY","P",28,0,36.2,,,,,,,"Albert Abreu",17485,656061
+"Spenser Watkins","BAL","P",16,10,54.2,,,,,,,"Spenser Watkins",17489,657093
+"Génesis Cabrera","STL","P",71,0,70,,,,,,,"Genesis Cabrera",17490,650893
+"Diego Castillo","- - -","P",61,0,58.1,,,,,,,"Diego Castillo",17496,650895
+"Jorge Guzmán","MIA","P",2,0,1.2,,,,,,,"Jorge Guzman",17505,660422
+"Ryan Burr","CHW","P",34,1,36.2,,,,,,,"Ryan Burr",17536,621114
+"Jimmy Herget","- - -","P",18,0,18.2,,,,,,,"Jimmy Herget",17556,623474
+"JT Brubaker","PIT","P",24,24,124.1,,,,,,,"JT Brubaker",17578,664141
+"Marcos Diplán","BAL","P",23,0,30,,,,,,,"Marcos Diplan",17583,650959
+"Jordan Yamamoto","NYM","P",2,1,6.2,,,,,,,"Jordan Yamamoto",17585,657141
+"Tanner Scott","BAL","P",62,0,54,,,,,,,"Tanner Scott",17586,656945
+"Mitch Keller","PIT","P",23,23,100.2,,,,,,,"Mitch Keller",17594,656605
+"Cristian Javier","HOU","P",36,9,101.1,,,,,,,"Cristian Javier",17606,664299
+"Tanner Rainey","WSN","P",38,0,31.2,,,,,,,"Tanner Rainey",17610,663432
+"Taylor Clarke","ARI","P",43,0,43.1,,,,,,,"Taylor Clarke",17611,664199
+"Justin Lawrence","COL","P",19,0,16.2,,,,,,,"Justin Lawrence",17639,664875
+"Jeffrey Springs","TBR","P",43,0,44.2,,,,,,,"Jeffrey Springs",17677,605488
+"Ralph Garza Jr.","- - -","P",27,0,30.1,,,,,,,"Ralph Garza Jr.",17682,621248
+"Trevor Megill","CHC","P",28,0,23.2,,,,,,,"Trevor Megill",17722,656730
+"Nabil Crismatt","SDP","P",45,0,81.1,,,,,,,"Nabil Crismatt",17732,622503
+"Evan Phillips","- - -","P",8,0,13.1,,,,,,,"Evan Phillips",17734,623465
+"Tyler Alexander","DET","P",41,15,106.1,,,,,,,"Tyler Alexander",17735,641302
+"Brody Koerner","NYY","P",2,0,3,,,,,,,"Brody Koerner",17748,621259
+"Max Schrock","CIN","P",2,0,1.2,,,,,,,"Max Schrock",17750,621011
+"Drew Smith","NYM","P",31,1,41.1,,,,,,,"Drew Smith",17755,622098
+"Angel Perdomo","MIL","P",19,0,17,,,,,,,"Angel Perdomo",17759,622780
+"José Alvarado","PHI","P",64,0,55.2,,,,,,,"Jose Alvarado",17780,621237
+"Jake Brentz","KCR","P",72,0,64,,,,,,,"Jake Brentz",17783,641394
+"Patrick Weigel","MIL","P",3,0,4,,,,,,,"Patrick Weigel",17792,622256
+"Dillon Tate","BAL","P",62,0,67.2,,,,,,,"Dillon Tate",17796,622253
+"Daniel Zamora","SEA","P",4,0,4.1,,,,,,,"Daniel Zamora",17811,623354
+"Adbert Alzolay","CHC","P",29,21,125.2,,,,,,,"Adbert Alzolay",17859,640470
+"Ian Gibaut","MIN","P",3,0,6.2,,,,,,,"Ian Gibaut",17871,664139
+"Nestor Cortes","NYY","P",22,14,93,,,,,,,"Nestor Cortes",17874,641482
+"Dennis Santana","- - -","P",55,0,54.2,,,,,,,"Dennis Santana",17878,642701
+"Tayler Saucedo","TOR","P",29,0,25.2,,,,,,,"Tayler Saucedo",17888,642048
+"Garrett Cleavinger","LAD","P",22,1,18,,,,,,,"Garrett Cleavinger",17897,664076
+"Cody Ponce","PIT","P",15,2,38.1,,,,,,,"Cody Ponce",17920,664074
+"Trent Thornton","TOR","P",37,3,49,,,,,,,"Trent Thornton",17948,663423
+"Tyler Gilbert","ARI","P",9,6,40,,,,,,,"Tyler Gilbert",17964,656457
+"Peter Lambert","COL","P",2,2,5.2,,,,,,,"Peter Lambert",17969,663567
+"Scott Kingery","PHI","LF",1,0,1,,,,,,,"Scott Kingery",17975,664068
+"Logan Webb","SFG","P",27,26,148.1,,,,,,,"Logan Webb",17995,657277
+"Pete Fairbanks","TBR","P",47,0,42.2,,,,,,,"Pete Fairbanks",17998,664126
+"Triston McKenzie","CLE","P",25,24,120,,,,,,,"Triston McKenzie",18000,663474
+"Tanner Anderson","PIT","P",1,0,5,,,,,,,"Tanner Anderson",18029,664196
+"Phil Maton","- - -","P",65,1,66.2,,,,,,,"Phil Maton",18064,664208
+"Cody Stashak","MIN","P",15,0,15.2,,,,,,,"Cody Stashak",18088,664054
+"Ryan Meisinger","CHC","P",7,0,7.1,,,,,,,"Ryan Meisinger",18105,664682
+"Ka'ai Tom","OAK","P",1,0,1,,,,,,,"Ka'ai Tom",18136,664789
+"Ryan Helsley","STL","P",51,0,47.1,,,,,,,"Ryan Helsley",18138,664854
+"Jay Flaa","- - -","P",2,0,2.2,,,,,,,"Jay Flaa",18140,664852
+"Anthony Misiewicz","SEA","P",66,0,54.2,,,,,,,"Anthony Misiewicz",18152,664948
+"Art Warren","CIN","P",26,0,21,,,,,,,"Art Warren",18251,605521
+"Jarlín García","SFG","P",58,0,68.2,,,,,,,"Jarlin Garcia",18282,606424
+"Tyler Kinley","COL","P",70,0,70.1,,,,,,,"Tyler Kinley",18297,641755
+"Carson Fulmer","CIN","P",20,0,25.2,,,,,,,"Carson Fulmer",18311,608334
+"Edwin Ríos","LAD","RF",2,1,8.1,,,,,,,"Edwin Rios",18316,621458
+"Josh Sborz","TEX","P",63,0,59,,,,,,,"Josh Sborz",18323,622250
+"Taylor Hearn","TEX","P",42,11,104.1,,,,,,,"Taylor Hearn",18325,621368
+"James Kaprielian","OAK","P",24,21,119.1,,,,,,,"James Kaprielian",18331,621076
+"Eric Hanhold","BAL","P",10,0,10.1,,,,,,,"Eric Hanhold",18332,621098
+"Alex Young","- - -","P",40,2,52,,,,,,,"Alex Young",18333,622065
+"Josh Staumont","KCR","P",64,0,65.2,,,,,,,"Josh Staumont",18335,622251
+"Nick Anderson","TBR","P",6,0,6,,,,,,,"Nick Anderson",18337,623433
+"Julian Fernández","COL","P",6,0,6.2,,,,,,,"Julian Fernandez",18341,642759
+"Brandon Waddell","- - -","P",9,0,9.1,,,,,,,"Brandon Waddell",18347,663399
+"Jaime Barria","LAA","P",13,11,56.2,,,,,,,"Jaime Barria",18356,642545
+"Thomas Eshelman","BAL","P",9,6,27.2,,,,,,,"Thomas Eshelman",18361,664045
+"Connor Overton","- - -","P",9,3,15.1,,,,,,,"Connor Overton",18376,656818
+"Scott Effross","CHC","P",14,0,14.2,,,,,,,"Scott Effross",18384,664123
+"Enyel De Los Santos","- - -","P",33,0,35.1,,,,,,,"Enyel De Los Santos",18403,660853
+"José Urquidy","HOU","P",20,20,107,,,,,,,"Jose Urquidy",18413,664353
+"P.J. Higgins","CHC","1B",1,0,5,,,,,,,"P.J. Higgins",18433,664731
+"Shea Spitzbarth","PIT","P",5,0,5,,,,,,,"Shea Spitzbarth",18475,665661
+"Junior Fernández","STL","P",18,0,20.2,,,,,,,"Junior Fernandez",18496,658551
+"Kenta Maeda","MIN","P",21,21,106.1,,,,,,,"Kenta Maeda",18498,628317
+"Josh Rogers","WSN","P",6,6,35.2,,,,,,,"Josh Rogers",18510,642028
+"Phil Bickford","- - -","P",57,0,51.1,,,,,,,"Phil Bickford",18519,641360
+"Dylan Cease","CHW","P",32,32,165.2,,,,,,,"Dylan Cease",18525,656302
+"Sam Hentges","CLE","P",30,12,68.2,,,,,,,"Sam Hentges",18548,656529
+"Logan Allen","CLE","P",14,11,50.1,,,,,,,"Logan Allen",18555,663531
+"Travis Bergen","TOR","P",10,1,10.2,,,,,,,"Travis Bergen",18581,664157
+"Travis Lakins Sr.","BAL","P",24,1,28,,,,,,,"Travis Lakins Sr.",18600,664042
+"A.J. Minter","ATL","P",61,0,52.1,,,,,,,"A.J. Minter",18655,621345
+"Jake Woodford","STL","P",26,8,67.2,,,,,,,"Jake Woodford",18674,663765
+"Freddy Peralta","MIL","P",28,27,144.1,,,,,,,"Freddy Peralta",18679,642547
+"Sandy Alcantara","MIA","P",33,33,205.2,,,,,,,"Sandy Alcantara",18684,645261
+"Kolby Allard","TEX","P",32,17,124.2,,,,,,,"Kolby Allard",18694,663465
+"Nick Neidert","MIA","P",8,7,35.2,,,,,,,"Nick Neidert",18699,663734
+"Cody Poteet","MIA","P",7,7,30.2,,,,,,,"Cody Poteet",18769,547001
+"Dillon Peters","PIT","P",6,6,26.2,,,,,,,"Dillon Peters",18790,596071
+"Miguel Del Pozo","DET","P",5,0,5.1,,,,,,,"Miguel Del Pozo",18792,600887
+"Drew Steckenrider","SEA","P",62,0,67.2,,,,,,,"Drew Steckenrider",18806,608716
+"Miguel Díaz","SDP","P",25,2,42,,,,,,,"Miguel Diaz",18815,622766
+"Pedro Avila","SDP","P",1,1,4,,,,,,,"Pedro Avila",18864,658648
+"Beau Burrows","- - -","P",6,1,11,,,,,,,"Beau Burrows",18873,663366
+"Brandon Lowe","TBR","1B",1,0,1,,,,,,,"Brandon Lowe",18882,664040
+"Danny Mendick","CHW","CF",1,0,5,,,,,,,"Danny Mendick",18889,664901
+"Danny Mendick","CHW","LF",2,0,2.1,,,,,,,"Danny Mendick",18889,664901
+"Danny Mendick","CHW","P",1,0,1,,,,,,,"Danny Mendick",18889,664901
+"Kyle Keller","PIT","P",32,0,33.1,,,,,,,"Kyle Keller",18890,664918
+"Zack Burdi","- - -","P",7,0,10,,,,,,,"Zack Burdi",19159,641420
+"Tommy Nance","CHC","P",27,0,28.2,,,,,,,"Tommy Nance",19178,667297
+"Kirby Snead","TOR","P",7,0,7.2,,,,,,,"Kirby Snead",19179,669912
+"Zack Collins","CHW","1B",1,0,1,,,,,,,"Zack Collins",19181,641470
+"Robert Dugger","SEA","P",12,4,25.2,,,,,,,"Robert Dugger",19191,667498
+"Brandyn Sittinger","ARI","P",5,0,4.2,,,,,,,"Brandyn Sittinger",19192,670087
+"Will Smith","LAD","1B",1,0,1.2,,,,,,,"Will Smith",19197,669257
+"Yuli Gurriel","HOU","3B",1,0,2,,,,,,,"Yuli Gurriel",19198,493329
+"Conner Menez","SFG","P",8,1,14,,,,,,,"Conner Menez",19199,669214
+"José Quijada","LAA","P",26,0,25.2,,,,,,,"Jose Quijada",19200,650671
+"Dakota Hudson","STL","P",2,1,8.2,,,,,,,"Dakota Hudson",19206,641712
+"Mitch White","LAD","P",21,4,46.2,,,,,,,"Mitch White",19225,669952
+"Caleb Baragar","SFG","P",25,0,23,,,,,,,"Caleb Baragar",19231,670056
+"Wes Benjamin","TEX","P",13,2,22.2,,,,,,,"Wes Benjamin",19243,605138
+"Cole Irvin","OAK","P",32,32,178.1,,,,,,,"Cole Irvin",19244,608344
+"Miguel Aguilar","ARI","P",9,0,7,,,,,,,"Miguel Aguilar",19246,620396
+"Seranthony Domínguez","PHI","P",1,0,1,,,,,,,"Seranthony Dominguez",19249,622554
+"Thomas Hatch","TOR","P",3,2,9.1,,,,,,,"Thomas Hatch",19264,641672
+"Taylor Widener","ARI","P",23,13,70.1,,,,,,,"Taylor Widener",19266,642203
+"Justin Dunn","SEA","P",11,11,50.1,,,,,,,"Justin Dunn",19268,643290
+"T.J. Zeuch","TOR","P",5,3,15,,,,,,,"T.J. Zeuch",19269,643615
+"Jacob Webb","ATL","P",34,0,34.1,,,,,,,"Jacob Webb",19274,657097
+"Edgar García","- - -","P",11,0,14.2,,,,,,,"Edgar Garcia",19276,658305
+"Vladimir Gutierrez","CIN","P",22,22,114,,,,,,,"Vladimir Gutierrez",19278,661269
+"Zac Gallen","ARI","P",23,23,121.1,,,,,,,"Zac Gallen",19291,668678
+"Trevor Richards","- - -","P",53,0,64.1,,,,,,,"Trevor Richards",19309,670950
+"Cal Quantrill","CLE","P",40,22,149.2,,,,,,,"Cal Quantrill",19312,615698
+"Eric Lauer","MIL","P",24,20,118.2,,,,,,,"Eric Lauer",19316,641778
+"Joey Lucchesi","NYM","P",11,8,38.1,,,,,,,"Joey Lucchesi",19320,664192
+"Jose Rojas","LAA","1B",2,0,4.1,,,,,,,"Jose Rojas",19331,670351
+"Richard Lovelady","KCR","P",20,0,20.2,,,,,,,"Richard Lovelady",19337,663992
+"A.J. Puk","OAK","P",12,0,13.1,,,,,,,"A.J. Puk",19343,640462
+"Daulton Jefferies","OAK","P",5,1,15,,,,,,,"Daulton Jefferies",19345,641726
+"Dean Kremer","BAL","P",13,13,53.2,,,,,,,"Dean Kremer",19350,665152
+"Corbin Burnes","MIL","P",28,28,167,,,,,,,"Corbin Burnes",19361,669203
+"Keegan Akin","BAL","P",24,17,95,,,,,,,"Keegan Akin",19362,669211
+"Walker Buehler","LAD","P",33,33,207.2,,,,,,,"Walker Buehler",19374,621111
+"Tony Gonsolin","LAD","P",15,13,55.2,,,,,,,"Tony Gonsolin",19388,664062
+"Dane Dunning","TEX","P",27,25,117.2,,,,,,,"Dane Dunning",19409,641540
+"Shane Bieber","CLE","P",16,16,96.2,,,,,,,"Shane Bieber",19427,669456
+"Yohan Ramírez","SEA","P",25,0,27.2,,,,,,,"Yohan Ramirez",19444,670990
+"Patrick Sandoval","LAA","P",17,14,87,,,,,,,"Patrick Sandoval",19447,663776
+"Jake Rogers","DET","3B",1,0,1,,,,,,,"Jake Rogers",19452,668670
+"Jake Rogers","DET","P",1,0,1,,,,,,,"Jake Rogers",19452,668670
+"Shaun Anderson","- - -","P",16,0,23.1,,,,,,,"Shaun Anderson",19453,641312
+"Michael Rucker","CHC","P",20,0,28.1,,,,,,,"Michael Rucker",19454,621074
+"Kyle Funkhouser","DET","P",57,2,68.1,,,,,,,"Kyle Funkhouser",19456,608335
+"Bryan Garcia","DET","P",39,0,39.1,,,,,,,"Bryan Garcia",19457,650530
+"Jorge Alcala","MIN","P",59,0,59.2,,,,,,,"Jorge Alcala",19459,660896
+"Aaron Civale","CLE","P",21,21,124.1,,,,,,,"Aaron Civale",19479,650644
+"Ryan Hartman","HOU","P",1,0,2.1,,,,,,,"Ryan Hartman",19480,670057
+"Andrew Vasquez","LAD","P",2,0,1.2,,,,,,,"Andrew Vasquez",19482,607755
+"Devin Smeltzer","MIN","P",1,0,4.2,,,,,,,"Devin Smeltzer",19487,656970
+"Andrew Knizner","STL","1B",1,0,2,,,,,,,"Andrew Knizner",19514,668800
+"Raynel Espinal","BOS","P",1,0,2,,,,,,,"Raynel Espinal",19516,642659
+"Jacob Robson","DET","CF",1,0,4,,,,,,,"Jacob Robson",19528,615699
+"Jason Foley","DET","P",11,0,10.1,,,,,,,"Jason Foley",19531,671345
+"Ryan Hendrix","CIN","P",36,0,31.2,,,,,,,"Ryan Hendrix",19535,641682
+"Jimmy Lambert","CHW","P",4,3,13,,,,,,,"Jimmy Lambert",19541,669424
+"Stephen Nogosek","NYM","P",1,0,3,,,,,,,"Stephen Nogosek",19545,668665
+"Jon Duplantier","ARI","P",4,4,13,,,,,,,"Jon Duplantier",19546,641541
+"JD Hammer","PHI","P",20,0,20,,,,,,,"JD Hammer",19548,670456
+"Geoff Hartlieb","- - -","P",7,0,9,,,,,,,"Geoff Hartlieb",19558,664129
+"David Bednar","PIT","P",61,0,60.2,,,,,,,"David Bednar",19569,670280
+"JoJo Romero","PHI","P",11,0,9,,,,,,,"JoJo Romero",19574,668941
+"Sean Poppen","- - -","P",24,0,22.2,,,,,,,"Sean Poppen",19583,664092
+"Vladimir Guerrero Jr.","TOR","3B",1,0,2,,,,,,,"Vladimir Guerrero Jr.",19611,665489
+"Cionel Pérez","CIN","P",25,0,24,,,,,,,"Cionel Perez",19614,672335
+"Jordan Hicks","STL","P",10,0,10,,,,,,,"Jordan Hicks",19618,663855
+"Matt Foster","CHW","P",37,0,39,,,,,,,"Matt Foster",19647,641582
+"Kyle Wright","ATL","P",2,2,6.1,,,,,,,"Kyle Wright",19665,657140
+"Gregory Soto","DET","P",62,0,63.2,,,,,,,"Gregory Soto",19677,642397
+"Jordan Sheffield","COL","P",30,0,29.1,,,,,,,"Jordan Sheffield",19682,642068
+"Kyle Cody","TEX","P",7,0,11.1,,,,,,,"Kyle Cody",19686,621129
+"Connor Seabold","BOS","P",1,1,3,,,,,,,"Connor Seabold",19695,657756
+"Patrick Murphy","- - -","P",25,0,28,,,,,,,"Patrick Murphy",19712,641907
+"Dustin May","LAD","P",5,5,23,,,,,,,"Dustin May",19716,669160
+"Kodi Whitley","STL","P",25,0,25.1,,,,,,,"Kodi Whitley",19731,676831
+"Anthony Bender","MIA","P",60,1,61.1,,,,,,,"Anthony Bender",19742,669622
+"Jonathan Loáisiga","NYY","P",57,0,70.2,,,,,,,"Jonathan Loaisiga",19753,642528
+"Reiver Sanmartin","CIN","P",2,2,11.2,,,,,,,"Reiver Sanmartin",19754,665665
+"Shohei Ohtani","LAA","LF",1,0,1,,,,,,,"Shohei Ohtani",19755,660271
+"Shohei Ohtani","LAA","P",23,23,130.1,,,,,,,"Shohei Ohtani",19755,660271
+"Seth Elledge","STL","P",11,0,11.2,,,,,,,"Seth Elledge",19766,676220
+"Will Vest","SEA","P",32,0,35,,,,,,,"Will Vest",19769,676684
+"Justin Garza","CLE","P",21,0,28.2,,,,,,,"Justin Garza",19784,621057
+"Anthony Castro","TOR","P",25,0,24.2,,,,,,,"Anthony Castro",19789,621593
+"Keegan Thompson","CHC","P",32,6,53.1,,,,,,,"Keegan Thompson",19795,624522
+"Wil Crowe","PIT","P",26,25,116.2,,,,,,,"Wil Crowe",19800,640444
+"Bryan Baker","TOR","P",1,0,1,,,,,,,"Bryan Baker",19804,641329
+"Daniel Castano","MIA","P",5,4,20.1,,,,,,,"Daniel Castano",19805,641447
+"Riley Smith","ARI","P",24,6,67.1,,,,,,,"Riley Smith",19826,642092
+"Alex Wells","BAL","P",11,8,42.2,,,,,,,"Alex Wells",19845,649144
+"Darwinzon Hernández","BOS","P",48,0,40,,,,,,,"Darwinzon Hernandez",19848,650382
+"Michael King","NYY","P",22,6,63.1,,,,,,,"Michael King",19853,650633
+"Luis Rengifo","LAA","LF",1,0,1,,,,,,,"Luis Rengifo",19858,650859
+"Charlie Barnes","MIN","P",9,8,38,,,,,,,"Charlie Barnes",19865,656212
+"Brandon Bielak","HOU","P",28,2,50,,,,,,,"Brandon Bielak",19866,656232
+"Griffin Canning","LAA","LF",1,0,2,,,,,,,"Griffin Canning",19867,656288
+"Griffin Canning","LAA","P",14,13,62.2,,,,,,,"Griffin Canning",19867,656288
+"Drew Carlton","DET","P",4,0,3.2,,,,,,,"Drew Carlton",19868,656290
+"Tucker Davidson","ATL","P",4,4,20,,,,,,,"Tucker Davidson",19871,656353
+"Kevin Ginkel","ARI","P",32,0,28.1,,,,,,,"Kevin Ginkel",19876,656464
+"Tanner Houck","BOS","P",18,13,69,,,,,,,"Tanner Houck",19879,656557
+"Gabe Klobosits","WSN","P",11,0,11.1,,,,,,,"Gabe Klobosits",19881,656620
+"Alex Lange","DET","P",36,0,35.2,,,,,,,"Alex Lange",19883,656638
+"Corbin Martin","ARI","P",5,3,16,,,,,,,"Corbin Martin",19884,656686
+"Clarke Schmidt","NYY","P",2,1,6.1,,,,,,,"Clarke Schmidt",19899,657376
+"Adonis Medina","PHI","P",4,1,7.2,,,,,,,"Adonis Medina",19903,658431
+"Anderson Tejeda","TEX","2B",1,0,1,,,,,,,"Anderson Tejeda",19909,660731
+"José Suarez","LAA","P",23,14,98.1,,,,,,,"Jose Suarez",19911,660761
+"Tony Santillan","CIN","P",26,4,43.1,,,,,,,"Tony Santillan",19926,663574
+"Ryan McKenna","BAL","3B",1,0,1,,,,,,,"Ryan McKenna",19928,663630
+"Trevor Stephan","CLE","P",43,0,63.1,,,,,,,"Trevor Stephan",19932,663986
+"Jhon Romero","WSN","P",5,0,4,,,,,,,"Jhon Romero",19940,664584
+"Ljay Newsome","SEA","P",7,1,14.2,,,,,,,"Ljay Newsome",19942,664714
+"Ian Anderson","ATL","P",24,24,128.1,,,,,,,"Ian Anderson",19951,666120
+"Mickey Moniak","PHI","LF",6,0,9,,,,,,,"Mickey Moniak",19956,666160
+"Jesús Luzardo","- - -","P",25,18,95.1,,,,,,,"Jesus Luzardo",19959,666200
+"Zach Plesac","CLE","P",25,25,142.2,,,,,,,"Zach Plesac",19979,668676
+"Bryse Wilson","- - -","P",16,16,74,,,,,,,"Bryse Wilson",19990,669060
+"Dylan Lee","ATL","P",2,0,2,,,,,,,"Dylan Lee",19996,669276
+"Tyler Wells","BAL","P",44,0,57,,,,,,,"Tyler Wells",20000,669330
+"Wyatt Mills","SEA","P",11,0,12.2,,,,,,,"Wyatt Mills",20010,670090
+"John Schreiber","BOS","P",1,0,3,,,,,,,"John Schreiber",20020,670167
+"Darren McCaughan","SEA","P",2,1,9,,,,,,,"Darren McCaughan",20038,670766
+"Adrian Morejon","SDP","P",2,2,4.2,,,,,,,"Adrian Morejon",20039,670970
+"Ronald Bolaños","KCR","P",3,0,6.1,,,,,,,"Ronald Bolanos",20041,671790
+"Sean Guenther","MIA","P",14,0,20.1,,,,,,,"Sean Guenther",20045,674944
+"Brian Miller","MIA","RF",1,0,1,,,,,,,"Brian Miller",20047,675649
+"Bailey Falter","PHI","P",22,1,33.2,,,,,,,"Bailey Falter",20070,663559
+"Miguel Sánchez","MIL","P",28,0,26,,,,,,,"Miguel Sanchez",20074,667376
+"Mauricio Llovera","PHI","P",6,0,6.2,,,,,,,"Mauricio Llovera",20080,661440
+"Chris Paddack","SDP","P",23,22,108.1,,,,,,,"Chris Paddack",20099,663978
+"James Karinchak","CLE","P",60,0,55.1,,,,,,,"James Karinchak",20151,675916
+"Nick Nelson","NYY","P",11,2,14.1,,,,,,,"Nick Nelson",20153,656793
+"Nate Pearson","TOR","P",12,1,15,,,,,,,"Nate Pearson",20160,663878
+"Kyle Muller","ATL","P",9,8,36.2,,,,,,,"Kyle Muller",20167,666205
+"Ty Tice","- - -","P",5,0,8,,,,,,,"Ty Tice",20177,676709
+"Zach Pop","MIA","P",50,0,54.2,,,,,,,"Zach Pop",20185,647315
+"Garrett Whitlock","BOS","P",46,0,73.1,,,,,,,"Garrett Whitlock",20191,676477
+"Ben Bowden","COL","P",39,0,35.2,,,,,,,"Ben Bowden",20198,641386
+"Eli Morgan","CLE","P",18,18,89.1,,,,,,,"Eli Morgan",20203,669212
+"Jeremy Beasley","TOR","P",8,0,9.1,,,,,,,"Jeremy Beasley",20205,676886
+"Mike Baumann","BAL","P",4,0,10,,,,,,,"Mike Baumann",20206,657508
+"Yennsy Díaz","NYM","P",20,0,25,,,,,,,"Yennsy Diaz",20218,660546
+"Tyler Ivey","HOU","P",1,1,4.2,,,,,,,"Tyler Ivey",20237,663959
+"Kevin Smith","TOR","1B",1,1,5,,,,,,,"Kevin Smith",20242,675656
+"Zac Lowther","BAL","P",10,6,29.2,,,,,,,"Zac Lowther",20243,675912
+"Griffin Jax","MIN","P",18,14,82,,,,,,,"Griffin Jax",20253,643377
+"Jonathan Araúz","BOS","P",1,0,1,,,,,,,"Jonathan Arauz",20275,660620
+"Deivi García","NYY","P",2,2,8.1,,,,,,,"Deivi Garcia",20276,665620
+"Cory Abbott","CHC","P",7,1,17.1,,,,,,,"Cory Abbott",20277,676265
+"Jhonathan Díaz","LAA","P",3,2,13,,,,,,,"Jhonathan Diaz",20298,646242
+"David Peterson","NYM","P",15,15,66.2,,,,,,,"David Peterson",20302,656849
+"Alec Bettinger","MIL","P",4,1,10,,,,,,,"Alec Bettinger",20312,676424
+"Andre Scrubb","HOU","P",18,0,19.2,,,,,,,"Andre Scrubb",20329,668687
+"Kyle Dohy","PHI","P",1,0,1,,,,,,,"Kyle Dohy",20334,675971
+"Matt Peacock","ARI","P",35,8,86.1,,,,,,,"Matt Peacock",20339,676840
+"Riley O'Brien","CIN","P",1,1,1.1,,,,,,,"Riley O'Brien",20348,676617
+"Brusdar Graterol","LAD","P",34,1,33.1,,,,,,,"Brusdar Graterol",20367,660813
+"Ramón Rosso","PHI","P",7,0,8,,,,,,,"Ramon Rosso",20368,665759
+"Matt Manning","DET","P",18,18,85.1,,,,,,,"Matt Manning",20369,666159
+"Bruce Zimmermann","BAL","P",14,13,64.1,,,,,,,"Bruce Zimmermann",20370,669145
+"Tyler Zuber","KCR","P",31,0,27.1,,,,,,,"Tyler Zuber",20379,676604
+"Antonio Santos","COL","P",7,0,11.1,,,,,,,"Antonio Santos",20383,665733
+"Isaac Mattson","BAL","P",4,0,4.1,,,,,,,"Isaac Mattson",20385,676755
+"Anthony Kay","TOR","P",11,5,33.2,,,,,,,"Anthony Kay",20387,641743
+"Nick Margevicius","SEA","P",5,3,12,,,,,,,"Nick Margevicius",20395,676606
+"Luís Madero","MIA","P",6,0,12,,,,,,,"Luis Madero",20399,650347
+"Josh Fleming","TBR","P",26,11,104.1,,,,,,,"Josh Fleming",20418,676596
+"Jovani Morán","MIN","P",5,0,8,,,,,,,"Jovani Moran",20422,663558
+"Rony García","DET","P",2,0,3.2,,,,,,,"Rony Garcia",20430,665621
+"Enoli Paredes","HOU","P",12,0,8.2,,,,,,,"Enoli Paredes",20447,660600
+"Huascar Ynoa","ATL","P",18,17,91,,,,,,,"Huascar Ynoa",20468,660623
+"Peter Solomon","HOU","P",6,0,14,,,,,,,"Peter Solomon",20476,656981
+"J.B. Bukauskas","ARI","P",21,0,17.1,,,,,,,"J.B. Bukauskas",20491,656266
+"Casey Mize","DET","P",30,30,150.1,,,,,,,"Casey Mize",20492,663554
+"Kyle Nelson","CLE","P",10,0,9.2,,,,,,,"Kyle Nelson",20515,669459
+"Nick Sandlin","CLE","P",34,0,33.2,,,,,,,"Nick Sandlin",20517,680704
+"Kutter Crawford","BOS","P",1,1,2,,,,,,,"Kutter Crawford",20531,676710
+"Vidal Bruján","TBR","LF",1,0,1,,,,,,,"Vidal Brujan",20536,660644
+"Edwin Uceta","LAD","P",14,1,20.1,,,,,,,"Edwin Uceta",20539,670955
+"J.C. Mejía","CLE","P",17,11,52.1,,,,,,,"J.C. Mejia",20617,650496
+"Jordan Holloway","MIA","P",13,4,36,,,,,,,"Jordan Holloway",20631,656548
+"Yusei Kikuchi","SEA","P",29,29,157,,,,,,,"Yusei Kikuchi",20633,579328
+"Humberto Mejía","ARI","P",5,5,22.1,,,,,,,"Humberto Mejia",20739,650668
+"Cristopher Sánchez","PHI","P",7,1,12.2,,,,,,,"Cristopher Sanchez",20778,650911
+"Manuel Rodríguez","CHC","P",20,0,17.2,,,,,,,"Manuel Rodriguez",20794,655889
+"Eduard Bazardo","BOS","P",2,0,3,,,,,,,"Eduard Bazardo",20997,660825
+"Francisco Pérez","CLE","P",4,0,6.2,,,,,,,"Francisco Perez",21018,660906
+"Oliver Ortega","LAA","P",8,0,9.1,,,,,,,"Oliver Ortega",21025,661383
+"Emmanuel Clase","CLE","P",71,0,69.2,,,,,,,"Emmanuel Clase",21032,661403
+"Seth Martinez","HOU","P",3,0,3,,,,,,,"Seth Martinez",21045,661527
+"Luis Gil","NYY","P",6,6,29.1,,,,,,,"Luis Gil",21052,661563
+"Thomas Szapucki","NYM","P",1,0,3.2,,,,,,,"Thomas Szapucki",21065,663378
+"Demarcus Evans","TEX","P",25,0,26.1,,,,,,,"Demarcus Evans",21087,663770
+"Dauri Moreta","CIN","P",4,0,3.2,,,,,,,"Dauri Moreta",21101,664294
+"Miguel Yajure","PIT","P",4,3,15,,,,,,,"Miguel Yajure",21111,664337
+"Humberto Castellanos","ARI","P",14,7,45.2,,,,,,,"Humberto Castellanos",21183,528748
+"Brooks Kriske","- - -","P",12,0,11.1,,,,,,,"Brooks Kriske",21189,621139
+"Darien Núñez","LAD","P",6,1,7.2,,,,,,,"Darien Nunez",21197,628345
+"Connor Brogdon","PHI","P",56,1,57.2,,,,,,,"Connor Brogdon",21205,641401
+"Bailey Ober","MIN","P",20,20,92.1,,,,,,,"Bailey Ober",21224,641927
+"Lucas Gilbreath","COL","P",47,1,42.2,,,,,,,"Lucas Gilbreath",21290,656458
+"Andre Jackson","LAD","P",3,0,11.2,,,,,,,"Andre Jackson",21298,656578
+"Jacob Latz","TEX","P",1,1,4.2,,,,,,,"Jacob Latz",21306,656641
+"Tylor Megill","NYM","P",18,18,89.2,,,,,,,"Tylor Megill",21318,656731
+"Glenn Otto","TEX","P",6,6,23.1,,,,,,,"Glenn Otto",21366,657248
+"Joe Ryan","MIN","P",5,5,26.2,,,,,,,"Joe Ryan",21390,657746
+"Ryan Feltner","COL","P",2,2,6.1,,,,,,,"Ryan Feltner",21446,663372
+"Kris Bubic","KCR","P",29,20,130,,,,,,,"Kris Bubic",21455,663460
+"Shane McClanahan","TBR","P",25,25,123.1,,,,,,,"Shane McClanahan",21483,663556
+"Daniel Lynch IV","KCR","P",15,15,68,,,,,,,"Daniel Lynch IV",21537,663738
+"Reiss Knehr","SDP","P",12,5,29,,,,,,,"Reiss Knehr",21541,663753
+"Jackson Kowar","KCR","P",9,8,30.1,,,,,,,"Jackson Kowar",21549,663804
+"Jake Cousins","MIL","P",30,0,30,,,,,,,"Jake Cousins",21620,664776
+"Rafael Marchán","PHI","1B",1,0,1,,,,,,,"Rafael Marchan",21646,665561
+"Elvis Peguero","LAA","P",3,0,2.1,,,,,,,"Elvis Peguero",21652,665625
+"Kervin Castro","SFG","P",10,0,13.1,,,,,,,"Kervin Castro",21656,665645
+"Edward Cabrera","MIA","P",7,7,26.1,,,,,,,"Edward Cabrera",21690,665795
+"Luis Oviedo","PIT","P",22,1,29.2,,,,,,,"Luis Oviedo",21728,665854
+"José Marte","LAA","P",4,0,4,,,,,,,"Jose Marte",21761,665896
+"Braxton Garrett","MIA","P",8,7,34,,,,,,,"Braxton Garrett",21844,666129
+"Mason Thompson","- - -","P",31,0,24.2,,,,,,,"Mason Thompson",21850,666168
+"Gregory Santos","SFG","P",3,0,2,,,,,,,"Gregory Santos",21894,666619
+"Camilo Doval","SFG","P",29,0,27,,,,,,,"Camilo Doval",21992,666808
+"Luis Frías","ARI","P",3,0,3.1,,,,,,,"Luis Frias",21997,666818
+"Angel Rondón","STL","P",2,0,2,,,,,,,"Angel Rondon",22036,667373
+"John King","TEX","P",27,0,46,,,,,,,"John King",22051,667463
+"Aaron Fletcher","SEA","P",4,0,3.2,,,,,,,"Aaron Fletcher",22052,667465
+"Kyle Tyler","LAA","P",5,0,12.1,,,,,,,"Kyle Tyler",22092,667725
+"Max Kranick","PIT","P",9,9,38.2,,,,,,,"Max Kranick",22175,668820
+"Hans Crouse","PHI","P",2,2,7,,,,,,,"Hans Crouse",22192,668968
+"Mac Sceroler","BAL","P",5,0,7.2,,,,,,,"Mac Sceroler",22218,669135
+"Jonathan Heasley","KCR","P",3,3,14.2,,,,,,,"Jonathan Heasley",22224,669169
+"Paul Campbell","MIA","P",16,1,26.2,,,,,,,"Paul Campbell",22248,669294
+"Logan Gilbert","SEA","P",24,24,119.1,,,,,,,"Logan Gilbert",22250,669302
+"Shane Baz","TBR","P",3,3,13.1,,,,,,,"Shane Baz",22264,669358
+"Tarik Skubal","DET","P",31,29,149.1,,,,,,,"Tarik Skubal",22267,669373
+"Dylan Coleman","KCR","P",5,0,6.1,,,,,,,"Dylan Coleman",22276,669395
+"Trevor Rogers","MIA","P",25,25,133,,,,,,,"Trevor Rogers",22286,669432
+"Joe Barlow","TEX","P",31,0,29,,,,,,,"Joe Barlow",22296,669618
+"Chris Rodriguez","LAA","P",15,2,29.2,,,,,,,"Chris Rodriguez",22310,669735
+"A.J. Alexy","TEX","P",5,4,23,,,,,,,"A.J. Alexy",22343,669935
+"Stephen Ridings","NYY","P",5,0,5,,,,,,,"Stephen Ridings",22358,670050
+"Nivaldo Rodriguez","HOU","P",4,0,7.1,,,,,,,"Nivaldo Rodriguez",22449,670550
+"Taylor Walls","TBR","3B",1,1,7,,,,,,,"Taylor Walls",22458,670764
+"Johan Oviedo","STL","P",14,13,62.1,,,,,,,"Johan Oviedo",22487,670912
+"Carlos Hernández","KCR","P",24,11,85.2,,,,,,,"Carlos Hernandez",22713,672578
+"Angel Zerpa","KCR","P",1,1,5,,,,,,,"Angel Zerpa",22717,672582
+"Roansy Contreras","PIT","P",1,1,3,,,,,,,"Roansy Contreras",22810,672710
+"Luis Patiño","TBR","P",19,15,77.1,,,,,,,"Luis Patino",22815,672715
+"Tucupita Marcano","SDP","3B",1,0,2,,,,,,,"Tucupita Marcano",22871,672779
+"Joan Adon","WSN","P",1,1,5.1,,,,,,,"Joan Adon",22925,672851
+"Spencer Howard","- - -","P",19,15,49.2,,,,,,,"Spencer Howard",23252,675921
+"Packy Naughton","LAA","P",7,5,22.2,,,,,,,"Packy Naughton",23292,676050
+"Codi Heuer","- - -","P",65,0,67.1,,,,,,,"Codi Heuer",23293,676051
+"Janson Junk","LAA","P",4,4,16.1,,,,,,,"Janson Junk",23301,676083
+"Nick Snyder","TEX","P",4,0,3.2,,,,,,,"Nick Snyder",23493,676766
+"Aaron Ashby","MIL","P",13,4,31.2,,,,,,,"Aaron Ashby",23550,676879
+"Brett de Geus","- - -","P",47,0,50,,,,,,,"Brett de Geus",23592,676969
+"Luis Garcia","HOU","P",30,28,155.1,,,,,,,"Luis Garcia",23735,677651
+"Justin Bruihl","LAD","P",21,2,18.2,,,,,,,"Justin Bruihl",23779,677865
+"Ryan Weathers","SDP","P",30,18,94.2,,,,,,,"Ryan Weathers",23796,677960
+"Randy Dobnak","MIN","P",14,6,50.2,,,,,,,"Randy Dobnak",23798,677976
+"Nick Allgeyer","TOR","P",1,0,1,,,,,,,"Nick Allgeyer",24486,680430
+"Josiah Gray","- - -","P",14,13,70.2,,,,,,,"Josiah Gray",24580,680686
+"Andrew Wantz","LAA","P",21,0,27.1,,,,,,,"Andrew Wantz",24933,681806
+"Austin Warren","LAA","P",16,0,20.1,,,,,,,"Austin Warren",24937,681810
+"Cooper Criswell","LAA","P",1,1,1.1,,,,,,,"Cooper Criswell",24975,681867
+"Alex Vesia","LAD","P",41,0,40,,,,,,,"Alex Vesia",25007,681911
+"Nick Mears","PIT","P",30,0,23.1,,,,,,,"Nick Mears",25376,683232
+"Brady Singer","KCR","P",27,27,128.1,,,,,,,"Brady Singer",25377,663903
+"Sam Long","SFG","P",12,5,40.2,,,,,,,"Sam Long",25379,669674
+"Drew Rasmussen","- - -","P",35,10,76,,,,,,,"Drew Rasmussen",25385,656876
+"Alek Manoah","TOR","P",20,20,111.2,,,,,,,"Alek Manoah",26410,666201
+"Kwang Hyun Kim","STL","P",27,21,106.2,,,,,,,"Kwang Hyun Kim",27458,547942
+"Garrett Crochet","CHW","P",54,0,54.1,,,,,,,"Garrett Crochet",27463,676979
+"Reid Detmers","LAA","P",5,5,20.2,,,,,,,"Reid Detmers",27468,672282
+"Spencer Strider","ATL","P",2,0,2.1,,,,,,,"Spencer Strider",27498,675911
+"Kohei Arihara","TEX","P",10,10,40.2,,,,,,,"Kohei Arihara",27505,685503
+"Hyeon-Jong Yang","TEX","P",12,4,35.1,,,,,,,"Hyeon-Jong Yang",27513,660365
+"Hirokazu Sawamura","BOS","P",55,0,53,,,,,,,"Hirokazu Sawamura",27515,617228

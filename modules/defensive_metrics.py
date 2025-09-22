@@ -34,7 +34,7 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 
 # Global data loading (from parent context)
 try:
-    fielding_df = pd.read_csv(os.path.join(DATA_DIR, 'fieldingNotes(player_defensive_data).csv'))
+    fielding_df = pd.read_csv(os.path.join(DATA_DIR, 'Original_Data', 'game_by_game', 'fieldingNotes(player_defensive_data).csv'))
     print(f"Loaded fielding data: {len(fielding_df)} rows, columns: {list(fielding_df.columns)}")
 except Exception as e:
     print(f"Error loading fielding data: {e}")
