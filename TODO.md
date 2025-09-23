@@ -24,7 +24,7 @@ Note - **Baserunning** has dyanmically allocated values for stealing 1st, 2nd, a
 - [ ] Hitters: blend of expected stats vs. actual from past 3 years (lets put 70% on actual and 30% on expected, i.e. if they've consistently underperformed their expected stats they probably won't magically fix it, but its fair to potentially expect a bit higher than what their actual stats would indicate) **for all stats currently used in current year performance**, age
 - [ ] Pitchers: blend of expected stats vs. actual from past 3 years (lets put 70% on actual and 30% on expected) **for all stats currently used in current year performance**, vFA_delta_to_avg(find avg fastball speed, calculate difference between pitchers fastball speed to avg.), age, LOB_delta(find left on base delta to average)
 - [ ] Add **injury history integration** - track player injury frequency and severity over past 3 years to adjust for higher risk of future performance decline
-- [ ] Add **workload/usage pattern analysis** - incorporate innings pitched trends, plate appearance patterns to identify players at risk of overuse-related decline
+- [x] Add **workload/usage pattern analysis** - incorporate innings pitched trends, plate appearance patterns to identify players at risk of overuse-related decline (partially incorporated through base IP/PA in features, could potentially add a rolling window delta but brings risk of double counting and overfitting)
 
 ## Existing Features for Future Performance
 
@@ -41,7 +41,7 @@ TBD
 
 - [ ] Implement feature where user can enter a player name and get predictions of 3 future years of player performance?
 - [ ] Implement feature where user can enter a player name and get 5 players who's career project in the same way?
-- [ ] Implement MAE for model evaluation (curious to see if trying to minimize RMSE vs. MAE is better for this dataset as I don't necessarily want to minimize ALL outliers, only the negative ones really and at that point it might be better to just try adjusting everything the same)
+- [x] Implement MAE for model evaluation (curious to see if trying to minimize RMSE vs. MAE is better for this dataset as I don't necessarily want to minimize ALL outliers, only the negative ones really and at that point it might be better to just try adjusting everything the same)
 - [ ] Implement [cross-validation graphs](https://scikit-learn.org/stable/modules/cross_validation.html)
 - [x] Implement residual graphs so that we can see the error difference between the actual and prediction in a comparative way between ML algo's
 - [ ] Add **model interpretability features** - implement SHAP values or LIME to explain individual predictions and show which features most influenced each player's projected WAR
@@ -54,3 +54,5 @@ TBD
 - [x] TODO - Deprecate due to poor performance Non-linear Methods: Gaussian Process
 - [ ] Implement **ensemble meta-modeling** - create a stacking ensemble that combines predictions from the best-performing individual models (Random Forest, XGBoost, Neural Networks) for superior accuracy
 - [ ] Add **time-aware modeling approaches** - implement models specifically designed for temporal baseball data patterns, such as LSTM networks or seasonal decomposition methods that account for career arcs
+  
+**What a predicted year would need to do is predict each individual feature for a given player, then based off of that calculate the WAR based off of the algorithm my model has come up with?**
