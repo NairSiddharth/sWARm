@@ -209,4 +209,7 @@ __marimo__/
 # Local VS Code settings
 settings.local.json
 *test*                                                                                   
-CLAUDE.local.md
+!README.md
+*.md
+.claude
+*.csv

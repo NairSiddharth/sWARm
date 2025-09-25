@@ -31,6 +31,7 @@ __all__ = [
     'clear_all_cache',
     'load_official_oaa_data',
     'load_yearly_bp_data',
+    'load_yearly_bp_baserunning_data',
     'load_yearly_catcher_framing_data',
     'get_primary_dataframes',
     'load_comprehensive_fangraphs_data'
@@ -574,3 +575,148 @@ def load_yearly_catcher_framing_data():
 
     print(f"Loaded yearly catcher framing data: {len(yearly_framing_data)} player-seasons")
     return yearly_framing_data
+
+def load_yearly_bp_baserunning_data():
+    """
+    Load and unify Baseball Prospectus baserunning data from 2016-2024
+    Combined with Statcast running splits data for speed-adjusted calculations
+
+    Returns:
+        dict: {
+            'baserunning': {player_name_year: baserunning_stats_dict},
+            'running_speed': {player_name_year: speed_metrics_dict}
+        }
+    """
+    cache_file = os.path.join(CACHE_DIR, "yearly_bp_baserunning_data.json")
+
+    # Check cache first
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_data = json.load(f)
+            print(f"Loaded cached BP baserunning data:")
+            print(f"  Baserunning: {len(cached_data.get('baserunning', {}))} player-seasons")
+            print(f"  Running Speed: {len(cached_data.get('running_speed', {}))} player-seasons")
+            return cached_data
+        except:
+            pass
+
+    print("=== LOADING BP BASERUNNING DATA (2016-2024) ===")
+
+    bp_baserunning_data = {'baserunning': {}, 'running_speed': {}}
+    missing_data_log = {'no_speed_data': [], 'no_baserunning_data': []}
+
+    # Load BP baserunning data (2016-2024)
+    for year in range(2016, 2025):  # 2016-2024
+        filename = os.path.join(DATA_DIR, "BP_Data", "baserunning", f'bp_baserunning_{year}.csv')
+        if not os.path.exists(filename):
+            print(f"  Missing BP baserunning file: {year}")
+            continue
+
+        try:
+            df = pd.read_csv(filename, encoding='utf-8-sig')  # Handle BOM
+            df.columns = df.columns.str.strip().str.strip('"')
+
+            for _, row in df.iterrows():
+                player_name = str(row.get('Name', '')).strip()
+                mlbid = row.get('mlbid', None)
+
+                if player_name and player_name != 'nan':
+                    key = f"{player_name}_{year}"
+
+                    # Store BP baserunning metrics
+                    bp_baserunning_data['baserunning'][key] = {
+                        'name': player_name,
+                        'year': year,
+                        'mlbid': mlbid,
+                        'age': row.get('Age', None),
+                        'SB': row.get('SB', 0),
+                        'CS': row.get('CS', 0),
+                        'SB_pct': row.get('SB%', None),
+                        'PO': row.get('PO', 0),
+                        'XBT_pct': row.get('XBT%', None),
+                        'TRAA': row.get('TRAA', 0),  # BP's baserunning runs above average
+                        'SRAA': row.get('SRAA', 0),  # BP's stolen base runs above average
+                        'DRB': row.get('DRB', 0)     # BP's overall baserunning metric
+                    }
+
+            print(f"  {year} baserunning: {len([k for k in bp_baserunning_data['baserunning'].keys() if k.endswith(f'_{year}')])} players loaded")
+
+        except Exception as e:
+            print(f"  Error loading {filename}: {e}")
+
+    # Load Statcast running splits data (2016-2024)
+    for year in range(2016, 2025):  # 2016-2024
+        filename = os.path.join(DATA_DIR, "Statcast_Data", "running_splits", f'running_splits_statcast_{year}.csv')
+        if not os.path.exists(filename):
+            print(f"  Missing Statcast running splits file: {year}")
+            continue
+
+        try:
+            df = pd.read_csv(filename, encoding='utf-8-sig')
+            df.columns = df.columns.str.strip().str.strip('"')
+
+            for _, row in df.iterrows():
+                # Parse player name from "Last, First" format
+                name_field = str(row.get('last_name, first_name', '')).strip()
+                if name_field and name_field != 'nan' and ',' in name_field:
+                    parts = name_field.split(',')
+                    if len(parts) >= 2:
+                        last_name = parts[0].strip()
+                        first_name = parts[1].strip()
+                        player_name = f"{first_name} {last_name}"
+                    else:
+                        continue
+                else:
+                    continue
+
+                player_id = row.get('player_id', None)
+
+                key = f"{player_name}_{year}"
+
+                # Calculate speed: 90ft / time_to_first_base (in ft/sec)
+                time_to_first = row.get('seconds_since_hit_090', None)  # 90ft = first base
+                if time_to_first and pd.notna(time_to_first) and float(time_to_first) > 0:
+                    speed_ft_per_sec = 90.0 / float(time_to_first)
+                else:
+                    speed_ft_per_sec = None
+
+                bp_baserunning_data['running_speed'][key] = {
+                    'name': player_name,
+                    'year': year,
+                    'player_id': player_id,
+                    'age': row.get('age', None),
+                    'time_to_first': time_to_first,
+                    'speed_ft_per_sec': speed_ft_per_sec
+                }
+
+            print(f"  {year} running speed: {len([k for k in bp_baserunning_data['running_speed'].keys() if k.endswith(f'_{year}')])} players loaded")
+
+        except Exception as e:
+            print(f"  Error loading {filename}: {e}")
+
+    # Log missing data matches
+    baserunning_players = set(bp_baserunning_data['baserunning'].keys())
+    speed_players = set(bp_baserunning_data['running_speed'].keys())
+
+    missing_data_log['no_speed_data'] = list(baserunning_players - speed_players)
+    missing_data_log['no_baserunning_data'] = list(speed_players - baserunning_players)
+
+    if missing_data_log['no_speed_data']:
+        print(f"WARNING: {len(missing_data_log['no_speed_data'])} players have baserunning data but no speed data")
+    if missing_data_log['no_baserunning_data']:
+        print(f"WARNING: {len(missing_data_log['no_baserunning_data'])} players have speed data but no baserunning data")
+
+    # Cache the results
+    try:
+        cache_data = bp_baserunning_data.copy()
+        cache_data['missing_data_log'] = missing_data_log
+
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(cache_data, f, indent=2, default=str)
+        print(f"Cached BP baserunning data to {cache_file}")
+    except Exception as e:
+        print(f"Warning: Could not cache BP baserunning data: {e}")
+
+    print(f"Loaded BP baserunning data: {len(bp_baserunning_data['baserunning'])} baserunning player-seasons, {len(bp_baserunning_data['running_speed'])} speed player-seasons")
+    return bp_baserunning_data

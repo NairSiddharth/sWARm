@@ -10,7 +10,8 @@ import os
 import re
 import json
 import pandas as pd
-from modules.data_loading import get_primary_dataframes
+import numpy as np
+from modules.data_loading import get_primary_dataframes, load_yearly_bp_baserunning_data
 
 # Path configuration
 CACHE_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\cache"
@@ -216,141 +217,19 @@ def extract_year_from_game_id(game_id):
 
 def calculate_enhanced_baserunning_values():
     """
-    Calculate enhanced baserunning values using run expectancy with SEASONAL totals (FIXED!)
+    Calculate enhanced baserunning values using BP data and speed adjustments
 
-    This fixes the multi-year aggregation issue - now calculates realistic seasonal values
-    instead of career aggregates that were inflating totals like Altuve's "50 SB"
+    This replaces the original play-by-play system with BP's cleaner data
+    combined with Statcast speed data for more accurate, speed-adjusted values.
 
     Returns:
-        dict: {player_name: average_seasonal_baserunning_value}
+        dict: {player_name: speed_adjusted_baserunning_value}
     """
     print("=== CALCULATING ENHANCED BASERUNNING VALUES ===")
-    print("Using run expectancy matrix and situational adjustments")
+    print("Using BP data with Statcast speed adjustments and quintile-based expectations")
 
-    # Check cache first
-    cache_file = os.path.join(CACHE_DIR, "enhanced_baserunning_values.json")
-    if os.path.exists(cache_file):
-        try:
-            with open(cache_file, 'r', encoding='utf-8') as f:
-                cached_data = json.load(f)
-            print(f"Loaded cached enhanced baserunning values ({len(cached_data)} players)")
-            return cached_data
-        except:
-            pass
-
-    # Load baserunning events
-    baserunning_file = os.path.join(DATA_DIR, 'baserunningNotes(player_offense_data).csv')
-    if not os.path.exists(baserunning_file):
-        print(f"⚠️  Baserunning file not found: {baserunning_file}")
-        return {}
-
-    df = pd.read_csv(baserunning_file)
-    print(f"Loaded {len(df)} baserunning events")
-
-    # Initialize seasonal player values
-    player_season_values = {}
-
-    # Process each event with seasonal separation
-    for _, row in df.iterrows():
-        game_id = row['Game']
-        team = row['Team']
-        stat_type = row['Stat']
-        data_str = row['Data']
-
-        # Extract year from game ID
-        year = extract_year_from_game_id(game_id)
-        if year is None:
-            continue  # Skip unrecognized game IDs
-
-        # Parse the event
-        event = parse_baserunning_event(data_str)
-        player_name = event.get('player', '')
-
-        if not player_name:
-            continue
-
-        # Create seasonal key
-        season_key = f"{player_name}_{year}"
-
-        # Initialize player-season if not seen
-        if season_key not in player_season_values:
-            player_season_values[season_key] = {
-                'total_value': 0.0,
-                'steals': 0,
-                'caught_stealing': 0,
-                'picked_offs': 0,
-                'year': year,
-                'player_name': player_name
-            }
-
-        # Calculate run value based on event type
-        run_value = 0.0
-
-        if stat_type == 'SB' and 'from_base' in event and 'to_base' in event:
-            # Successful stolen base
-            outs = 1  # Average assumption
-            run_value = calculate_steal_run_value(
-                event['from_base'], event['to_base'], outs, success=True
-            )
-            player_season_values[season_key]['steals'] += 1
-
-        elif stat_type == 'CS' and 'from_base' in event:
-            # Caught stealing
-            outs = 1  # Average assumption
-            to_base = event.get('to_base', event['from_base'] + 1)
-            run_value = calculate_steal_run_value(
-                event['from_base'], to_base, outs, success=False
-            )
-            player_season_values[season_key]['caught_stealing'] += 1
-
-        elif stat_type == 'Picked Off':
-            # Picked off - significant negative value
-            run_value = -0.3  # Approximate value
-            player_season_values[season_key]['picked_offs'] += 1
-
-        # Add situational bonuses/penalties
-        situational_multiplier = 1.0
-        if stat_type == 'SB':
-            if event.get('to_base') == 3:
-                situational_multiplier = 1.2  # Stealing 3rd more valuable
-            elif event.get('to_base') == 4:
-                situational_multiplier = 2.0   # Stealing home extremely valuable
-
-        final_value = run_value * situational_multiplier
-        player_season_values[season_key]['total_value'] += final_value
-
-    # Aggregate by player (average across seasons for current use)
-    player_aggregated = {}
-    player_season_counts = {}
-
-    for season_key, data in player_season_values.items():
-        player_name = data['player_name']
-
-        if player_name not in player_aggregated:
-            player_aggregated[player_name] = 0.0
-            player_season_counts[player_name] = 0
-
-        player_aggregated[player_name] += data['total_value']
-        player_season_counts[player_name] += 1
-
-    # Calculate averages
-    summary_values = {}
-
-    for player_name in player_aggregated:
-        # Use average seasonal value for now
-        avg_value = player_aggregated[player_name] / player_season_counts[player_name]
-        summary_values[player_name] = avg_value
-
-    # Cache the result
-    try:
-        with open(cache_file, 'w', encoding='utf-8') as f:
-            json.dump(summary_values, f, indent=2)
-        print(f"Cached enhanced baserunning values ({len(summary_values)} players)")
-    except Exception as e:
-        print(f"Warning: Could not cache data: {e}")
-
-    print(f"✅ Calculated enhanced baserunning values for {len(summary_values)} players")
-    return summary_values
+    # Use the new speed-adjusted calculation system
+    return calculate_speed_adjusted_baserunning_values()
 
 def calculate_defensive_baserunning_impact():
     """Calculate defensive impact of baserunning (for catchers, pitchers)"""
@@ -366,6 +245,197 @@ def get_baserunning_for_player(player_name, enhanced=True):
         data = clean_sorted_baserunning()
 
     return data.get(player_name, 0.0)
+
+def calculate_speed_adjusted_baserunning_values():
+    """
+    Calculate speed-adjusted baserunning values using BP data and Statcast running speeds
+
+    Uses quintile-based speed adjustments for SB% and XBT% expectations:
+    - Fast players (top quintile): Higher expected SB% threshold, more expected XBT%
+    - Slow players (bottom quintile): Lower expected thresholds
+
+    Returns:
+        dict: {player_name: average_speed_adjusted_baserunning_value}
+    """
+    print("=== CALCULATING SPEED-ADJUSTED BASERUNNING VALUES ===")
+    print("Using BP data with Statcast speed adjustments and quintile-based expectations")
+
+    # Check cache first
+    cache_file = os.path.join(CACHE_DIR, "speed_adjusted_baserunning_values.json")
+    if os.path.exists(cache_file):
+        try:
+            with open(cache_file, 'r', encoding='utf-8') as f:
+                cached_data = json.load(f)
+            print(f"Loaded cached speed-adjusted baserunning values ({len(cached_data)} players)")
+            return cached_data
+        except:
+            pass
+
+    # Load BP baserunning and speed data
+    bp_data = load_yearly_bp_baserunning_data()
+    baserunning_data = bp_data['baserunning']
+    speed_data = bp_data['running_speed']
+
+    if not baserunning_data:
+        print("⚠️  No BP baserunning data available")
+        return {}
+
+    print(f"Processing {len(baserunning_data)} baserunning records and {len(speed_data)} speed records")
+
+    # Calculate speed quintiles for players with speed data
+    speed_values = []
+    player_speeds = {}
+
+    for key, data in speed_data.items():
+        speed = data.get('speed_ft_per_sec')
+        if speed and pd.notna(speed) and speed > 0:
+            player_speeds[key] = speed
+            speed_values.append(speed)
+
+    if len(speed_values) < 5:
+        print("WARNING: Insufficient speed data for quintile calculation, using fixed thresholds")
+        speed_quintiles = [20, 22, 24, 26, 30]  # Fixed ft/sec thresholds
+    else:
+        speed_quintiles = np.percentile(speed_values, [20, 40, 60, 80, 100])
+
+    print(f"Speed quintiles (ft/sec): {[f'{q:.1f}' for q in speed_quintiles]}")
+
+    # Define expected thresholds by speed quintile
+    sb_thresholds = [70, 72, 75, 77, 80]  # SB% thresholds by quintile (slow to fast)
+    xbt_bonuses = [1.2, 1.1, 1.0, 0.9, 0.8]  # XBT% value multipliers (reward slow, neutral fast)
+
+    # Process each player-season
+    player_season_values = {}
+    missing_speed_count = 0
+
+    for key, br_data in baserunning_data.items():
+        player_name = br_data['name']
+        year = br_data['year']
+
+        # Get speed data if available
+        speed = None
+        speed_quintile = 2  # Default to middle quintile if no speed data
+
+        if key in player_speeds:
+            speed = player_speeds[key]
+            # Determine speed quintile (0 = slowest, 4 = fastest)
+            speed_quintile = 0
+            for i, threshold in enumerate(speed_quintiles[:-1]):  # Exclude 100th percentile
+                if speed <= threshold:
+                    speed_quintile = i
+                    break
+            else:
+                speed_quintile = 4  # Fastest quintile
+        else:
+            missing_speed_count += 1
+
+        # Calculate speed-adjusted baserunning value
+        baserunning_value = 0.0
+
+        # Stolen Base Component
+        sb = br_data.get('SB', 0) or 0
+        cs = br_data.get('CS', 0) or 0
+        sb_attempts = sb + cs
+
+        if sb_attempts > 0:
+            actual_sb_pct = (sb / sb_attempts) * 100
+            expected_sb_pct = sb_thresholds[speed_quintile]
+
+            # Calculate SB run value based on performance vs expectation
+            sb_run_value = 0.0
+
+            # Successful steals: base value + bonus for exceeding expectations
+            if actual_sb_pct >= expected_sb_pct:
+                # Base value for successful steals
+                sb_run_value += sb * 0.2  # ~0.2 runs per successful steal
+                # Bonus for exceeding speed-based expectations
+                excess_pct = actual_sb_pct - expected_sb_pct
+                sb_run_value += (excess_pct / 100) * sb_attempts * 0.1
+            else:
+                # Penalty for underperforming expectations
+                shortfall_pct = expected_sb_pct - actual_sb_pct
+                sb_run_value += sb * 0.2  # Base value
+                sb_run_value -= (shortfall_pct / 100) * sb_attempts * 0.15
+
+            # Caught stealing penalty
+            sb_run_value -= cs * 0.3  # ~0.3 runs lost per caught stealing
+
+            baserunning_value += sb_run_value
+
+        # Extra Base Taking Component
+        xbt_pct = br_data.get('XBT_pct')
+        if xbt_pct and pd.notna(xbt_pct):
+            # Convert percentage to decimal if needed
+            xbt_decimal = float(xbt_pct) / 100 if float(xbt_pct) > 1 else float(xbt_pct)
+
+            # Speed-adjusted XBT value
+            xbt_multiplier = xbt_bonuses[speed_quintile]
+            xbt_value = xbt_decimal * 0.15 * xbt_multiplier  # Base XBT run value adjusted by speed
+            baserunning_value += xbt_value
+
+        # Pick-off penalty
+        po = br_data.get('PO', 0) or 0
+        baserunning_value -= po * 0.25  # Penalty for pick-offs
+
+        # Use BP's derived metrics as additional factors
+        traa = br_data.get('TRAA', 0) or 0
+        if pd.notna(traa) and traa != 0:
+            baserunning_value += float(traa) * 0.5  # Weight BP's total baserunning metric
+
+        # Store player-season value
+        player_season_values[key] = {
+            'player_name': player_name,
+            'year': year,
+            'baserunning_value': baserunning_value,
+            'speed_quintile': speed_quintile,
+            'speed_ft_per_sec': speed,
+            'sb_attempts': sb_attempts,
+            'actual_sb_pct': (sb / sb_attempts * 100) if sb_attempts > 0 else None,
+            'expected_sb_pct': sb_thresholds[speed_quintile]
+        }
+
+    if missing_speed_count > 0:
+        print(f"WARNING: {missing_speed_count} player-seasons missing speed data (used middle quintile)")
+
+    # Aggregate by player (average across seasons)
+    player_aggregated = {}
+    player_season_counts = {}
+
+    for data in player_season_values.values():
+        player_name = data['player_name']
+
+        if player_name not in player_aggregated:
+            player_aggregated[player_name] = 0.0
+            player_season_counts[player_name] = 0
+
+        player_aggregated[player_name] += data['baserunning_value']
+        player_season_counts[player_name] += 1
+
+    # Calculate final averages
+    summary_values = {}
+    for player_name in player_aggregated:
+        avg_value = player_aggregated[player_name] / player_season_counts[player_name]
+        summary_values[player_name] = avg_value
+
+    # Cache the results
+    try:
+        cache_data = summary_values.copy()
+        with open(cache_file, 'w', encoding='utf-8') as f:
+            json.dump(cache_data, f, indent=2)
+        print(f"Cached speed-adjusted baserunning values ({len(summary_values)} players)")
+    except Exception as e:
+        print(f"Warning: Could not cache data: {e}")
+
+    print(f"SUCCESS: Calculated speed-adjusted baserunning values for {len(summary_values)} players")
+
+    # Print some sample results for verification
+    if summary_values:
+        sorted_results = sorted(summary_values.items(), key=lambda x: x[1], reverse=True)[:5]
+        print("Top 5 speed-adjusted baserunners:")
+        for name, value in sorted_results:
+            print(f"  {name}: {value:.3f}")
+
+    return summary_values
 
 def get_top_baserunners(n=10, enhanced=True):
     """Get top N baserunners"""

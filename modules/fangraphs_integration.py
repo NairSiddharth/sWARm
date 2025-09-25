@@ -48,6 +48,7 @@ def clean_comprehensive_fangraphs_war():
                 'Year': data['year'],
                 'Team': data['team'],
                 'Type': 'Hitter',
+                'MLBAMID': data.get('MLBAMID'),  # Include MLBAMID for proper ID matching
 
                 # Core metrics from basic data
                 'WAR': data.get('WAR', 0),
@@ -105,6 +106,7 @@ def clean_comprehensive_fangraphs_war():
                 'Year': data['year'],
                 'Team': data['team'],
                 'Type': 'Pitcher',
+                'MLBAMID': data.get('MLBAMID'),  # Include MLBAMID for proper ID matching
 
                 # Core metrics
                 'WAR': data.get('WAR', 0),
