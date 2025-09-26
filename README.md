@@ -386,11 +386,11 @@ sWARm employs a **focused, curated approach** to feature engineering, utilizing 
 - **Offensive Production**: AVG (batting average), OBP (on-base percentage), SLG (slugging percentage)
 - **Enhanced Analytics**: Enhanced_Baserunning, Enhanced_Defense
 
-**Pitcher Features (7 Core Metrics):**
+**Pitcher Features (6 Core Metrics):**
 
 - **Workload & Control**: IP (innings pitched), BB% (walk rate), K% (strikeout rate)
 - **Run Prevention**: ERA (earned run average), HR% (home run rate)
-- **Enhanced Analytics**: Enhanced_Baserunning, Enhanced_Defense
+- **Enhanced Analytics**: Enhanced_Defense
 
 ### **Data Quality Innovations**
 

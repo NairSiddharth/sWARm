@@ -9,15 +9,23 @@ This document outlines the comprehensive plan for building two complementary WAR
 ## System Architecture Overview
 
 ### System 1: Current Season WAR Calculator
-**Purpose:** Calculate WAR for players within the current season
+**Purpose:** Calculate WAR/WARP from component statistics within the current season
+**Input:** Component stats (K%, BB%, AVG, OBP, SLG, ERA, HR%, baserunning, defense, park factors)
 **Method:** Within-Year K-Fold Cross-Validation
-**Output:** Real-time WAR values with confidence intervals
+**Output:** Predicted WAR/WARP values for current season with confidence intervals
+**Status:** 🔄 To Be Implemented
 
 ### System 2: Future Performance Projections (COMPLETED)
-**Purpose:** Predict future season performance
-**Method:** Temporal GroupKFold Cross-Validation
-**Output:** Projected stats and WAR for upcoming seasons
-**Status:** ✅ Implemented in sWARM_test.ipynb
+**Purpose:** Project future season performance using aging curves and longitudinal modeling
+**Input:** WAR/WARP values (currently using official values as System 1 substitutes)
+**Method:** Temporal GroupKFold Cross-Validation with aging curve adjustments
+**Output:** Multi-year projected WAR/WARP for upcoming seasons
+**Status:** ✅ Implemented in sWARm_FutureProjections.ipynb
+
+### System Integration
+- **Current State**: System 2 uses official WAR/WARP data as high-quality substitutes for System 1 output
+- **Future State**: System 1 → System 2 pipeline for complete current season calculation + future projections
+- **Dynasty Guru Enhancements**: Applied to System 2 for improved aging curve modeling
 
 ## Current Implementation Status
 
@@ -31,20 +39,26 @@ This document outlines the comprehensive plan for building two complementary WAR
 - **Advanced features**: MLBID matching, positional adjustments, enhanced metrics
 
 ### System 1 - To Be Implemented:
-**Current Gap:** No within-season WAR calculation capability
+**Current Gap:** No within-season WAR calculation from component statistics
 
 ## Implementation Plan
 
-### Phase 1: System 1 Development (Within-Year WAR Calculator)
+### Phase 1: System 1 Development (Component Stats → WAR Calculator)
 
-#### Features to Include:
+#### Component Features to Model:
 ```
-Hitting: K%, BB%, AVG, OBP, SLG, wRC+
-Defense: Positional_WAR, Enhanced_Defense, fielding metrics
-Baserunning: Enhanced_Baserunning, SB%, baserunning runs
-Park Factors: Park-adjusted offensive stats (year-specific)
-Contextual: Position, PA (for playing time weighting)
+Hitting Components: K%, BB%, AVG, OBP, SLG, wRC+
+Defense Components: Positional adjustments, Enhanced_Defense, fielding metrics
+Baserunning Components: Enhanced_Baserunning, SB%, baserunning runs
+Park Factor Components: Park-adjusted offensive stats (year-specific)
+Playing Time: Position, PA (for playing time weighting)
+Target: Predict official WAR/WARP values from these components
 ```
+
+#### Dynasty Guru Integration Strategy:
+- **System 1**: Component-level aging (K%, BB%, ISO, BABIP age at different rates)
+- **System 2**: WAR-level aging patterns and multi-year projections
+- **Separation of Concerns**: Component aging upstream, overall performance aging downstream
 
 #### Training Strategy:
 ```python
@@ -75,23 +89,29 @@ for year in years:
 - **Real-time applicable**: How you'd actually use it mid-season
 - **Uncertainty quantification**: Confidence intervals per player
 
-### Phase 2: System Integration
+### Phase 2: System Integration and Dynasty Guru Enhancements
 
 #### Unified Pipeline:
 1. **Data Preparation**: Use existing organized folder structure
 2. **Feature Engineering**: Leverage current positional adjustments and enhanced metrics
 3. **Model Training**:
-   - System 1: Within-year folds for current season calculation
-   - System 2: Temporal folds for future projection
+   - System 1: Within-year folds for current season WAR calculation from components
+   - System 2: Temporal folds for future WAR projection with Dynasty Guru aging
 4. **Validation**: Cross-validate both systems independently
-5. **Production**: Deploy both systems for comprehensive player analysis
+5. **Production**: Deploy integrated pipeline for complete player evaluation
 
-#### Enhanced Features to Add:
-- **Park factors**: Year-specific ballpark adjustments
-- **Age curves**: Position-specific aging patterns
-- **Injury tracking**: Health impact on performance
-- **Team context**: Lineup protection, ballpark familiarity
-- **Trend analysis**: Hot/cold streaks, seasonal patterns
+#### Dynasty Guru Feature Integration:
+**System 1 Enhancements (Future):**
+- Component-specific aging curves (K%, BB%, ISO, BABIP peak at different ages)
+- Age-adjusted component predictions before WAR calculation
+- Selection bias correction in component modeling
+
+**System 2 Enhancements (Current Priority):**
+- WAR-level peak age ranges (26-29) instead of single peak ages
+- Selection bias correction for missing seasons
+- Logarithmic young player development patterns
+- Injury-aware recovery modeling
+- Enhanced feature engineering for age-related patterns
 
 ### Phase 3: Advanced Capabilities
 
@@ -238,6 +258,12 @@ This architecture provides:
 
 The combination of within-year calculation (System 1) and temporal prediction (System 2) creates a complete player evaluation ecosystem comparable to professional systems used by MLB teams.
 
-**Current Status**: System 2 complete and validated. System 1 development ready to begin.
+**Current Status**:
+- ✅ System 2 complete and validated with baseline aging curves
+- 🔄 Dynasty Guru System 2 enhancements ready for implementation
+- ⏳ System 1 development ready to begin
 
-**Next Steps**: Implement within-year K-fold cross-validation for System 1, starting with feature engineering and model architecture design.
+**Next Steps**:
+1. **Immediate Priority**: Implement Dynasty Guru aging improvements for System 2 (see Dynasty_Guru_Implementation_Plan.md)
+2. **Future Development**: System 1 within-year K-fold cross-validation for component → WAR modeling
+3. **Long-term Integration**: Full pipeline with component-level and WAR-level Dynasty Guru aging

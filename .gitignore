@@ -212,4 +212,7 @@ settings.local.json
 !README.md
 *.md
 .claude
-*.csv
+future_projections_2024.csv
+validation_report.csv
+*.pkl
+dropped_players_log.txt

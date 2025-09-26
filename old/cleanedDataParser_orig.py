@@ -13,28 +13,28 @@ CACHE_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\cache"
 capitalized_words = r"((?:[A-Z][a-z']+ ?)+)"  # regex to get capitalized words in sentence
 
 # ====== NAME MATCHING UTILITIES ======
-from modules.name_mapping_caching import normalize_name
+from legacy_modules.name_mapping_caching import normalize_name
 # Import comprehensive duplicate name disambiguation
 try:
-    from modules.duplicate_names import apply_duplicate_name_disambiguation
+    from legacy_modules.duplicate_names import apply_duplicate_name_disambiguation
     DUPLICATE_NAMES_AVAILABLE = True
 except ImportError:
     print("Warning: duplicate_names module not available - using basic disambiguation")
     DUPLICATE_NAMES_AVAILABLE = False
 
 # ====== DATA LOADING MODULE ======
-from modules.data_loading import (
+from current_season_modules.data_loading import (
      get_primary_dataframes, load_yearly_bp_data, load_yearly_catcher_framing_data,
     load_comprehensive_fangraphs_data
 )
 
 # ====== PARK FACTORS MODULE ======
-from modules.park_factors import (
+from current_season_modules.park_factors import (
     get_player_park_adjustment
 )
 
 # ====== DEFENSIVE METRICS MODULE ======
-from modules.defensive_metrics import (
+from legacy_modules.defensive_metrics import (
     create_player_team_mapping
 )
 

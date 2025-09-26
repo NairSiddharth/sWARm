@@ -8,11 +8,10 @@ Note - **Defense (Positional)** has features: double_plays, assists, errors
 Note - **Defense (Catcher)** has features: framing_runs, thrown_out
 Note - **Baserunning** has dyanmically allocated values for stealing 1st, 2nd, and 3rd in different situations (baseline for success is 75%, below is negative value added above is positive value added)
 
-- [ ] Add in more features for **defense** like catch_probability and outfield_jump
-- [ ] For **catching** could add in catcher blocking and caught stealing
+- [X] Add in more features for **defense** like catch_probability and outfield_jump
+- [X] For **catching** could add in catcher blocking and caught stealing
 - [ ] For **hitters** potential features to add: total bases, plate appearances,
 - [ ] For **pitchers** potential features to add: total bases, LOB
-- [ ] Add **comprehensive defensive metrics** like DRS (Defensive Runs Saved) or UZR (Ultimate Zone Rating) for better positional evaluation
 - [ ] Add **situational performance metrics** like RISP (runners in scoring position) batting average and leverage index performance for clutch situations
 
 ## Existing Features for Current Year Performance
@@ -21,9 +20,9 @@ Note - **Baserunning** has dyanmically allocated values for stealing 1st, 2nd, a
 
 ## Features for Future Performance
 
-- [ ] Hitters: blend of expected stats vs. actual from past 3 years (lets put 70% on actual and 30% on expected, i.e. if they've consistently underperformed their expected stats they probably won't magically fix it, but its fair to potentially expect a bit higher than what their actual stats would indicate) **for all stats currently used in current year performance**, age
+- [X] Hitters: blend of expected stats vs. actual from past 3 years (lets put 70% on actual and 30% on expected, i.e. if they've consistently underperformed their expected stats they probably won't magically fix it, but its fair to potentially expect a bit higher than what their actual stats would indicate) **for all stats currently used in current year performance**, age
 - [ ] Pitchers: blend of expected stats vs. actual from past 3 years (lets put 70% on actual and 30% on expected) **for all stats currently used in current year performance**, vFA_delta_to_avg(find avg fastball speed, calculate difference between pitchers fastball speed to avg.), age, LOB_delta(find left on base delta to average)
-- [ ] Add **injury history integration** - track player injury frequency and severity over past 3 years to adjust for higher risk of future performance decline
+- [X] Add **injury history integration** - track player injury frequency and severity over past 3 years to adjust for higher risk of future performance decline
 - [x] Add **workload/usage pattern analysis** - incorporate innings pitched trends, plate appearance patterns to identify players at risk of overuse-related decline (partially incorporated through base IP/PA in features, could potentially add a rolling window delta but brings risk of double counting and overfitting)
 
 ## Existing Features for Future Performance
@@ -52,7 +51,5 @@ TBD
 - [x] TODO - Deprecate due to poor performance Linear Methods: Linear, Lasso
 - [x] TODO - Deprecate due to poor performance Ensemble Methods: AdaBoost
 - [x] TODO - Deprecate due to poor performance Non-linear Methods: Gaussian Process
-- [ ] Implement **ensemble meta-modeling** - create a stacking ensemble that combines predictions from the best-performing individual models (Random Forest, XGBoost, Neural Networks) for superior accuracy
-- [ ] Add **time-aware modeling approaches** - implement models specifically designed for temporal baseball data patterns, such as LSTM networks or seasonal decomposition methods that account for career arcs
-  
-**What a predicted year would need to do is predict each individual feature for a given player, then based off of that calculate the WAR based off of the algorithm my model has come up with?**
+- [X] Implement **ensemble meta-modeling** - create a stacking ensemble that combines predictions from the best-performing individual models (Random Forest, Neural Networks) for superior accuracy
+- [X] Add **time-aware modeling approaches** - implement models specifically designed for temporal baseball data patterns, such as LSTM networks or seasonal decomposition methods that account for career arcs
