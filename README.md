@@ -198,7 +198,24 @@ sWARm/
 ├──  PLAN.md                        # Comprehensive development plan
 ├──  LICENSE                        # MIT License
 │
-├──  modules/                       # Modular architecture (24 specialized modules)
+├──  testing/                       # Testing and diagnostic tools
+│   ├──  README.md                 # Testing documentation
+│   ├──  data_quality/             # Data quality analysis tools
+│   ├──  feature_comparison/       # Feature comparison results
+│   └──  model_validation/         # Model validation utilities
+│
+├──  modules/                       # Legacy modular architecture (deprecated)
+├──  legacy_modules/                # Moved legacy modules (deprecated)
+├──  common_modules/                # Current modular architecture
+│   ├──  enhanced_features.py      # Enhanced baserunning/defense features
+│   ├──  ensemble_modeling.py      # RandomForest + Keras ensemble models
+│   ├──  historical_feature_preparation.py # Feature preparation pipeline
+│   ├──  positional_adjustments.py # Position-based WAR adjustments
+│   └──  warp_calculator.py        # Real-time WARP calculation
+│
+├──  current_season_modules/        # Current season analysis
+│   ├──  predictive_modeling.py    # Multi-source training pipeline
+│   └──  real_time_data_loader.py  # Current season data loading
 │   ├──  __init__.py               # Package initialization
 │   ├──  animated_analysis_clean.py # Advanced animated visualizations
 │   ├──  baserunning_analytics.py  # Enhanced baserunning metrics

@@ -84,8 +84,8 @@ def load_expanded_fangraphs_data(data_dir=None):
 
     # Load main hitter files (these contain WAR)
     hitter_files = glob.glob(os.path.join(data_dir, "FanGraphs_Data", "hitters", "fangraphs_hitters_*.csv"))
-    # Exclude the suffixed files, we only want the main files with years
-    hitter_files = [f for f in hitter_files if not any(suffix in f for suffix in ['_standard', '_advanced', '_battedball', '_firsthalf'])]
+    # Exclude the suffixed files, we only want the main files
+    hitter_files = [f for f in hitter_files if not any(suffix in f for suffix in ['_standard', '_advanced', '_battedball'])]
 
     all_hitter_data = []
     for file in sorted(hitter_files):
@@ -134,8 +134,8 @@ def load_expanded_fangraphs_pitcher_data(data_dir=None):
 
     # Load main pitcher files (these contain WAR)
     pitcher_files = glob.glob(os.path.join(data_dir, "FanGraphs_Data", "pitchers", "fangraphs_pitchers_*.csv"))
-    # Exclude the suffixed files, we only want the main files with years
-    pitcher_files = [f for f in pitcher_files if not any(suffix in f for suffix in ['_standard', '_advanced', '_battedball', '_firsthalf'])]
+    # Exclude the suffixed files, we only want the main files
+    pitcher_files = [f for f in pitcher_files if not any(suffix in f for suffix in ['_standard', '_advanced', '_battedball'])]
 
     all_pitcher_data = []
     for file in sorted(pitcher_files):
@@ -253,11 +253,43 @@ def filter_pitchers_from_hitting_data(df, data_source='war', year_col='Year'):
 
     print(f"Filtering pitchers from {data_source.upper()} hitting data...")
 
-    # For simplified testing, skip complex pitcher filtering for now
-    # TODO: Implement proper pitcher identification logic later
-    print(f"  Skipping pitcher filtering for simplified testing")
-    print(f"  {data_source.upper()} hitting data: {len(df)} records (no filtering applied)")
-    return df
+    # Load pitcher data to identify who are pitchers
+    from shared_modules.bp_derived_stats import load_fixed_bp_data
+    _, pitcher_warp = load_fixed_bp_data()
+
+    # Get list of pitcher names (assuming pitcher data has same name format)
+    pitcher_names = set(pitcher_warp['Name'].dropna())
+
+    print(f"  Found {len(pitcher_names)} pitcher names to potentially filter")
+
+    # Pre-2020: Filter all pitchers from hitting data
+    # 2020+: Filter pitchers except qualified two-way players
+
+    filtered_df = df.copy()
+
+    for year in df[year_col].unique():
+        year_mask = df[year_col] == year
+        year_data = df[year_mask]
+
+        if year < 2020:
+            # Pre-2020: Remove all pitchers
+            hitter_mask = ~year_data['Name'].isin(pitcher_names)
+            removed_count = len(year_data) - hitter_mask.sum()
+            print(f"  {year}: Removed {removed_count} pitchers (pre-2020 rule)")
+
+        else:
+            # 2020+: Remove pitchers except qualified two-way players
+            # For now, implement basic filtering (would need two-way player identification)
+            hitter_mask = ~year_data['Name'].isin(pitcher_names)
+            removed_count = len(year_data) - hitter_mask.sum()
+            print(f"  {year}: Removed {removed_count} pitchers (2020+ rule, two-way logic TBD)")
+
+        # Update the filtered dataframe
+        year_indices = df.index[year_mask]
+        filtered_df = filtered_df.drop(year_indices[~hitter_mask])
+
+    print(f"  {data_source.upper()} hitting data: {len(df)} -> {len(filtered_df)} records after pitcher filtering")
+    return filtered_df
 
 def create_mlbid_mapping(warp_df, war_df):
     """
@@ -305,22 +337,12 @@ def prepare_data_for_kfold():
     """Prepare comprehensive dataset for K-fold cross-validation"""
     print("Preparing comprehensive dataset for K-fold cross-validation...")
 
-    # Import data loading functions - USING CORRECT MODULE PATHS
-    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from common_modules.bp_derived_stats import load_fixed_bp_data
-    from common_modules.enhanced_features import get_enhanced_features
-    from common_modules.positional_adjustments import PositionalAdjustmentCalculator
-
-    # Use the new enhanced features system instead of legacy analytics
-    print("Loading enhanced features...")
-    baserunning_data, defense_data = get_enhanced_features()
-
-    # Convert to the expected format for backward compatibility
-    def calculate_enhanced_baserunning_values():
-        return baserunning_data
-
-    def clean_defensive_players():
-        return defense_data
+    # Import data loading functions - USING SAME APPROACH AS MAIN NOTEBOOK
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+    from shared_modules.bp_derived_stats import load_fixed_bp_data
+    from current_season_modules.baserunning_analytics import calculate_enhanced_baserunning_values
+    from shared_modules.basic_cleaners import clean_defensive_players
+    from legacy_modules.name_mapping_optimization import create_optimized_name_mapping_with_indices
 
     # Load datasets - USING EXPANDED DATA
     print("Loading FIXED BP data with derived statistics...")
@@ -343,8 +365,13 @@ def prepare_data_for_kfold():
     print("Loading EXPANDED pitcher data...")
     pitcher_war_raw = load_expanded_fangraphs_pitcher_data()
 
-    # For now, use pitcher data as-is (skip complex two-way filtering for initial test)
-    pitcher_war = pitcher_war_raw
+    # Apply two-way player logic to filter out position players pitching
+    from current_season_modules.two_way_players import get_cleaned_two_way_data
+    two_way_analysis = get_cleaned_two_way_data()
+
+    # Filter pitcher data using two-way logic
+    pitcher_war = filter_position_players_pitching(pitcher_war_raw, two_way_analysis, data_source='war')
+    pitcher_warp = filter_position_players_pitching(pitcher_warp, two_way_analysis, data_source='warp')
 
     # Reset indices after filtering
     pitcher_warp = pitcher_warp.reset_index(drop=True)
@@ -356,17 +383,13 @@ def prepare_data_for_kfold():
     enhanced_baserunning = calculate_enhanced_baserunning_values()
     enhanced_defensive = clean_defensive_players()
 
-    # Load positional data for adjustments using new system
-    pos_calc = PositionalAdjustmentCalculator()
-    pos_calc.load_defensive_data()
-    bp_positions = pos_calc.bp_positions if hasattr(pos_calc, 'bp_positions') else None
-    fg_positions = pos_calc.fg_positions if hasattr(pos_calc, 'fg_positions') else None
+    # Load positional data for adjustments
+    from legacy_modules.positional_adjustments import load_positional_adjustments_for_war_models
+    bp_positions, fg_positions = load_positional_adjustments_for_war_models()
 
     print(f"Loaded data: {len(hitter_warp)} hitter WARP, {len(pitcher_warp)} pitcher WARP")
     print(f"              {len(hitter_war)} hitter WAR, {len(pitcher_war)} pitcher WAR")
-    bp_count = len(bp_positions) if bp_positions is not None else 0
-    fg_count = len(fg_positions) if fg_positions is not None else 0
-    print(f"              {bp_count} BP positions, {fg_count} FG positions")
+    print(f"              {len(bp_positions)} BP positions, {len(fg_positions)} FG positions")
 
     # Create MLBID-based mappings instead of name-based
     print("Creating MLBID-based player mappings...")
@@ -401,48 +424,29 @@ def prepare_data_for_kfold():
             df_enhanced['Enhanced_Baserunning'] = df_enhanced['Name'].map(enhanced_br).fillna(0.0)
             df_enhanced['Enhanced_Defense'] = df_enhanced['Name'].map(enhanced_def).fillna(0.0)
 
-            # Add GDP rate for hitters (situational hitting metric)
-            if player_type == 'hitter' and 'GDP' in df_enhanced.columns and 'PA' in df_enhanced.columns:
-                df_enhanced['GDP_rate'] = df_enhanced['GDP'].fillna(0) / df_enhanced['PA'].replace(0, 1)
-                df_enhanced['GDP_rate'] = df_enhanced['GDP_rate'].fillna(0.0)
-            elif player_type == 'hitter':
-                df_enhanced['GDP_rate'] = 0.0  # Default if GDP/PA not available
-
-            # Add positional adjustments using new system
-            from common_modules.positional_adjustments import POSITION_WAR_ADJUSTMENTS
-            if player_type == 'hitter' and 'PA' in df_enhanced.columns:
-                # Calculate positional adjustment based on primary position and PA
-                if 'Pos' in df_enhanced.columns:
-                    df_enhanced['Positional_WAR'] = df_enhanced.apply(
-                        lambda row: POSITION_WAR_ADJUSTMENTS.get(row.get('Pos', ''), 0.0) * (row.get('PA', 600) / 600),
-                        axis=1
-                    )
-                else:
-                    df_enhanced['Positional_WAR'] = 0.0
-            else:
-                df_enhanced['Positional_WAR'] = 0.0
+            # Add positional adjustments
+            from legacy_modules.positional_adjustments import merge_positional_data_with_offensive
+            if data_source == 'warp':
+                df_enhanced = merge_positional_data_with_offensive(df_enhanced, bp_pos, fg_pos)
+            else:  # war
+                df_enhanced = merge_positional_data_with_offensive(df_enhanced, bp_pos, fg_pos)
 
             return df_enhanced
 
         warp_enhanced = add_enhanced_features(warp_matched, 'warp')
         war_enhanced = add_enhanced_features(war_matched, 'war')
 
-        # Define features - BACKEND IMPROVEMENTS INTEGRATED: PA, GDP rate, positional adjustments
+        # Define features - SAME AS MAIN NOTEBOOK + POSITIONAL ADJUSTMENTS
         if player_type == 'hitter':
-            # ENHANCED HITTER FEATURES (10 features): PA volume scaling + situational hitting + positional adjustments
-            # Core: K%, BB%, AVG, OBP, SLG (5 features)
-            # Volume: PA (1 feature)
-            # Situational: GDP rate (1 feature)
-            # Enhanced: Baserunning, Defense (2 features)
-            # Positional: Position adjustment (1 feature)
-            warp_features = ['K%', 'BB%', 'AVG', 'OBP', 'SLG', 'PA', 'Positional_WAR', 'GDP_rate', 'Enhanced_Baserunning', 'Enhanced_Defense']
-            war_features = ['K%', 'BB%', 'AVG', 'OBP', 'SLG', 'PA', 'Positional_WAR', 'GDP_rate', 'Enhanced_Baserunning', 'Enhanced_Defense']
+            # WARP hitters: Full feature set from fixed BP data + positional adjustment
+            warp_features = ['K%', 'BB%', 'AVG', 'OBP', 'SLG', 'Enhanced_Baserunning', 'Enhanced_Defense', 'Positional_WAR']
+            # WAR hitters: Full feature set from FanGraphs + positional adjustment
+            war_features = ['K%', 'BB%', 'AVG', 'OBP', 'SLG', 'Enhanced_Baserunning', 'Enhanced_Defense', 'Positional_WAR']
         else:  # pitcher
-            # ENHANCED PITCHER FEATURES (6 features): Volume scaling + enhanced defense
-            # Core: IP, BB%, K%, HR%, ERA (5 features)
-            # Enhanced: Defense only (1 feature) - NO baserunning for pitchers
-            warp_features = ['IP', 'BB%', 'K%', 'ERA', 'HR%', 'Enhanced_Defense']
-            war_features = ['IP', 'BB/9', 'K/9', 'ERA', 'HR/9', 'Enhanced_Defense']
+            # WARP pitchers: Full feature set from fixed BP data + positional adjustment
+            warp_features = ['IP', 'BB%', 'K%', 'HR%', 'ERA', 'Enhanced_Baserunning', 'Enhanced_Defense', 'Positional_WAR']
+            # WAR pitchers: Full feature set from FanGraphs + positional adjustment
+            war_features = ['IP', 'BB/9', 'K/9', 'HR/9', 'ERA', 'Enhanced_Baserunning', 'Enhanced_Defense', 'Positional_WAR']
 
         # Filter to only available columns
         warp_available = warp_enhanced.columns.tolist()
@@ -490,61 +494,6 @@ def prepare_data_for_kfold():
                                   enhanced_baserunning, enhanced_defensive, 'pitcher', bp_positions, fg_positions)
 
     return hitter_data, pitcher_data
-
-
-# Integration functions for multi-source training (bridges restored temp_modeling with new backend)
-def load_comprehensive_warp_hitter_data():
-    """Load comprehensive WARP hitter data with multi-source integration"""
-    hitter_data, _ = prepare_data_for_kfold()
-    return hitter_data['warp'] if hitter_data else None
-
-def load_comprehensive_fangraphs_hitter_data():
-    """Load comprehensive FanGraphs hitter WAR data with multi-source integration"""
-    hitter_data, _ = prepare_data_for_kfold()
-    return hitter_data['war'] if hitter_data else None
-
-def load_comprehensive_warp_pitcher_data():
-    """Load comprehensive WARP pitcher data with multi-source integration"""
-    _, pitcher_data = prepare_data_for_kfold()
-    return pitcher_data['warp'] if pitcher_data else None
-
-def load_comprehensive_fangraphs_pitcher_data():
-    """Load comprehensive FanGraphs pitcher WAR data with multi-source integration"""
-    _, pitcher_data = prepare_data_for_kfold()
-    return pitcher_data['war'] if pitcher_data else None
-
-# Backward compatibility functions for existing code
-def load_and_prepare_hitter_data():
-    """Load and prepare hitter WARP data for modeling"""
-    try:
-        return load_comprehensive_warp_hitter_data()
-    except Exception as e:
-        print(f"Error loading hitter WARP data: {e}")
-        return None
-
-def load_and_prepare_hitter_war_data():
-    """Load and prepare hitter WAR data for modeling"""
-    try:
-        return load_comprehensive_fangraphs_hitter_data()
-    except Exception as e:
-        print(f"Error loading hitter WAR data: {e}")
-        return None
-
-def load_and_prepare_pitcher_data():
-    """Load and prepare pitcher WARP data for modeling"""
-    try:
-        return load_comprehensive_warp_pitcher_data()
-    except Exception as e:
-        print(f"Error loading pitcher WARP data: {e}")
-        return None
-
-def load_and_prepare_pitcher_war_data():
-    """Load and prepare pitcher WAR data for modeling"""
-    try:
-        return load_comprehensive_fangraphs_pitcher_data()
-    except Exception as e:
-        print(f"Error loading pitcher WAR data: {e}")
-        return None
 
 def run_kfold_cross_validation(hitter_data, pitcher_data, n_splits=5):
     """Run K-fold cross-validation on all models and datasets"""
@@ -676,50 +625,3 @@ def print_cv_summary(results):
                 year_r2 = r2_score(np.array(data['y_true'])[year_mask],
                                   np.array(data['y_pred'])[year_mask])
                 print(f"    {year}: {year_count} predictions, R2={year_r2:.4f}")
-
-
-class CurrentSeasonPredictor:
-    """
-    Wrapper class for current season predictions using restored multi-source pipeline
-    Maintains compatibility with WARPCalculator and other modules
-    """
-
-    def __init__(self):
-        self.models = {}
-        self.is_trained = False
-
-    def train_ensemble_models(self, holdout_year=2024):
-        """
-        Train ensemble models using the restored multi-source pipeline
-
-        Args:
-            holdout_year: Year to hold out for validation
-        """
-        print("Training ensemble models using restored multi-source pipeline...")
-
-        # Use the restored functions to prepare data and run cross-validation
-        hitter_data, pitcher_data = prepare_data_for_kfold()
-        results = run_kfold_cross_validation(hitter_data, pitcher_data, n_splits=5)
-
-        self.models = results
-        self.is_trained = True
-
-        return results
-
-    def predict_current_season(self, player_data, player_type='hitter'):
-        """
-        Make predictions for current season player data
-
-        Args:
-            player_data: DataFrame with player statistics
-            player_type: 'hitter' or 'pitcher'
-
-        Returns:
-            DataFrame with predictions
-        """
-        if not self.is_trained:
-            raise ValueError("Models must be trained before making predictions")
-
-        # This would need to be implemented based on the trained models
-        # For now, return placeholder
-        return player_data.copy()

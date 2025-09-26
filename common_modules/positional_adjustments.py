@@ -14,17 +14,17 @@ import glob
 import os
 from typing import Dict, List, Optional, Tuple
 
-# Standard positional WAR adjustments per 600 PA (FanGraphs scale)
+# Industry-aligned positional WAR adjustments per 600 PA (calibrated to FanGraphs/Baseball-Reference)
 POSITION_WAR_ADJUSTMENTS = {
     'C': +1.25,   # Catcher: highest positive adjustment
     'SS': +0.75,  # Shortstop: high positive adjustment
+    '2B': +0.30,  # Second base: positive adjustment
+    '3B': +0.20,  # Third base: small positive adjustment (calibrated from +0.25)
     'CF': +0.25,  # Center field: small positive adjustment
-    '3B': +0.25,  # Third base: small positive adjustment
-    '2B': +0.3,   # Second base: small positive adjustment
-    'LF': -0.7,   # Left field: negative adjustment
+    'LF': -0.70,  # Left field: negative adjustment
     'RF': -0.75,  # Right field: negative adjustment
     '1B': -1.25,  # First base: large negative adjustment
-    'DH': -1.75,  # Designated hitter: largest negative adjustment
+    'DH': -1.50,  # Designated hitter: large negative adjustment (calibrated from -1.75)
     'P': 0.0      # Pitcher: neutral (they rarely hit)
 }
 

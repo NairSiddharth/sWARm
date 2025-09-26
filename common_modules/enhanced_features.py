@@ -32,6 +32,7 @@ os.makedirs(CACHE_DIR, exist_ok=True)
 def load_baserunning_data():
     """
     Load baserunning data from BP and Statcast sources
+    Calculate per-year values, then use most recent year or average
 
     Returns:
         dict: {player_id/name: baserunning_value}
@@ -50,7 +51,8 @@ def load_baserunning_data():
         except:
             pass
 
-    baserunning_values = {}
+    # Store per-year values: {player_id: {year: baserunning_value}}
+    player_year_values = {}
 
     # Load BP baserunning data
     bp_baserunning_dir = os.path.join(DATA_DIR, "BP_Data", "baserunning")
@@ -61,7 +63,9 @@ def load_baserunning_data():
         for file in bp_files:
             try:
                 df = pd.read_csv(file)
-                year = os.path.basename(file).split('_')[-1].replace('.csv', '')
+                # Extract year from filename (e.g., bp_baserunning_2024.csv -> 2024)
+                year_str = os.path.basename(file).split('_')[-1].replace('.csv', '')
+                year = int(year_str) if year_str.isdigit() else 2020  # fallback
 
                 # Key BP baserunning features: SB, CS, SB%, PO, XBT%
                 required_cols = ['SB', 'CS', 'SB%', 'PO', 'XBT%']
@@ -71,19 +75,47 @@ def load_baserunning_data():
                     for _, row in df.iterrows():
                         player_key = row.get('mlbid', row.get('Name', ''))
                         if player_key:
-                            # Calculate baserunning value from BP data
-                            sb = row.get('SB', 0)
-                            cs = row.get('CS', 0)
-                            sb_pct = row.get('SB%', 0) / 100 if row.get('SB%', 0) > 1 else row.get('SB%', 0)
-                            xbt_pct = row.get('XBT%', 0) / 100 if row.get('XBT%', 0) > 1 else row.get('XBT%', 0)
+                            # Add null safety for baserunning calculations
+                            try:
+                                sb = float(row.get('SB', 0)) if pd.notna(row.get('SB')) else 0
+                                cs = float(row.get('CS', 0)) if pd.notna(row.get('CS')) else 0
+                                sb_pct_raw = row.get('SB%', 0)
+                                xbt_pct_raw = row.get('XBT%', 0)
 
-                            # Baserunning value calculation
-                            # Reward efficient stealing (>75% success rate) and extra base taking
-                            steal_value = sb * sb_pct if sb_pct >= 0.75 else sb * sb_pct - cs * 0.5
-                            xbt_value = xbt_pct * 10  # Scale XBT% contribution
+                                # Handle percentage conversion safely
+                                if pd.notna(sb_pct_raw):
+                                    sb_pct = float(sb_pct_raw) / 100 if float(sb_pct_raw) > 1 else float(sb_pct_raw)
+                                else:
+                                    sb_pct = 0
 
-                            baserunning_value = steal_value + xbt_value
-                            baserunning_values[player_key] = baserunning_value
+                                if pd.notna(xbt_pct_raw):
+                                    xbt_pct = float(xbt_pct_raw) / 100 if float(xbt_pct_raw) > 1 else float(xbt_pct_raw)
+                                else:
+                                    xbt_pct = 0
+
+                                # Baserunning value calculation using proper run values (PER YEAR)
+                                # Stolen base run values: ~0.2 runs per SB, -0.4 runs per CS
+                                steal_runs = (sb * 0.2) - (cs * 0.4)
+
+                                # XBT% scaled to reasonable run impact (max ~2-3 runs per season)
+                                # Elite XBT% ~50%, league average ~40%, scale difference * 10
+                                xbt_runs = (xbt_pct - 0.40) * 10 if xbt_pct > 0 else 0
+
+                                # Cap XBT contribution to reasonable range
+                                xbt_runs = max(-3, min(3, xbt_runs))
+
+                                baserunning_value = steal_runs + xbt_runs
+
+                                # Store per-year value
+                                if pd.notna(baserunning_value) and np.isfinite(baserunning_value):
+                                    player_key_str = str(player_key)
+                                    if player_key_str not in player_year_values:
+                                        player_year_values[player_key_str] = {}
+                                    player_year_values[player_key_str][year] = baserunning_value
+
+                            except (ValueError, TypeError, ZeroDivisionError) as e:
+                                # Skip invalid calculations
+                                continue
 
                 print(f"Processed BP baserunning data for {year}: {len(df)} records")
 
@@ -100,34 +132,84 @@ def load_baserunning_data():
             try:
                 df = pd.read_csv(file)
 
+                # Extract year from Statcast file if available
+                file_year = 2020  # Default fallback
+                for potential_year in range(2016, 2025):
+                    if str(potential_year) in file:
+                        file_year = potential_year
+                        break
+
                 if 'seconds_since_hit_090' in df.columns:
                     for _, row in df.iterrows():
                         player_key = row.get('player_id', row.get('player_name', ''))
-                        seconds_090 = row.get('seconds_since_hit_090', 0)
 
-                        if player_key and seconds_090 > 0:
-                            # Calculate speed: 90 feet in seconds_090 time
-                            # 90 feet = 27.432 meters
-                            # Speed in ft/sec = 90 / seconds_090
-                            speed_ft_per_sec = 90 / seconds_090
+                        # Add null safety for speed calculations
+                        try:
+                            seconds_090 = float(row.get('seconds_since_hit_090', 0)) if pd.notna(row.get('seconds_since_hit_090')) else 0
 
-                            # Convert to mph: ft/sec * 0.681818
-                            speed_mph = speed_ft_per_sec * 0.681818
+                            if player_key and seconds_090 > 0:
+                                # Calculate speed: 90 feet in seconds_090 time
+                                # Speed in ft/sec = 90 / seconds_090
+                                speed_ft_per_sec = 90 / seconds_090
 
-                            # Scale speed into baserunning value (faster = better)
-                            # MLB average sprint speed ~27 ft/sec, elite ~30+ ft/sec
-                            speed_value = max(0, (speed_ft_per_sec - 24) * 2)  # Scale starting from 24 ft/sec
+                                # Scale speed into baserunning value using realistic run impact
+                                # MLB average sprint speed ~27 ft/sec, elite ~30+ ft/sec
+                                # Speed impact: +/- 1-2 runs per season based on speed difference
+                                speed_diff = speed_ft_per_sec - 27.0  # Difference from league average
+                                speed_value = speed_diff * 0.5  # Scale to ~+/-2 runs max
 
-                            # Add to existing baserunning value or create new
-                            if player_key in baserunning_values:
-                                baserunning_values[player_key] += speed_value
-                            else:
-                                baserunning_values[player_key] = speed_value
+                                # Cap speed contribution to reasonable range
+                                speed_value = max(-2, min(2, speed_value))
+
+                                # Store per-year speed value
+                                if pd.notna(speed_value) and np.isfinite(speed_value):
+                                    player_key_str = str(player_key)
+                                    if player_key_str not in player_year_values:
+                                        player_year_values[player_key_str] = {}
+
+                                    # Add speed to existing year value or create new
+                                    if file_year in player_year_values[player_key_str]:
+                                        player_year_values[player_key_str][file_year] += speed_value
+                                    else:
+                                        player_year_values[player_key_str][file_year] = speed_value
+
+                        except (ValueError, TypeError, ZeroDivisionError) as e:
+                            # Skip invalid calculations
+                            continue
 
                 print(f"Processed Statcast running data: {len(df)} records")
 
             except Exception as e:
                 print(f"Error loading Statcast running file {file}: {e}")
+
+    # Convert per-year values to final baserunning values
+    # Use most recent 3 years average, or most recent year if limited data
+    baserunning_values = {}
+    current_year = 2024  # Most recent year in dataset
+
+    for player_id, year_values in player_year_values.items():
+        if not year_values:
+            continue
+
+        # Get the most recent years (prioritize last 3 years)
+        sorted_years = sorted(year_values.keys(), reverse=True)
+        recent_years = sorted_years[:3]  # Last 3 years max
+
+        # Calculate average of recent years (weighted toward most recent)
+        if len(recent_years) >= 3:
+            # 3+ years: weighted average (50%, 30%, 20%)
+            weights = [0.5, 0.3, 0.2]
+            final_value = sum(year_values[year] * weight for year, weight in zip(recent_years, weights))
+        elif len(recent_years) == 2:
+            # 2 years: weighted average (70%, 30%)
+            final_value = year_values[recent_years[0]] * 0.7 + year_values[recent_years[1]] * 0.3
+        else:
+            # 1 year: use that year
+            final_value = year_values[recent_years[0]]
+
+        # Cap final value to target range [-7, 10]
+        final_value = max(-7, min(10, final_value))
+        baserunning_values[player_id] = final_value
 
     print(f"Enhanced baserunning calculated for {len(baserunning_values)} players")
 
@@ -145,6 +227,7 @@ def load_baserunning_data():
 def load_defense_data():
     """
     Load comprehensive defense data from FanGraphs and Statcast sources
+    Calculate per-year values, then use most recent year or average
 
     Returns:
         dict: {player_id/name: defense_value}
@@ -163,7 +246,8 @@ def load_defense_data():
         except:
             pass
 
-    defense_values = {}
+    # Store per-year values: {player_id: {year: defense_value}}
+    player_year_values = {}
 
     # Load FanGraphs defensive standard data
     fg_defensive_dir = os.path.join(DATA_DIR, "FanGraphs_Data", "defensive")
@@ -176,11 +260,14 @@ def load_defense_data():
         for file in standard_files:
             try:
                 df = pd.read_csv(file)
-                year = os.path.basename(file).split('_')[-1].replace('.csv', '')
+                # Extract year from filename
+                year_str = os.path.basename(file).split('_')[-1].replace('.csv', '')
+                year = int(year_str) if year_str.isdigit() else 2020  # fallback
 
                 # Standard defensive features: Pos, Inn, PO, A, E, DPS, DPT, DPF, Scp
                 for _, row in df.iterrows():
-                    player_key = row.get('MLBAID', row.get('Name', ''))
+                    # Fix ID mapping: Use MLBAMID instead of MLBAID
+                    player_key = row.get('MLBAMID', row.get('Name', ''))
                     if not player_key:
                         continue
 
@@ -194,28 +281,61 @@ def load_defense_data():
                     dp_finished = row.get('DPF', 0)
                     scoops = row.get('Scp', 0)  # First base specific
 
-                    if innings > 0:
-                        # Calculate fielding percentage
-                        total_chances = putouts + assists + errors
-                        fielding_pct = (putouts + assists) / total_chances if total_chances > 0 else 0
+                    # Add null safety checks
+                    try:
+                        innings = float(innings) if pd.notna(innings) else 0
+                        putouts = float(putouts) if pd.notna(putouts) else 0
+                        assists = float(assists) if pd.notna(assists) else 0
+                        errors = float(errors) if pd.notna(errors) else 0
+                        dp_started = float(dp_started) if pd.notna(dp_started) else 0
+                        dp_turned = float(dp_turned) if pd.notna(dp_turned) else 0
+                        dp_finished = float(dp_finished) if pd.notna(dp_finished) else 0
+                        scoops = float(scoops) if pd.notna(scoops) else 0
 
-                        # Position-specific defensive value
-                        # Base defensive value from fielding percentage above/below average
-                        base_value = (fielding_pct - 0.980) * 100  # League average ~.980
+                        if innings > 0:
+                            # Calculate fielding percentage
+                            total_chances = putouts + assists + errors
+                            fielding_pct = (putouts + assists) / total_chances if total_chances > 0 else 0
 
-                        # Add double play contributions (middle infield bonus)
-                        if position in ['2B', 'SS']:
-                            dp_value = (dp_started + dp_turned + dp_finished) * 0.5
-                            base_value += dp_value
+                            # Defensive value using realistic run impact scaling
+                            # Fielding percentage impact: typical range .970-.990, league average ~.980
+                            # Scale difference to ~10-20 runs per full season
+                            fielding_runs = (fielding_pct - 0.980) * 1000  # Scale percentage to run impact
 
-                        # First base scoop bonus
-                        if position == '1B' and scoops > 0:
-                            base_value += scoops * 0.2
+                            # Position-specific adjustments (runs per season)
+                            position_runs = 0
+                            if position in ['2B', 'SS']:
+                                # Middle infield: double play value (~0.8 runs per DP)
+                                dp_total = dp_started + dp_turned + dp_finished
+                                position_runs = dp_total * 0.8
+                            elif position == '1B':
+                                # First base: scoop value (~0.5 runs per scoop)
+                                position_runs = scoops * 0.5
 
-                        # Scale by innings played
-                        defense_value = base_value * (innings / 1000)  # Scale to reasonable range
+                            # Combine components
+                            total_runs = fielding_runs + position_runs
 
-                        defense_values[player_key] = defense_values.get(player_key, 0) + defense_value
+                            # Scale to full season (1400 innings ≈ full season)
+                            defense_value = total_runs * (innings / 1400)
+
+                            # Cap to realistic range [-25, 50] runs per season equivalent
+                            defense_value = max(-25, min(50, defense_value))
+
+                            # Store per-year value
+                            if pd.notna(defense_value) and np.isfinite(defense_value):
+                                player_key_str = str(player_key)
+                                if player_key_str not in player_year_values:
+                                    player_year_values[player_key_str] = {}
+
+                                # Add to existing year value or create new
+                                if year in player_year_values[player_key_str]:
+                                    player_year_values[player_key_str][year] += defense_value
+                                else:
+                                    player_year_values[player_key_str][year] = defense_value
+
+                    except (ValueError, TypeError, ZeroDivisionError) as e:
+                        # Skip invalid calculations
+                        continue
 
                 print(f"Processed FanGraphs standard defensive data for {year}: {len(df)} records")
 
@@ -229,24 +349,42 @@ def load_defense_data():
         for file in statcast_files:
             try:
                 df = pd.read_csv(file)
-                year = os.path.basename(file).split('_')[-1].replace('.csv', '')
+                # Extract year from filename
+                year_str = os.path.basename(file).split('_')[-1].replace('.csv', '')
+                year = int(year_str) if year_str.isdigit() else 2020  # fallback
 
                 # Statcast features for catchers: Throwing, Blocking, Framing, Arm
                 for _, row in df.iterrows():
-                    player_key = row.get('MLBAID', row.get('Name', ''))
+                    # Fix ID mapping: Use MLBAMID instead of MLBAID
+                    player_key = row.get('MLBAMID', row.get('Name', ''))
                     if not player_key:
                         continue
 
-                    throwing = row.get('Throwing', 0)
-                    blocking = row.get('Blocking', 0)
-                    framing = row.get('Framing', 0)
-                    arm = row.get('Arm', 0)
+                    # Add null safety for catcher stats
+                    try:
+                        throwing = float(row.get('Throwing', 0)) if pd.notna(row.get('Throwing')) else 0
+                        blocking = float(row.get('Blocking', 0)) if pd.notna(row.get('Blocking')) else 0
+                        framing = float(row.get('Framing', 0)) if pd.notna(row.get('Framing')) else 0
+                        arm = float(row.get('Arm', 0)) if pd.notna(row.get('Arm')) else 0
 
-                    # Catcher-specific defensive value
-                    catcher_value = (throwing + blocking + framing + arm) / 4  # Average the components
+                        # Catcher-specific defensive value
+                        catcher_value = (throwing + blocking + framing + arm) / 4  # Average the components
 
-                    if catcher_value != 0:
-                        defense_values[player_key] = defense_values.get(player_key, 0) + catcher_value
+                        # Store per-year catcher value
+                        if pd.notna(catcher_value) and np.isfinite(catcher_value) and catcher_value != 0:
+                            player_key_str = str(player_key)
+                            if player_key_str not in player_year_values:
+                                player_year_values[player_key_str] = {}
+
+                            # Add to existing year value or create new
+                            if year in player_year_values[player_key_str]:
+                                player_year_values[player_key_str][year] += catcher_value
+                            else:
+                                player_year_values[player_key_str][year] = catcher_value
+
+                    except (ValueError, TypeError, ZeroDivisionError) as e:
+                        # Skip invalid calculations
+                        continue
 
                 print(f"Processed FanGraphs Statcast defensive data for {year}: {len(df)} records")
 
@@ -301,13 +439,57 @@ def load_defense_data():
                             value = (player_pct - expected_pct) * opportunities * difficulty_weights[star_level]
                             total_value += value
 
+                    # Store per-year catch probability value
                     if total_value != 0:
-                        defense_values[player_key] = defense_values.get(player_key, 0) + total_value
+                        player_key_str = str(player_key)
+                        if player_key_str not in player_year_values:
+                            player_year_values[player_key_str] = {}
+
+                        # Add to existing year value or create new (need to extract year from file)
+                        file_year = 2020  # Default fallback
+                        for potential_year in range(2016, 2025):
+                            if str(potential_year) in file:
+                                file_year = potential_year
+                                break
+
+                        if file_year in player_year_values[player_key_str]:
+                            player_year_values[player_key_str][file_year] += total_value
+                        else:
+                            player_year_values[player_key_str][file_year] = total_value
 
                 print(f"Processed Statcast catch probability data: {len(df)} records")
 
             except Exception as e:
                 print(f"Error loading Statcast catch file {file}: {e}")
+
+    # Convert per-year values to final defense values
+    # Use most recent 3 years average, or most recent year if limited data
+    defense_values = {}
+    current_year = 2024  # Most recent year in dataset
+
+    for player_id, year_values in player_year_values.items():
+        if not year_values:
+            continue
+
+        # Get the most recent years (prioritize last 3 years)
+        sorted_years = sorted(year_values.keys(), reverse=True)
+        recent_years = sorted_years[:3]  # Last 3 years max
+
+        # Calculate average of recent years (weighted toward most recent)
+        if len(recent_years) >= 3:
+            # 3+ years: weighted average (50%, 30%, 20%)
+            weights = [0.5, 0.3, 0.2]
+            final_value = sum(year_values[year] * weight for year, weight in zip(recent_years, weights))
+        elif len(recent_years) == 2:
+            # 2 years: weighted average (70%, 30%)
+            final_value = year_values[recent_years[0]] * 0.7 + year_values[recent_years[1]] * 0.3
+        else:
+            # 1 year: use that year
+            final_value = year_values[recent_years[0]]
+
+        # Cap final value to target range [-25, 50]
+        final_value = max(-25, min(50, final_value))
+        defense_values[player_id] = final_value
 
     print(f"Enhanced defense calculated for {len(defense_values)} players")
 

@@ -17,6 +17,7 @@ from datetime import datetime
 # Import enhanced features and park factors
 from .enhanced_features import get_enhanced_features, get_player_enhanced_features
 from .park_factors import apply_park_factor_adjustments
+from .positional_adjustments import PositionalAdjustmentCalculator, POSITION_WAR_ADJUSTMENTS
 
 
 class HistoricalFeaturePreparer:
@@ -36,9 +37,9 @@ class HistoricalFeaturePreparer:
 
     def prepare_hitter_features(self, first_half_data):
         """
-        Prepare hitter features to match historical training exactly
+        Prepare hitter features with PA and positional adjustments
 
-        Historical features: K%, BB%, AVG, OBP, SLG, Enhanced_Baserunning, Enhanced_Defense
+        Enhanced features: K%, BB%, AVG, OBP, SLG, PA, Position_Adjustment, Enhanced_Baserunning, Enhanced_Defense
 
         Args:
             first_half_data: DataFrame with first half 2025 hitter data
@@ -53,7 +54,7 @@ class HistoricalFeaturePreparer:
         player_names = []
 
         for idx, player in first_half_data.iterrows():
-            player_name = player.get('player_name', f'Unknown_{idx}')
+            player_name = player.get('Name', player.get('player_name', f'Unknown_{idx}'))
 
             try:
                 # Calculate required features from raw stats
@@ -104,7 +105,7 @@ class HistoricalFeaturePreparer:
         player_names = []
 
         for idx, player in first_half_data.iterrows():
-            player_name = player.get('player_name', f'Unknown_{idx}')
+            player_name = player.get('Name', player.get('player_name', f'Unknown_{idx}'))
 
             try:
                 # Calculate required features from raw stats
@@ -138,9 +139,9 @@ class HistoricalFeaturePreparer:
 
     def _calculate_hitter_features(self, player_row):
         """
-        Calculate exact 7 hitter features from raw stats
+        Calculate 10 hitter features including PA, positional adjustments, and GDP rate
 
-        Features: [K%, BB%, AVG, OBP, SLG, Enhanced_Baserunning, Enhanced_Defense]
+        Features: [K%, BB%, AVG, OBP, SLG, PA, Position_Adjustment, GDP_rate, Enhanced_Baserunning, Enhanced_Defense]
         """
         try:
             # Basic rate stats - must be present
@@ -177,8 +178,19 @@ class HistoricalFeaturePreparer:
                     enhanced_baserunning = enhanced_features['Enhanced_Baserunning']
                     enhanced_defense = enhanced_features['Enhanced_Defense']
 
-            # Return exact 7 features in historical order
-            return [k_pct, bb_pct, avg, obp, slg, enhanced_baserunning, enhanced_defense]
+            # Calculate positional adjustment
+            position = player_row.get('Pos', player_row.get('Position', ''))
+            position_adjustment = POSITION_WAR_ADJUSTMENTS.get(position, 0.0)
+
+            # Scale by playing time (PA ratio to 600)
+            position_adjustment = position_adjustment * (pa / 600) if pa > 0 else 0.0
+
+            # Calculate GDP rate for situational hitting
+            gdp = self._safe_float(player_row.get('GDP', 0))
+            gdp_rate = gdp / pa if pa > 0 else 0.0
+
+            # Return 10 features including PA, positional adjustment, and GDP rate
+            return [k_pct, bb_pct, avg, obp, slg, pa, position_adjustment, gdp_rate, enhanced_baserunning, enhanced_defense]
 
         except Exception:
             return None

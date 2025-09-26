@@ -18,16 +18,18 @@ class ScenarioProjector:
     Generates multiple performance scenarios for end-of-season projections
 
     Scenarios:
-    1. 100% Performance: Current pace maintained
-    2. 75% Performance: 75% of current production rate
-    3. 50% Performance: 50% of current production rate
-    4. 25% Performance: 25% of current production rate
-    5. Career Average: Regression to weighted career average + expected stats
+    1. 150% Performance: Hot streak/breakout performance
+    2. 125% Performance: Above current pace
+    3. 100% Performance: Current pace maintained
+    4. 75% Performance: 75% of current production rate
+    5. 50% Performance: 50% of current production rate
+    6. 25% Performance: 25% of current production rate
+    7. Career Average: Regression to weighted career average + expected stats
     """
 
     def __init__(self, season_length=162):
         self.season_length = season_length
-        self.scenario_percentages = [1.0, 0.75, 0.50, 0.25]
+        self.scenario_percentages = [1.5, 1.25, 1.0, 0.75, 0.50, 0.25]
         self.career_regression_weights = {
             'expected_stats': 0.6,  # Weight for expected stats
             'career_average': 0.4   # Weight for personal career average
@@ -53,25 +55,40 @@ class ScenarioProjector:
         if games_played >= self.season_length:
             # Season complete, return current stats for all scenarios
             return {
-                '100%': current_stats.copy(),
-                '75%': current_stats.copy(),
-                '50%': current_stats.copy(),
-                '25%': current_stats.copy(),
-                'career_avg': current_stats.copy()
+                '150% (Hot Streak)': current_stats.copy(),
+                '125% (Above Pace)': current_stats.copy(),
+                '100% (Maintain Pace)': current_stats.copy(),
+                '75% (Slight Regression)': current_stats.copy(),
+                '50% (Major Regression)': current_stats.copy(),
+                '25% (Horrible Regression)': current_stats.copy(),
+                'Career Average': current_stats.copy()
             }
 
         games_remaining = self.season_length - games_played
         scenarios = {}
 
-        # Calculate rate-based scenarios (100%, 75%, 50%, 25%)
+        # Calculate rate-based scenarios (150%, 125%, 100%, 75%, 50%, 25%)
         for i, percentage in enumerate(self.scenario_percentages):
-            scenario_name = f"{int(percentage * 100)}%"
+            if percentage == 1.5:
+                scenario_name = "150% (Hot Streak)"
+            elif percentage == 1.25:
+                scenario_name = "125% (Above Pace)"
+            elif percentage == 1.0:
+                scenario_name = "100% (Maintain Pace)"
+            elif percentage == 0.75:
+                scenario_name = "75% (Slight Regression)"
+            elif percentage == 0.5:
+                scenario_name = "50% (Major Regression)"
+            elif percentage == 0.25:
+                scenario_name = "25% (Horrible Regression)"
+            else:
+                scenario_name = f"{int(percentage * 100)}%"
             scenarios[scenario_name] = self._calculate_rate_scenario(
                 current_stats, games_played, games_remaining, percentage, player_type
             )
 
         # Calculate career average regression scenario
-        scenarios['career_avg'] = self._calculate_career_regression(
+        scenarios['Career Average'] = self._calculate_career_regression(
             current_stats, games_played, games_remaining,
             career_stats, expected_stats, player_type
         )

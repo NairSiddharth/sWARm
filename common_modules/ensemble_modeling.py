@@ -372,7 +372,12 @@ def create_ensemble_for_data(hitter_data, pitcher_data, holdout_year=2024):
             if not train_indices:
                 continue
 
-            X_train = np.array([data['X'][i] for i in train_indices])
+            # Handle DataFrame indexing properly
+            if hasattr(data['X'], 'iloc'):  # DataFrame
+                X_train = np.array([data['X'].iloc[i].values for i in train_indices])
+            else:  # List or array
+                X_train = np.array([data['X'][i] for i in train_indices])
+
             y_train = np.array([data['y'][i] for i in train_indices])
             groups_train = np.array([data['years'][i] for i in train_indices])
 
@@ -415,7 +420,11 @@ def validate_ensemble_overfitting_prevention(hitter_data, pitcher_data, holdout_
             if not holdout_indices:
                 continue
 
-            X_holdout = np.array([data['X'][i] for i in holdout_indices])
+            # Handle DataFrame indexing properly
+            if hasattr(data['X'], 'iloc'):  # DataFrame
+                X_holdout = np.array([data['X'].iloc[i].values for i in holdout_indices])
+            else:  # List or array
+                X_holdout = np.array([data['X'][i] for i in holdout_indices])
             y_holdout = np.array([data['y'][i] for i in holdout_indices])
 
             # Generate predictions
