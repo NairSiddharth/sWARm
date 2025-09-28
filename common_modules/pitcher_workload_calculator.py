@@ -186,8 +186,14 @@ def calculate_pitcher_projections(player_data, ensemble_predictor, player_featur
             workload_projection['projection_basis'] += f' (constrained by {total_remaining_games} remaining team games)'
 
     # Calculate current performance using ensemble
+    print(f"DEBUG: Feature vector for {player_data.get('Name', 'Unknown')}: {player_feature_vector}")
+    print(f"DEBUG: Feature vector shape: {np.array(player_feature_vector).shape}")
+    print(f"DEBUG: Feature vector type: {type(player_feature_vector)}")
+
     current_war = ensemble_predictor.predict_ensemble(player_feature_vector, 'war', 'pitcher')['ensemble']
     current_warp = ensemble_predictor.predict_ensemble(player_feature_vector, 'warp', 'pitcher')['ensemble']
+
+    print(f"DEBUG: Predicted WAR: {current_war:.3f}, WARP: {current_warp:.3f}")
 
     # Calculate per-game and per-inning rates
     war_per_game = current_war / current_games if current_games > 0 else 0

@@ -160,6 +160,54 @@ class EnsembleWARPredictor:
 
         return model
 
+    def _handle_feature_compatibility(self, X, player_type):
+        """
+        Handle feature compatibility between old models and new system.
+
+        Old models expect: IP, BB%, K%, ERA, damage_control_ratio, Opportunity_Success, Contact_Quality_Index, HBP, WP
+        New system provides: IP, BB%, K%, ERA, damage_control_ratio, Opportunity_Success, Contact_Quality_Index, HBP%, WP
+
+        Key differences:
+        1. Position 7: HBP (raw count) vs HBP% (percentage)
+        2. Many advanced features may be 0 due to data loading issues
+
+        Args:
+            X: Input features array
+            player_type: 'hitter' or 'pitcher'
+
+        Returns:
+            Compatible feature array
+        """
+        if player_type == 'pitcher' and len(X.shape) >= 1 and X.shape[-1] >= 9:
+            X_compat = X.copy() if hasattr(X, 'copy') else np.array(X)
+
+            # Ensure we have exactly 9 features
+            if X_compat.ndim == 1:
+                X_compat = X_compat[:9]
+                # Convert HBP% back to approximate HBP count for old models
+                # Position 7: HBP% -> HBP (rough approximation)
+                if X_compat[7] > 0:  # If HBP% > 0
+                    # Rough conversion: HBP% * IP * 3 (approximate pitches per inning) / 100
+                    ip = X_compat[0] if X_compat[0] > 0 else 50  # Default to 50 IP if 0
+                    estimated_hbp = (X_compat[7] * ip * 3) / 100
+                    X_compat[7] = max(0, min(estimated_hbp, 10))  # Cap between 0-10 HBP
+                else:
+                    X_compat[7] = 0  # Default HBP count
+            else:
+                X_compat = X_compat[:, :9]
+                # Convert HBP% back to approximate HBP count for old models
+                for i in range(X_compat.shape[0]):
+                    if X_compat[i, 7] > 0:  # If HBP% > 0
+                        ip = X_compat[i, 0] if X_compat[i, 0] > 0 else 50
+                        estimated_hbp = (X_compat[i, 7] * ip * 3) / 100
+                        X_compat[i, 7] = max(0, min(estimated_hbp, 10))
+                    else:
+                        X_compat[i, 7] = 0
+
+            return X_compat
+
+        return X  # Return as-is for hitters or if already compatible
+
     def predict_ensemble(self, X, metric_type, player_type):
         """
         Generate ensemble prediction using trained models
@@ -177,11 +225,14 @@ class EnsembleWARPredictor:
 
         key = f"{player_type}_{metric_type}"
 
+        # Handle feature compatibility for backward compatibility with existing models
+        X_compatible = self._handle_feature_compatibility(X, player_type)
+
         # Scale features
         if key not in self.scalers:
             raise ValueError(f"No trained scaler found for {key}")
 
-        X_scaled = self.scalers[key].transform(X.reshape(1, -1) if X.ndim == 1 else X)
+        X_scaled = self.scalers[key].transform(X_compatible.reshape(1, -1) if X_compatible.ndim == 1 else X_compatible)
 
         # Get individual model predictions
         predictions = {}

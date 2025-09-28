@@ -19,7 +19,18 @@ from scipy.optimize import minimize
 from .expected_stats import ExpectedStatsCalculator
 from .future_projections import FutureProjectionAgeCurve
 from .validation import AgeCurveValidator
-from .elite_adjustment import ElitePlayerAdjuster
+from .constraint_optimizer import ConstraintOptimizer
+from .pipeline_orchestrator import PipelineOrchestrator
+from .data_integration import DataIntegrator
+import sys
+import os
+# Add the project root to the path for importing common_modules
+current_dir = os.path.dirname(__file__)
+project_root = os.path.dirname(current_dir)
+if project_root not in sys.path:
+    sys.path.append(project_root)
+
+from common_modules.elite_adjustment import ElitePlayerAdjuster
 # from .positional_adjustments import PositionalAdjustmentCalculator  # Not needed - adjustments already in WAR/WARP
 DATA_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\MLB Player Data"
 
@@ -63,6 +74,9 @@ class System2Pipeline:
         self.projection_model = None  # Primary model for backward compatibility
         self.validator = AgeCurveValidator()
         self.elite_adjuster = ElitePlayerAdjuster()  # OPTION C: Elite player adjustment
+        self.constraint_optimizer = None  # Will be initialized after models are trained
+        self.orchestrator = PipelineOrchestrator(system_pipeline=self)  # Workflow orchestration
+        self.data_integrator = DataIntegrator(system_pipeline=self)  # Data loading and integration
         # self.position_calculator = PositionalAdjustmentCalculator()  # Not needed - adjustments already in WAR/WARP
 
         # Data storage
@@ -85,56 +99,8 @@ class System2Pipeline:
         Returns:
             Combined dataset with all player data
         """
-        if years is None:
-            years = list(range(2016, 2024))
-
-        print("SYSTEM 2: Loading complete dataset...")
-        print("=" * 50)
-
-        all_data = []
-
-        # Load data using enhanced_data_loading patterns for each player type
-        for player_type in player_types:
-            # Load FanGraphs data (WAR)
-            fg_data = self._load_fangraphs_comprehensive(player_type, years)
-            if not fg_data.empty:
-                fg_data['DataSource'] = 'WAR'
-                # Standardize column names
-                fg_data = self._standardize_fg_columns(fg_data)
-                # Remove any duplicate columns that might have been created
-                fg_data = fg_data.loc[:, ~fg_data.columns.duplicated()]
-                all_data.append(fg_data)
-
-            # Load Baseball Prospectus data (WARP)
-            bp_data = self._load_bp_comprehensive(player_type, years)
-            if not bp_data.empty:
-                bp_data['DataSource'] = 'WARP'
-                # Standardize column names (keep WARP separate from WAR)
-                bp_data = self._standardize_bp_columns(bp_data)
-                # Remove any duplicate columns that might have been created
-                bp_data = bp_data.loc[:, ~bp_data.columns.duplicated()]
-                all_data.append(bp_data)
-
-        if not all_data:
-            raise ValueError("No data could be loaded from any source")
-
-        # Combine all data (keeping separate WAR and WARP records)
-        combined_data = pd.concat(all_data, ignore_index=True)
-
-        # CRITICAL FIX: Merge Age information from BP data to FG data
-        combined_data = self._merge_age_information(combined_data)
-
-        # Add position information from FanGraphs defensive data to both WAR and WARP records
-        combined_data = self._merge_position_information(combined_data, years)
-
-        # Load and integrate expected stats
-        combined_data = self._load_and_merge_expected_stats(combined_data, years)
-
-        print(f"Complete dataset loaded: {len(combined_data)} records")
-        print(f"  Years: {combined_data['Season'].min()}-{combined_data['Season'].max()}")
-        print(f"  Players: {combined_data['mlbid'].nunique()} unique")
-        print(f"  Data sources: {combined_data['DataSource'].value_counts().to_dict()}")
-
+        # DELEGATED TO data_integration.py
+        combined_data = self.data_integrator.load_complete_dataset(years, player_types)
         self.raw_data = combined_data
         return combined_data
 
@@ -610,19 +576,8 @@ class System2Pipeline:
         Returns:
             Dataset with projection features added
         """
-        print("\nPreparing projection features...")
-
-        processed_data = data.copy()
-
-        # Note: Positional adjustments already included in WAR/WARP values, no need to add separately
-
-        # Add regression factor for expected stats blending
-        if 'regression_factor' not in processed_data.columns:
-            print("  Adding default regression factor...")
-            processed_data['regression_factor'] = 1.0
-
-        print(f"Projection features prepared for {len(processed_data)} records")
-
+        # DELEGATED TO data_integration.py
+        processed_data = self.data_integrator.prepare_projection_features(data)
         self.processed_data = processed_data
         return processed_data
 
@@ -636,10 +591,13 @@ class System2Pipeline:
         Returns:
             Training-ready dataset
         """
-        print("\nPreparing training data...")
+        # DELEGATED TO data_integration.py
+        training_data = self.data_integrator.prepare_training_data(data)
+        self.training_data = training_data
+        return training_data
 
-        # Base required columns for all training data
-        base_required_columns = ['mlbid', 'Season', 'Age', 'DataSource']
+        # COMMENTED OUT - Functionality moved to data_integration.py
+        # Original implementation below
 
         # Create TARGET_METRIC column from appropriate source
         data_with_target = data.copy()
@@ -719,7 +677,7 @@ class System2Pipeline:
 
         # Log dropped players if any exist
         if len(incomplete_data) > 0:
-            log_file = "dropped_players_log.txt"
+            log_file = "results/issues/dropped_players_log.txt"
 
             with open(log_file, 'w', encoding='utf-8') as f:
                 f.write(f"\n{'='*60}\n")
@@ -740,7 +698,7 @@ class System2Pipeline:
                     f.write(f"  {season_info}\n")
                     f.write(f"  {missing_info}\n\n")
 
-            print(f"  Dropped {len(incomplete_data)} incomplete records (see dropped_players_log.txt)")
+            print(f"  Dropped {len(incomplete_data)} incomplete records (see results/issues/dropped_players_log.txt)")
 
         return complete_data
 
@@ -754,59 +712,8 @@ class System2Pipeline:
         Returns:
             Model performance metrics
         """
-        print("\nTraining separate confidence-aware WAR and WARP projection models...")
-
-        # Store training data reference for confidence calculations (OPTION B)
-        self.training_data = data
-
-        # Separate data by source
-        war_data = data[data['DataSource'] == 'WAR'].copy()
-        warp_data = data[data['DataSource'] == 'WARP'].copy()
-
-        print(f"  WAR training data: {len(war_data)} records")
-        print(f"  WARP training data: {len(warp_data)} records")
-
-        # Train WAR model with confidence features
-        if len(war_data) > 100:
-            war_data['TARGET_METRIC'] = war_data['WAR']
-            self.war_model = FutureProjectionAgeCurve(
-                max_projection_years=self.max_projection_years,
-                use_dynasty_guru=self.use_dynasty_guru
-            )
-            war_metrics = self.war_model.fit_joint_model(war_data, training_data=data)
-        else:
-            self.war_model = None
-            war_metrics = {'error': 'insufficient_data'}
-
-        # Train WARP model with confidence features
-        if len(warp_data) > 100:
-            warp_data['TARGET_METRIC'] = warp_data['WARP']
-            self.warp_model = FutureProjectionAgeCurve(
-                max_projection_years=self.max_projection_years,
-                use_dynasty_guru=self.use_dynasty_guru
-            )
-            warp_metrics = self.warp_model.fit_joint_model(warp_data, training_data=data)
-        else:
-            self.warp_model = None
-            warp_metrics = {'error': 'insufficient_data'}
-
-        # Set primary model for backward compatibility
-        if len(war_data) >= len(warp_data) and self.war_model:
-            self.projection_model = self.war_model
-        elif self.warp_model:
-            self.projection_model = self.warp_model
-        else:
-            raise ValueError("Unable to train either model")
-
-        combined_metrics = {
-            'war_model': war_metrics,
-            'warp_model': warp_metrics
-        }
-
-        self.model_performance = combined_metrics
-
-        print("Confidence-aware separate model training complete!")
-        return combined_metrics
+        # DELEGATED TO pipeline_orchestrator.py
+        return self.orchestrator.train_projection_model(data)
 
     def validate_model(self, data: pd.DataFrame, n_splits: int = 5) -> Dict[str, Union[float, Dict]]:
         """
@@ -819,40 +726,8 @@ class System2Pipeline:
         Returns:
             Comprehensive validation results
         """
-        print(f"\nValidating both models with {n_splits}-fold temporal cross-validation...")
-
-        validation_results = {}
-
-        # Separate data by source for validation
-        war_data = data[data['DataSource'] == 'WAR'].copy()
-        warp_data = data[data['DataSource'] == 'WARP'].copy()
-
-        # Validate WAR model if it exists
-        if hasattr(self, 'war_model') and self.war_model is not None and len(war_data) > 100:
-            print("Validating WAR model...")
-            war_data['TARGET_METRIC'] = war_data['WAR']
-            war_validation = self.validator.validate_joint_model(self.war_model, war_data, n_splits)
-            validation_results['war_model_validation'] = war_validation
-
-        # Validate WARP model if it exists
-        if hasattr(self, 'warp_model') and self.warp_model is not None and len(warp_data) > 100:
-            print("Validating WARP model...")
-            warp_data['TARGET_METRIC'] = warp_data['WARP']
-            warp_validation = self.validator.validate_joint_model(self.warp_model, warp_data, n_splits)
-            validation_results['warp_model_validation'] = warp_validation
-
-        # For backward compatibility, also include primary model validation
-        if hasattr(self, 'projection_model') and self.projection_model is not None:
-            validation_results['n_folds'] = n_splits
-
-            # Set primary validation results based on which model exists
-            if 'war_model_validation' in validation_results:
-                validation_results.update(validation_results['war_model_validation'])
-            elif 'warp_model_validation' in validation_results:
-                validation_results.update(validation_results['warp_model_validation'])
-
-        print("Model validation complete!")
-        return validation_results
+        # DELEGATED TO pipeline_orchestrator.py
+        return self.orchestrator.validate_model(data, n_splits)
 
     def generate_player_projections(self,
                                   player_id: str,
@@ -980,18 +855,12 @@ class System2Pipeline:
         Returns:
             DataFrame with projections for all eligible players
         """
-        if not (self.war_model or self.warp_model):
-            raise ValueError("Models must be trained before generating projections")
+        # DELEGATED TO pipeline_orchestrator.py
+        return self.orchestrator.batch_generate_projections(target_season, years_ahead, min_career_length)
 
-        print(f"\nGenerating {years_ahead}-year projections from {target_season}...")
-
-        projection_results = []
-
-        # Use training_data instead of processed_data to ensure data quality
-        # This ensures we only project for players with complete, validated data
-        target_players = self.training_data[
-            self.training_data['Season'] == target_season
-        ]['mlbid'].unique()
+        # COMMENTED OUT - Functionality moved to pipeline_orchestrator.py
+        # [ORIGINAL IMPLEMENTATION MOVED TO pipeline_orchestrator.py]
+        # All batch generation logic has been moved to pipeline_orchestrator.py
 
         for player_id in target_players:
             try:
@@ -1079,8 +948,10 @@ class System2Pipeline:
             original_war_total = projections_df['projected_WAR_year_1'].sum()
             original_warp_total = projections_df['projected_WARP_year_1'].sum()
 
-            # Apply constraint to both WAR and WARP projections
-            projections_df = self.apply_zero_sum_war_constraint(projections_df)
+            # Apply constraint to both WAR and WARP projections using constraint optimizer
+            projections_df = self.constraint_optimizer.apply_zero_sum_war_constraint(
+                projections_df, training_data=self.training_data
+            )
 
             # Recalculate totals
             adjusted_war_total = projections_df['projected_WAR_year_1'].sum()
@@ -1105,7 +976,8 @@ class System2Pipeline:
         Returns:
             DataFrame with comprehensive injury-adjusted projections
         """
-        if not hasattr(self.projector, 'apply_tommy_john_recovery'):
+        # Check if projection models are available for injury recovery
+        if not (hasattr(self, 'war_model') and self.war_model and hasattr(self.war_model, 'apply_tommy_john_recovery')):
             print("    Tommy John recovery model not available - skipping injury adjustments")
             return projections_df
 
@@ -1113,7 +985,7 @@ class System2Pipeline:
         adjusted_df = self._apply_tommy_john_adjustments(projections_df, target_season)
 
         # Apply comprehensive injury recovery (surgical injuries)
-        if hasattr(self.projector, 'apply_comprehensive_injury_recovery') and self.injury_data is not None:
+        if hasattr(self.war_model, 'apply_comprehensive_injury_recovery') and self.injury_data is not None:
             print("    Applying comprehensive surgical injury recovery modeling...")
 
             # Filter injury data for relevant timeframe (within 3 years of target season)
@@ -1122,7 +994,7 @@ class System2Pipeline:
             ].copy()
 
             if len(recent_injuries) > 0:
-                adjusted_df = self.projector.apply_comprehensive_injury_recovery(
+                adjusted_df = self.war_model.apply_comprehensive_injury_recovery(
                     adjusted_df, recent_injuries
                 )
             else:
@@ -1131,7 +1003,7 @@ class System2Pipeline:
             print("    Comprehensive surgical injury recovery model not available or no injury data")
 
         # Apply general injury recovery (non-surgical injuries)
-        if hasattr(self.projector, 'apply_general_injury_recovery') and self.injury_data is not None:
+        if hasattr(self.war_model, 'apply_general_injury_recovery') and self.injury_data is not None:
             print("    Applying general injury recovery modeling...")
 
             # Filter injury data for relevant timeframe (within 2 years for non-surgical)
@@ -1140,7 +1012,7 @@ class System2Pipeline:
             ].copy()
 
             if len(recent_general_injuries) > 0:
-                adjusted_df = self.projector.apply_general_injury_recovery(
+                adjusted_df = self.war_model.apply_general_injury_recovery(
                     adjusted_df, recent_general_injuries
                 )
             else:
@@ -1175,11 +1047,11 @@ class System2Pipeline:
 
             # Check if player has Tommy John surgery in injury data
             player_injuries = self.injury_data[
-                self.injury_data['mlbamid'] == player_id
+                (self.injury_data['mlbid'] == player_id) | (self.injury_data['MLBAMID'] == player_id)
             ]
 
             tommy_john_injuries = player_injuries[
-                player_injuries['injury_type'] == 'Tommy John Surgery'
+                player_injuries['injury_type'] == 'tommy_john'
             ]
 
             if len(tommy_john_injuries) > 0:
@@ -1204,7 +1076,7 @@ class System2Pipeline:
                             if war_col in adjusted_df.columns:
                                 original_war = adjusted_df.loc[idx, war_col]
                                 if not pd.isna(original_war):
-                                    recovery_factor = self.projector.apply_tommy_john_recovery(
+                                    recovery_factor = self.war_model.apply_tommy_john_recovery(
                                         player_age, player_position, years_since_injury + year_num - 1
                                     )
                                     adjusted_df.loc[idx, war_col] = original_war * recovery_factor
@@ -1212,7 +1084,7 @@ class System2Pipeline:
                             if warp_col in adjusted_df.columns:
                                 original_warp = adjusted_df.loc[idx, warp_col]
                                 if not pd.isna(original_warp):
-                                    recovery_factor = self.projector.apply_tommy_john_recovery(
+                                    recovery_factor = self.war_model.apply_tommy_john_recovery(
                                         player_age, player_position, years_since_injury + year_num - 1
                                     )
                                     adjusted_df.loc[idx, warp_col] = original_warp * recovery_factor
@@ -1816,196 +1688,31 @@ class System2Pipeline:
 
         return results
 
-    def apply_zero_sum_war_constraint(self, projections_df: pd.DataFrame,
-                                    target_total: float = 1000.0,
-                                    hitter_pitcher_split: tuple = (570, 430)) -> pd.DataFrame:
-        """
-        Apply zero-sum WAR constraint using confidence-weighted optimization.
+    # COMMENTED OUT - Constraint optimization functionality moved to constraint_optimizer.py module
+    # def apply_zero_sum_war_constraint(self, projections_df: pd.DataFrame,
+    #                                 target_total: float = 1000.0,
+    #                                 hitter_pitcher_split: tuple = (570, 430)) -> pd.DataFrame:
+    #     """
+    #     Apply zero-sum WAR constraint using confidence-weighted optimization.
+    #     [MOVED TO constraint_optimizer.py]
+    #     """
+    #     pass
 
-        Optimization Problem:
-        Minimize: Σ(confidence_i × (original_i - adjusted_i)²)
-        Subject to:
-            - Σ(adjusted_i) = target_total
-            - Σ(hitter_adjusted) = hitter_pitcher_split[0]
-            - Σ(pitcher_adjusted) = hitter_pitcher_split[1]
-            - adjusted_i >= 0 for all players
-            - 0.5 * original_i <= adjusted_i <= 1.5 * original_i (reasonable bounds)
+    # def _optimize_group_projections(self, original_projections: np.ndarray,
+    #                               confidence_scores: List[float],
+    #                               target_total: float) -> np.ndarray:
+    #     """
+    #     Optimize projections for a group (hitters or pitchers) with constraints.
+    #     [MOVED TO constraint_optimizer.py]
+    #     """
+    #     pass
 
-        Args:
-            projections_df: DataFrame with individual projections
-            target_total: Total league WAR (default 1000)
-            hitter_pitcher_split: (hitter_war, pitcher_war) allocation
-
-        Returns:
-            DataFrame with constraint-adjusted projections
-        """
-        print("Applying zero-sum WAR constraint optimization...")
-
-        # Separate hitters and pitchers
-        hitters = projections_df[projections_df['Position'] != 'P'].copy()
-        pitchers = projections_df[projections_df['Position'] == 'P'].copy()
-
-        print(f"  Hitters: {len(hitters)} players")
-        print(f"  Pitchers: {len(pitchers)} players")
-
-        # Calculate confidence scores for all players
-        hitter_confidences = []
-        pitcher_confidences = []
-
-        for _, row in hitters.iterrows():
-            confidence = self.war_model.calculate_player_confidence_score(
-                row['mlbid'], self.training_data, row['Age'], row['Position']
-            )
-            hitter_confidences.append(confidence)
-
-        for _, row in pitchers.iterrows():
-            confidence = self.warp_model.calculate_player_confidence_score(
-                row['mlbid'], self.training_data, row['Age'], row['Position']
-            )
-            pitcher_confidences.append(confidence)
-
-        # Apply separate optimization for hitters and pitchers
-        if len(hitters) > 0:
-            adjusted_hitters = self._optimize_group_projections(
-                hitters['projected_WAR_year_1'].values,
-                hitter_confidences,
-                target_total=hitter_pitcher_split[0]
-            )
-            hitters = hitters.copy()
-            hitters['projected_WAR_year_1'] = adjusted_hitters
-
-        if len(pitchers) > 0:
-            adjusted_pitchers = self._optimize_group_projections(
-                pitchers['projected_WAR_year_1'].values,
-                pitcher_confidences,
-                target_total=hitter_pitcher_split[1]
-            )
-            pitchers = pitchers.copy()
-            pitchers['projected_WAR_year_1'] = adjusted_pitchers
-
-        # Recombine and return
-        result_df = pd.concat([hitters, pitchers], ignore_index=True) if len(hitters) > 0 and len(pitchers) > 0 else (hitters if len(hitters) > 0 else pitchers)
-
-        # Log adjustment summary
-        self._log_constraint_adjustments(projections_df, result_df)
-
-        return result_df
-
-    def _optimize_group_projections(self, original_projections: np.ndarray,
-                                  confidence_scores: List[float],
-                                  target_total: float) -> np.ndarray:
-        """
-        Optimize projections for a group (hitters or pitchers) with constraints.
-        """
-        current_total = original_projections.sum()
-
-        # If already close to target, minimal adjustment needed
-        if abs(current_total - target_total) < 25:
-            print(f"    Group already close to target ({current_total:.1f} vs {target_total:.1f}), minimal adjustment")
-            return original_projections
-
-        print(f"    Optimizing group: {current_total:.1f} -> {target_total:.1f}")
-
-        # Define optimization objective
-        def objective_function(adjusted_projections):
-            return sum(
-                conf * (orig - adj)**2
-                for conf, orig, adj in zip(confidence_scores, original_projections, adjusted_projections)
-            )
-
-        # Constraint: sum must equal target
-        constraints = [
-            {
-                'type': 'eq',
-                'fun': lambda x: x.sum() - target_total
-            }
-        ]
-
-        # Bounds: reasonable adjustment limits (handle negative projections)
-        bounds = []
-        for orig in original_projections:
-            if orig >= 0:
-                # Positive projections: 50%-150% of original
-                bounds.append((max(0.0, orig * 0.5), orig * 1.5))
-            else:
-                # Negative projections: allow wider range
-                bounds.append((orig * 1.5, max(0.0, orig * 0.5)))
-
-        # Validate bounds
-        for i, (lower, upper) in enumerate(bounds):
-            if lower > upper:
-                # Fix invalid bounds by ensuring reasonable range
-                orig = original_projections[i]
-                bounds[i] = (min(0.0, orig * 1.5), max(0.5, abs(orig) * 2.0))
-                print(f"    Warning: Fixed invalid bounds for projection {i}: orig={orig:.3f}, bounds=({bounds[i][0]:.3f}, {bounds[i][1]:.3f})")
-
-        # Initial guess: proportional scaling
-        scale_factor = target_total / current_total
-        initial_guess = original_projections * scale_factor
-
-        # Solve optimization
-        result = minimize(
-            objective_function,
-            initial_guess,
-            method='SLSQP',
-            constraints=constraints,
-            bounds=bounds,
-            options={'ftol': 1e-6, 'disp': False}
-        )
-
-        if result.success:
-            print(f"    Optimization successful: final total = {result.x.sum():.1f}")
-            return result.x
-        else:
-            # Fallback to proportional scaling if optimization fails
-            print(f"    Optimization failed, using proportional scaling: {result.message}")
-            return original_projections * scale_factor
-
-    def _log_constraint_adjustments(self, original_df: pd.DataFrame, adjusted_df: pd.DataFrame):
-        """
-        Log the adjustments made by the constraint optimization.
-        """
-        if len(original_df) != len(adjusted_df):
-            print("    Warning: DataFrame length mismatch in adjustment logging")
-            return
-
-        # Calculate adjustment statistics
-        original_total = original_df['projected_WAR_year_1'].sum()
-        adjusted_total = adjusted_df['projected_WAR_year_1'].sum()
-
-        adjustments = adjusted_df['projected_WAR_year_1'].values - original_df['projected_WAR_year_1'].values
-
-        print(f"  Constraint adjustment summary:")
-        print(f"    Original total WAR: {original_total:.1f}")
-        print(f"    Adjusted total WAR: {adjusted_total:.1f}")
-        print(f"    Mean adjustment: {np.mean(adjustments):.3f}")
-        print(f"    Adjustment std: {np.std(adjustments):.3f}")
-        print(f"    Max positive adjustment: {np.max(adjustments):.3f}")
-        print(f"    Max negative adjustment: {np.min(adjustments):.3f}")
-
-        # Show elite player adjustments
-        hitters = original_df[original_df['Position'] != 'P'].copy()
-        if len(hitters) > 0:
-            hitter_original = hitters['projected_WAR_year_1']
-            hitter_indices = hitters.index
-            hitter_adjusted = adjusted_df.loc[hitter_indices, 'projected_WAR_year_1']
-            hitter_adjustments = hitter_adjusted.values - hitter_original.values
-
-            # Find biggest positive and negative adjustments
-            max_positive_idx = np.argmax(hitter_adjustments)
-            max_negative_idx = np.argmin(hitter_adjustments)
-
-            if abs(hitter_adjustments[max_positive_idx]) > 0.1:
-                player_name = hitters.iloc[max_positive_idx]['Name']
-                adjustment = hitter_adjustments[max_positive_idx]
-                original_val = hitter_original.iloc[max_positive_idx]
-                print(f"    Largest positive adjustment: {player_name} ({original_val:.1f} -> {original_val + adjustment:.1f}, +{adjustment:.1f})")
-
-            if abs(hitter_adjustments[max_negative_idx]) > 0.1:
-                player_name = hitters.iloc[max_negative_idx]['Name']
-                adjustment = hitter_adjustments[max_negative_idx]
-                original_val = hitter_original.iloc[max_negative_idx]
-                print(f"    Largest negative adjustment: {player_name} ({original_val:.1f} -> {original_val + adjustment:.1f}, {adjustment:.1f})")
+    # def _log_constraint_adjustments(self, original_df: pd.DataFrame, adjusted_df: pd.DataFrame):
+    #     """
+    #     Log the adjustments made by the constraint optimization.
+    #     [MOVED TO constraint_optimizer.py]
+    #     """
+    #     pass
 
     def _calculate_batch_confidence_scores(self, projections_df: pd.DataFrame) -> Dict[int, float]:
         """

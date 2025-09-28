@@ -179,66 +179,91 @@ python -c "import tensorflow as tf; print('GPU Available:', len(tf.config.list_p
 **4. Launch System:**
 
 ``` bash
-# Start Jupyter notebook
-jupyter notebook sWARm.ipynb
+# Current season analysis
+jupyter notebook sWARm_CS.ipynb
 
-# Or run data parser directly
-python modularized_data_parser.py
+# Future projections analysis
+jupyter notebook sWARm_FutureProjections.ipynb
+
+# Or explore modular components directly
+python -c "from common_modules import ensemble_modeling; print('System ready')"
 ```
 
 ## Project Structure
 
 ```txt
 sWARm/
-├──  sWARm.ipynb                    # Main analysis notebook (Feature Complete v1)
-├──  modularized_data_parser.py     # Core data processing pipeline
+├──  sWARm_CS.ipynb                 # Current season analysis notebook
+├──  sWARm_FutureProjections.ipynb  # Future projections analysis notebook
 ├──  requirements.txt               # Python dependencies
 ├──  README.md                      # Project documentation
 ├──  TODO.md                        # Development roadmap
-├──  PLAN.md                        # Comprehensive development plan
 ├──  LICENSE                        # MIT License
 │
-├──  testing/                       # Testing and diagnostic tools
-│   ├──  README.md                 # Testing documentation
-│   ├──  data_quality/             # Data quality analysis tools
-│   ├──  feature_comparison/       # Feature comparison results
-│   └──  model_validation/         # Model validation utilities
+├──  claude_docs/                   # Claude Code framework documentation
+│   ├──  CLAUDE.md                 # Claude development guidelines
+│   ├──  TESTING.md                # Testing framework for Claude
+│   ├──  ANALYZE.md                # Analysis protocol framework
+│   ├──  MULTIAGENT.md             # Multi-agent coordination protocols
+│   └──  CLEANUP.md                # Cleanup and maintenance procedures
 │
-├──  modules/                       # Legacy modular architecture (deprecated)
-├──  legacy_modules/                # Moved legacy modules (deprecated)
-├──  common_modules/                # Current modular architecture
+├──  models/                        # Model version control and storage
+│   ├──  ensemble_models.pkl       # Current production ensemble models
+│   ├──  README.md                 # Model documentation and versioning
+│   └──  history/                  # Historical model versions
+│       ├──  ensemble_models_10feat_*.pkl    # 10-feature model versions
+│       └──  ensemble_models_normalized_*.pkl # Normalized feature versions
+│
+├──  testing/                       # Comprehensive testing framework
+│   ├──  README.md                 # Testing implementation guide
+│   ├──  data_quality/             # Data validation and quality analysis
+│   ├──  feature_comparison/       # Feature engineering testing and results
+│   ├──  integration/              # End-to-end system integration tests
+│   ├──  model_validation/         # Model performance validation
+│   ├──  performance/              # Performance benchmarking tools
+│   └──  validation/               # Statistical validation and analysis
+│
+├──  common_modules/                # Shared functionality across seasons
+│   ├──  derived_stats.py          # Statistical calculations and feature engineering
 │   ├──  enhanced_features.py      # Enhanced baserunning/defense features
 │   ├──  ensemble_modeling.py      # RandomForest + Keras ensemble models
 │   ├──  historical_feature_preparation.py # Feature preparation pipeline
 │   ├──  positional_adjustments.py # Position-based WAR adjustments
-│   └──  warp_calculator.py        # Real-time WARP calculation
-│
-├──  current_season_modules/        # Current season analysis
-│   ├──  predictive_modeling.py    # Multi-source training pipeline
-│   └──  real_time_data_loader.py  # Current season data loading
-│   ├──  __init__.py               # Package initialization
-│   ├──  animated_analysis_clean.py # Advanced animated visualizations
-│   ├──  baserunning_analytics.py  # Enhanced baserunning metrics
-│   ├──  basic_cleaners.py         # Data cleaning utilities
-│   ├──  bp_derived_stats.py       # Baseball Prospectus statistics
-│   ├──  catcher_framing.py        # Catcher framing metrics
-│   ├──  data_loading.py           # Core data loading functions
-│   ├──  data_validation.py        # Data quality validation
-│   ├──  data_visualization.py     # Interactive plotly visualizations
-│   ├──  defensive_metrics.py      # Advanced defensive statistics
-│   ├──  duplicate_names.py        # Player name conflict resolution
-│   ├──  enhanced_data_loading.py  # Advanced data integration
-│   ├──  fangraphs_integration.py  # FanGraphs API integration
-│   ├──  modeling.py               # ML models & ensemble methods
-│   ├──  name_mapping_caching.py   # Name mapping optimization
-│   ├──  name_mapping_optimization.py # Advanced name matching
 │   ├──  park_factors.py           # Ballpark adjustment factors
-│   ├──  stadium_operations.py     # Stadium-specific operations
-│   ├──  temporal_modeling.py      # Time-series prediction
-│   ├──  test_modules.py          # Module testing framework
+│   ├──  pitcher_workload_calculator.py # Pitcher workload analytics
+│   ├──  scenario_projections.py   # Scenario-based projections
+│   ├──  elite_adjustment.py       # Elite player performance adjustments
+│   ├──  confidence_scorer.py      # Prediction confidence scoring
+│   └──  game_progress_calculator.py # Game situation calculations
+│
+├──  current_season_modules/        # Current season analysis and real-time data
+│   ├──  predictive_modeling.py    # Multi-source training pipeline
+│   ├──  real_time_data_loader.py  # Current season data loading
+│   ├──  current_season_visualization.py # Season-specific visualizations
 │   ├──  two_way_players.py        # Two-way player handling
-│   ├──  war_processing.py         # WAR metric processing
-│   └──  warp_processing.py        # WARP metric processing
+│   ├──  filter_legitimate_pitchers.py # Pitcher classification
+│   ├──  advanced_pitcher_features_analysis.py # Advanced pitcher metrics
+│   ├──  injury_recovery_calculator.py # Injury impact analysis
+│   └──  participation_rate_calculator.py # Playing time analytics
+│
+├──  future_season_modules/         # Future performance projections
+│   ├──  expected_stats.py         # Expected statistics calculations
+│   ├──  future_projections.py     # Multi-year projection modeling
+│   ├──  integration.py            # Future season data integration
+│   ├──  validation.py             # Projection validation and testing
+│   ├──  data_loader.py            # Future season data pipeline
+│   ├──  constraint_optimizer.py   # Projection constraint optimization
+│   ├──  pipeline_orchestrator.py  # Future projection orchestration
+│   ├──  data_integration.py       # Multi-source data integration
+│   ├──  injury_impact_analyzer.py # Injury impact on future performance
+│   ├──  player_profile_classifier.py # Player type classification
+│   ├──  player_role_validator.py  # Player role validation
+│   └──  two_way_player_model.py   # Two-way player projections
+│
+├──  legacy_modules/                # Moved legacy modules (reference only)
+│   ├──  modeling.py               # Legacy ML models
+│   ├──  name_mapping_*.py         # Legacy name matching
+│   └──  temp_*.py                 # Temporary legacy files
 │
 ├──  cache/                        # Preprocessed data cache (~195MB)
 │   ├──  comprehensive_fangraphs_data.json      # FanGraphs integration
@@ -250,14 +275,19 @@ sWARm/
 │   └──  yearly_warp_pitcher_cleaned_v2.json    # Clean pitcher WARP
 │
 ├──  MLB Player Data/              # Raw baseball datasets (~183MB)
-│   └──  awards/                   # Player awards and recognition
+│   ├──  FanGraphs_Data/           # FanGraphs statistical data
+│   ├──  BP_Data/                  # Baseball Prospectus data
+│   ├──  Statcast_Data/            # MLB Statcast data
+│   └──  Original_Data/            # Original source data files
 │
 ├──  old/                          # Legacy/deprecated files
 │   ├──  cleanedCode_orig.ipynb    # Original monolithic notebook
 │   ├──  cleanedDataParser_orig.py # Original data parser
 │   └──  main_loader_visualizer.ipynb # Legacy visualization
 │
-└──  test_scope_fix.py             # Testing utilities
+└──  research_notebooks/           # Research and experimental analysis
+    ├──  sWARm_AgeCurve.ipynb      # Age curve analysis
+    └──  sWARm_CS_Historical.ipynb # Historical current season analysis
 ```
 
 ### **Key Architecture Features**
@@ -331,25 +361,34 @@ Modeling & Analysis:
 
 ### **Quick Start**
 
-**1. Launch the Complete System:**
+**1. Current Season Analysis:**
 
 ``` bash
-jupyter notebook sWARm.ipynb
+jupyter notebook sWARm_CS.ipynb
 ```
 
-The main notebook contains a feature-complete analysis pipeline with cache control and comprehensive modeling.
+Complete current season analysis with real-time data integration and advanced ensemble modeling.
 
-**2. Modular Development:**
+**2. Future Projections:**
+
+``` bash
+jupyter notebook sWARm_FutureProjections.ipynb
+```
+
+Multi-year projection modeling with expected statistics integration and aging curves.
+
+**3. Modular Development:**
 
 ```python
 # Import core functionality
-from modularized_data_parser import *
-from modules.modeling import run_comprehensive_modeling
-from modules.data_visualization import plot_consolidated_model_comparison
+from common_modules.ensemble_modeling import EnsembleWARPredictor
+from current_season_modules.predictive_modeling import prepare_data_for_kfold
+from future_season_modules.expected_stats import ExpectedStatsCalculator
 
 # Run specific components
-results = run_comprehensive_analysis()
-model_results = run_comprehensive_modeling()
+predictor = EnsembleWARPredictor()
+data = prepare_data_for_kfold()
+expected_calc = ExpectedStatsCalculator()
 ```
 
 ### **System Capabilities**
@@ -397,17 +436,20 @@ model_results = run_comprehensive_modeling()
 
 sWARm employs a **focused, curated approach** to feature engineering, utilizing 7 carefully selected features for both hitters and pitchers rather than a kitchen-sink methodology. This design prioritizes **interpretability, statistical significance, and predictive power** over feature quantity.
 
-**Hitter Features (7 Core Metrics):**
+**Hitter Features (Enhanced Analytics):**
 
 - **Plate Discipline**: K% (strikeout rate), BB% (walk rate)
 - **Offensive Production**: AVG (batting average), OBP (on-base percentage), SLG (slugging percentage)
-- **Enhanced Analytics**: Enhanced_Baserunning, Enhanced_Defense
+- **Enhanced Analytics**: Enhanced_Baserunning, Enhanced_Defense, plate appearances (PA)
+- **Statcast Integration**: Exit velocity, launch angle, contact quality metrics
 
-**Pitcher Features (6 Core Metrics):**
+**Pitcher Features (Advanced Metrics):**
 
 - **Workload & Control**: IP (innings pitched), BB% (walk rate), K% (strikeout rate)
-- **Run Prevention**: ERA (earned run average), HR% (home run rate)
-- **Enhanced Analytics**: Enhanced_Defense
+- **Run Prevention**: ERA (earned run average), LOB% (left on base percentage)
+- **Contact Quality**: Hard%, Med%, Soft% contact rates, Contact Quality Index
+- **Advanced Analytics**: Damage control ratio, opportunity success, HBP%, WP
+- **Statcast Features**: Statcast Launch Quality Index
 
 ### **Data Quality Innovations**
 
@@ -927,10 +969,21 @@ For complete license terms, see [LICENSE](LICENSE) file.
 
 ## Version History
 
-#### **v2.1.0** (September 2025) - *Feature Complete v1* <!-- markdownlint-disable MD001 -->
+#### **v3.0.0** (September 2025) - *Major Architecture Overhaul & Advanced Analytics* <!-- markdownlint-disable MD001 -->
+
+- **BREAKING**: Complete repository restructure and modular architecture redesign
+- **Architecture**: New modular system with common_modules/, current_season_modules/, future_season_modules/
+- **Features**: Massive feature expansion - contact quality metrics, Statcast integration, percentage standardization, LOB%, damage control ratio, elite adjustments
+- **Notebooks**: Split into specialized sWARm_CS.ipynb and sWARm_FutureProjections.ipynb
+- **Testing**: Comprehensive testing framework with organized validation, integration, and performance testing
+- **Models**: Complete model version control system with production and historical storage
+- **Documentation**: Full documentation overhaul including Claude Code framework
+- **Data Pipeline**: Enhanced multi-source integration with advanced feature engineering
+
+#### **v2.1.0** (September 2025) - *Feature Complete v1*
 
 - **Major**: Comprehensive planning and documentation overhaul
-- **Features**: Added LICENSE, comprehensive PLAN.md, feature-complete sWARm.ipynb
+- **Features**: Added LICENSE, comprehensive PLAN.md, feature-complete analysis notebooks
 - **Status**: All planned features implemented and working
 
 #### **v2.0.3** (September 2025) - *Data Quality Fixes*

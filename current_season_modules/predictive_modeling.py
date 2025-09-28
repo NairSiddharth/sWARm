@@ -307,7 +307,7 @@ def prepare_data_for_kfold():
 
     # Import data loading functions - USING CORRECT MODULE PATHS
     sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from common_modules.bp_derived_stats import load_fixed_bp_data
+    from common_modules.derived_stats import load_fixed_bp_data
     from common_modules.enhanced_features import get_enhanced_features
     from common_modules.positional_adjustments import PositionalAdjustmentCalculator
 
@@ -422,6 +422,46 @@ def prepare_data_for_kfold():
             else:
                 df_enhanced['Positional_WAR'] = 0.0
 
+            # Add enhanced pitcher features for 11-feature expansion
+            if player_type == 'pitcher':
+                # Load percentage-based pitcher features for consistent scaling
+                from common_modules.derived_stats import load_percentage_pitcher_features
+
+                # Load percentage-based features from all available years (2016-2024)
+                data_dir = r"C:\Users\nairs\Documents\GithubProjects\oWAR\MLB Player Data\FanGraphs_Data\pitchers"
+                years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+                percentage_features = load_percentage_pitcher_features(data_dir, years)
+
+                # Initialize all pitcher feature columns with percentage scaling
+                pitcher_feature_columns = ['BB%', 'K%', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'WP']
+                for col in pitcher_feature_columns:
+                    df_enhanced[col] = 0.0
+
+                # Map percentage-based pitcher features by player ID
+                from common_modules.derived_stats import get_player_percentage_features
+                for idx, row in df_enhanced.iterrows():
+                    player_id = row.get('MLBAMID', row.get('mlbid', ''))
+                    if player_id:
+                        try:
+                            player_features = get_player_percentage_features(player_id, percentage_features)
+                            # Map all percentage-based features
+                            for feature_name, feature_value in player_features.items():
+                                if feature_name in df_enhanced.columns:
+                                    df_enhanced.at[idx, feature_name] = feature_value
+                        except Exception as e:
+                            # Use defaults if mapping fails
+                            continue
+            else:
+                # Initialize pitcher features as 0 for hitters (not applicable)
+                pitcher_feature_columns = ['BB%', 'K%', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'WP']
+                for col in pitcher_feature_columns:
+                    df_enhanced[col] = 0.0
+
+            # Enhanced_Defense is not applicable to pitchers - only to hitters
+            if player_type != 'pitcher':
+                # Enhanced_Defense already set above for hitters
+                pass
+
             return df_enhanced
 
         warp_enhanced = add_enhanced_features(warp_matched, 'warp')
@@ -438,11 +478,17 @@ def prepare_data_for_kfold():
             warp_features = ['K%', 'BB%', 'AVG', 'OBP', 'SLG', 'PA', 'Positional_WAR', 'GDP_rate', 'Enhanced_Baserunning', 'Enhanced_Defense']
             war_features = ['K%', 'BB%', 'AVG', 'OBP', 'SLG', 'PA', 'Positional_WAR', 'GDP_rate', 'Enhanced_Baserunning', 'Enhanced_Defense']
         else:  # pitcher
-            # ENHANCED PITCHER FEATURES (6 features): Volume scaling + enhanced defense
-            # Core: IP, BB%, K%, HR%, ERA (5 features)
-            # Enhanced: Defense only (1 feature) - NO baserunning for pitchers
-            warp_features = ['IP', 'BB%', 'K%', 'ERA', 'HR%', 'Enhanced_Defense']
-            war_features = ['IP', 'BB/9', 'K/9', 'ERA', 'HR/9', 'Enhanced_Defense']
+            # 11-FEATURE PITCHER EXPANSION: Contact quality + role-neutral opportunity + command precision
+            # Core: IP, BB%, K%, ERA (4 features)
+            # Enhanced: damage_control_ratio (1 feature) - LOB%/(HR/9 + 0.5)
+            # Opportunity: Opportunity_Success (1 feature) - (QS + SV + HLD - BS) / G for role-neutral evaluation
+            # Contact Quality: Contact_Quality_Index (1 composite feature) - replaces Hard%, Med%, Soft%
+            # Command: HBP, WP (2 features) - command precision measures
+            # Statcast: Statcast_Launch_Quality_Index (1 feature) - launch angle control from empirical analysis
+            # Note: Replaced SV_efficiency with Opportunity_Success to eliminate systematic starter bias
+            # Updated to use consistent percentage scaling for both WAR and WARP
+            warp_features = ['IP', 'BB%', 'K%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'WP', 'Statcast_Launch_Quality_Index']
+            war_features = ['IP', 'BB%', 'K%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'WP', 'Statcast_Launch_Quality_Index']
 
         # Filter to only available columns
         warp_available = warp_enhanced.columns.tolist()

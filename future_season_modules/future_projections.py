@@ -134,6 +134,182 @@ class FutureProjectionAgeCurve:
                 position_decline_rate = position_curve['decline_rate']
                 return max(0.3, base_decline - (years_past_31 * position_decline_rate))
 
+    def _calculate_flexible_age_factor(self, age: float, position: str, war_value: float) -> float:
+        """
+        Flexible aging curve calculation that varies by age, performance, and position.
+
+        Addresses the rigid increase-then-decrease pattern by implementing:
+        - Age-performance matrix with varied trajectories
+        - Position-specific aging modifiers
+        - Elite player stability bonuses
+
+        Args:
+            age: Player's age
+            position: Player's primary position
+            war_value: Current WAR performance level
+
+        Returns:
+            Age factor multiplier (1.0 = peak performance)
+        """
+        # Classify performance tier
+        if war_value >= 6.0:
+            performance_tier = 'elite'
+        elif war_value >= 4.0:
+            performance_tier = 'very_good'
+        elif war_value >= 2.0:
+            performance_tier = 'average'
+        else:
+            performance_tier = 'below_average'
+
+        # Classify age group
+        if age <= 26:
+            age_group = 'young'
+        elif age <= 30:
+            age_group = 'prime'
+        elif age <= 35:
+            age_group = 'veteran'
+        else:
+            age_group = 'old'
+
+        # Age-Performance Matrix (more varied than rigid patterns) - Enhanced for flexibility
+        age_performance_matrix = {
+            'young_elite': {'y1': 0.95, 'y2': 0.99, 'y3': 1.02},        # Peak in year 3
+            'young_very_good': {'y1': 0.90, 'y2': 0.95, 'y3': 0.96},    # Steady improvement
+            'young_average': {'y1': 0.88, 'y2': 0.90, 'y3': 0.88},      # Modest plateau
+            'young_below_average': {'y1': 0.85, 'y2': 0.82, 'y3': 0.78}, # Early decline
+
+            'prime_elite': {'y1': 0.92, 'y2': 0.93, 'y3': 0.95},        # Late peak
+            'prime_very_good': {'y1': 0.88, 'y2': 0.87, 'y3': 0.84},    # Gentle decline
+            'prime_average': {'y1': 0.85, 'y2': 0.83, 'y3': 0.79},      # Moderate decline
+            'prime_below_average': {'y1': 0.80, 'y2': 0.75, 'y3': 0.68}, # Faster decline
+
+            'veteran_elite': {'y1': 0.88, 'y2': 0.85, 'y3': 0.80},      # Maintained but declining
+            'veteran_very_good': {'y1': 0.82, 'y2': 0.78, 'y3': 0.72},  # Accelerated decline
+            'veteran_average': {'y1': 0.78, 'y2': 0.72, 'y3': 0.65},    # Sharp decline
+            'veteran_below_average': {'y1': 0.70, 'y2': 0.62, 'y3': 0.54}, # Steep decline
+
+            'old_elite': {'y1': 0.80, 'y2': 0.77, 'y3': 0.72},          # Slower decline for elite
+            'old_very_good': {'y1': 0.75, 'y2': 0.68, 'y3': 0.58},      # Rapid decline
+            'old_average': {'y1': 0.68, 'y2': 0.58, 'y3': 0.48},        # Sharp decline
+            'old_below_average': {'y1': 0.60, 'y2': 0.50, 'y3': 0.40}   # Retirement curve
+        }
+
+        # Position-specific modifiers
+        position_modifiers = {
+            'C': {'y1': 0.95, 'y2': 0.92, 'y3': 0.88},    # Faster aging
+            'P': {'y1': 0.98, 'y2': 0.95, 'y3': 0.90},    # Injury volatility
+            'SS': {'y1': 0.97, 'y2': 0.95, 'y3': 0.92},   # Defensive demands
+            '2B': {'y1': 0.97, 'y2': 0.95, 'y3': 0.92},   # Similar to SS
+            'CF': {'y1': 0.97, 'y2': 0.95, 'y3': 0.92},   # Athletic demands
+            '3B': {'y1': 0.96, 'y2': 0.94, 'y3': 0.91},   # Moderate aging
+            'RF': {'y1': 0.98, 'y2': 0.96, 'y3': 0.94},   # Stable aging
+            'LF': {'y1': 0.98, 'y2': 0.96, 'y3': 0.94},   # Stable aging
+            '1B': {'y1': 0.96, 'y2': 0.94, 'y3': 0.91},   # Moderate aging
+            'DH': {'y1': 0.98, 'y2': 0.96, 'y3': 0.94}    # Most stable
+        }
+
+        # Get base trajectory
+        trajectory_key = f"{age_group}_{performance_tier}"
+        base_trajectory = age_performance_matrix.get(trajectory_key,
+                                                   age_performance_matrix['prime_average'])
+
+        # Get position modifier
+        position_modifier = position_modifiers.get(position, position_modifiers['CF'])
+
+        # This method returns year 1 factor for now, but stores the trajectory for future use
+        # In practice, this would be called with a projection_year parameter
+        return base_trajectory['y1'] * position_modifier['y1']
+
+    def get_flexible_multi_year_factors(self, age: float, position: str, war_value: float,
+                                      projection_years: int = 3) -> List[float]:
+        """
+        Get flexible aging factors for multiple projection years.
+
+        Args:
+            age: Player's current age
+            position: Player's primary position
+            war_value: Current WAR performance level
+            projection_years: Number of years to project
+
+        Returns:
+            List of aging factors for each projection year
+        """
+        # Classify performance tier
+        if war_value >= 6.0:
+            performance_tier = 'elite'
+        elif war_value >= 4.0:
+            performance_tier = 'very_good'
+        elif war_value >= 2.0:
+            performance_tier = 'average'
+        else:
+            performance_tier = 'below_average'
+
+        # Classify age group
+        if age <= 26:
+            age_group = 'young'
+        elif age <= 30:
+            age_group = 'prime'
+        elif age <= 35:
+            age_group = 'veteran'
+        else:
+            age_group = 'old'
+
+        # Age-Performance Matrix (complete multi-year trajectories) - Enhanced for more flexibility
+        age_performance_matrix = {
+            'young_elite': {'y1': 0.95, 'y2': 0.99, 'y3': 1.02},        # Peak in year 3
+            'young_very_good': {'y1': 0.90, 'y2': 0.95, 'y3': 0.96},    # Steady improvement
+            'young_average': {'y1': 0.88, 'y2': 0.90, 'y3': 0.88},      # Modest plateau
+            'young_below_average': {'y1': 0.85, 'y2': 0.82, 'y3': 0.78}, # Early decline
+
+            'prime_elite': {'y1': 0.92, 'y2': 0.93, 'y3': 0.95},        # Late peak
+            'prime_very_good': {'y1': 0.88, 'y2': 0.87, 'y3': 0.84},    # Gentle decline
+            'prime_average': {'y1': 0.85, 'y2': 0.83, 'y3': 0.79},      # Moderate decline
+            'prime_below_average': {'y1': 0.80, 'y2': 0.75, 'y3': 0.68}, # Faster decline
+
+            'veteran_elite': {'y1': 0.88, 'y2': 0.85, 'y3': 0.80},      # Maintained but declining
+            'veteran_very_good': {'y1': 0.82, 'y2': 0.78, 'y3': 0.72},  # Accelerated decline
+            'veteran_average': {'y1': 0.78, 'y2': 0.72, 'y3': 0.65},    # Sharp decline
+            'veteran_below_average': {'y1': 0.70, 'y2': 0.62, 'y3': 0.54}, # Steep decline
+
+            'old_elite': {'y1': 0.80, 'y2': 0.77, 'y3': 0.72},          # Slower decline for elite
+            'old_very_good': {'y1': 0.75, 'y2': 0.68, 'y3': 0.58},      # Rapid decline
+            'old_average': {'y1': 0.68, 'y2': 0.58, 'y3': 0.48},        # Sharp decline
+            'old_below_average': {'y1': 0.60, 'y2': 0.50, 'y3': 0.40}   # Retirement curve
+        }
+
+        # Position-specific modifiers
+        position_modifiers = {
+            'C': {'y1': 0.95, 'y2': 0.92, 'y3': 0.88},    # Faster aging
+            'P': {'y1': 0.98, 'y2': 0.95, 'y3': 0.90},    # Injury volatility
+            'SS': {'y1': 0.97, 'y2': 0.95, 'y3': 0.92},   # Defensive demands
+            '2B': {'y1': 0.97, 'y2': 0.95, 'y3': 0.92},   # Similar to SS
+            'CF': {'y1': 0.97, 'y2': 0.95, 'y3': 0.92},   # Athletic demands
+            '3B': {'y1': 0.96, 'y2': 0.94, 'y3': 0.91},   # Moderate aging
+            'RF': {'y1': 0.98, 'y2': 0.96, 'y3': 0.94},   # Stable aging
+            'LF': {'y1': 0.98, 'y2': 0.96, 'y3': 0.94},   # Stable aging
+            '1B': {'y1': 0.96, 'y2': 0.94, 'y3': 0.91},   # Moderate aging
+            'DH': {'y1': 0.98, 'y2': 0.96, 'y3': 0.94}    # Most stable
+        }
+
+        # Get base trajectory
+        trajectory_key = f"{age_group}_{performance_tier}"
+        base_trajectory = age_performance_matrix.get(trajectory_key,
+                                                   age_performance_matrix['prime_average'])
+
+        # Get position modifier
+        position_modifier = position_modifiers.get(position, position_modifiers['CF'])
+
+        # Calculate factors for each projection year
+        factors = []
+        for year in range(1, min(projection_years + 1, 4)):  # Max 3 years
+            year_key = f'y{year}'
+            base_factor = base_trajectory.get(year_key, base_trajectory['y3'])  # Fallback to y3
+            position_factor = position_modifier.get(year_key, position_modifier['y3'])
+            combined_factor = base_factor * position_factor
+            factors.append(combined_factor)
+
+        return factors
+
     def create_age_features(self, age: float, position: str, use_dynasty_guru: bool = False) -> List[float]:
         """
         Create age-related features for model learning instead of predetermined coefficients.
@@ -265,25 +441,44 @@ class FutureProjectionAgeCurve:
 
         # Age features (Dynasty Guru enhanced or original)
         age = current_row.get('Age', 27)  # Default to typical age
-        position = current_row.get('Primary_Position', 'OF')
+        position = current_row.get('Position', current_row.get('Primary_Position', 'OF'))
         age_features = self.create_age_features(age, position, self.use_dynasty_guru)
         features.extend(age_features)
 
         # 3-season weighted average for injury robustness (75%, 20%, 5% weights)
         if len(player_history) >= 3:
             recent_3_seasons = player_history['TARGET_METRIC'].tail(3).values
-            # Weighted average: most recent 75%, previous 20%, earliest 5%
-            weights = np.array([0.05, 0.20, 0.75])
-            weighted_performance = np.average(recent_3_seasons, weights=weights)
+            # Check for NaN values in recent seasons
+            if np.any(np.isnan(recent_3_seasons)):
+                recent_3_seasons = recent_3_seasons[~np.isnan(recent_3_seasons)]
+                if len(recent_3_seasons) == 0:
+                    weighted_performance = current_row.get('TARGET_METRIC', current_row.get('WAR', 0))
+                else:
+                    weighted_performance = np.mean(recent_3_seasons)
+            else:
+                # Weighted average: most recent 75%, previous 20%, earliest 5%
+                weights = np.array([0.05, 0.20, 0.75])
+                weighted_performance = np.average(recent_3_seasons, weights=weights)
         elif len(player_history) >= 2:
             recent_2_seasons = player_history['TARGET_METRIC'].tail(2).values
-            # Use 30%/70% weighting for 2 seasons
-            weights = np.array([0.30, 0.70])
-            weighted_performance = np.average(recent_2_seasons, weights=weights)
+            # Check for NaN values
+            if np.any(np.isnan(recent_2_seasons)):
+                recent_2_seasons = recent_2_seasons[~np.isnan(recent_2_seasons)]
+                if len(recent_2_seasons) == 0:
+                    weighted_performance = current_row.get('TARGET_METRIC', current_row.get('WAR', 0))
+                else:
+                    weighted_performance = np.mean(recent_2_seasons)
+            else:
+                # Use 30%/70% weighting for 2 seasons
+                weights = np.array([0.30, 0.70])
+                weighted_performance = np.average(recent_2_seasons, weights=weights)
         else:
             # Single season - use current performance
             weighted_performance = current_row.get('TARGET_METRIC', current_row.get('WAR', 0))
 
+        # Ensure weighted_performance is never NaN
+        if pd.isna(weighted_performance):
+            weighted_performance = 0.0
         features.append(weighted_performance)
 
         # Performance trend (last 2-3 seasons)
@@ -293,11 +488,15 @@ class FutureProjectionAgeCurve:
             recent_metrics = player_history[metric_col].tail(2).values
 
             # Calculate trend with validated data
-            if len(recent_metrics) == 2:
+            if len(recent_metrics) == 2 and not np.any(np.isnan(recent_metrics)):
                 metric_trend = recent_metrics[-1] - recent_metrics[0]
             else:
                 metric_trend = 0.0
         else:
+            metric_trend = 0.0
+
+        # Ensure trend is never NaN
+        if pd.isna(metric_trend):
             metric_trend = 0.0
         features.append(metric_trend)
 
@@ -305,12 +504,14 @@ class FutureProjectionAgeCurve:
         career_length = len(player_history)
         features.append(career_length)
 
-        # Expected stats gap if available
+        # Expected stats gap if available (ensure no NaN)
         expected_gap = current_row.get('regression_factor', 1.0)
+        if pd.isna(expected_gap):
+            expected_gap = 1.0
         features.append(expected_gap)
 
         # Position-specific age interaction
-        position = current_row.get('Primary_Position', 'OF')
+        position = current_row.get('Position', current_row.get('Primary_Position', 'OF'))
         position_curve = self.position_curves.get(position, self.position_curves['CF'])
         age_vs_peak = age - position_curve['peak']
         features.append(age_vs_peak)
@@ -359,7 +560,10 @@ class FutureProjectionAgeCurve:
 
         # Sanity check: no NaN values should remain with validated data
         if np.any(np.isnan(feature_array)):
-            print(f"   Warning: Unexpected NaN values found in features, replacing with defaults")
+            nan_indices = np.where(np.isnan(feature_array))[0]
+            print(f"   Warning: NaN values at indices {nan_indices.tolist()} in features")
+            print(f"   Debug: age={age}, position={position}, weighted_perf={weighted_performance}")
+            print(f"   Debug: feature_array preview: {feature_array[:10]}")
             feature_array = np.nan_to_num(feature_array, nan=0.0, posinf=10.0, neginf=-10.0)
 
         return feature_array
@@ -418,7 +622,7 @@ class FutureProjectionAgeCurve:
                 'event': retired,  # 1 = retired before cutoff, 0 = active in cutoff (censored)
                 'age_at_end': final_season.get('Age', 30),
                 'final_war': final_season.get('TARGET_METRIC', final_season.get('WAR', 0)),
-                'position': final_season.get('Primary_Position', 'OF'),
+                'position': final_season.get('Position', final_season.get('Primary_Position', 'OF')),
                 'career_war': career_war,
                 'peak_war': peak_war,
                 'war_decline': war_decline,
@@ -714,7 +918,7 @@ class FutureProjectionAgeCurve:
             # Create current state representation
             current_state = pd.Series({
                 'Age': current_age,
-                'Primary_Position': position,
+                'Position': position,
                 'TARGET_METRIC': current_performance,  # Use TARGET_METRIC instead of WAR
                 'regression_factor': 1.0,  # Default
                 'mlbid': player_history.iloc[0].get('mlbid') if len(player_history) > 0 else None

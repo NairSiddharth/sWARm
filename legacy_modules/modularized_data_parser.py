@@ -75,7 +75,7 @@ from legacy_modules.data_validation import (
 )
 
 # Comprehensive FanGraphs integration
-from current_season_modules.fangraphs_integration import (
+from legacy_modules.fangraphs_integration import (
     clean_comprehensive_fangraphs_war, prepare_enhanced_feature_sets,
     create_enhanced_war_dataset_for_modeling, calculate_pitcher_context_bonus,
     get_enhanced_pitcher_war_component, predict_future_season_war,

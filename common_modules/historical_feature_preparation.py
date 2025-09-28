@@ -35,6 +35,13 @@ class HistoricalFeaturePreparer:
         print("Loading enhanced features and park factors...")
         self.baserunning_data, self.defense_data = get_enhanced_features()
 
+        # Load enhanced pitcher features (LOB%, GB%, damage_control_ratio)
+        from .derived_stats import load_enhanced_pitcher_features, load_new_pitcher_features
+        self.enhanced_pitcher_features = load_enhanced_pitcher_features()
+
+        # Load new pitcher features for 11-feature expansion
+        self.new_pitcher_features = load_new_pitcher_features()
+
     def prepare_hitter_features(self, first_half_data):
         """
         Prepare hitter features with PA and positional adjustments
@@ -88,9 +95,9 @@ class HistoricalFeaturePreparer:
 
     def prepare_pitcher_features(self, first_half_data):
         """
-        Prepare pitcher features to match historical training exactly
+        Prepare pitcher features with 11-feature expansion
 
-        Historical features: IP, BB%, K%, ERA, HR%, Enhanced_Defense
+        New 11 features: IP, BB%, K%, ERA, damage_control_ratio, SV, Hard%, Med%, Soft%, HBP, WP
 
         Args:
             first_half_data: DataFrame with first half 2025 pitcher data
@@ -139,9 +146,9 @@ class HistoricalFeaturePreparer:
 
     def _calculate_hitter_features(self, player_row):
         """
-        Calculate 10 hitter features including PA, positional adjustments, and GDP rate
+        Calculate 10 hitter features with park factor adjustments
 
-        Features: [K%, BB%, AVG, OBP, SLG, PA, Position_Adjustment, GDP_rate, Enhanced_Baserunning, Enhanced_Defense]
+        Features: [K%, BB%, AVG (park-adjusted), OBP (park-adjusted), SLG (park-adjusted), PA, Position_Adjustment, GDP_rate, Enhanced_Baserunning, Enhanced_Defense]
         """
         try:
             # Basic rate stats - must be present
@@ -162,6 +169,24 @@ class HistoricalFeaturePreparer:
 
             k_pct = so / pa if pa > 0 else 0.0
             bb_pct = bb / pa if pa > 0 else 0.0
+
+            # Apply park factor adjustments to batting stats
+            player_name = player_row.get('Name', player_row.get('player_name', ''))
+            team = player_row.get('Team', player_row.get('team', ''))
+
+            if player_name and team:
+                # Create stats dict for park factor adjustment
+                hitter_stats = {
+                    'AVG': avg,
+                    'OBP': obp,
+                    'SLG': slg
+                }
+
+                # Apply park factors (use 2025 for current season, will fallback to 2024)
+                adjusted_stats = apply_park_factor_adjustments(hitter_stats, player_name, team, 'hitter', year=2025)
+                avg = adjusted_stats.get('AVG', avg)  # Use park-adjusted AVG
+                obp = adjusted_stats.get('OBP', obp)  # Use park-adjusted OBP
+                slg = adjusted_stats.get('SLG', slg)  # Use park-adjusted SLG
 
             # Get enhanced features using player identification
             player_id = player_row.get('mlbid', player_row.get('MLBAID', player_row.get('player_name', '')))
@@ -197,9 +222,9 @@ class HistoricalFeaturePreparer:
 
     def _calculate_pitcher_features(self, player_row):
         """
-        Calculate exact 6 pitcher features from raw stats (NO Enhanced_Baserunning for pitchers)
+        Calculate 11 pitcher features from raw stats with park factor adjustments and new features
 
-        Features: [IP, BB%, K%, ERA, HR%, Enhanced_Defense]
+        Features: [IP, BB%, K%, ERA (park-adjusted), damage_control_ratio, SV, Hard%, Med%, Soft%, HBP, WP]
         """
         try:
             # Core stats - must be present
@@ -209,39 +234,117 @@ class HistoricalFeaturePreparer:
             if ip is None or era is None or ip <= 0:
                 return None
 
-            # Calculate percentage stats
-            bf = self._safe_float(player_row.get('BF'))  # Batters faced
-            so = self._safe_float(player_row.get('SO', 0))
-            bb = self._safe_float(player_row.get('BB', 0))
-            hr = self._safe_float(player_row.get('HR', 0))
+            # Calculate percentage stats - handle both counting stats and rate stats
+            bf = self._safe_float(player_row.get('BF', player_row.get('TBF')))  # Batters faced (try both BF and TBF)
+            so = self._safe_float(player_row.get('SO'))
+            bb = self._safe_float(player_row.get('BB'))
+            hr = self._safe_float(player_row.get('HR'))
 
-            # If BF not available, estimate from IP and other stats
-            if bf is None or bf <= 0:
-                h = self._safe_float(player_row.get('H', 0))
-                bf = (ip * 3) + h + bb  # Rough estimate
+            # Check if we have counting stats (SO, BB, HR, BF/TBF)
+            if bf is not None and bf > 0 and so is not None and bb is not None and hr is not None:
+                # Use counting stats
+                k_pct = so / bf
+                bb_pct = bb / bf
+                hr_pct = hr / bf
+            else:
+                # Try rate stats (K/9, BB/9, HR/9) - convert to percentages
+                k9 = self._safe_float(player_row.get('K/9'))
+                bb9 = self._safe_float(player_row.get('BB/9'))
+                hr9 = self._safe_float(player_row.get('HR/9'))
 
-            if bf <= 0:
-                return None
+                if k9 is not None and bb9 is not None and hr9 is not None:
+                    # Convert rate stats to percentages
+                    # Assume ~3.0 batters per inning (league average)
+                    batters_per_inning = 3.0
+                    k_pct = k9 / (9 * batters_per_inning)  # K per batter faced
+                    bb_pct = bb9 / (9 * batters_per_inning)  # BB per batter faced
+                    hr_pct = hr9 / (9 * batters_per_inning)  # HR per batter faced
+                else:
+                    # No valid stats available
+                    return None
 
-            k_pct = so / bf if bf > 0 else 0.0
-            bb_pct = bb / bf if bf > 0 else 0.0
-            hr_pct = hr / bf if bf > 0 else 0.0
+            # Apply park factor adjustments to ERA and HR%
+            player_name = player_row.get('Name', player_row.get('player_name', ''))
+            team = player_row.get('Team', player_row.get('team', ''))
 
-            # Get enhanced defense using player identification (defense only for pitchers)
-            player_id = player_row.get('mlbid', player_row.get('MLBAID', player_row.get('player_name', '')))
+            if player_name and team:
+                # Create stats dict for park factor adjustment
+                pitcher_stats = {
+                    'ERA': era,
+                    'HR%': hr_pct
+                }
 
-            # Get real enhanced defense from loaded data
-            enhanced_defense = self.defense_data.get(player_id, 0.0)
+                # Apply park factors (use 2025 for current season, will fallback to 2024)
+                adjusted_stats = apply_park_factor_adjustments(pitcher_stats, player_name, team, 'pitcher', year=2025)
+                era = adjusted_stats.get('ERA', era)  # Use park-adjusted ERA
+                hr_pct = adjusted_stats.get('HR%', hr_pct)  # Use park-adjusted HR%
 
-            # If not found by ID and we have a name, try name matching
-            if enhanced_defense == 0.0:
-                player_name = player_row.get('player_name', player_row.get('Name', ''))
-                if player_name and isinstance(player_name, str):
-                    enhanced_features = get_player_enhanced_features(player_name, self.baserunning_data, self.defense_data)
-                    enhanced_defense = enhanced_features['Enhanced_Defense']
+            # Get enhanced pitcher features for damage control ratio
+            player_id = player_row.get('mlbid', player_row.get('MLBAMID', player_row.get('player_name', '')))
 
-            # Return exact 6 features in historical order (NO Enhanced_Baserunning)
-            return [ip, bb_pct, k_pct, era, hr_pct, enhanced_defense]
+            # Calculate damage control ratio from enhanced features or current stats
+            damage_control_ratio = 0.0  # Default value
+
+            # First try to get from historical cache
+            if hasattr(self, 'enhanced_pitcher_features') and self.enhanced_pitcher_features:
+                if player_id in self.enhanced_pitcher_features.get('damage_control_ratio', {}):
+                    damage_control_ratio = self.enhanced_pitcher_features['damage_control_ratio'][player_id]
+                elif isinstance(player_name, str) and player_name:
+                    # Try name-based lookup as fallback
+                    for pid, name in self.enhanced_pitcher_features.get('player_names', {}).items():
+                        if isinstance(name, str) and name.lower() == player_name.lower():
+                            damage_control_ratio = self.enhanced_pitcher_features.get('damage_control_ratio', {}).get(pid, 0.0)
+                            break
+
+            # If not found in historical cache, calculate from current season stats
+            if damage_control_ratio == 0.0:
+                lob_pct = self._safe_float(player_row.get('LOB%'))
+                hr9_current = self._safe_float(player_row.get('HR/9'))
+
+                if lob_pct is not None and hr9_current is not None:
+                    # Convert LOB% from decimal (0.81) to percentage (81) if needed
+                    if lob_pct <= 1.0:
+                        lob_pct = lob_pct * 100
+
+                    # Calculate damage control ratio: LOB% / (HR/9 + 0.5)
+                    damage_control_ratio = lob_pct / (hr9_current + 0.5)
+
+            # Get new features for 11-feature expansion
+            player_id = self._safe_float(player_row.get('MLBAMID', player_row.get('mlbid')))
+
+            # Load new features from player_id if available
+            sv = 0.0
+            hard_pct = 0.0
+            med_pct = 0.0
+            soft_pct = 0.0
+            hbp = 0.0
+            wp = 0.0
+
+            if player_id is not None:
+                try:
+                    player_id = int(player_id)
+
+                    # Get new features
+                    sv = self.new_pitcher_features['SV'].get(player_id, 0.0)
+                    hard_pct = self.new_pitcher_features['Hard%'].get(player_id, 0.0)
+                    med_pct = self.new_pitcher_features['Med%'].get(player_id, 0.0)
+                    soft_pct = self.new_pitcher_features['Soft%'].get(player_id, 0.0)
+                    hbp = self.new_pitcher_features['HBP'].get(player_id, 0.0)
+                    wp = self.new_pitcher_features['WP'].get(player_id, 0.0)
+                except (ValueError, TypeError):
+                    pass
+
+            # If new features not found in historical data, try to get from current row
+            if sv == 0.0:
+                sv = self._safe_float(player_row.get('SV', 0.0)) or 0.0
+            if hbp == 0.0:
+                hbp = self._safe_float(player_row.get('HBP', 0.0)) or 0.0
+            if wp == 0.0:
+                wp = self._safe_float(player_row.get('WP', 0.0)) or 0.0
+
+            # Return 11 features: [IP, BB%, K%, ERA, damage_control_ratio, SV, Hard%, Med%, Soft%, HBP, WP]
+            # Note: Removed HR% as it's redundant with damage_control_ratio per user feedback
+            return [ip, bb_pct, k_pct, era, damage_control_ratio, sv, hard_pct, med_pct, soft_pct, hbp, wp]
 
         except Exception:
             return None
@@ -333,10 +436,10 @@ def validate_feature_compatibility():
     Validate that prepared features match historical training dimensions
 
     Expected:
-    - Hitters: 7 features
+    - Hitters: 10 features
     - Pitchers: 6 features
     """
     print("FEATURE COMPATIBILITY VALIDATION:")
-    print("Expected - Hitters: 7 features [K%, BB%, AVG, OBP, SLG, Enhanced_Baserunning, Enhanced_Defense]")
-    print("Expected - Pitchers: 6 features [IP, BB%, K%, ERA, HR%, Enhanced_Defense]")
+    print("Expected - Hitters: 10 features [K%, BB%, AVG, OBP, SLG, PA, Position_Adjustment, GDP_rate, Enhanced_Baserunning, Enhanced_Defense]")
+    print("Expected - Pitchers: 6 features [IP, BB%, K%, ERA, HR%, damage_control_ratio]")
     return True

@@ -68,11 +68,14 @@ class AgeCurveValidator:
         seasons = sorted(data[season_col].unique())
         total_seasons = len(seasons)
 
-        if total_seasons < self.min_train_years + 1:
+        # Adjust min_train_years if we have limited data
+        effective_min_train = min(self.min_train_years, max(1, total_seasons - 1))
+
+        if total_seasons < effective_min_train + 1:
             raise ValueError(f"Insufficient seasons ({total_seasons}) for validation")
 
         # Calculate split points
-        min_train_seasons = self.min_train_years
+        min_train_seasons = effective_min_train
         validation_seasons = max(1, (total_seasons - min_train_seasons) // n_splits)
 
         print(f"Creating {n_splits} temporal splits:")
@@ -100,16 +103,17 @@ class AgeCurveValidator:
             train_data = data[data[season_col].isin(train_seasons)].copy()
             val_data = data[data[season_col].isin(val_seasons)].copy()
 
-            print(f"  Fold {fold + 1}: Train {train_seasons[0]}-{train_seasons[-1]} → "
+            print(f"  Fold {fold + 1}: Train {train_seasons[0]}-{train_seasons[-1]} -> "
                   f"Val {val_seasons[0]}-{val_seasons[-1]} "
-                  f"({len(train_data)} → {len(val_data)} records)")
+                  f"({len(train_data)} -> {len(val_data)} records)")
 
             yield train_data, val_data
 
     def validate_longitudinal_component(self,
                                       model,
                                       train_data: pd.DataFrame,
-                                      val_data: pd.DataFrame) -> Dict[str, float]:
+                                      val_data: pd.DataFrame,
+                                      full_dataset: pd.DataFrame = None) -> Dict[str, float]:
         """
         Validate the longitudinal (performance prediction) component.
 
@@ -117,6 +121,7 @@ class AgeCurveValidator:
             model: Fitted longitudinal model
             train_data: Training data
             val_data: Validation data
+            full_dataset: Complete combined dataset for confidence calculation
 
         Returns:
             Dictionary with performance metrics
@@ -139,7 +144,10 @@ class AgeCurveValidator:
                 # to predict their VALIDATION period performance
                 for player_id in val_data['mlbid'].unique():
                     # Get player's complete training history
-                    player_train_history = train_data[train_data['mlbid'] == player_id]
+                    player_train_history = train_data[train_data['mlbid'] == player_id].copy()
+                    # Ensure TARGET_METRIC is set for the model
+                    player_train_history['TARGET_METRIC'] = player_train_history[target_col]
+
                     # Get player's validation period data (what we're trying to predict)
                     player_val_data = val_data[val_data['mlbid'] == player_id].sort_values('Season')
 
@@ -150,14 +158,15 @@ class AgeCurveValidator:
                         if len(baseline_data) > 0:
                             baseline = baseline_data.iloc[0]
 
-                            # Predict the validation years using only training data
+                            # Predict the validation years using training data + full dataset for confidence
                             years_to_predict = len(player_val_data)
                             pred_wars = model.predict_performance_path(
                                 baseline.get('Age', 27),
-                                baseline.get('Primary_Position', 'OF'),
+                                baseline.get('Position', baseline.get('Primary_Position', 'OF')),
                                 baseline.get(target_col, 0),
-                                player_train_history,  # Only use training history
-                                years_to_predict
+                                player_train_history,  # Training history with TARGET_METRIC set
+                                years_to_predict,
+                                full_dataset  # Pass full dataset for confidence calculation
                             )
 
                             # Compare predictions to actual validation performance
@@ -237,14 +246,30 @@ class AgeCurveValidator:
                         if available_features:
                             feature_data = val_survival_df[available_features]
 
-                            # Calculate concordance index using the fitted survival model
-                            c_index = concordance_index(
-                                val_survival_df['duration'],
-                                -model.survival_model.predict_partial_hazard(feature_data),
-                                val_survival_df['event']
+                            # Filter out records with NaN values in features or target
+                            valid_mask = (
+                                feature_data.notna().all(axis=1) &
+                                val_survival_df['duration'].notna() &
+                                val_survival_df['event'].notna()
                             )
-                            metrics['concordance_index'] = c_index
-                            metrics['n_survival_predictions'] = len(val_survival_df)
+
+                            if valid_mask.sum() < 2:
+                                print(f"   Skipping survival validation: insufficient valid records after NaN filtering ({valid_mask.sum()})")
+                                metrics['error'] = f'insufficient_valid_records: {valid_mask.sum()}'
+                            else:
+                                # Use only valid records
+                                clean_features = feature_data[valid_mask]
+                                clean_durations = val_survival_df.loc[valid_mask, 'duration']
+                                clean_events = val_survival_df.loc[valid_mask, 'event']
+
+                                # Calculate concordance index using the fitted survival model
+                                c_index = concordance_index(
+                                    clean_durations,
+                                    -model.survival_model.predict_partial_hazard(clean_features),
+                                    clean_events
+                                )
+                                metrics['concordance_index'] = c_index
+                                metrics['n_survival_predictions'] = len(clean_features)
                             metrics['validation_events'] = total_events
                             metrics['validation_event_rate'] = val_survival_df['event'].mean()
                         else:
@@ -264,14 +289,16 @@ class AgeCurveValidator:
     def validate_joint_model(self,
                            model,
                            data: pd.DataFrame,
-                           n_splits: int = 5) -> Dict[str, Union[float, Dict]]:
+                           n_splits: int = 5,
+                           full_dataset: pd.DataFrame = None) -> Dict[str, Union[float, Dict]]:
         """
         Perform complete validation of the joint longitudinal-survival model.
 
         Args:
             model: Fitted joint model
-            data: Complete dataset
+            data: Model-specific dataset (WAR or WARP)
             n_splits: Number of cross-validation folds
+            full_dataset: Complete combined dataset for confidence calculation
 
         Returns:
             Dictionary with comprehensive validation results
@@ -285,8 +312,9 @@ class AgeCurveValidator:
         for fold, (train_data, val_data) in enumerate(self.survival_time_series_split(data, n_splits)):
             print(f"\nValidating fold {fold + 1}/{n_splits}...")
 
-            # Validate longitudinal component
-            long_metrics = self.validate_longitudinal_component(model, train_data, val_data)
+            # Validate longitudinal component (use full_dataset for confidence calculation)
+            confidence_data = full_dataset if full_dataset is not None else train_data
+            long_metrics = self.validate_longitudinal_component(model, train_data, val_data, confidence_data)
             longitudinal_results.append(long_metrics)
 
             # Validate survival component
