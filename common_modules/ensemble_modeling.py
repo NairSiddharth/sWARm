@@ -162,51 +162,77 @@ class EnsembleWARPredictor:
 
     def _handle_feature_compatibility(self, X, player_type):
         """
-        Handle feature compatibility between old models and new system.
+        Handle feature compatibility between models with different feature sets.
 
-        Old models expect: IP, BB%, K%, ERA, damage_control_ratio, Opportunity_Success, Contact_Quality_Index, HBP, WP
-        New system provides: IP, BB%, K%, ERA, damage_control_ratio, Opportunity_Success, Contact_Quality_Index, HBP%, WP
-
-        Key differences:
-        1. Position 7: HBP (raw count) vs HBP% (percentage)
-        2. Many advanced features may be 0 due to data loading issues
+        Current situation:
+        - Trained models expect: ['IP', 'BB%', 'K%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'WP', 'Statcast_Launch_Quality_Index'] (10 features with WP)
+        - Notebook data provides: ['IP', 'BB%', 'K%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'Statcast_Launch_Quality_Index'] (9 features, missing both K-BB% and WP)
+        - New system expects: ['IP', 'BB%', 'K%', 'K-BB%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'Statcast_Launch_Quality_Index'] (10 features with K-BB%)
 
         Args:
             X: Input features array
             player_type: 'hitter' or 'pitcher'
 
         Returns:
-            Compatible feature array
+            Compatible feature array for trained models
         """
-        if player_type == 'pitcher' and len(X.shape) >= 1 and X.shape[-1] >= 9:
+        if player_type == 'pitcher':
             X_compat = X.copy() if hasattr(X, 'copy') else np.array(X)
 
-            # Ensure we have exactly 9 features
             if X_compat.ndim == 1:
-                X_compat = X_compat[:9]
-                # Convert HBP% back to approximate HBP count for old models
-                # Position 7: HBP% -> HBP (rough approximation)
-                if X_compat[7] > 0:  # If HBP% > 0
-                    # Rough conversion: HBP% * IP * 3 (approximate pitches per inning) / 100
-                    ip = X_compat[0] if X_compat[0] > 0 else 50  # Default to 50 IP if 0
-                    estimated_hbp = (X_compat[7] * ip * 3) / 100
-                    X_compat[7] = max(0, min(estimated_hbp, 10))  # Cap between 0-10 HBP
-                else:
-                    X_compat[7] = 0  # Default HBP count
+                n_features = len(X_compat)
+
+                if n_features == 9:
+                    # Case: Notebook data missing K-BB% and WP
+                    # Input: ['IP', 'BB%', 'K%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'Statcast_Launch_Quality_Index']
+                    # Need: ['IP', 'BB%', 'K%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'WP', 'Statcast_Launch_Quality_Index']
+
+                    # Insert WP (default value) at position 8, push Statcast to position 9
+                    wp_default = 5.0  # Default wild pitches per season
+                    X_extended = np.zeros(10)
+                    X_extended[:8] = X_compat[:8]  # Copy first 8 features
+                    X_extended[8] = wp_default     # Insert WP at position 8
+                    X_extended[9] = X_compat[8]    # Move Statcast to position 9
+                    X_compat = X_extended
+
+                elif n_features == 10:
+                    # Case: Feature vector already has 10 features
+                    # Check if it's new format (with K-BB%) or old format (with WP already)
+                    # Heuristic: In new format, position 3 would be K-BB% (typically -5 to +30)
+                    #           In old format, position 3 would be ERA (typically 2-8)
+                    #           If position 3 < 1.0, it's likely K-BB% (new format)
+                    #           If position 3 > 1.0, it's likely ERA (old format)
+
+                    if X_compat[3] < 1.0:  # Likely K-BB% (new format)
+                        # Convert new format to old format
+                        X_old = np.zeros(10)
+                        X_old[0] = X_compat[0]  # IP
+                        X_old[1] = X_compat[1]  # BB%
+                        X_old[2] = X_compat[2]  # K%
+                        X_old[3] = X_compat[4]  # ERA (skip K-BB%)
+                        X_old[4] = X_compat[5]  # damage_control_ratio
+                        X_old[5] = X_compat[6]  # Opportunity_Success
+                        X_old[6] = X_compat[7]  # Contact_Quality_Index
+                        X_old[7] = X_compat[8]  # HBP%
+                        X_old[8] = 5.0          # WP (default)
+                        X_old[9] = X_compat[9]  # Statcast_Launch_Quality_Index
+                        X_compat = X_old
+                    # else: Already in old format, use as-is
+
+
             else:
-                X_compat = X_compat[:, :9]
-                # Convert HBP% back to approximate HBP count for old models
-                for i in range(X_compat.shape[0]):
-                    if X_compat[i, 7] > 0:  # If HBP% > 0
-                        ip = X_compat[i, 0] if X_compat[i, 0] > 0 else 50
-                        estimated_hbp = (X_compat[i, 7] * ip * 3) / 100
-                        X_compat[i, 7] = max(0, min(estimated_hbp, 10))
-                    else:
-                        X_compat[i, 7] = 0
+                # Handle 2D arrays (batch predictions)
+                n_features = X_compat.shape[1]
+                if n_features == 9:
+                    # Add WP column for batch processing
+                    wp_column = np.full((X_compat.shape[0], 1), 5.0)
+                    X_compat = np.column_stack([X_compat[:, :8], wp_column, X_compat[:, 8:]])
 
-            return X_compat
+        else:
+            # For hitters, return as-is
+            return X
 
-        return X  # Return as-is for hitters or if already compatible
+        return X_compat
 
     def predict_ensemble(self, X, metric_type, player_type):
         """
@@ -429,8 +455,16 @@ def create_ensemble_for_data(hitter_data, pitcher_data, holdout_year=2024):
             else:  # List or array
                 X_train = np.array([data['X'][i] for i in train_indices])
 
-            y_train = np.array([data['y'][i] for i in train_indices])
-            groups_train = np.array([data['years'][i] for i in train_indices])
+            # Handle Series indexing properly
+            if hasattr(data['y'], 'iloc'):  # pandas Series
+                y_train = np.array([data['y'].iloc[i] for i in train_indices])
+            else:  # List or array
+                y_train = np.array([data['y'][i] for i in train_indices])
+
+            if hasattr(data['years'], 'iloc'):  # pandas Series
+                groups_train = np.array([data['years'].iloc[i] for i in train_indices])
+            else:  # List or array
+                groups_train = np.array([data['years'][i] for i in train_indices])
 
             # Train ensemble
             ensemble.train_ensemble(
@@ -476,7 +510,11 @@ def validate_ensemble_overfitting_prevention(hitter_data, pitcher_data, holdout_
                 X_holdout = np.array([data['X'].iloc[i].values for i in holdout_indices])
             else:  # List or array
                 X_holdout = np.array([data['X'][i] for i in holdout_indices])
-            y_holdout = np.array([data['y'][i] for i in holdout_indices])
+            # Handle Series indexing properly
+            if hasattr(data['y'], 'iloc'):  # pandas Series
+                y_holdout = np.array([data['y'].iloc[i] for i in holdout_indices])
+            else:  # List or array
+                y_holdout = np.array([data['y'][i] for i in holdout_indices])
 
             # Generate predictions
             ensemble_predictions = []

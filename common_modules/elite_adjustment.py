@@ -747,3 +747,293 @@ class TwoWayEliteProtection(ElitePlayerAdjuster):
         min_hitter_pa = 200.0    # Meaningful hitting contribution
 
         return pitcher_ip >= min_pitcher_ip and hitter_pa >= min_hitter_pa
+
+
+class RookieEliteProtection(ElitePlayerAdjuster):
+    """
+    Enhanced elite protection for rookie players using MLB official thresholds.
+
+    Provides special pathway for qualifying rookies (per MLB definition):
+    - Pitchers: <50 IP in all previous MLB seasons
+    - Hitters: <130 AB in all previous MLB seasons
+
+    Prevents veteran "career year" false positives while capturing elite rookie talent.
+    """
+
+    def __init__(self, use_enhanced_system: bool = True):
+        """Initialize with base elite adjuster functionality."""
+        super().__init__(use_enhanced_system=use_enhanced_system)
+
+        # MLB official rookie thresholds
+        self.rookie_thresholds = {
+            'pitcher_ip': 50.0,    # MLB rookie threshold for pitchers
+            'hitter_ab': 130.0,    # MLB rookie threshold for hitters
+            'minimum_current_ip': 40.0,   # Minimum IP to avoid tiny samples
+            'minimum_current_ab': 200.0,  # Minimum AB to avoid tiny samples
+            'minimum_war': 2.5     # Minimum WAR to trigger rookie protection
+        }
+
+        # Rookie-specific protection matrix (more conservative than veterans)
+        self.rookie_protection_matrix = {
+            'elite_rookie': {'hitters': 0.30, 'starting_pitchers': 0.25, 'relief_pitchers': 0.35},
+            'good_rookie': {'hitters': 0.45, 'starting_pitchers': 0.40, 'relief_pitchers': 0.50},
+            'average_rookie': {'hitters': 0.70, 'starting_pitchers': 0.65, 'relief_pitchers': 0.75}
+        }
+
+        # Uncertainty factors for small samples
+        self.uncertainty_adjustments = {
+            'sample_size_penalty': 0.15,  # Additional regression for small samples
+            'rookie_ceiling': 6.0,        # Maximum projected WAR for rookies
+            'confidence_discount': 0.9    # Slight confidence discount for inexperience
+        }
+
+    def validate_rookie_status(self, player_data: dict, historical_data: pd.DataFrame = None) -> dict:
+        """
+        Validate rookie status using MLB official thresholds.
+
+        Args:
+            player_data: Current season player data (must include Name, IP/AB, Position)
+            historical_data: Historical player data for previous seasons validation
+
+        Returns:
+            Dict with rookie validation results
+        """
+        player_name = player_data.get('Name', 'Unknown')
+        position = player_data.get('Position', 'OF')
+        current_war = player_data.get('WAR', 0.0)
+
+        # Get current season stats
+        current_ip = player_data.get('IP', 0.0)
+        current_ab = player_data.get('AB', 0.0)
+        current_pa = player_data.get('PA', 0.0)
+
+        # Determine if player is pitcher or hitter
+        is_pitcher = position in ['P', 'SP', 'RP', 'CL'] or current_ip > 0
+
+        # Check minimum thresholds to avoid tiny samples
+        meets_minimum = False
+        if is_pitcher:
+            meets_minimum = current_ip >= self.rookie_thresholds['minimum_current_ip']
+        else:
+            meets_minimum = (current_ab >= self.rookie_thresholds['minimum_current_ab'] or
+                           current_pa >= self.rookie_thresholds['minimum_current_ab'] * 1.5)
+
+        # Check if performance merits rookie protection
+        meets_war_threshold = current_war >= self.rookie_thresholds['minimum_war']
+
+        # Historical validation (simplified for now - can be enhanced with actual data)
+        # In practice, this would query historical_data for previous MLB experience
+        has_previous_experience = False
+        total_previous_volume = 0.0
+
+        if historical_data is not None and not historical_data.empty:
+            # Look for previous seasons of this player
+            previous_seasons = historical_data[
+                (historical_data['Name'] == player_name) &
+                (historical_data['Season'] < player_data.get('Season', 2024))
+            ]
+
+            if not previous_seasons.empty:
+                if is_pitcher:
+                    total_previous_volume = previous_seasons['IP'].sum()
+                    has_previous_experience = total_previous_volume >= self.rookie_thresholds['pitcher_ip']
+                else:
+                    total_previous_volume = previous_seasons['AB'].sum()
+                    has_previous_experience = total_previous_volume >= self.rookie_thresholds['hitter_ab']
+
+        # Rookie qualification logic
+        is_qualifying_rookie = (
+            not has_previous_experience and
+            meets_minimum and
+            meets_war_threshold
+        )
+
+        return {
+            'is_qualifying_rookie': is_qualifying_rookie,
+            'is_pitcher': is_pitcher,
+            'meets_minimum_volume': meets_minimum,
+            'meets_war_threshold': meets_war_threshold,
+            'has_previous_experience': has_previous_experience,
+            'total_previous_volume': total_previous_volume,
+            'current_volume': current_ip if is_pitcher else current_ab,
+            'validation_details': {
+                'threshold_used': self.rookie_thresholds['pitcher_ip'] if is_pitcher else self.rookie_thresholds['hitter_ab'],
+                'minimum_current': self.rookie_thresholds['minimum_current_ip'] if is_pitcher else self.rookie_thresholds['minimum_current_ab'],
+                'minimum_war': self.rookie_thresholds['minimum_war']
+            }
+        }
+
+    def classify_rookie_tier(self, war_value: float) -> str:
+        """Classify rookie into performance tier for protection purposes."""
+        if war_value >= 4.0:
+            return 'elite_rookie'
+        elif war_value >= 3.0:
+            return 'good_rookie'
+        else:
+            return 'average_rookie'
+
+    def get_rookie_protection_factor(self, war_value: float, position: str, rookie_validation: dict) -> float:
+        """
+        Get protection factor for qualifying rookies.
+
+        Args:
+            war_value: Current WAR value
+            position: Player position
+            rookie_validation: Results from validate_rookie_status()
+
+        Returns:
+            Protection factor (lower = more protection)
+        """
+        if not rookie_validation.get('is_qualifying_rookie', False):
+            # Not a qualifying rookie, use standard protection
+            return self.get_protection_factor(war_value, position)
+
+        # Rookie-specific protection
+        rookie_tier = self.classify_rookie_tier(war_value)
+        position_type = self.classify_rookie_position_type(position, rookie_validation['is_pitcher'])
+
+        base_protection = self.rookie_protection_matrix[rookie_tier][position_type]
+
+        # Apply uncertainty adjustments for rookie inexperience
+        sample_size_factor = 1.0 + self.uncertainty_adjustments['sample_size_penalty']
+        confidence_factor = self.uncertainty_adjustments['confidence_discount']
+
+        # Conservative adjustment: slightly higher regression for rookies vs veterans
+        adjusted_protection = base_protection * sample_size_factor * confidence_factor
+
+        # Cap at reasonable bounds
+        return max(0.15, min(0.80, adjusted_protection))
+
+    def classify_rookie_position_type(self, position: str, is_pitcher: bool) -> str:
+        """Classify position type for rookie protection purposes."""
+        if is_pitcher:
+            if position in ['RP', 'CL']:
+                return 'relief_pitchers'
+            else:
+                return 'starting_pitchers'
+        else:
+            return 'hitters'
+
+    def apply_rookie_adjustments(self, player_data: dict, historical_data: pd.DataFrame = None) -> dict:
+        """
+        Apply rookie-specific projections with uncertainty factoring.
+
+        Args:
+            player_data: Current season player data
+            historical_data: Historical data for rookie validation
+
+        Returns:
+            Dict with rookie adjustment results
+        """
+        # Validate rookie status
+        rookie_validation = self.validate_rookie_status(player_data, historical_data)
+
+        player_name = player_data.get('Name', 'Unknown')
+        current_war = player_data.get('WAR', 0.0)
+        position = player_data.get('Position', 'OF')
+
+        # Get protection factor
+        protection_factor = self.get_rookie_protection_factor(
+            current_war, position, rookie_validation
+        )
+
+        # Apply ceiling for rookie projections (prevent over-optimism)
+        ceiling_applied = False
+        projected_war = current_war
+        if rookie_validation.get('is_qualifying_rookie', False):
+            if projected_war > self.uncertainty_adjustments['rookie_ceiling']:
+                projected_war = self.uncertainty_adjustments['rookie_ceiling']
+                ceiling_applied = True
+
+        return {
+            'player_name': player_name,
+            'is_qualifying_rookie': rookie_validation.get('is_qualifying_rookie', False),
+            'rookie_tier': self.classify_rookie_tier(current_war) if rookie_validation.get('is_qualifying_rookie', False) else None,
+            'original_war': current_war,
+            'projected_war': projected_war,
+            'protection_factor': protection_factor,
+            'ceiling_applied': ceiling_applied,
+            'rookie_validation': rookie_validation,
+            'adjustment_type': 'rookie_pathway' if rookie_validation.get('is_qualifying_rookie', False) else 'standard_pathway'
+        }
+
+    def get_rookie_players_from_data(self, current_data: pd.DataFrame, historical_data: pd.DataFrame = None) -> pd.DataFrame:
+        """
+        Identify all qualifying rookies from current season data.
+
+        Args:
+            current_data: Current season player data
+            historical_data: Historical data for validation
+
+        Returns:
+            DataFrame of qualifying rookie players
+        """
+        rookie_players = []
+
+        for _, player in current_data.iterrows():
+            player_dict = player.to_dict()
+            validation = self.validate_rookie_status(player_dict, historical_data)
+
+            if validation.get('is_qualifying_rookie', False):
+                adjustment_result = self.apply_rookie_adjustments(player_dict, historical_data)
+
+                rookie_info = {
+                    **player_dict,
+                    'rookie_tier': adjustment_result['rookie_tier'],
+                    'protection_factor': adjustment_result['protection_factor'],
+                    'rookie_validation': validation
+                }
+                rookie_players.append(rookie_info)
+
+        return pd.DataFrame(rookie_players) if rookie_players else pd.DataFrame()
+
+    def generate_rookie_protection_report(self, current_data: pd.DataFrame, historical_data: pd.DataFrame = None) -> dict:
+        """
+        Generate comprehensive report on rookie protection system.
+
+        Args:
+            current_data: Current season player data
+            historical_data: Historical data for validation
+
+        Returns:
+            Dict with rookie protection analysis
+        """
+        # Identify rookies
+        rookies_df = self.get_rookie_players_from_data(current_data, historical_data)
+
+        # Analyze high-WAR players for false positive check
+        high_war_players = current_data[current_data['WAR'] > 3.0]
+
+        false_positives = 0
+        veteran_high_war = 0
+
+        for _, player in high_war_players.iterrows():
+            player_dict = player.to_dict()
+            validation = self.validate_rookie_status(player_dict, historical_data)
+
+            if validation.get('is_qualifying_rookie', False):
+                # This is a rookie
+                continue
+            else:
+                # This is a veteran with high WAR
+                veteran_high_war += 1
+
+        # Calculate summary statistics
+        total_rookies = len(rookies_df)
+        elite_rookies = len(rookies_df[rookies_df['WAR'] >= 4.0]) if total_rookies > 0 else 0
+        good_rookies = len(rookies_df[(rookies_df['WAR'] >= 3.0) & (rookies_df['WAR'] < 4.0)]) if total_rookies > 0 else 0
+
+        false_positive_rate = false_positives / len(high_war_players) if len(high_war_players) > 0 else 0.0
+
+        return {
+            'total_qualifying_rookies': total_rookies,
+            'elite_rookies': elite_rookies,
+            'good_rookies': good_rookies,
+            'total_high_war_players': len(high_war_players),
+            'veteran_high_war_players': veteran_high_war,
+            'false_positive_count': false_positives,
+            'false_positive_rate': false_positive_rate,
+            'rookie_details': rookies_df.to_dict('records') if total_rookies > 0 else [],
+            'thresholds_used': self.rookie_thresholds,
+            'protection_matrix': self.rookie_protection_matrix
+        }

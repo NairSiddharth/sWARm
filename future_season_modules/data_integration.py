@@ -41,7 +41,8 @@ class DataIntegrator:
         if self.enable_role_validation:
             self.role_validator = PlayerRoleValidator(
                 thresholds=RoleThresholds(),
-                enable_two_way_detection=True
+                enable_two_way_detection=True,
+                enable_rookie_protection=True
             )
 
     def load_complete_dataset(self,
@@ -643,13 +644,137 @@ class DataIntegrator:
         # Copy data to avoid modifying original
         prepared_data = data.copy()
 
-        # Add regression factor for projections (standard ZiPS approach)
+        # Add performance-tiered regression factor for projections
         if 'regression_factor' not in prepared_data.columns:
-            print("  Adding default regression factor...")
-            prepared_data['regression_factor'] = 0.7  # Standard regression toward mean
+            print("  Adding performance-tiered regression factors...")
+            # Use current year as prediction year to avoid leakage
+            current_year = prepared_data['Season'].max()
+            prepared_data['regression_factor'] = self._calculate_performance_tiered_regression(
+                prepared_data, prediction_year=current_year + 1
+            )
 
         print(f"Projection features prepared for {len(prepared_data)} records")
         return prepared_data
+
+    def _calculate_performance_tiered_regression(self, data: pd.DataFrame, prediction_year: int = None) -> pd.Series:
+        """
+        Calculate performance-tiered regression factors based on recent player performance.
+
+        Elite players get less regression (more projection confidence) while
+        below-average players get more regression toward league mean.
+
+        Performance Tiers:
+        - Superstar (6.0+ WAR): 85% factor (15% regression)
+        - Elite (4.0+ WAR): 80% factor (20% regression)
+        - Above Average (2.0+ WAR): 75% factor (25% regression)
+        - Average (0.0+ WAR): 70% factor (30% regression)
+        - Below Average (<0.0 WAR): 65% factor (35% regression)
+
+        Args:
+            data: Player performance data
+            prediction_year: Year being predicted (to avoid data leakage)
+
+        Returns:
+            Series of regression factors (0-1 scale)
+        """
+        regression_factors = pd.Series(index=data.index, dtype=float)
+
+        # Use 3-year rolling average of available performance metric
+        performance_metric = None
+        if 'WAR' in data.columns and data['WAR'].notna().sum() > 0:
+            performance_metric = 'WAR'
+        elif 'WARP' in data.columns and data['WARP'].notna().sum() > 0:
+            performance_metric = 'WARP'
+
+        if performance_metric is None:
+            # Fallback to standard regression if no performance data
+            print("    No performance data available - using standard 70% regression")
+            return pd.Series(0.7, index=data.index)
+
+        # Determine cutoff year to prevent data leakage
+        if prediction_year is None:
+            # If no prediction year specified, use most recent year in data
+            prediction_year = data['Season'].max()
+
+        # Calculate recent performance by player using ONLY historical data
+        player_performance = {}
+
+        for player_id in data['mlbid'].unique():
+            if pd.isna(player_id):
+                continue
+
+            player_data = data[data['mlbid'] == player_id].copy()
+            if len(player_data) == 0:
+                continue
+
+            # CRITICAL FIX: Use only data PRIOR to prediction year
+            historical_data = player_data[player_data['Season'] < prediction_year]
+
+            if len(historical_data) == 0:
+                continue
+
+            # Get recent performance (last 3 years available from historical data)
+            recent_seasons = historical_data.sort_values('Season').tail(3)
+            recent_performance = recent_seasons[performance_metric].dropna()
+
+            if len(recent_performance) > 0:
+                # Use weighted average (more recent years weighted higher)
+                if len(recent_performance) == 1:
+                    avg_performance = recent_performance.iloc[0]
+                elif len(recent_performance) == 2:
+                    avg_performance = (recent_performance.iloc[0] * 0.4 +
+                                     recent_performance.iloc[1] * 0.6)
+                else:
+                    avg_performance = (recent_performance.iloc[0] * 0.2 +
+                                     recent_performance.iloc[1] * 0.3 +
+                                     recent_performance.iloc[2] * 0.5)
+
+                player_performance[player_id] = avg_performance
+
+        # Assign regression factors based on performance tiers
+        tier_counts = {'superstar': 0, 'elite': 0, 'above_average': 0, 'average': 0, 'below_average': 0}
+
+        for idx, row in data.iterrows():
+            player_id = row['mlbid']
+
+            if pd.isna(player_id) or player_id not in player_performance:
+                # Default regression for players without sufficient data
+                regression_factors.loc[idx] = 0.70
+                tier_counts['average'] += 1
+                continue
+
+            recent_perf = player_performance[player_id]
+
+            # Determine performance tier and assign regression factor
+            if recent_perf >= 6.0:
+                regression_factors.loc[idx] = 0.85  # Superstar tier
+                tier_counts['superstar'] += 1
+            elif recent_perf >= 4.0:
+                regression_factors.loc[idx] = 0.80  # Elite tier
+                tier_counts['elite'] += 1
+            elif recent_perf >= 2.0:
+                regression_factors.loc[idx] = 0.75  # Above average tier
+                tier_counts['above_average'] += 1
+            elif recent_perf >= 0.0:
+                regression_factors.loc[idx] = 0.70  # Average tier
+                tier_counts['average'] += 1
+            else:
+                regression_factors.loc[idx] = 0.65  # Below average tier
+                tier_counts['below_average'] += 1
+
+        # Report tier distribution
+        total_players = sum(tier_counts.values())
+        print(f"    Performance tier distribution (based on recent {performance_metric}):")
+        for tier, count in tier_counts.items():
+            if count > 0:
+                pct = (count / total_players) * 100
+                factor = {
+                    'superstar': 0.85, 'elite': 0.80, 'above_average': 0.75,
+                    'average': 0.70, 'below_average': 0.65
+                }[tier]
+                print(f"      {tier}: {count} players ({pct:.1f}%) - {factor} factor")
+
+        return regression_factors
 
     def prepare_training_data(self, data: pd.DataFrame) -> pd.DataFrame:
         """

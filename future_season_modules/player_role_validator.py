@@ -6,12 +6,19 @@ Validates and filters players based on legitimate role activity levels.
 Prevents position players from contaminating pitcher models and vice versa.
 
 Integrates with existing pipeline architecture and TwoWayPlayerModel.
+Enhanced with rookie protection bypass for elite talent retention.
 """
 
 import pandas as pd
 import numpy as np
 from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass
+import sys
+from pathlib import Path
+
+# Add project root to path for rookie protection import
+project_root = Path(__file__).parent.parent
+sys.path.append(str(project_root))
 
 @dataclass
 class RoleThresholds:
@@ -35,16 +42,29 @@ class PlayerRoleValidator:
 
     def __init__(self,
                  thresholds: RoleThresholds = None,
-                 enable_two_way_detection: bool = True):
+                 enable_two_way_detection: bool = True,
+                 enable_rookie_protection: bool = True):
         """
         Initialize role validator.
 
         Args:
             thresholds: Activity thresholds for role classification
             enable_two_way_detection: Use sophisticated two-way player detection
+            enable_rookie_protection: Enable rookie protection bypass
         """
         self.thresholds = thresholds or RoleThresholds()
         self.enable_two_way_detection = enable_two_way_detection
+        self.enable_rookie_protection = enable_rookie_protection
+
+        # Initialize rookie protection system if enabled
+        self.rookie_system = None
+        if enable_rookie_protection:
+            try:
+                from common_modules.elite_adjustment import RookieEliteProtection
+                self.rookie_system = RookieEliteProtection(use_enhanced_system=True)
+            except ImportError:
+                print("Warning: RookieEliteProtection not available - rookie bypass disabled")
+                self.enable_rookie_protection = False
 
         # Statistics tracking
         self.validation_stats = {
@@ -94,8 +114,15 @@ class PlayerRoleValidator:
                 pitcher_data, adjusted_thresholds
             )
 
+        # Rookie protection bypass if enabled
+        rookie_protected = pd.Series([False] * len(pitcher_data))
+        if self.enable_rookie_protection and self.rookie_system:
+            rookie_protected = self._apply_rookie_protection_bypass(
+                pitcher_data, legitimate_pitchers | two_way_pitchers
+            )
+
         # Final classification
-        keep_as_pitcher = legitimate_pitchers | two_way_pitchers
+        keep_as_pitcher = legitimate_pitchers | two_way_pitchers | rookie_protected
 
         # Create filtered datasets
         legitimate_pitcher_data = pitcher_data[keep_as_pitcher].copy()
@@ -164,8 +191,15 @@ class PlayerRoleValidator:
                 hitter_data, adjusted_thresholds
             )
 
+        # Rookie protection bypass if enabled
+        rookie_protected = pd.Series([False] * len(hitter_data))
+        if self.enable_rookie_protection and self.rookie_system:
+            rookie_protected = self._apply_rookie_protection_bypass(
+                hitter_data, legitimate_hitters | two_way_hitters
+            )
+
         # Final classification
-        keep_as_hitter = legitimate_hitters | two_way_hitters
+        keep_as_hitter = legitimate_hitters | two_way_hitters | rookie_protected
 
         # Create filtered datasets
         legitimate_hitter_data = hitter_data[keep_as_hitter].copy()
@@ -421,3 +455,51 @@ class PlayerRoleValidator:
             )
 
         return summary
+
+    def _apply_rookie_protection_bypass(self,
+                                      player_data: pd.DataFrame,
+                                      already_legitimate: pd.Series) -> pd.Series:
+        """
+        Apply rookie protection bypass for filtered players.
+
+        Args:
+            player_data: Player data being validated
+            already_legitimate: Boolean series of players already passing validation
+
+        Returns:
+            Boolean series of additional players to protect via rookie bypass
+        """
+        # Start with all False
+        rookie_protected = pd.Series([False] * len(player_data))
+
+        # Only consider players that would otherwise be filtered
+        filtered_players = player_data[~already_legitimate]
+
+        if len(filtered_players) == 0:
+            return rookie_protected
+
+        # Test each filtered player for rookie status
+        rookie_count = 0
+        for idx, (original_idx, player) in enumerate(filtered_players.iterrows()):
+            try:
+                player_dict = player.to_dict()
+
+                # Add Season if not present (assume current year)
+                if 'Season' not in player_dict:
+                    player_dict['Season'] = 2024
+
+                # Validate rookie status (no historical data = assume rookie)
+                validation = self.rookie_system.validate_rookie_status(player_dict, pd.DataFrame())
+
+                if validation.get('is_qualifying_rookie', False):
+                    rookie_protected.iloc[original_idx] = True
+                    rookie_count += 1
+
+            except Exception as e:
+                # If rookie validation fails, don't protect (conservative approach)
+                continue
+
+        if rookie_count > 0:
+            print(f"    Rookie protection: {rookie_count} players restored via rookie bypass")
+
+        return rookie_protected

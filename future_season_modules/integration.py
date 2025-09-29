@@ -22,6 +22,7 @@ from .validation import AgeCurveValidator
 from .constraint_optimizer import ConstraintOptimizer
 from .pipeline_orchestrator import PipelineOrchestrator
 from .data_integration import DataIntegrator
+from .sklearn_pipeline_wrapper import AcunaProjectionPipeline
 import sys
 import os
 # Add the project root to the path for importing common_modules
@@ -75,6 +76,13 @@ class System2Pipeline:
         self.validator = AgeCurveValidator()
         self.elite_adjuster = ElitePlayerAdjuster()  # OPTION C: Elite player adjustment
         self.constraint_optimizer = None  # Will be initialized after models are trained
+        self.acuna_pipeline = AcunaProjectionPipeline(
+            war_target_total=1000.0,
+            war_hitter_pitcher_split=(570, 430),
+            warp_target_total=1000.0,
+            warp_hitter_pitcher_split=(590, 410),
+            random_state=42
+        )  # Dual WAR/WARP constraint pipeline
         self.orchestrator = PipelineOrchestrator(system_pipeline=self)  # Workflow orchestration
         self.data_integrator = DataIntegrator(system_pipeline=self)  # Data loading and integration
         # self.position_calculator = PositionalAdjustmentCalculator()  # Not needed - adjustments already in WAR/WARP
@@ -85,6 +93,15 @@ class System2Pipeline:
         self.training_data = None
         self.injury_data = None  # Injury recovery modeling data
         self.model_performance = None
+
+        # Load injury data if injury modeling is enabled
+        if self.use_injury_modeling:
+            try:
+                print("Loading injury data for recovery modeling...")
+                self.injury_data = self.load_injury_data()
+            except Exception as e:
+                print(f"Warning: Could not load injury data: {e}")
+                print("Injury recovery modeling will be disabled")
 
     def load_complete_dataset(self,
                             years: Optional[List[int]] = None,
@@ -1904,6 +1921,9 @@ class System2Pipeline:
             return 'hip_surgery'
         elif 'thoracic outlet' in injury_lower:
             return 'thoracic_outlet'
+        elif ('acl' in injury_lower or 'anterior cruciate' in injury_lower or
+              ('knee surgery' in injury_lower and ('torn' in injury_lower or 'acl' in injury_lower))):
+            return 'acl_surgery'
         elif 'knee surgery' in injury_lower:
             return 'knee_surgery'
         elif 'wrist surgery' in injury_lower:

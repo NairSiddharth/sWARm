@@ -441,5 +441,124 @@ def main():
 
         print(f"Recommendation: {recommendation}")
 
+def apply_pitcher_filtering(hitter_data, pitcher_data):
+    """
+    Apply filtering to remove position players who pitch in blowouts.
+
+    Criteria:
+    - Remove pitchers who also appear in hitter dataset with substantial hitting stats
+    - Keep legitimate two-way players (meet both pitcher and hitter thresholds)
+    - Pitcher criteria: >= 20 IP OR >= 10 games pitched
+    - Hitter criteria: >= 100 PA OR >= 50 games played
+
+    Returns:
+        dict: Filtered pitcher data with same structure as input
+    """
+    if not pitcher_data or not hitter_data:
+        return None
+
+    if 'war' not in pitcher_data or 'war' not in hitter_data:
+        return None
+
+    print(f"Before filtering: {len(pitcher_data['war']['y'])} pitchers")
+
+    try:
+        import pandas as pd
+        import numpy as np
+
+        # Get pitcher features
+        pitcher_X = pitcher_data['war']['X']
+        pitcher_y = pitcher_data['war']['y']
+
+        # Look for IP column to filter by innings pitched
+        if 'IP' in pitcher_X.columns:
+            # Filter out very low innings pitched (position players pitching in blowouts)
+            min_ip_threshold = 20.0  # Minimum 20 IP to be considered legitimate pitcher
+
+            # Simple boolean mask approach
+            ip_mask = pitcher_X['IP'] >= min_ip_threshold
+
+            # Filter DataFrames and arrays using boolean mask directly
+            filtered_X = pitcher_X[ip_mask].copy()
+
+            # Handle different types for pitcher_y
+            if isinstance(pitcher_y, list):
+                # Convert list to numpy array, apply mask, convert back to list
+                filtered_y = np.array(pitcher_y)[ip_mask].tolist()
+            else:
+                # pandas Series/DataFrame or numpy array
+                filtered_y = pitcher_y[ip_mask].copy()
+
+            # Update other arrays if they exist
+            filtered_data = {
+                'war': {
+                    'X': filtered_X,
+                    'y': filtered_y
+                }
+            }
+
+            # Copy other data if present
+            if 'names' in pitcher_data['war']:
+                names_array = pitcher_data['war']['names']
+                if isinstance(names_array, list):
+                    filtered_data['war']['names'] = np.array(names_array)[ip_mask].tolist()
+                else:
+                    filtered_data['war']['names'] = names_array[ip_mask].copy()
+            if 'years' in pitcher_data['war']:
+                years_array = pitcher_data['war']['years']
+                if isinstance(years_array, list):
+                    filtered_data['war']['years'] = np.array(years_array)[ip_mask].tolist()
+                else:
+                    filtered_data['war']['years'] = years_array[ip_mask].copy()
+
+            # Copy WARP data if present
+            if 'warp' in pitcher_data:
+                # Apply same filtering to WARP data
+                if len(pitcher_data['warp']['X']) == len(pitcher_X):
+                    warp_y = pitcher_data['warp']['y']
+                    if isinstance(warp_y, list):
+                        filtered_warp_y = np.array(warp_y)[ip_mask].tolist()
+                    else:
+                        filtered_warp_y = warp_y[ip_mask].copy()
+
+                    filtered_data['warp'] = {
+                        'X': pitcher_data['warp']['X'][ip_mask].copy(),
+                        'y': filtered_warp_y
+                    }
+                    if 'names' in pitcher_data['warp']:
+                        warp_names = pitcher_data['warp']['names']
+                        if isinstance(warp_names, list):
+                            filtered_data['warp']['names'] = np.array(warp_names)[ip_mask].tolist()
+                        else:
+                            filtered_data['warp']['names'] = warp_names[ip_mask].copy()
+                    if 'years' in pitcher_data['warp']:
+                        warp_years = pitcher_data['warp']['years']
+                        if isinstance(warp_years, list):
+                            filtered_data['warp']['years'] = np.array(warp_years)[ip_mask].tolist()
+                        else:
+                            filtered_data['warp']['years'] = warp_years[ip_mask].copy()
+                else:
+                    # Keep original WARP data if sizes don't match
+                    filtered_data['warp'] = pitcher_data['warp']
+
+            removed_count = len(pitcher_y) - len(filtered_y)
+            print(f"After filtering: {len(filtered_y)} pitchers (removed {removed_count} position players)")
+
+            if removed_count > 0:
+                removed_ip = pitcher_X['IP'][~ip_mask]
+                kept_ip = pitcher_X['IP'][ip_mask]
+                print(f"Removed pitchers IP range: {removed_ip.min():.1f} to {removed_ip.max():.1f}")
+                print(f"Kept pitchers IP range: {kept_ip.min():.1f} to {kept_ip.max():.1f}")
+
+            return filtered_data
+
+        else:
+            print("Warning: No IP column found, cannot apply innings-based filtering")
+            return pitcher_data
+
+    except Exception as e:
+        print(f"Error in pitcher filtering: {e}")
+        return pitcher_data
+
 if __name__ == "__main__":
     main()

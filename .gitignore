@@ -209,8 +209,8 @@ __marimo__/
 # Local VS Code settings
 settings.local.json
 *test*                                                                                   
-!README.md
 *.md
+!README.md
 .claude
 # Generated output files (now in results/)
 results/future_projections_*.csv

@@ -142,6 +142,8 @@ class InjuryImpactAnalyzer:
             return 'shoulder_structural'
         elif 'elbow' in injury_lower:
             return 'elbow_injury'
+        elif 'acl' in injury_lower or 'anterior cruciate' in injury_lower or ('knee' in injury_lower and 'torn' in injury_lower):
+            return 'acl_injury'
         elif 'knee' in injury_lower:
             return 'knee_injury'
         elif 'ankle' in injury_lower or 'foot' in injury_lower:

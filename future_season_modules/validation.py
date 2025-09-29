@@ -158,7 +158,7 @@ class AgeCurveValidator:
                         if len(baseline_data) > 0:
                             baseline = baseline_data.iloc[0]
 
-                            # Predict the validation years using training data + full dataset for confidence
+                            # Predict the validation years using ONLY training data to prevent leakage
                             years_to_predict = len(player_val_data)
                             pred_wars = model.predict_performance_path(
                                 baseline.get('Age', 27),
@@ -166,7 +166,7 @@ class AgeCurveValidator:
                                 baseline.get(target_col, 0),
                                 player_train_history,  # Training history with TARGET_METRIC set
                                 years_to_predict,
-                                full_dataset  # Pass full dataset for confidence calculation
+                                train_data  # Use only training data to prevent temporal leakage
                             )
 
                             # Compare predictions to actual validation performance
@@ -312,9 +312,28 @@ class AgeCurveValidator:
         for fold, (train_data, val_data) in enumerate(self.survival_time_series_split(data, n_splits)):
             print(f"\nValidating fold {fold + 1}/{n_splits}...")
 
-            # Validate longitudinal component (use full_dataset for confidence calculation)
-            confidence_data = full_dataset if full_dataset is not None else train_data
-            long_metrics = self.validate_longitudinal_component(model, train_data, val_data, confidence_data)
+            # CRITICAL FIX: Calculate performance-tiered regression factors for this fold
+            # using ONLY training data to prevent temporal leakage
+            train_cutoff = train_data['Season'].max()
+
+            # Calculate regression factors using only historical data up to training cutoff
+            if hasattr(self, '_calculate_fold_regression_factors'):
+                train_data_with_factors = self._calculate_fold_regression_factors(train_data, train_cutoff)
+                val_data_with_factors = self._apply_fold_regression_factors(val_data, train_data_with_factors)
+            else:
+                # Fallback: Apply same regression factors to both datasets
+                from .data_integration import DataIntegrator
+                integrator = DataIntegrator()
+                combined_fold_data = pd.concat([train_data, val_data])
+                combined_fold_data['regression_factor'] = integrator._calculate_performance_tiered_regression(
+                    combined_fold_data, prediction_year=train_cutoff + 1
+                )
+                # Split back
+                train_data_with_factors = combined_fold_data[combined_fold_data['Season'] <= train_cutoff].copy()
+                val_data_with_factors = combined_fold_data[combined_fold_data['Season'] > train_cutoff].copy()
+
+            # Validate longitudinal component with properly calculated regression factors
+            long_metrics = self.validate_longitudinal_component(model, train_data_with_factors, val_data_with_factors, train_data_with_factors)
             longitudinal_results.append(long_metrics)
 
             # Validate survival component

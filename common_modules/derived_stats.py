@@ -450,12 +450,21 @@ def _calculate_damage_control_ratio(enhanced_features):
         lob_pct = lob_data[player_id]
         hr9 = hr9_data[player_id]
 
-        # Convert LOB% from decimal (0.75) to percentage (75%) for calculation
-        lob_percentage = lob_pct * 100
+        # LOB% is already in percentage format (e.g., 75.2 not 0.752)
+        # No conversion needed - use directly
 
         # damage_control_ratio = LOB% / (HR/9 + 0.5)
         # Higher values = better at limiting damage despite allowing HRs
-        damage_control[player_id] = lob_percentage / (hr9 + 0.5)
+        ratio = lob_pct / (hr9 + 0.5)
+
+        # Apply bounds checking - damage_control_ratio should be in reasonable range (0.5 to 15.0)
+        # Extreme values likely indicate data format issues
+        if ratio > 15.0:
+            ratio = 15.0  # Cap at maximum reasonable value
+        elif ratio < 0.5:
+            ratio = 0.5   # Floor at minimum reasonable value
+
+        damage_control[player_id] = ratio
 
     print(f"  Calculated damage_control_ratio for {len(damage_control)} players")
     return damage_control
@@ -485,7 +494,7 @@ def get_player_enhanced_features(player_id, enhanced_features_dict):
     }
 
 
-def load_new_pitcher_features(data_dir=None, years=None):
+def load_new_pitcher_features(data_dir=None, years=None): 
     """
     Load new pitcher features for 11-feature expansion:
     SV (Saves), Hard%, Med%, Soft% (from battedball), HBP, WP (from standard)
@@ -566,14 +575,14 @@ def _load_standard_new_features(data_dir, year):
         df = pd.read_csv(file_path)
 
         # Check required columns
-        required_cols = ['MLBAMID', 'SV', 'HBP', 'WP']
+        required_cols = ['MLBAMID', 'SV', 'HBP']
         missing_cols = [col for col in required_cols if col not in df.columns]
         if missing_cols:
             print(f"    Standard missing columns {missing_cols}: {year}")
             return {}
 
         # Create player_id -> feature mappings
-        standard_data = {'SV': {}, 'HBP': {}, 'WP': {}}
+        standard_data = {'SV': {}, 'HBP': {}}
 
         for _, row in df.iterrows():
             player_id = row['MLBAMID']
@@ -582,7 +591,7 @@ def _load_standard_new_features(data_dir, year):
                 player_id = int(player_id)
 
                 # Load each feature
-                for feature in ['SV', 'HBP', 'WP']:
+                for feature in ['SV', 'HBP']:
                     value = row[feature]
                     if pd.notna(value):
                         standard_data[feature][player_id] = float(value)
@@ -778,57 +787,6 @@ def _load_games_for_year(year, data_dir):
     except Exception as e:
         print(f"    Error loading G for {year}: {e}")
         return {}
-
-
-# DEPRECATED: SV_efficiency implementation
-#
-# This SV_efficiency implementation has been deprecated due to systematic bias
-# against starting pitchers. The formula SV/(SV+BS+1) creates a scenario where:
-# 1. ALL starters get SV_efficiency = 0.0 (meaningless)
-# 2. Model learns SV_efficiency > 0 correlates with good performance (from reliever data)
-# 3. SV_efficiency = 0 becomes a penalty signal, systematically undervaluing elite starters
-#
-# Analysis showed this caused ~1.7 WAR systematic undervaluation of elite starters
-# like Skubal (actual 4.77 fWAR vs predicted ~3.0 WAR).
-#
-# REPLACED BY: Opportunity_Success = (QS + SV + HLD - BS) / G
-# This new metric provides role-neutral evaluation that:
-# - Uses QS rate for starters (meaningful differentiation)
-# - Uses save/hold success for relievers (preserves information)
-# - Handles all pitcher roles without systematic bias
-#
-# def calculate_sv_efficiency(sv_data, bs_data):
-#     """
-#     Calculate SV_efficiency = SV / (SV + BS + 1) for all players.
-#
-#     The +1 regularization ensures:
-#     - Starters with SV=0, BS=0 get efficiency=0.0 (neutral)
-#     - Relievers with saves get meaningful efficiency scores
-#     - Avoids division by zero for players with no save situations
-#
-#     Args:
-#         sv_data: Dict of {player_id: saves}
-#         bs_data: Dict of {player_id: blown_saves}
-#
-#     Returns:
-#         Dict of {player_id: sv_efficiency}
-#     """
-#     sv_efficiency = {}
-#
-#     # Get all players who have either SV or BS data
-#     all_players = set(sv_data.keys()) | set(bs_data.keys())
-#
-#     for player_id in all_players:
-#         sv = sv_data.get(player_id, 0)
-#         bs = bs_data.get(player_id, 0)
-#
-#         # Calculate efficiency with regularization
-#         # SV_efficiency = SV / (SV + BS + 1)
-#         efficiency = sv / (sv + bs + 1)
-#         sv_efficiency[player_id] = efficiency
-#
-#     return sv_efficiency
-
 
 def calculate_opportunity_success(qs_data, sv_data, hld_data, bs_data, games_data):
     """
@@ -1273,12 +1231,17 @@ def calculate_hbp_percentage(hbp_data, pitches_data):
     """
     hbp_percentage = {}
 
+    # Convert both datasets to string keys for consistent MLBAMID matching
+    # (FanGraphs uses consistent MLBAMID format across all data sources)
+    hbp_data_str = {str(k): v for k, v in hbp_data.items()}
+    pitches_data_str = {str(k): v for k, v in pitches_data.items()}
+
     # Find common players with both HBP and Pitches data
-    common_players = set(hbp_data.keys()) & set(pitches_data.keys())
+    common_players = set(hbp_data_str.keys()) & set(pitches_data_str.keys())
 
     for player_id in common_players:
-        hbp = hbp_data[player_id]
-        pitches = pitches_data[player_id]
+        hbp = hbp_data_str[player_id]
+        pitches = pitches_data_str[player_id]
 
         # Calculate HBP% = (HBP / Pitches) * 100
         if pitches > 0:
@@ -1697,49 +1660,102 @@ def load_new_pitcher_features_with_contact_quality_index(data_dir=None, years=No
 def _load_bb_pct_for_year(data_dir, year):
     """
     Load BB% data from advanced files for a specific year (converted to percentage format)
+    Tries multiple filename patterns including firsthalf suffix
     """
-    filename = f"fangraphs_pitchers_{year}_advanced.csv"
-    filepath = os.path.join(data_dir, filename)  # Fixed: removed str(year) subdirectory
+    # Try multiple filename patterns
+    filename_patterns = [
+        f"fangraphs_pitchers_{year}_firsthalf_advanced.csv",  # Current season pattern
+        f"fangraphs_pitchers_{year}_advanced.csv",           # Historical pattern
+    ]
 
     bb_pct_data = {}
 
-    if os.path.exists(filepath):
-        try:
-            df = pd.read_csv(filepath)
-            for _, row in df.iterrows():
-                player_id = row.get('MLBAMID', row.get('playerid'))  # Fixed: use MLBAMID
-                bb_pct = row.get('BB%', row.get('BB_pct'))
+    for filename in filename_patterns:
+        filepath = os.path.join(data_dir, "FanGraphs_Data", "pitchers", filename)
 
-                if pd.notna(player_id) and pd.notna(bb_pct):
-                    # Convert from decimal to percentage (0.08 -> 8.0)
-                    bb_pct_data[int(player_id)] = float(bb_pct) * 100
-        except Exception as e:
-            print(f"    ERROR loading BB% from {filepath}: {e}")
+        if os.path.exists(filepath):
+            try:
+                df = pd.read_csv(filepath)
+                for _, row in df.iterrows():
+                    player_id = row.get('MLBAMID', row.get('playerid'))  # Fixed: use MLBAMID
+                    bb_pct = row.get('BB%', row.get('BB_pct'))
+
+                    if pd.notna(player_id) and pd.notna(bb_pct):
+                        # Convert from decimal to percentage (0.08 -> 8.0)
+                        bb_pct_data[int(player_id)] = float(bb_pct) * 100
+                print(f"    Loaded BB% from {filename}")
+                break  # Found file, stop trying patterns
+            except Exception as e:
+                print(f"    ERROR loading BB% from {filepath}: {e}")
 
     return bb_pct_data
 
 
+def _load_k_bb_pct_for_year(data_dir, year):
+    """
+    Load K-BB% data from advanced files for a specific year (converted to percentage format)
+    Tries multiple filename patterns including firsthalf suffix
+    """
+    # Try multiple filename patterns
+    filename_patterns = [
+        f"fangraphs_pitchers_{year}_firsthalf_advanced.csv",  # Current season pattern
+        f"fangraphs_pitchers_{year}_advanced.csv",           # Historical pattern
+    ]
+
+    k_bb_pct_data = {}
+
+    for filename in filename_patterns:
+        filepath = os.path.join(data_dir, "FanGraphs_Data", "pitchers", filename)
+        if os.path.exists(filepath):
+            try:
+                df = pd.read_csv(filepath)
+                if 'MLBAMID' in df.columns and 'K-BB%' in df.columns:
+                    print(f"    Loaded K-BB% from {filename}")
+                    for _, row in df.iterrows():
+                        mlbamid = int(row['MLBAMID'])
+                        k_bb_pct = float(row['K-BB%'])
+                        k_bb_pct_data[mlbamid] = k_bb_pct  # Already in percentage format
+                    break
+                else:
+                    print(f"    K-BB% column not found in {filename}")
+            except Exception as e:
+                print(f"    Error loading K-BB% from {filename}: {e}")
+                continue
+        else:
+            print(f"    K-BB% file not found: {filename}")
+
+    return k_bb_pct_data
+
 def _load_k_pct_for_year(data_dir, year):
     """
     Load K% data from advanced files for a specific year (converted to percentage format)
+    Tries multiple filename patterns including firsthalf suffix
     """
-    filename = f"fangraphs_pitchers_{year}_advanced.csv"
-    filepath = os.path.join(data_dir, filename)  # Fixed: removed str(year) subdirectory
+    # Try multiple filename patterns
+    filename_patterns = [
+        f"fangraphs_pitchers_{year}_firsthalf_advanced.csv",  # Current season pattern
+        f"fangraphs_pitchers_{year}_advanced.csv",           # Historical pattern
+    ]
 
     k_pct_data = {}
 
-    if os.path.exists(filepath):
-        try:
-            df = pd.read_csv(filepath)
-            for _, row in df.iterrows():
-                player_id = row.get('MLBAMID', row.get('playerid'))  # Fixed: use MLBAMID
-                k_pct = row.get('K%', row.get('K_pct'))
+    for filename in filename_patterns:
+        filepath = os.path.join(data_dir, "FanGraphs_Data", "pitchers", filename)
 
-                if pd.notna(player_id) and pd.notna(k_pct):
-                    # Convert from decimal to percentage (0.22 -> 22.0)
-                    k_pct_data[int(player_id)] = float(k_pct) * 100
-        except Exception as e:
-            print(f"    ERROR loading K% from {filepath}: {e}")
+        if os.path.exists(filepath):
+            try:
+                df = pd.read_csv(filepath)
+                for _, row in df.iterrows():
+                    player_id = row.get('MLBAMID', row.get('playerid'))  # Fixed: use MLBAMID
+                    k_pct = row.get('K%', row.get('K_pct'))
+
+                    if pd.notna(player_id) and pd.notna(k_pct):
+                        # Convert from decimal to percentage (0.22 -> 22.0)
+                        k_pct_data[int(player_id)] = float(k_pct) * 100
+                print(f"    Loaded K% from {filename}")
+                break  # Found file, stop trying patterns
+            except Exception as e:
+                print(f"    ERROR loading K% from {filepath}: {e}")
 
     return k_pct_data
 
@@ -1747,24 +1763,33 @@ def _load_k_pct_for_year(data_dir, year):
 def _load_hr_fb_pct_for_year(data_dir, year):
     """
     Load HR/FB data from battedball files for a specific year (converted to percentage format)
+    Tries multiple filename patterns including firsthalf suffix
     """
-    filename = f"fangraphs_pitchers_{year}_battedball.csv"
-    filepath = os.path.join(data_dir, filename)  # Fixed: removed str(year) subdirectory
+    # Try multiple filename patterns
+    filename_patterns = [
+        f"fangraphs_pitchers_{year}_firsthalf_battedball.csv",  # Current season pattern
+        f"fangraphs_pitchers_{year}_battedball.csv",           # Historical pattern
+    ]
 
     hr_fb_data = {}
 
-    if os.path.exists(filepath):
-        try:
-            df = pd.read_csv(filepath)
-            for _, row in df.iterrows():
-                player_id = row.get('MLBAMID', row.get('playerid'))  # Fixed: use MLBAMID
-                hr_fb = row.get('HR/FB', row.get('HR_FB'))
+    for filename in filename_patterns:
+        filepath = os.path.join(data_dir, "FanGraphs_Data", "pitchers", filename)
 
-                if pd.notna(player_id) and pd.notna(hr_fb):
-                    # Convert from decimal to percentage (0.12 -> 12.0)
-                    hr_fb_data[int(player_id)] = float(hr_fb) * 100
-        except Exception as e:
-            print(f"    ERROR loading HR/FB from {filepath}: {e}")
+        if os.path.exists(filepath):
+            try:
+                df = pd.read_csv(filepath)
+                for _, row in df.iterrows():
+                    player_id = row.get('MLBAMID', row.get('playerid'))  # Fixed: use MLBAMID
+                    hr_fb = row.get('HR/FB', row.get('HR_FB'))
+
+                    if pd.notna(player_id) and pd.notna(hr_fb):
+                        # Convert from decimal to percentage (0.12 -> 12.0)
+                        hr_fb_data[int(player_id)] = float(hr_fb) * 100
+                print(f"    Loaded HR/FB% from {filename}")
+                break  # Found file, stop trying patterns
+            except Exception as e:
+                print(f"    ERROR loading HR/FB from {filepath}: {e}")
 
     return hr_fb_data
 
@@ -1810,6 +1835,7 @@ def load_percentage_pitcher_features(data_directory, years):
     # Initialize feature collections
     all_bb_pct_data = {}
     all_k_pct_data = {}
+    all_k_bb_pct_data = {}  # K-BB% from FanGraphs
     all_hr_fb_pct_data = {}
     all_lob_pct_data = {}  # Already in percentage format
     all_hbp_data = {}
@@ -1832,6 +1858,7 @@ def load_percentage_pitcher_features(data_directory, years):
         # Load percentage features
         bb_pct_year = _load_bb_pct_for_year(data_directory, year)
         k_pct_year = _load_k_pct_for_year(data_directory, year)
+        k_bb_pct_year = _load_k_bb_pct_for_year(data_directory, year)
         hr_fb_pct_year = _load_hr_fb_pct_for_year(data_directory, year)
 
         # Load existing percentage features
@@ -1859,6 +1886,7 @@ def load_percentage_pitcher_features(data_directory, years):
         # Merge into all-years collections
         all_bb_pct_data.update(bb_pct_year)
         all_k_pct_data.update(k_pct_year)
+        all_k_bb_pct_data.update(k_bb_pct_year)
         all_hr_fb_pct_data.update(hr_fb_pct_year)
         all_lob_pct_data.update(lob_pct_year)
         all_hbp_data.update(hbp_year)
@@ -1901,6 +1929,20 @@ def load_percentage_pitcher_features(data_directory, years):
     damage_control_data = _calculate_percentage_damage_control_ratio(
         all_lob_pct_data, all_hr_fb_pct_data
     )
+
+    # If percentage calculation failed (0 players), fallback to enhanced features
+    if len(damage_control_data) == 0:
+        print(f"  WARNING: Percentage calculation failed (0 players), using enhanced features fallback...")
+        try:
+            enhanced_features = load_enhanced_pitcher_features()
+            if enhanced_features and 'damage_control_ratio' in enhanced_features:
+                damage_control_data = enhanced_features['damage_control_ratio']
+                print(f"  SUCCESS: Using corrected enhanced features damage_control_ratio ({len(damage_control_data)} players)")
+            else:
+                print(f"  ERROR: Enhanced features also unavailable")
+        except Exception as e:
+            print(f"  ERROR: Failed to load enhanced features: {e}")
+
     percentage_features['damage_control_ratio'] = damage_control_data
     print(f"  damage_control_ratio: {len(damage_control_data)} players calculated")
 
@@ -1928,9 +1970,9 @@ def load_percentage_pitcher_features(data_directory, years):
     # Add all base features
     percentage_features['BB%'] = all_bb_pct_data
     percentage_features['K%'] = all_k_pct_data
+    percentage_features['K-BB%'] = all_k_bb_pct_data  # FanGraphs native K-BB%
     percentage_features['HR/FB%'] = all_hr_fb_pct_data
     percentage_features['LOB%'] = all_lob_pct_data
-    percentage_features['WP'] = all_wp_data
     percentage_features['Hard%'] = all_hard_pct_data
     percentage_features['Med%'] = all_med_pct_data
     percentage_features['Soft%'] = all_soft_pct_data
@@ -1957,22 +1999,22 @@ def get_player_percentage_features(player_id, percentage_features_dict):
         player_id = int(player_id)
     except (ValueError, TypeError):
         return {
-            'BB%': 9.0, 'K%': 20.0, 'HR/FB%': 10.0, 'LOB%': 72.0,
+            'BB%': 9.0, 'K%': 20.0, 'K-BB%': 11.0, 'HR/FB%': 10.0, 'LOB%': 72.0,
             'damage_control_ratio': 2.4, 'Opportunity_Success': 0.0,
-            'Contact_Quality_Index': 50.0, 'HBP%': 0.0, 'WP': 0.0,  # Normalized mean
+            'Contact_Quality_Index': 50.0, 'HBP%': 0.0,  # Normalized mean
             'Statcast_Launch_Quality_Index': 50.0  # Normalized mean
         }
 
     return {
         'BB%': percentage_features_dict['BB%'].get(player_id, 9.0),
         'K%': percentage_features_dict['K%'].get(player_id, 20.0),
+        'K-BB%': percentage_features_dict['K-BB%'].get(player_id, 11.0),  # FanGraphs native K-BB%
         'HR/FB%': percentage_features_dict['HR/FB%'].get(player_id, 10.0),
         'LOB%': percentage_features_dict['LOB%'].get(player_id, 72.0),
         'damage_control_ratio': percentage_features_dict['damage_control_ratio'].get(player_id, 2.4),
         'Opportunity_Success': percentage_features_dict['Opportunity_Success'].get(player_id, 0.0),
         'Contact_Quality_Index': percentage_features_dict['Contact_Quality_Index'].get(player_id, 50.0),  # Normalized mean
         'HBP%': percentage_features_dict['HBP%'].get(player_id, 0.0),
-        'WP': percentage_features_dict['WP'].get(player_id, 0.0),
         'Statcast_Launch_Quality_Index': percentage_features_dict['Statcast_Launch_Quality_Index'].get(player_id, 50.0)  # Normalized mean
     }
 

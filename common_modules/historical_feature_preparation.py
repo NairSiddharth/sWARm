@@ -36,11 +36,11 @@ class HistoricalFeaturePreparer:
         self.baserunning_data, self.defense_data = get_enhanced_features()
 
         # Load enhanced pitcher features (LOB%, GB%, damage_control_ratio)
-        from .derived_stats import load_enhanced_pitcher_features, load_new_pitcher_features
+        from .derived_stats import load_enhanced_pitcher_features, load_percentage_pitcher_features
         self.enhanced_pitcher_features = load_enhanced_pitcher_features()
 
-        # Load new pitcher features for 11-feature expansion
-        self.new_pitcher_features = load_new_pitcher_features()
+        # Load percentage-based features for 10-feature K-BB% system
+        self.percentage_features = load_percentage_pitcher_features("MLB Player Data", [2020, 2021, 2022, 2023, 2024])
 
     def prepare_hitter_features(self, first_half_data):
         """
@@ -95,9 +95,9 @@ class HistoricalFeaturePreparer:
 
     def prepare_pitcher_features(self, first_half_data):
         """
-        Prepare pitcher features with 11-feature expansion
+        Prepare pitcher features with 10-feature K-BB% system
 
-        New 11 features: IP, BB%, K%, ERA, damage_control_ratio, SV, Hard%, Med%, Soft%, HBP, WP
+        Features: IP, BB%, K%, K-BB%, ERA, damage_control_ratio, Opportunity_Success, Contact_Quality_Index, HBP%, Statcast_Launch_Quality_Index
 
         Args:
             first_half_data: DataFrame with first half 2025 pitcher data
@@ -222,9 +222,9 @@ class HistoricalFeaturePreparer:
 
     def _calculate_pitcher_features(self, player_row):
         """
-        Calculate 11 pitcher features from raw stats with park factor adjustments and new features
+        Calculate 10 pitcher features from raw stats with park factor adjustments and K-BB%
 
-        Features: [IP, BB%, K%, ERA (park-adjusted), damage_control_ratio, SV, Hard%, Med%, Soft%, HBP, WP]
+        Features: [IP, BB%, K%, K-BB%, ERA (park-adjusted), damage_control_ratio, Opportunity_Success, Contact_Quality_Index, HBP%, Statcast_Launch_Quality_Index]
         """
         try:
             # Core stats - must be present
@@ -309,42 +309,47 @@ class HistoricalFeaturePreparer:
                     # Calculate damage control ratio: LOB% / (HR/9 + 0.5)
                     damage_control_ratio = lob_pct / (hr9_current + 0.5)
 
-            # Get new features for 11-feature expansion
+            # Calculate K-BB% from K% and BB%
+            k_bb_pct = k_pct - bb_pct
+
+            # Get enhanced features from production system
             player_id = self._safe_float(player_row.get('MLBAMID', player_row.get('mlbid')))
 
-            # Load new features from player_id if available
-            sv = 0.0
-            hard_pct = 0.0
-            med_pct = 0.0
-            soft_pct = 0.0
-            hbp = 0.0
-            wp = 0.0
+            # Load features for 10-feature K-BB% system
+            opportunity_success = 0.6  # Default value
+            contact_quality_index = 50.0  # Default normalized value
+            hbp_pct = 0.0  # HBP percentage
+            statcast_quality = 50.0  # Default Statcast Launch Quality Index
 
             if player_id is not None:
                 try:
                     player_id = int(player_id)
 
-                    # Get new features
-                    sv = self.new_pitcher_features['SV'].get(player_id, 0.0)
-                    hard_pct = self.new_pitcher_features['Hard%'].get(player_id, 0.0)
-                    med_pct = self.new_pitcher_features['Med%'].get(player_id, 0.0)
-                    soft_pct = self.new_pitcher_features['Soft%'].get(player_id, 0.0)
-                    hbp = self.new_pitcher_features['HBP'].get(player_id, 0.0)
-                    wp = self.new_pitcher_features['WP'].get(player_id, 0.0)
-                except (ValueError, TypeError):
+                    # Get features from percentage-based system (which includes K-BB%)
+                    from .derived_stats import get_player_percentage_features
+                    percentage_features = get_player_percentage_features(player_id, self.percentage_features)
+
+                    if percentage_features:
+                        opportunity_success = percentage_features.get('Opportunity_Success', 0.6)
+                        contact_quality_index = percentage_features.get('Contact_Quality_Index', 50.0)
+                        hbp_pct = percentage_features.get('HBP%', 0.0)
+                        statcast_quality = percentage_features.get('Statcast_Launch_Quality_Index', 50.0)
+
+                        # Use the K-BB% from production system if available
+                        if 'K-BB%' in percentage_features:
+                            k_bb_pct = percentage_features['K-BB%']
+
+                except (ValueError, TypeError, ImportError):
                     pass
 
-            # If new features not found in historical data, try to get from current row
-            if sv == 0.0:
-                sv = self._safe_float(player_row.get('SV', 0.0)) or 0.0
-            if hbp == 0.0:
-                hbp = self._safe_float(player_row.get('HBP', 0.0)) or 0.0
-            if wp == 0.0:
-                wp = self._safe_float(player_row.get('WP', 0.0)) or 0.0
+            # If features not found, try to calculate from current row data
+            if hbp_pct == 0.0:
+                hbp_raw = self._safe_float(player_row.get('HBP', 0.0)) or 0.0
+                bf = self._safe_float(player_row.get('BF', player_row.get('TBF'))) or 1.0
+                hbp_pct = hbp_raw / bf if bf > 0 else 0.0
 
-            # Return 11 features: [IP, BB%, K%, ERA, damage_control_ratio, SV, Hard%, Med%, Soft%, HBP, WP]
-            # Note: Removed HR% as it's redundant with damage_control_ratio per user feedback
-            return [ip, bb_pct, k_pct, era, damage_control_ratio, sv, hard_pct, med_pct, soft_pct, hbp, wp]
+            # Return 10 features: [IP, BB%, K%, K-BB%, ERA, damage_control_ratio, Opportunity_Success, Contact_Quality_Index, HBP%, Statcast_Launch_Quality_Index]
+            return [ip, bb_pct, k_pct, k_bb_pct, era, damage_control_ratio, opportunity_success, contact_quality_index, hbp_pct, statcast_quality]
 
         except Exception:
             return None
