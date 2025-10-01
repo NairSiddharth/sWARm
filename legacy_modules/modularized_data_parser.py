@@ -45,7 +45,7 @@ from legacy_modules.war_processing import (
 )
 
 # Enhanced baserunning analytics
-from current_season_modules.baserunning_analytics import (
+from legacy_modules.baserunning_analytics import (
     clean_sorted_baserunning, calculate_enhanced_baserunning_values,
     calculate_defensive_baserunning_impact, calculate_steal_run_value,
     parse_baserunning_event, extract_year_from_game_id,
@@ -94,7 +94,7 @@ from current_season_modules.data_loading import (
     get_primary_dataframes, load_yearly_bp_data, load_yearly_catcher_framing_data,
     load_comprehensive_fangraphs_data
 )
-from current_season_modules.park_factors import get_player_park_adjustment
+from legacy_modules.park_factors import get_player_park_adjustment
 from legacy_modules.defensive_metrics import create_player_team_mapping
 
 # Import comprehensive duplicate name disambiguation

@@ -1,26 +1,54 @@
 """
-Park Factors Module for sWARm Current Season Analysis
+Park Factors Module for sWARm Current Season Analysis.
 
 Uses official FanGraphs park factors (3yr column) instead of calculating from game data.
 Ensures consistent park factor integration across the historical training pipeline.
 """
 
-import os
-import pandas as pd
+__version__ = '2.0.0'
+__author__ = 'oWAR Development Team'
+
+# Standard library imports
 import json
 from pathlib import Path
+from typing import Dict, Optional
 
-# Constants
-DATA_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\MLB Player Data"
-CACHE_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\cache"
+# Third-party imports
+import pandas as pd
 
-# Ensure cache directory exists
-os.makedirs(CACHE_DIR, exist_ok=True)
+# Local imports
+from .config import CACHE_DIR, DATA_DIR
+from .logging import get_logger
+
+# Initialize logger
+logger = get_logger(__name__)
 
 # Global cache for park factors to avoid repeated loading
-_PARK_FACTORS_CACHE = {}
+_PARK_FACTORS_CACHE: Dict[int, Dict[str, float]] = {}
 
-def load_fangraphs_park_factors(year=2024):
+# FanGraphs team name to abbreviation mapping
+FANGRAPHS_TO_ABBREV = {
+    'Angels': 'LAA', 'Astros': 'HOU', 'Athletics': 'OAK', 'Mariners': 'SEA', 'Rangers': 'TEX',
+    'Yankees': 'NYY', 'Red Sox': 'BOS', 'Blue Jays': 'TOR', 'Orioles': 'BAL', 'Rays': 'TB',
+    'White Sox': 'CWS', 'Guardians': 'CLE', 'Tigers': 'DET', 'Royals': 'KC', 'Twins': 'MIN',
+    'Braves': 'ATL', 'Marlins': 'MIA', 'Mets': 'NYM', 'Phillies': 'PHI', 'Nationals': 'WSN',
+    'Cubs': 'CHC', 'Reds': 'CIN', 'Brewers': 'MIL', 'Pirates': 'PIT', 'Cardinals': 'STL',
+    'Diamondbacks': 'ARI', 'Rockies': 'COL', 'Dodgers': 'LAD', 'Padres': 'SD', 'Giants': 'SF'
+}
+
+# Park factor adjustment constants
+NEUTRAL_PARK_FACTOR = 100.0
+DEFAULT_YEAR = 2024
+FALLBACK_YEAR = 2024  # Used when current year not available
+
+# Public API
+__all__ = [
+    'load_park_factors',
+    'apply_park_factor_adjustments',
+]
+
+
+def load_park_factors(year: int = DEFAULT_YEAR) -> Dict[str, float]:
     """
     Load official FanGraphs park factors using 3yr column.
 
@@ -28,49 +56,63 @@ def load_fangraphs_park_factors(year=2024):
         year: Year to load park factors for
 
     Returns:
-        dict: Team abbreviation -> park factor (per 100)
+        Dictionary mapping team abbreviation to park factor (per 100)
+
+    Raises:
+        FileNotFoundError: If park factors file cannot be found
+        ValueError: If required columns are missing from data
+
+    Example:
+        >>> park_factors = load_park_factors(2024)
+        >>> park_factors['NYY']
+        95.0
     """
     # Check global cache first (fastest)
     if year in _PARK_FACTORS_CACHE:
+        logger.debug(f"Returning cached park factors for {year}")
         return _PARK_FACTORS_CACHE[year]
 
-    cache_file = os.path.join(CACHE_DIR, f'fangraphs_park_factors_{year}.json')
+    cache_file = CACHE_DIR / f'fangraphs_park_factors_{year}.json'
 
     # Try to load from file cache
-    if os.path.exists(cache_file):
+    if cache_file.exists():
         try:
             with open(cache_file, 'r') as f:
                 cached_data = json.load(f)
-            print(f"Loaded cached FanGraphs park factors for {year} ({len(cached_data)} teams)")
-            # Store in global cache for future calls
+            logger.info(
+                f"Loaded cached FanGraphs park factors for {year} ({
+                    len(cached_data)} teams)")
             _PARK_FACTORS_CACHE[year] = cached_data
             return cached_data
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning(f"Failed to load cache file: {e}")
 
-    print(f"=== LOADING FANGRAPHS PARK FACTORS ({year}) ===")
+    logger.info(f"Loading FanGraphs park factors for {year}")
 
     # Try to load the specified year first
-    park_factors_file = os.path.join(DATA_DIR, 'FanGraphs_Data', 'park_factors', f'fangraphs_parkfactors_{year}.csv')
+    park_factors_file = DATA_DIR / 'FanGraphs_Data' / \
+        'park_factors' / f'fangraphs_parkfactors_{year}.csv'
 
-    # If year file doesn't exist and it's 2025, fallback to 2024
-    if not os.path.exists(park_factors_file) and year == 2025:
-        print(f"2025 park factors not found, falling back to 2024")
-        park_factors_file = os.path.join(DATA_DIR, 'FanGraphs_Data', 'park_factors', f'fangraphs_parkfactors_2024.csv')
-        year = 2024  # Update cache file name
-        cache_file = os.path.join(CACHE_DIR, f'fangraphs_park_factors_{year}.json')
+    # If year file doesn't exist and it's recent, fallback to previous year
+    if not park_factors_file.exists() and year >= 2025:
+        logger.warning(f"{year} park factors not found, falling back to {FALLBACK_YEAR}")
+        park_factors_file = DATA_DIR / 'FanGraphs_Data' / \
+            'park_factors' / f'fangraphs_parkfactors_{FALLBACK_YEAR}.csv'
+        year = FALLBACK_YEAR
+        cache_file = CACHE_DIR / f'fangraphs_park_factors_{year}.json'
 
-    if not os.path.exists(park_factors_file):
-        print(f"Warning: Park factors file not found: {park_factors_file}")
-        return {}
+    if not park_factors_file.exists():
+        logger.error(f"Park factors file not found: {park_factors_file}")
+        raise FileNotFoundError(f"Park factors file not found: {park_factors_file}")
 
     try:
         park_df = pd.read_csv(park_factors_file)
 
-        # Check if required columns exist
-        if 'Team' not in park_df.columns or '3yr' not in park_df.columns:
-            print(f"Warning: Required columns ('Team', '3yr') not found in {park_factors_file}")
-            return {}
+        # Validate required columns
+        required_columns = ['Team', '3yr']
+        missing_columns = set(required_columns) - set(park_df.columns)
+        if missing_columns:
+            raise ValueError(f"Required columns missing: {missing_columns}")
 
         # Create team -> park factor mapping using abbreviations
         park_factors = {}
@@ -88,34 +130,58 @@ def load_fangraphs_park_factors(year=2024):
         try:
             with open(cache_file, 'w') as f:
                 json.dump(park_factors, f, indent=2)
-            print(f"Loaded FanGraphs park factors for {len(park_factors)} teams from {year}")
+            logger.debug(f"Saved park factors to cache: {cache_file}")
         except Exception as e:
-            print(f"Warning: Could not save park factors cache: {e}")
+            logger.warning(f"Could not save park factors cache: {e}")
 
         # Store in global cache for future calls
         _PARK_FACTORS_CACHE[year] = park_factors
+        logger.info(f"Loaded FanGraphs park factors for {len(park_factors)} teams from {year}")
         return park_factors
 
     except Exception as e:
-        print(f"Error loading park factors from {park_factors_file}: {e}")
-        return {}
+        logger.error(f"Error loading park factors from {park_factors_file}: {e}")
+        raise
 
 
-def apply_park_factor_adjustments(player_stats, player_name, team, player_type='hitter', year=2024):
+def apply_park_factor_adjustments(
+    player_stats: Dict[str, float],
+    player_name: str,
+    team: str,
+    player_type: str = 'hitter',
+    year: int = DEFAULT_YEAR
+) -> Dict[str, float]:
     """
-    Apply park factor adjustments to player statistics using FanGraphs data
+    Apply park factor adjustments to player statistics using FanGraphs data.
 
     Args:
-        player_stats: dict of player statistics
-        player_name: player name for tracking
-        team: team abbreviation
-        player_type: 'hitter' or 'pitcher'
-        year: year for park factors (default 2024)
+        player_stats: Dictionary of player statistics to adjust
+        player_name: Player name for tracking/logging
+        team: Team abbreviation
+        player_type: Either 'hitter' or 'pitcher'
+        year: Year for park factors
 
     Returns:
-        dict: player_stats with park_factor_adjustment added
+        Dictionary with park_factor_adjustment added and stats adjusted
+
+    Raises:
+        ValueError: If player_type is not 'hitter' or 'pitcher'
+
+    Example:
+        >>> stats = {'AVG': .300, 'OBP': .400, 'SLG': .500}
+        >>> adjusted = apply_park_factor_adjustments(stats, 'Judge', 'NYY', 'hitter')
+        >>> adjusted['park_factor_adjustment']
+        1.05
     """
-    park_factors = load_fangraphs_park_factors(year)
+    if player_type not in ['hitter', 'pitcher']:
+        raise ValueError(f"player_type must be 'hitter' or 'pitcher', got {player_type}")
+
+    try:
+        park_factors = load_park_factors(year)
+    except (FileNotFoundError, ValueError) as e:
+        logger.warning(f"Could not load park factors: {e}. Using neutral adjustment.")
+        player_stats['park_factor_adjustment'] = 1.0
+        return player_stats
 
     if not park_factors:
         # No park factors available, return neutral
@@ -125,7 +191,7 @@ def apply_park_factor_adjustments(player_stats, player_name, team, player_type='
     # Get team's park factor
     team_abbrev = str(team).upper().strip()
     if team_abbrev not in park_factors:
-        # Team not found in park factors, return neutral
+        logger.debug(f"Team {team_abbrev} not found in park factors, using neutral")
         player_stats['park_factor_adjustment'] = 1.0
         return player_stats
 
@@ -135,72 +201,83 @@ def apply_park_factor_adjustments(player_stats, player_name, team, player_type='
     if player_type == 'hitter':
         # For hitters: park factor > 100 helps offense, < 100 hurts offense
         # Adjustment is inverse: if park helps hitters, adjust stats down
-        park_adjustment = 100 / park_factor
+        park_adjustment = NEUTRAL_PARK_FACTOR / park_factor
 
         # Apply adjustments to offensive stats
-        if 'AVG' in player_stats:
-            player_stats['AVG'] = player_stats['AVG'] * park_adjustment
-        if 'OBP' in player_stats:
-            player_stats['OBP'] = player_stats['OBP'] * park_adjustment
-        if 'SLG' in player_stats:
-            player_stats['SLG'] = player_stats['SLG'] * park_adjustment
+        _adjust_hitter_stats(player_stats, park_adjustment)
 
     else:  # pitcher
         # For pitchers: park factor > 100 hurts pitchers, < 100 helps pitchers
         # Adjustment is direct: if park helps hitters, credit pitcher more
-        park_adjustment = park_factor / 100
+        park_adjustment = park_factor / NEUTRAL_PARK_FACTOR
 
         # Apply adjustments to pitching stats
-        if 'ERA' in player_stats:
-            player_stats['ERA'] = player_stats['ERA'] * park_adjustment
-        if 'HR%' in player_stats:
-            player_stats['HR%'] = player_stats['HR%'] * park_adjustment
+        _adjust_pitcher_stats(player_stats, park_adjustment)
 
     player_stats['park_factor_adjustment'] = park_adjustment
+    logger.debug(f"Applied park factor {park_factor} (adj: {park_adjustment:.3f}) to {player_name}")
     return player_stats
 
 
-# FanGraphs team name to abbreviation mapping
-FANGRAPHS_TO_ABBREV = {
-    'Angels': 'LAA', 'Astros': 'HOU', 'Athletics': 'OAK', 'Mariners': 'SEA', 'Rangers': 'TEX',
-    'Yankees': 'NYY', 'Red Sox': 'BOS', 'Blue Jays': 'TOR', 'Orioles': 'BAL', 'Rays': 'TB',
-    'White Sox': 'CWS', 'Guardians': 'CLE', 'Tigers': 'DET', 'Royals': 'KC', 'Twins': 'MIN',
-    'Braves': 'ATL', 'Marlins': 'MIA', 'Mets': 'NYM', 'Phillies': 'PHI', 'Nationals': 'WSN',
-    'Cubs': 'CHC', 'Reds': 'CIN', 'Brewers': 'MIL', 'Pirates': 'PIT', 'Cardinals': 'STL',
-    'Diamondbacks': 'ARI', 'Rockies': 'COL', 'Dodgers': 'LAD', 'Padres': 'SD', 'Giants': 'SF'
-}
+def _adjust_hitter_stats(player_stats: Dict[str, float], park_adjustment: float) -> None:
+    """
+    Apply park adjustments to hitter statistics.
+
+    Args:
+        player_stats: Dictionary of statistics to modify in-place
+        park_adjustment: Adjustment factor to apply
+    """
+    hitter_stats_to_adjust = ['AVG', 'OBP', 'SLG', 'OPS', 'ISO']
+
+    for stat in hitter_stats_to_adjust:
+        if stat in player_stats and player_stats[stat] is not None:
+            player_stats[stat] = player_stats[stat] * park_adjustment
 
 
-def normalize_team_abbreviation(team):
-    """Normalize team abbreviation for consistent lookup."""
-    if pd.isna(team):
+def _adjust_pitcher_stats(player_stats: Dict[str, float], park_adjustment: float) -> None:
+    """
+    Apply park adjustments to pitcher statistics.
+
+    Args:
+        player_stats: Dictionary of statistics to modify in-place
+        park_adjustment: Adjustment factor to apply
+    """
+    pitcher_stats_to_adjust = ['ERA', 'HR%', 'HR/9', 'FIP', 'xFIP']
+
+    for stat in pitcher_stats_to_adjust:
+        if stat in player_stats and player_stats[stat] is not None:
+            player_stats[stat] = player_stats[stat] * park_adjustment
+
+
+def normalize_team_abbreviation(team: Optional[str]) -> Optional[str]:
+    """
+    Normalize team abbreviation for consistent lookup.
+
+    Args:
+        team: Team name or abbreviation
+
+    Returns:
+        Normalized team abbreviation or None if invalid
+
+    Example:
+        >>> normalize_team_abbreviation('nyy')
+        'NYY'
+        >>> normalize_team_abbreviation('Yankees')
+        'NYY'
+    """
+    if pd.isna(team) or team is None:
         return None
 
     team_upper = str(team).upper().strip()
-    return TEAM_MAPPINGS.get(team_upper, team_upper)
 
+    # Check if it's already an abbreviation
+    if team_upper in FANGRAPHS_TO_ABBREV.values():
+        return team_upper
 
-# For backward compatibility, create calculate_park_factors as alias
-def calculate_park_factors(year=2024):
-    """Backward compatibility function."""
-    return load_fangraphs_park_factors(year)
+    # Check if it's a full team name
+    for full_name, abbrev in FANGRAPHS_TO_ABBREV.items():
+        if full_name.upper() == team_upper:
+            return abbrev
 
-
-if __name__ == "__main__":
-    # Test park factor loading
-    print("Testing FanGraphs park factor loading...")
-
-    # Test 2024 factors
-    factors_2024 = load_fangraphs_park_factors(2024)
-    print(f"2024 factors loaded: {len(factors_2024)} teams")
-
-    # Test 2025 factors (should fallback to 2024)
-    factors_2025 = load_fangraphs_park_factors(2025)
-    print(f"2025 factors loaded: {len(factors_2025)} teams")
-
-    # Test specific team lookup
-    if factors_2024:
-        sample_teams = ['DET', 'LAA', 'NYY']
-        for team in sample_teams:
-            factor = factors_2024.get(team, 'Not found')
-            print(f"{team}: {factor}")
+    logger.warning(f"Unknown team: {team}")
+    return team_upper

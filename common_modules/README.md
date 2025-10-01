@@ -21,14 +21,11 @@ Houses reusable components that provide core functionality for data processing, 
 - **`confidence_scorer.py`** - Confidence scoring for projections and predictions
 
 ### Modeling & Machine Learning
-- **`ensemble_modeling.py`** - Ensemble model creation and management
-- **`complete_model_save.py`** - Model serialization and version control
-- **`retrain_ensemble_models.py`** - Model retraining and updating workflows
-- **`quick_retrain_10_features.py`** - Rapid model retraining with core feature set
+- **`ensemble_modeling.py`** - Ensemble model with SEPARATE WAR/WARP training (improved accuracy)
 
 ### Specialized Calculations
 - **`game_progress_calculator.py`** - In-season performance tracking and game-by-game analysis
-- **`pitcher_workload_calculator.py`** - Pitcher usage patterns and workload management
+- **`pitcher_workload_calculator.py`** - Pitcher projections using team-games-based participation rates
 - **`scenario_projections.py`** - Alternative scenario modeling and what-if analysis
 - **`position_normalizer.py`** - Position classification and normalization utilities
 
@@ -66,7 +63,6 @@ from common_modules.positional_adjustments import calculate_positional_value
 
 # Modeling
 from common_modules.ensemble_modeling import create_ensemble_model
-from common_modules.complete_model_save import save_ensemble_models
 ```
 
 ### Integration Points

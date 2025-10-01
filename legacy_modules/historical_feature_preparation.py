@@ -15,9 +15,9 @@ import os
 from datetime import datetime
 
 # Import enhanced features and park factors
-from .enhanced_features import get_enhanced_features, get_player_enhanced_features
-from .park_factors import apply_park_factor_adjustments
-from .positional_adjustments import PositionalAdjustmentCalculator, POSITION_WAR_ADJUSTMENTS
+from common_modules.enhanced_features import get_enhanced_features, get_player_enhanced_features
+from common_modules.park_factors import apply_park_factor_adjustments
+from common_modules.positional_adjustments import PositionalAdjustmentCalculator, POSITION_WAR_ADJUSTMENTS
 
 
 class HistoricalFeaturePreparer:
@@ -36,11 +36,12 @@ class HistoricalFeaturePreparer:
         self.baserunning_data, self.defense_data = get_enhanced_features()
 
         # Load enhanced pitcher features (LOB%, GB%, damage_control_ratio)
-        from .derived_stats import load_enhanced_pitcher_features, load_percentage_pitcher_features
+        from common_modules.derived_stats import load_enhanced_pitcher_features, load_percentage_pitcher_features
         self.enhanced_pitcher_features = load_enhanced_pitcher_features()
 
         # Load percentage-based features for 10-feature K-BB% system
-        self.percentage_features = load_percentage_pitcher_features("MLB Player Data", [2020, 2021, 2022, 2023, 2024])
+        # Updated to use centralized config - no arguments needed
+        self.percentage_features = load_percentage_pitcher_features()
 
     def prepare_hitter_features(self, first_half_data):
         """
@@ -326,7 +327,7 @@ class HistoricalFeaturePreparer:
                     player_id = int(player_id)
 
                     # Get features from percentage-based system (which includes K-BB%)
-                    from .derived_stats import get_player_percentage_features
+                    from common_modules.derived_stats import get_player_percentage_features
                     percentage_features = get_player_percentage_features(player_id, self.percentage_features)
 
                     if percentage_features:

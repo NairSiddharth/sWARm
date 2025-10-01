@@ -254,8 +254,8 @@ def filter_pitchers_from_hitting_data(df, data_source='war', year_col='Year'):
     print(f"Filtering pitchers from {data_source.upper()} hitting data...")
 
     # Load pitcher data to identify who are pitchers
-    from shared_modules.bp_derived_stats import load_fixed_bp_data
-    _, pitcher_warp = load_fixed_bp_data()
+    from common_modules.derived_stats import load_bp_warp_data
+    _, pitcher_warp = load_bp_warp_data()
 
     # Get list of pitcher names (assuming pitcher data has same name format)
     pitcher_names = set(pitcher_warp['Name'].dropna())
@@ -339,14 +339,14 @@ def prepare_data_for_kfold():
 
     # Import data loading functions - USING SAME APPROACH AS MAIN NOTEBOOK
     sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-    from shared_modules.bp_derived_stats import load_fixed_bp_data
-    from current_season_modules.baserunning_analytics import calculate_enhanced_baserunning_values
+    from common_modules.derived_stats import load_bp_warp_data
+    from legacy_modules.baserunning_analytics import calculate_enhanced_baserunning_values
     from shared_modules.basic_cleaners import clean_defensive_players
     from legacy_modules.name_mapping_optimization import create_optimized_name_mapping_with_indices
 
     # Load datasets - USING EXPANDED DATA
-    print("Loading FIXED BP data with derived statistics...")
-    hitter_warp, pitcher_warp = load_fixed_bp_data()
+    print("Loading Baseball Prospectus WARP data...")
+    hitter_warp, pitcher_warp = load_bp_warp_data()
 
     print("Loading EXPANDED FanGraphs data...")
     hitter_war_raw = load_expanded_fangraphs_data()
@@ -366,7 +366,7 @@ def prepare_data_for_kfold():
     pitcher_war_raw = load_expanded_fangraphs_pitcher_data()
 
     # Apply two-way player logic to filter out position players pitching
-    from current_season_modules.two_way_players import get_cleaned_two_way_data
+    from .two_way_players import get_cleaned_two_way_data
     two_way_analysis = get_cleaned_two_way_data()
 
     # Filter pitcher data using two-way logic

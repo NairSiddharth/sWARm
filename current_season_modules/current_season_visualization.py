@@ -19,8 +19,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def create_scenario_projection_chart(scenarios_data: Dict[str, Dict],
-                                    player_name: str,
-                                    player_type: str = 'hitter') -> go.Figure:
+                                     player_name: str,
+                                     player_type: str = 'hitter') -> go.Figure:
     """
     Create interactive chart showing all 5 projection scenarios for a player
 
@@ -139,9 +139,9 @@ def create_scenario_projection_chart(scenarios_data: Dict[str, Dict],
 
 
 def create_current_vs_projected_comparison(current_stats: Dict,
-                                         projected_stats: Dict,
-                                         player_name: str,
-                                         player_type: str = 'hitter') -> go.Figure:
+                                           projected_stats: Dict,
+                                           player_name: str,
+                                           player_type: str = 'hitter') -> go.Figure:
     """
     Create comparison chart showing current vs projected season-end stats
 
@@ -200,11 +200,11 @@ def create_current_vs_projected_comparison(current_stats: Dict,
 
 
 def create_war_warp_tracking_chart(historical_data: List[Dict],
-                                 current_war: float,
-                                 current_warp: float,
-                                 projected_war: float,
-                                 projected_warp: float,
-                                 player_name: str) -> go.Figure:
+                                   current_war: float,
+                                   current_warp: float,
+                                   projected_war: float,
+                                   projected_warp: float,
+                                   player_name: str) -> go.Figure:
     """
     Create tracking chart showing WAR/WARP progression over time with projections
 

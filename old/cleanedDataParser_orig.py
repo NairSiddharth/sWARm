@@ -29,7 +29,7 @@ from current_season_modules.data_loading import (
 )
 
 # ====== PARK FACTORS MODULE ======
-from current_season_modules.park_factors import (
+from legacy_modules.park_factors import (
     get_player_park_adjustment
 )
 

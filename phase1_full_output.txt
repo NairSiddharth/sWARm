@@ -1,0 +1,185 @@
+13:57:56 - common_modules.logging - INFO - Logging module initialized
+2025-10-01 13:57:58.646469: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-01 13:58:01.225356: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Preparing comprehensive dataset for K-fold cross-validation...
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Loading enhanced features...
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Loading Baseball Prospectus WARP data...
+13:58:02 - common_modules.derived_stats - INFO - Loading Baseball Prospectus WARP data via public API
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Loading BP data with fixed derived statistics
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2016 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2017 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2018 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2019 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2016 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2017 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2018 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2019 data
+13:58:02 - common_modules.pitcher_feature_calculations - INFO - Loaded 6503 hitter and 7345 pitcher records
+13:58:02 - common_modules.derived_stats - INFO - Successfully loaded 6503 hitter and 7345 pitcher records
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Loading EXPANDED FanGraphs data...
+13:58:02 - current_season_modules.modeling.data_loading - INFO - Loading expanded FanGraphs hitter data...
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2016: 633 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2017: 625 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2018: 629 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2019: 635 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2020: 581 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2021: 661 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2022: 690 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2023: 655 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2024: 651 hitter records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - Expanded FanGraphs hitter data: 5760 total records
+13:58:02 - current_season_modules.modeling.data_loading - INFO - PA range: 0 to 753
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Filtering pitchers from WAR hitting data...
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Skipping pitcher filtering for simplified testing
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - WAR hitting data: 5760 records (no filtering applied)
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Filtering pitchers from WARP hitting data...
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Skipping pitcher filtering for simplified testing
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - WARP hitting data: 6503 records (no filtering applied)
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Loading EXPANDED pitcher data...
+13:58:02 - current_season_modules.modeling.data_loading - INFO - Loading expanded FanGraphs pitcher data...
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2016: 736 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2017: 743 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2018: 784 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2019: 818 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2020: 719 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2021: 885 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2022: 861 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2023: 851 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2024: 840 pitcher records loaded
+13:58:02 - current_season_modules.modeling.data_loading - INFO - Expanded FanGraphs pitcher data: 7237 total records
+13:58:02 - current_season_modules.modeling.data_loading - INFO - Games range: 1 to 83
+13:58:02 - current_season_modules.modeling.data_preparation - INFO - Pitcher data after two-way filtering: 7345 WARP, 7237 WAR
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - Loaded data: 6503 hitter WARP, 7345 pitcher WARP
+13:58:06 - current_season_modules.modeling.data_preparation - INFO -               5760 hitter WAR, 7237 pitcher WAR
+13:58:06 - current_season_modules.modeling.data_preparation - INFO -               11234 BP positions, 20831 FG positions
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - Creating MLBID-based player mappings...
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - Creating MLBID-based player mapping...
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - WARP data: 6503 records with valid mlbid
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - WAR data: 5760 records with valid MLBAMID
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - Common MLB IDs: 1536
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - Created 5743 WARP->WAR index mappings
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - Creating MLBID-based player mapping...
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - WARP data: 7345 records with valid mlbid
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - WAR data: 7237 records with valid MLBAMID
+13:58:06 - current_season_modules.modeling.data_preparation - INFO - Common MLB IDs: 2236
+13:58:07 - current_season_modules.modeling.data_preparation - INFO - Created 7307 WARP->WAR index mappings
+13:58:07 - current_season_modules.modeling.data_preparation - INFO - MLBID mappings created: 5743 hitters, 7307 pitchers
+13:58:07 - current_season_modules.modeling.data_preparation - INFO - WARP data: 5743/5743 records with valid WARP
+13:58:07 - current_season_modules.modeling.data_preparation - INFO - WAR data: 5743/5743 records with valid WAR
+13:58:07 - common_modules.derived_stats - INFO - Loading percentage-based pitcher features for years 2016-2024
+13:58:07 - common_modules.pitcher_feature_calculations - INFO - Loading percentage features for years 2016-2024
+13:58:08 - common_modules.pitcher_feature_calculations - INFO - Loading opportunity components for years 2016-2024
+13:58:09 - common_modules.feature_calculations - INFO - Calculated opportunity_success for 2236 players
+13:58:09 - common_modules.feature_calculations - INFO - Calculated percentage damage_control_ratio for 2236 players
+13:58:09 - common_modules.feature_calculations - INFO - Damage Control Ratio normalized: mean=50.0, std=15.0
+13:58:09 - common_modules.pitcher_feature_calculations - INFO - Loading contact quality data for years 2016-2024
+13:58:10 - common_modules.feature_calculations - INFO - Contact Quality Index normalized: mean=50.0, std=15.0
+13:58:10 - common_modules.pitcher_feature_calculations - INFO - Loading Statcast exit velocity data
+13:58:10 - common_modules.pitcher_feature_calculations - INFO - Loaded Statcast data for 2277 total players
+13:58:10 - common_modules.feature_calculations - INFO - Statcast Launch Quality Index normalized: mean=50.0, std=15.0
+13:58:10 - common_modules.derived_stats - INFO - Percentage features loaded successfully
+13:58:11 - common_modules.derived_stats - INFO - Loading percentage-based pitcher features for years 2016-2024
+13:58:11 - common_modules.pitcher_feature_calculations - INFO - Loading percentage features for years 2016-2024
+13:58:12 - common_modules.pitcher_feature_calculations - INFO - Loading opportunity components for years 2016-2024
+13:58:13 - common_modules.feature_calculations - INFO - Calculated opportunity_success for 2236 players
+13:58:13 - common_modules.feature_calculations - INFO - Calculated percentage damage_control_ratio for 2236 players
+13:58:13 - common_modules.feature_calculations - INFO - Damage Control Ratio normalized: mean=50.0, std=15.0
+13:58:13 - common_modules.pitcher_feature_calculations - INFO - Loading contact quality data for years 2016-2024
+13:58:13 - common_modules.feature_calculations - INFO - Contact Quality Index normalized: mean=50.0, std=15.0
+13:58:13 - common_modules.pitcher_feature_calculations - INFO - Loading Statcast exit velocity data
+13:58:14 - common_modules.pitcher_feature_calculations - INFO - Loaded Statcast data for 2277 total players
+13:58:14 - common_modules.feature_calculations - INFO - Statcast Launch Quality Index normalized: mean=50.0, std=15.0
+13:58:14 - common_modules.derived_stats - INFO - Percentage features loaded successfully
+13:58:14 - current_season_modules.modeling.data_preparation - INFO - WARP data: 7289/7307 records with valid WARP
+13:58:14 - current_season_modules.modeling.data_preparation - INFO - WAR data: 7307/7307 records with valid WAR
+13:58:15 - current_season_modules.modeling.data_preparation - INFO - Applying legitimate pitcher filtering...
+13:58:15 - common_modules.filter_legitimate_pitchers - INFO - Before filtering: 7307 pitchers
+13:58:15 - common_modules.filter_legitimate_pitchers - INFO - After filtering: 4456 pitchers (removed 2851 position players)
+13:58:15 - current_season_modules.modeling.data_preparation - INFO - Pitcher filtering applied successfully
+13:58:15 - current_season_modules.modeling.data_preparation - INFO - Applying legitimate hitter filtering...
+13:58:15 - common_modules.filter_legitimate_pitchers - INFO - Before filtering: 5743 hitters
+13:58:15 - common_modules.filter_legitimate_pitchers - INFO - Kept 6 legitimate two-way players
+13:58:15 - common_modules.filter_legitimate_pitchers - INFO - After filtering: 5743 hitters (removed 0 forced hitters)
+13:58:15 - current_season_modules.modeling.data_preparation - INFO - Hitter filtering applied successfully
+2025-10-01 13:58:15.344005: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+Traceback (most recent call last):
+  File "C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3812, in get_loc
+    return self._engine.get_loc(casted_key)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2606, in pandas._libs.hashtable.Int64HashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2630, in pandas._libs.hashtable.Int64HashTable.get_item
+KeyError: 0
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\nairs\Documents\GithubProjects\oWAR\current_season_modules\modeling\test_phase1_quick.py", line 161, in main
+    name = names_array[i]
+           ~~~~~~~~~~~^^^
+  File "C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\pandas\core\series.py", line 1130, in __getitem__
+    return self._get_value(key)
+           ~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\pandas\core\series.py", line 1246, in _get_value
+    loc = self.index.get_loc(label)
+  File "C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3819, in get_loc
+    raise KeyError(key) from err
+KeyError: 0
+================================================================================
+PHASE 1 QUICK TEST - Core Functionality Validation
+================================================================================
+
+Step 1: Loading historical data (2016-2024)...
+Loading enhanced features...
+=== LOADING BASERUNNING DATA ===
+Loaded cached baserunning data (2465 players)
+=== LOADING DEFENSE DATA ===
+Loaded cached defense data (3510 players)
+Loading positional data for projections...
+  FG defensive data: 20831 records
+  BP fielding data: 11234 player-seasons
+Positional data loaded:
+  FG positions: 20831
+  BP positions: 11234
+  [OK] Pitcher WAR data: 4456 samples
+  [OK] Pitcher WARP data: 7289 samples
+
+Step 2: Training ORIGINAL ensemble (RF+Keras, volume-based)...
+Training SEPARATE ensemble for pitcher WAR...
+  Training on 4385 samples
+  Target range: -1.18 to 6.35
+  Target mean: 0.830, std: 1.186
+  Training RandomForest for WAR...
+  Training Keras neural network...
+  Validating ensemble for pitcher war...
+    RandomForest R² = 0.5932 ± 0.0624
+    Keras R² = 0.6129 ± 0.0323
+    Ensemble R² = 0.6286 ± 0.0269
+    Ensemble improvement: +0.0158
+  Ensemble training completed for pitcher_war
+Training SEPARATE ensemble for pitcher WARP...
+  Training on 6451 samples
+  Target range: -3.50 to 8.00
+  Target mean: 0.447, std: 1.032
+  Training RandomForest for WARP...
+  Training Keras neural network...
+  Validating ensemble for pitcher warp...
+    RandomForest R² = 0.7050 ± 0.0834
+    Keras R² = 0.6609 ± 0.0448
+    Ensemble R² = 0.7127 ± 0.0705
+    Ensemble improvement: +0.0077
+  Ensemble training completed for pitcher_warp
+  [OK] Original ensemble trained
+
+Step 3: Training PHASE 1 ensemble (RF+Keras, rate-based, three-path)...
+  Loading G and GS from raw FanGraphs CSV files...
+    Warning: Could not load MLB Player Data/FanGraphs_Data/pitchers\fangraphs_pitchers_2025_firsthalf_standard.csv: invalid literal for int() with base 10: 'firsthalf'
+  Loaded G/GS data for 7230 pitcher-seasons
+  DEBUG war: data keys = ['X', 'y', 'names', 'years', 'mlbids']
+  DEBUG war: X shape = (4456, 10)
+  DEBUG war: X columns = ['IP', 'BB%', 'K%', 'K-BB%', 'ERA', 'damage_control_ratio', 'Opportunity_Success', 'Contact_Quality_Index', 'HBP%', 'Statcast_Launch_Quality_Index']
+  DEBUG war: y length = 4456
+  DEBUG war: years type = <class 'list'>, length = 4456
+ERROR training Phase 1 ensemble: 0

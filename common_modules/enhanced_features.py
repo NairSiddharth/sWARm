@@ -29,6 +29,14 @@ CACHE_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\cache"
 # Ensure cache directory exists
 os.makedirs(CACHE_DIR, exist_ok=True)
 
+# Public API exports
+__all__ = [
+    'get_enhanced_features',
+    'load_baserunning_data',
+    'load_defense_data'
+]
+
+
 def load_baserunning_data():
     """
     Load baserunning data from BP and Statcast sources
@@ -48,7 +56,7 @@ def load_baserunning_data():
                 cached_data = json.load(f)
             print(f"Loaded cached baserunning data ({len(cached_data)} players)")
             return cached_data
-        except:
+        except BaseException:
             pass
 
     # Store per-year values: {player_id: {year: baserunning_value}}
@@ -84,12 +92,14 @@ def load_baserunning_data():
 
                                 # Handle percentage conversion safely
                                 if pd.notna(sb_pct_raw):
-                                    sb_pct = float(sb_pct_raw) / 100 if float(sb_pct_raw) > 1 else float(sb_pct_raw)
+                                    sb_pct = float(sb_pct_raw) / \
+                                        100 if float(sb_pct_raw) > 1 else float(sb_pct_raw)
                                 else:
                                     sb_pct = 0
 
                                 if pd.notna(xbt_pct_raw):
-                                    xbt_pct = float(xbt_pct_raw) / 100 if float(xbt_pct_raw) > 1 else float(xbt_pct_raw)
+                                    xbt_pct = float(
+                                        xbt_pct_raw) / 100 if float(xbt_pct_raw) > 1 else float(xbt_pct_raw)
                                 else:
                                     xbt_pct = 0
 
@@ -145,7 +155,11 @@ def load_baserunning_data():
 
                         # Add null safety for speed calculations
                         try:
-                            seconds_090 = float(row.get('seconds_since_hit_090', 0)) if pd.notna(row.get('seconds_since_hit_090')) else 0
+                            seconds_090 = float(
+                                row.get(
+                                    'seconds_since_hit_090',
+                                    0)) if pd.notna(
+                                row.get('seconds_since_hit_090')) else 0
 
                             if player_key and seconds_090 > 0:
                                 # Calculate speed: 90 feet in seconds_090 time
@@ -199,7 +213,12 @@ def load_baserunning_data():
         if len(recent_years) >= 3:
             # 3+ years: weighted average (50%, 30%, 20%)
             weights = [0.5, 0.3, 0.2]
-            final_value = sum(year_values[year] * weight for year, weight in zip(recent_years, weights))
+            final_value = sum(
+                year_values[year] *
+                weight for year,
+                weight in zip(
+                    recent_years,
+                    weights))
         elif len(recent_years) == 2:
             # 2 years: weighted average (70%, 30%)
             final_value = year_values[recent_years[0]] * 0.7 + year_values[recent_years[1]] * 0.3
@@ -224,6 +243,7 @@ def load_baserunning_data():
 
     return baserunning_values
 
+
 def load_defense_data():
     """
     Load comprehensive defense data from FanGraphs and Statcast sources
@@ -243,7 +263,7 @@ def load_defense_data():
                 cached_data = json.load(f)
             print(f"Loaded cached defense data ({len(cached_data)} players)")
             return cached_data
-        except:
+        except BaseException:
             pass
 
     # Store per-year values: {player_id: {year: defense_value}}
@@ -254,7 +274,10 @@ def load_defense_data():
 
     # Process FanGraphs standard defensive data
     if os.path.exists(fg_defensive_dir):
-        standard_files = glob.glob(os.path.join(fg_defensive_dir, "fangraphs_defensive_standard_*.csv"))
+        standard_files = glob.glob(
+            os.path.join(
+                fg_defensive_dir,
+                "fangraphs_defensive_standard_*.csv"))
         print(f"Found {len(standard_files)} FanGraphs standard defensive files")
 
         for file in standard_files:
@@ -262,7 +285,7 @@ def load_defense_data():
                 df = pd.read_csv(file)
                 # Extract year from filename
                 year_str = os.path.basename(file).split('_')[-1].replace('.csv', '')
-                year = int(year_str) if year_str.isdigit() else 2020  # fallback
+                year = int(year_str) if year_str.isdigit() else 2024  # fallback
 
                 # Standard defensive features: Pos, Inn, PO, A, E, DPS, DPT, DPF, Scp
                 for _, row in df.iterrows():
@@ -295,12 +318,14 @@ def load_defense_data():
                         if innings > 0:
                             # Calculate fielding percentage
                             total_chances = putouts + assists + errors
-                            fielding_pct = (putouts + assists) / total_chances if total_chances > 0 else 0
+                            fielding_pct = (putouts + assists) / \
+                                total_chances if total_chances > 0 else 0
 
                             # Defensive value using realistic run impact scaling
                             # Fielding percentage impact: typical range .970-.990, league average ~.980
                             # Scale difference to ~10-20 runs per full season
-                            fielding_runs = (fielding_pct - 0.980) * 1000  # Scale percentage to run impact
+                            # Scale percentage to run impact
+                            fielding_runs = (fielding_pct - 0.980) * 1000
 
                             # Position-specific adjustments (runs per season)
                             position_runs = 0
@@ -343,7 +368,10 @@ def load_defense_data():
                 print(f"Error loading FanGraphs standard file {file}: {e}")
 
         # Process FanGraphs Statcast defensive data (catchers)
-        statcast_files = glob.glob(os.path.join(fg_defensive_dir, "fangraphs_defensive_statcast_*.csv"))
+        statcast_files = glob.glob(
+            os.path.join(
+                fg_defensive_dir,
+                "fangraphs_defensive_statcast_*.csv"))
         print(f"Found {len(statcast_files)} FanGraphs Statcast defensive files")
 
         for file in statcast_files:
@@ -362,16 +390,27 @@ def load_defense_data():
 
                     # Add null safety for catcher stats
                     try:
-                        throwing = float(row.get('Throwing', 0)) if pd.notna(row.get('Throwing')) else 0
-                        blocking = float(row.get('Blocking', 0)) if pd.notna(row.get('Blocking')) else 0
-                        framing = float(row.get('Framing', 0)) if pd.notna(row.get('Framing')) else 0
+                        throwing = float(
+                            row.get(
+                                'Throwing', 0)) if pd.notna(
+                            row.get('Throwing')) else 0
+                        blocking = float(
+                            row.get(
+                                'Blocking', 0)) if pd.notna(
+                            row.get('Blocking')) else 0
+                        framing = float(
+                            row.get(
+                                'Framing', 0)) if pd.notna(
+                            row.get('Framing')) else 0
                         arm = float(row.get('Arm', 0)) if pd.notna(row.get('Arm')) else 0
 
                         # Catcher-specific defensive value
-                        catcher_value = (throwing + blocking + framing + arm) / 4  # Average the components
+                        catcher_value = (throwing + blocking + framing + arm) / \
+                            4  # Average the components
 
                         # Store per-year catcher value
-                        if pd.notna(catcher_value) and np.isfinite(catcher_value) and catcher_value != 0:
+                        if pd.notna(catcher_value) and np.isfinite(
+                                catcher_value) and catcher_value != 0:
                             player_key_str = str(player_key)
                             if player_key_str not in player_year_values:
                                 player_year_values[player_key_str] = {}
@@ -435,8 +474,10 @@ def load_defense_data():
                             expected_pct = position_averages[position][star_level]
 
                             # Value = (actual - expected) * opportunities * difficulty weight
-                            difficulty_weights = {'5star': 5, '4star': 4, '3star': 3, '2star': 2, '1star': 1}
-                            value = (player_pct - expected_pct) * opportunities * difficulty_weights[star_level]
+                            difficulty_weights = {
+                                '5star': 5, '4star': 4, '3star': 3, '2star': 2, '1star': 1}
+                            value = (player_pct - expected_pct) * \
+                                opportunities * difficulty_weights[star_level]
                             total_value += value
 
                     # Store per-year catch probability value
@@ -479,7 +520,12 @@ def load_defense_data():
         if len(recent_years) >= 3:
             # 3+ years: weighted average (50%, 30%, 20%)
             weights = [0.5, 0.3, 0.2]
-            final_value = sum(year_values[year] * weight for year, weight in zip(recent_years, weights))
+            final_value = sum(
+                year_values[year] *
+                weight for year,
+                weight in zip(
+                    recent_years,
+                    weights))
         elif len(recent_years) == 2:
             # 2 years: weighted average (70%, 30%)
             final_value = year_values[recent_years[0]] * 0.7 + year_values[recent_years[1]] * 0.3
@@ -504,6 +550,7 @@ def load_defense_data():
 
     return defense_values
 
+
 def get_enhanced_features():
     """
     Get both enhanced baserunning and defense features
@@ -517,6 +564,7 @@ def get_enhanced_features():
     defense_data = load_defense_data()
 
     return baserunning_data, defense_data
+
 
 def get_player_enhanced_features(player_identifier, baserunning_data=None, defense_data=None):
     """
@@ -539,7 +587,7 @@ def get_player_enhanced_features(player_identifier, baserunning_data=None, defen
 
     # If not found and identifier looks like a name, try name matching
     if (baserunning_value == 0.0 and defense_value == 0.0 and
-        isinstance(player_identifier, str) and ' ' in player_identifier):
+            isinstance(player_identifier, str) and ' ' in player_identifier):
 
         # Simple name matching - could be enhanced with fuzzy matching
         for key, value in baserunning_data.items():

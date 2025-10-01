@@ -1,0 +1,171 @@
+[flake8]
+# =============================================================================
+# BASIC CONFIGURATION
+# =============================================================================
+
+# Maximum line length from CODING_PRINCIPLES.md (100 characters)
+max-line-length = 100
+
+# Maximum cyclomatic complexity from CODING_PRINCIPLES.md
+max-complexity = 12
+
+# File patterns to check
+filename = *.py
+
+# Directories and patterns to exclude
+exclude =
+    .venv,
+    venv,
+    __pycache__,
+    .git,
+    .pytest_cache,
+    *.egg-info,
+    build,
+    dist,
+    legacy_modules,
+    old,
+    deprecated,
+    MLB Player Data,
+    cache,
+    results,
+    logs,
+    .ipynb_checkpoints,
+    notebooks_archive
+
+# =============================================================================
+# ERROR AND WARNING CODES TO IGNORE
+# =============================================================================
+
+# Ignore codes explanation:
+# W503: line break before binary operator (now preferred in PEP 8)
+# E203: whitespace before ':' (conflicts with Black formatter)
+# D100: Missing docstring in public module (modules can be self-explanatory)
+# D104: Missing docstring in public package (package __init__ files)
+# D105: Missing docstring in magic method (often obvious like __str__)
+# D107: Missing docstring in __init__ (usually obvious from class docstring)
+# D203: 1 blank line required before class docstring (conflicts with D211)
+# D213: Multi-line summary should start at second line (we prefer first line)
+# D401: First line should be in imperative mood (too strict)
+# I100: Import statements are in the wrong order (we'll use I201-202 instead)
+# I101: Imported names are in the wrong order (too strict)
+# N806: Variable in function should be lowercase (for DataFrames like 'X')
+# N803: Argument name should be lowercase (for DataFrames like 'X')
+# B008: Do not perform function calls in argument defaults (common pattern)
+# A003: Class attribute shadowing python builtin (like 'id', 'type')
+
+ignore =
+    W503,
+    E203,
+    D100,
+    D104,
+    D105,
+    D107,
+    D203,
+    D213,
+    D401,
+    I100,
+    I101,
+    N806,
+    N803,
+    B008,
+    A003
+
+# =============================================================================
+# PER-FILE IGNORES FOR SPECIAL CASES
+# =============================================================================
+
+per-file-ignores =
+    # __init__.py files often have imports that aren't used directly
+    */__init__.py:F401,F403,D104,I202
+
+    # Test files have different conventions
+    test_*.py:D100,D101,D102,D103,S101
+    *_test.py:D100,D101,D102,D103,S101
+
+    # Jupyter notebook conversion files might have special patterns
+    *.ipynb.py:E402,I201,I202
+
+    # Script files might have different import patterns
+    scripts/*.py:E402,I201
+
+    # Config files often have different patterns
+    */config.py:E501
+    */settings.py:E501
+
+    # Legacy code we're not refactoring yet
+    legacy_modules/*.py:E501,C901,D100,D101,D102,D103
+    old/*.py:E501,C901,D100,D101,D102,D103
+
+    # Standalone testing files - suppress stylistic issues
+    current_season_modules/modeling/*_standalone.py:D212,E133,W504
+    current_season_modules/modeling/validate_phase1.py:D212,D301,E133,E402,W504
+
+# =============================================================================
+# PLUGIN CONFIGURATIONS
+# =============================================================================
+
+# --- flake8-docstrings configuration ---
+# Using Google style docstrings as shown in CODING_PRINCIPLES.md
+docstring-convention = google
+
+# --- flake8-import-order configuration ---
+# Using grouped imports as specified in CODING_PRINCIPLES.md:
+# 1. Standard library
+# 2. Third-party
+# 3. Local application
+import-order-style = google
+application-import-names = common_modules,current_season_modules,future_season_modules,legacy_modules
+
+# --- pep8-naming configuration ---
+# Already configured via ignore codes above (N803, N806)
+
+# --- flake8-bugbear configuration ---
+# B950: line too long (more flexible than E501, adds 10% tolerance)
+# We'll use this instead of E501 for a bit more flexibility
+# Use B950 from bugbear instead of E501
+extend-ignore = E501
+
+# =============================================================================
+# OUTPUT AND REPORTING
+# =============================================================================
+
+# Show source code for each error
+show-source = True
+
+# Count errors
+count = True
+
+# Show statistics at the end
+statistics = True
+
+# Output format
+format = %(path)s:%(row)d:%(col)d: %(code)s %(text)s
+
+# =============================================================================
+# ADDITIONAL STRICT CHECKS (ENABLED)
+# =============================================================================
+
+# Enable all default checks plus:
+# B: flake8-bugbear checks (including B950 for line length)
+# D: flake8-docstrings checks
+# I: flake8-import-order checks
+# A: flake8-builtins checks
+# N: pep8-naming checks
+select = E,F,W,C,B,B950,D,I,A,N
+
+# Hang closing brackets (for multi-line collections)
+hang-closing = True
+
+# =============================================================================
+# NOTES ON ERROR CODES:
+# =============================================================================
+# E: PEP 8 errors
+# W: PEP 8 warnings
+# F: PyFlakes errors (undefined names, unused imports, etc.)
+# C: McCabe complexity
+# B: flake8-bugbear (likely bugs and design problems)
+# D: flake8-docstrings (PEP 257 docstring conventions)
+# I: flake8-import-order (import statement ordering)
+# A: flake8-builtins (shadowing Python builtins)
+# N: pep8-naming (PEP 8 naming conventions)
+# =============================================================================

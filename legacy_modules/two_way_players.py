@@ -1,51 +1,89 @@
 """
-Two-Way Player Identification and Classification
+DEPRECATED: Two-Way Player Identification and Classification
+============================================================
 
-This module handles the identification of true two-way players using comprehensive
-FanGraphs and BP data with proper MLB rolling window criteria.
+**MOVED TO LEGACY: December 2024**
+**Reason**: Functionality replaced by simpler threshold-based filtering in
+           common_modules/filter_legitimate_pitchers.py
 
-MLB Two-Way Player Criteria:
-- Pitching: At least 20 Major League innings in current season
-- Hitting: At least 20 games as position player/DH with 3+ PA each (60+ PA total)
-- Must meet both criteria in same season for official designation
+This module was originally used for complex two-way player identification using
+comprehensive FanGraphs and BP data. It has been superseded by a simpler approach
+that uses basic IP/PA thresholds directly on the existing data without requiring
+separate historical data loading.
 
-Functions:
+**Replacement**: Use common_modules.filter_legitimate_pitchers.apply_pitcher_filtering()
+                which provides the same filtering with simpler criteria:
+                - Legitimate pitchers: ≥20 IP OR ≥10 games pitched
+                - Legitimate hitters: ≥100 PA OR ≥50 games played
+                - Two-way players: Must meet BOTH criteria
+
+**Dependencies**: This module depends on historical_data_loading.py (also moved to legacy)
+
+**Used by**: No active modules. Only referenced by:
+            - legacy_modules/temp_modeling.py (also deprecated)
+            - Old research notebooks in old/ and research_notebooks/ folders
+
+Original Functions:
     identify_two_way_players_comprehensive(): Uses FanGraphs/BP data with MLB criteria
     filter_blowout_pitching(): Filters emergency pitching appearances
     analyze_two_way_candidates(): Detailed analysis of potential two-way players
 """
 
+__version__ = '2.0.0'
+__author__ = 'oWAR Development Team'
+
+# Standard library imports
 import os
 import json
+from typing import Dict, List, Optional, Tuple, Any
+
+# Third-party imports
 import pandas as pd
 import numpy as np
-from current_season_modules.data_loading import load_comprehensive_fangraphs_data, load_yearly_bp_data
-from shared_modules.bp_derived_stats import load_fixed_bp_data
+
+# Local imports
+from .historical_data_loading import load_comprehensive_fangraphs_data, load_yearly_bp_data
+from common_modules.derived_stats import load_bp_warp_data
+from common_modules.logging import get_logger
+
+logger = get_logger(__name__)
+
+# MLB Two-Way Player Constants
+MIN_PITCHING_IP = 20  # Minimum innings pitched for two-way qualification
+MIN_HITTING_GAMES = 20  # Minimum games as position player
+MIN_PA_PER_GAME = 3  # Minimum PA per game
+MIN_TOTAL_PA = 60  # Minimum total PA for hitting qualification
 
 
-def identify_two_way_players_comprehensive():
+def identify_two_way_players_comprehensive() -> Dict[str, Any]:
     """
-    Identify two-way players using comprehensive FanGraphs and BP data with proper MLB criteria.
+    Identify two-way players using comprehensive FanGraphs and BP data.
 
-    MLB Two-Way Player Criteria (rolling window within season):
+    Uses proper MLB criteria (rolling window within season):
     - Pitching: At least 20 Major League innings pitched
     - Hitting: At least 20 games as position player/DH with 3+ PA each (60+ PA total)
     - Must meet both criteria in same season for official designation
 
     Returns:
-        dict: {
-            'qualified_two_way': {player_name_year: detailed_stats},
-            'candidates': {player_name_year: reason_for_disqualification},
-            'summary': overall_statistics
-        }
+        Dictionary with qualified two-way players, candidates, and summary stats
+
+    Raises:
+        ImportError: If required data loading modules cannot be imported
+        ValueError: If data validation fails
     """
-    print("=== COMPREHENSIVE TWO-WAY PLAYER ANALYSIS ===")
-    print("Using MLB criteria: 20+ IP pitching AND 20+ games/60+ PA hitting")
+    logger.info("Starting comprehensive two-way player analysis")
+    logger.info(
+        f"Using MLB criteria: {MIN_PITCHING_IP}+ IP pitching AND {MIN_HITTING_GAMES}+ games/{MIN_TOTAL_PA}+ PA hitting")
 
     # Load comprehensive datasets
-    print("Loading comprehensive FanGraphs and BP data...")
-    fg_data = load_comprehensive_fangraphs_data()
-    bp_hitters, bp_pitchers = load_fixed_bp_data()
+    logger.info("Loading comprehensive FanGraphs and BP data...")
+    try:
+        fg_data = load_comprehensive_fangraphs_data()
+        bp_data = load_yearly_bp_data()
+        bp_hitters, bp_pitchers = load_bp_warp_data()
+    except Exception as e:
+        logger.error(f"Failed to load data: {str(e)}", exc_info=True)
+        raise
 
     two_way_results = {
         'qualified_two_way': {},
@@ -55,7 +93,7 @@ def identify_two_way_players_comprehensive():
 
     # Analyze each year from 2016-2024
     for year in range(2016, 2025):
-        print(f"\nAnalyzing {year} season...")
+        logger.info(f"Analyzing {year} season...")
         year_candidates = {}
 
         # Get FanGraphs hitting data for this year
@@ -63,8 +101,10 @@ def identify_two_way_players_comprehensive():
         year_pitchers = {k: v for k, v in fg_data['pitchers'].items() if k.endswith(f'_{year}')}
 
         # Get BP data for this year
-        bp_hitters_year = bp_hitters[bp_hitters['Season'] == year] if len(bp_hitters) > 0 else pd.DataFrame()
-        bp_pitchers_year = bp_pitchers[bp_pitchers['Season'] == year] if len(bp_pitchers) > 0 else pd.DataFrame()
+        bp_hitters_year = bp_hitters[bp_hitters['Season'] ==
+                                     year] if len(bp_hitters) > 0 else pd.DataFrame()
+        bp_pitchers_year = bp_pitchers[bp_pitchers['Season'] ==
+                                       year] if len(bp_pitchers) > 0 else pd.DataFrame()
 
         # Create MLBID-based mappings for FanGraphs data
         hitter_mlbids = {}
@@ -85,9 +125,12 @@ def identify_two_way_players_comprehensive():
                 pitcher_mlbids[mlbid] = name_year_key
 
         # Find MLBIDs that appear in both hitting and pitching datasets
-        potential_two_way_mlbids = set(hitter_mlbids.keys()).intersection(set(pitcher_mlbids.keys()))
+        potential_two_way_mlbids = set(
+            hitter_mlbids.keys()).intersection(set(pitcher_mlbids.keys()))
 
-        print(f"  Found {len(potential_two_way_mlbids)} MLBIDs appearing in both hitting and pitching data")
+        logger.debug(
+            f"Found {
+                len(potential_two_way_mlbids)} MLBIDs appearing in both hitting and pitching data")
 
         for mlbid in potential_two_way_mlbids:
             # Get the name_year keys for this MLBID
@@ -113,8 +156,11 @@ def identify_two_way_players_comprehensive():
             # Convert innings to float if it's a string (e.g., "45.1" -> 45.33)
             if isinstance(innings_pitched, str):
                 try:
-                    innings_pitched = float(innings_pitched.replace('.1', '.33').replace('.2', '.67'))
-                except:
+                    innings_pitched = float(
+                        innings_pitched.replace(
+                            '.1', '.33').replace(
+                            '.2', '.67'))
+                except BaseException:
                     innings_pitched = 0
 
             # Get WARP data from BP if available using MLBID
@@ -170,12 +216,15 @@ def identify_two_way_players_comprehensive():
             # Categorize results
             if candidate_info['is_qualified_two_way']:
                 two_way_results['qualified_two_way'][mlbid_year_key] = candidate_info
-                print(f"  QUALIFIED: {player_name} (MLBID: {mlbid}) - {games_played}G/{plate_appearances}PA hitting, {innings_pitched:.1f}IP pitching")
+                print(
+                    f"  QUALIFIED: {player_name} (MLBID: {mlbid}) - {games_played}G/{plate_appearances}PA hitting, {
+                        innings_pitched:.1f}IP pitching")
             else:
                 # Determine reason for disqualification
                 reasons = []
                 if not meets_hitting_criteria:
-                    reasons.append(f"hitting ({games_played}G/{plate_appearances}PA, need 20G/60PA)")
+                    reasons.append(
+                        f"hitting ({games_played}G/{plate_appearances}PA, need 20G/60PA)")
                 if not meets_pitching_criteria:
                     reasons.append(f"pitching ({innings_pitched:.1f}IP, need 20IP)")
 
@@ -208,11 +257,17 @@ def identify_two_way_players_comprehensive():
             fg_hitting_war = data['fg_war_hitting']
             fg_pitching_war = data['fg_war_pitching']
             total_war = fg_hitting_war + fg_pitching_war
-            print(f"  {name} ({year}): {fg_hitting_war:.1f} hitting WAR + {fg_pitching_war:.1f} pitching WAR = {total_war:.1f} total WAR")
+            print(
+                f"  {name} ({year}): {
+                    fg_hitting_war:.1f} hitting WAR + {
+                    fg_pitching_war:.1f} pitching WAR = {
+                    total_war:.1f} total WAR")
 
     return two_way_results
 
 # Backward compatibility alias
+
+
 def identify_two_way_players():
     """Backward compatibility wrapper for existing code"""
     results = identify_two_way_players_comprehensive()
@@ -283,7 +338,14 @@ def filter_blowout_pitching():
 
         if is_emergency:
             emergency_pitching.append(player_info)
-            print(f"  EMERGENCY: {data['name']} (MLBID: {data['mlbid']}) ({data['year']}) - {data['games_played']}G/{data['plate_appearances']}PA hitting, {data['innings_pitched']:.1f}IP pitching")
+            print(
+                f"  EMERGENCY: {
+                    data['name']} (MLBID: {
+                    data['mlbid']}) ({
+                    data['year']}) - {
+                    data['games_played']}G/{
+                        data['plate_appearances']}PA hitting, {
+                            data['innings_pitched']:.1f}IP pitching")
         else:
             legitimate_pitching.append(player_info)
 
@@ -299,6 +361,7 @@ def filter_blowout_pitching():
             'total_analyzed': len(candidates)
         }
     }
+
 
 def analyze_two_way_candidates():
     """
@@ -351,6 +414,8 @@ def analyze_two_way_candidates():
     return analysis
 
 # Legacy function compatibility
+
+
 def filter_blowout_pitching_from_warp():
     """Legacy compatibility wrapper"""
     return filter_blowout_pitching()
@@ -498,7 +563,10 @@ def get_cleaned_two_way_data():
         for player_key, data in legacy_two_way.items():
             name, year = player_key.rsplit('_', 1)
             fg_total = data['fg_hitting_war'] + data['fg_pitching_war']
-            print(f"  {name} ({year}): {fg_total:.1f} total WAR (FG), {data['total_warp']:.1f} total WARP (BP)")
+            print(
+                f"  {name} ({year}): {
+                    fg_total:.1f} total WAR (FG), {
+                    data['total_warp']:.1f} total WARP (BP)")
 
     return {
         'two_way_players': legacy_two_way,

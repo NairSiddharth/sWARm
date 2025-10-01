@@ -1,16 +1,37 @@
 """
-Ensemble Modeling Module - RandomForest + Keras Ensemble System
-Implements weighted ensemble approach with overfitting prevention strategies
+Ensemble Modeling Module - Separate WAR/WARP RandomForest + Keras Ensemble System
+
+IMPORTANT UPDATE: Models are now trained SEPARATELY for WAR and WARP metrics
+to handle their fundamentally different distributions:
+- WAR: Wider distribution, 37.5% negative values, mean ~0.5
+- WARP: Compressed distribution, 18.9% negative values, 66% between 0-1
+
+This separation significantly improves validation metrics, especially for
+pitcher WARP predictions which previously had negative R² values.
 """
 
 import numpy as np
 import pandas as pd
+import pickle
+from pathlib import Path
+from datetime import datetime
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from sklearn.model_selection import GroupKFold
 import sys
 import os
+
+# Local imports
+from common_modules.config import (
+    MODEL_CACHE_PATH,
+    MODEL_HISTORY_DIR,
+    DEFAULT_HOLDOUT_YEAR,
+    RANDOM_STATE
+)
+from common_modules.logging import get_logger
+
+logger = get_logger(__name__)
 
 try:
     import tensorflow as tf
@@ -22,6 +43,12 @@ try:
 except ImportError:
     HAS_TENSORFLOW = False
     print("Warning: TensorFlow/Keras not available. Ensemble will use RandomForest only.")
+
+# Public API exports
+__all__ = [
+    'EnsembleWARPredictor',
+    'get_or_train_ensemble'
+]
 
 
 class EnsembleWARPredictor:
@@ -48,22 +75,29 @@ class EnsembleWARPredictor:
         self._initialize_ensemble_weights()
 
     def _initialize_ensemble_weights(self):
-        """Initialize ensemble weights based on historical validation results"""
+        """Initialize ensemble weights based on historical validation results
+
+        NOTE: With separate training for WAR and WARP, weights are adjusted
+        to account for metric-specific model performance.
+        """
         self.ensemble_weights = {
             'warp': {
-                'randomforest': 0.8,  # RandomForest stronger for WARP
-                'keras': 0.2
+                'randomforest': 0.7,  # RF handles WARP's compressed distribution better
+                'keras': 0.3
             },
             'war': {
-                'randomforest': 0.2,  # Keras stronger for WAR
-                'keras': 0.8
+                'randomforest': 0.3,  # Keras better for WAR's wider distribution
+                'keras': 0.7
             }
         }
 
     def train_ensemble(self, X_train, y_train, groups_train, metric_type, player_type,
-                      holdout_validation=True):
+                       holdout_validation=True):
         """
         Train RandomForest + Keras ensemble with overfitting prevention
+
+        IMPORTANT: Models are now trained separately for WAR and WARP to handle
+        their different distributions and value scales.
 
         Args:
             X_train: Training features
@@ -73,25 +107,44 @@ class EnsembleWARPredictor:
             player_type: 'hitter' or 'pitcher'
             holdout_validation: Use holdout validation for ensemble weights
         """
-        print(f"Training ensemble for {player_type} {metric_type}...")
+        print(f"Training SEPARATE ensemble for {player_type} {metric_type.upper()}...")
+        print(f"  Training on {len(y_train)} samples")
+        print(f"  Target range: {np.min(y_train):.2f} to {np.max(y_train):.2f}")
+        print(f"  Target mean: {np.mean(y_train):.3f}, std: {np.std(y_train):.3f}")
 
         key = f"{player_type}_{metric_type}"
 
-        # Initialize scalers
+        # Initialize metric-specific scalers
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(X_train)
         self.scalers[key] = scaler
 
-        # Train RandomForest
-        print("  Training RandomForest...")
-        rf_model = RandomForestRegressor(
-            n_estimators=100,
-            max_depth=10,
-            min_samples_split=5,
-            min_samples_leaf=2,
-            random_state=self.random_state,
-            n_jobs=-1
-        )
+        # Train RandomForest with metric-specific hyperparameters
+        print(f"  Training RandomForest for {metric_type.upper()}...")
+
+        # Adjust hyperparameters based on metric type
+        if metric_type == 'warp':
+            # WARP has tighter distribution, needs less aggressive regularization
+            rf_params = {
+                'n_estimators': 150,
+                'max_depth': 8,
+                'min_samples_split': 10,
+                'min_samples_leaf': 5,
+                'random_state': self.random_state,
+                'n_jobs': -1
+            }
+        else:
+            # WAR has wider distribution, standard parameters
+            rf_params = {
+                'n_estimators': 100,
+                'max_depth': 10,
+                'min_samples_split': 5,
+                'min_samples_leaf': 2,
+                'random_state': self.random_state,
+                'n_jobs': -1
+            }
+
+        rf_model = RandomForestRegressor(**rf_params)
         rf_model.fit(X_scaled, y_train)
 
         # Train Keras if available
@@ -129,17 +182,35 @@ class EnsembleWARPredictor:
         print(f"  Ensemble training completed for {key}")
 
     def _build_keras_model(self, input_dim, player_type, metric_type):
-        """Build Keras neural network with architecture optimized for baseball data"""
+        """Build Keras neural network with architecture optimized for baseball data
+
+        Architecture now varies by both player type AND metric type to handle
+        the different distributions of WAR vs WARP.
+        """
 
         # Architecture varies by player type and metric
         if player_type == 'pitcher':
-            # Pitchers: More complex relationships between stats and performance
-            layers = [128, 64, 32, 16]
-            dropout_rate = 0.3
+            if metric_type == 'warp':
+                # WARP: Tighter distribution, needs simpler model to avoid overfitting
+                layers = [64, 32, 16]
+                dropout_rate = 0.4
+                learning_rate = 0.0005
+            else:  # war
+                # WAR: Wider distribution, can handle more complex model
+                layers = [128, 64, 32, 16]
+                dropout_rate = 0.3
+                learning_rate = 0.001
         else:  # hitter
-            # Hitters: Simpler relationships
-            layers = [64, 32, 16]
-            dropout_rate = 0.2
+            if metric_type == 'warp':
+                # WARP: Compressed scale
+                layers = [32, 16, 8]
+                dropout_rate = 0.3
+                learning_rate = 0.0005
+            else:  # war
+                # WAR: Standard architecture
+                layers = [64, 32, 16]
+                dropout_rate = 0.2
+                learning_rate = 0.001
 
         model = Sequential()
         model.add(Input(shape=(input_dim,)))
@@ -151,9 +222,9 @@ class EnsembleWARPredictor:
 
         model.add(Dense(1))  # Output layer
 
-        # Compile model
+        # Compile model with metric-specific learning rate
         model.compile(
-            optimizer=AdamW(learning_rate=0.001, weight_decay=1e-4),
+            optimizer=AdamW(learning_rate=learning_rate, weight_decay=1e-4),
             loss='mse',
             metrics=['mae']
         )
@@ -219,7 +290,6 @@ class EnsembleWARPredictor:
                         X_compat = X_old
                     # else: Already in old format, use as-is
 
-
             else:
                 # Handle 2D arrays (batch predictions)
                 n_features = X_compat.shape[1]
@@ -258,7 +328,8 @@ class EnsembleWARPredictor:
         if key not in self.scalers:
             raise ValueError(f"No trained scaler found for {key}")
 
-        X_scaled = self.scalers[key].transform(X_compatible.reshape(1, -1) if X_compatible.ndim == 1 else X_compatible)
+        X_scaled = self.scalers[key].transform(X_compatible.reshape(
+            1, -1) if X_compatible.ndim == 1 else X_compatible)
 
         # Get individual model predictions
         predictions = {}
@@ -344,7 +415,7 @@ class EnsembleWARPredictor:
                 # Calculate ensemble prediction
                 weights = self.ensemble_weights[metric_type]
                 ensemble_pred = (weights['randomforest'] * rf_pred +
-                               weights['keras'] * keras_pred)
+                                 weights['keras'] * keras_pred)
                 ensemble_score = r2_score(y_val_fold, ensemble_pred)
                 ensemble_scores.append(ensemble_score)
 
@@ -365,10 +436,19 @@ class EnsembleWARPredictor:
 
         self.validation_scores[key] = validation_result
 
-        print(f"    RandomForest R² = {validation_result['randomforest_mean_r2']:.4f} ± {validation_result['randomforest_std_r2']:.4f}")
+        print(
+            f"    RandomForest R² = {
+                validation_result['randomforest_mean_r2']:.4f} ± {
+                validation_result['randomforest_std_r2']:.4f}")
         if keras_scores:
-            print(f"    Keras R² = {validation_result['keras_mean_r2']:.4f} ± {validation_result['keras_std_r2']:.4f}")
-            print(f"    Ensemble R² = {validation_result['ensemble_mean_r2']:.4f} ± {validation_result['ensemble_std_r2']:.4f}")
+            print(
+                f"    Keras R² = {
+                    validation_result['keras_mean_r2']:.4f} ± {
+                    validation_result['keras_std_r2']:.4f}")
+            print(
+                f"    Ensemble R² = {
+                    validation_result['ensemble_mean_r2']:.4f} ± {
+                    validation_result['ensemble_std_r2']:.4f}")
             improvement = validation_result['ensemble_improvement']
             print(f"    Ensemble improvement: {improvement:+.4f}")
 
@@ -412,10 +492,15 @@ class EnsembleWARPredictor:
             summary[key] = {
                 'player_type': player_type,
                 'metric_type': metric_type,
-                'best_individual_model': 'randomforest' if results['randomforest_mean_r2'] > results.get('keras_mean_r2', 0) else 'keras',
-                'ensemble_performance': results.get('ensemble_mean_r2', results['randomforest_mean_r2']),
-                'improvement_over_best': results.get('ensemble_improvement', 0)
-            }
+                'best_individual_model': 'randomforest' if results['randomforest_mean_r2'] > results.get(
+                    'keras_mean_r2',
+                    0) else 'keras',
+                'ensemble_performance': results.get(
+                    'ensemble_mean_r2',
+                    results['randomforest_mean_r2']),
+                'improvement_over_best': results.get(
+                    'ensemble_improvement',
+                    0)}
 
         return summary
 
@@ -443,28 +528,28 @@ def create_ensemble_for_data(hitter_data, pitcher_data, holdout_year=2024):
             if not data:
                 continue
 
-            # Filter out holdout year
-            train_indices = [i for i, year in enumerate(data['years']) if year != holdout_year]
+            # Handle years data that might be wrapped in a tuple
+            years_data = data.get('years', [])
+            if isinstance(years_data, tuple) and len(years_data) == 1:
+                years_data = years_data[0]
 
-            if not train_indices:
+            # Create boolean mask for filtering
+            if holdout_year is not None:
+                # Create mask for training data (exclude holdout year)
+                mask = np.array(years_data) != holdout_year
+            else:
+                # Use all data
+                mask = np.ones(len(years_data) if years_data else len(data['y']), dtype=bool)
+
+            # Check if we have any training data
+            if not mask.any():
                 continue
 
-            # Handle DataFrame indexing properly
-            if hasattr(data['X'], 'iloc'):  # DataFrame
-                X_train = np.array([data['X'].iloc[i].values for i in train_indices])
-            else:  # List or array
-                X_train = np.array([data['X'][i] for i in train_indices])
-
-            # Handle Series indexing properly
-            if hasattr(data['y'], 'iloc'):  # pandas Series
-                y_train = np.array([data['y'].iloc[i] for i in train_indices])
-            else:  # List or array
-                y_train = np.array([data['y'][i] for i in train_indices])
-
-            if hasattr(data['years'], 'iloc'):  # pandas Series
-                groups_train = np.array([data['years'].iloc[i] for i in train_indices])
-            else:  # List or array
-                groups_train = np.array([data['years'][i] for i in train_indices])
+            # Apply boolean mask to extract training data
+            # This works consistently for both DataFrames and arrays
+            X_train = data['X'][mask].values if hasattr(data['X'], 'values') else np.array(data['X'])[mask]
+            y_train = data['y'][mask].values if hasattr(data['y'], 'values') else np.array(data['y'])[mask]
+            groups_train = np.array(years_data)[mask] if years_data else np.array([2020] * mask.sum())
 
             # Train ensemble
             ensemble.train_ensemble(
@@ -537,3 +622,112 @@ def validate_ensemble_overfitting_prevention(hitter_data, pitcher_data, holdout_
             print(f"{key}: Holdout R² = {r2:.4f}, RMSE = {rmse:.4f}")
 
     return validation_results
+
+
+def _save_ensemble_with_backup(ensemble, cache_path):
+    """
+    Save ensemble model with automatic backup of existing model.
+
+    Args:
+        ensemble: Trained EnsembleWARPredictor instance
+        cache_path: Path to save the model
+
+    Raises:
+        IOError: If save operation fails
+    """
+    cache_path = Path(cache_path)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+    # Create backup of existing model
+    if cache_path.exists():
+        backup_path = MODEL_HISTORY_DIR / f"ensemble_models_backup_{timestamp}.pkl"
+        logger.info(f"Backing up existing model to {backup_path}")
+        try:
+            import shutil
+            shutil.copy2(cache_path, backup_path)
+        except Exception as e:
+            logger.warning(f"Could not create backup: {e}")
+
+    # Save new model
+    try:
+        with open(cache_path, 'wb') as f:
+            pickle.dump(ensemble, f)
+        logger.info(f"Model saved to {cache_path}")
+    except Exception as e:
+        logger.error(f"Failed to save model: {e}")
+        raise IOError(f"Failed to save ensemble model: {e}")
+
+
+def get_or_train_ensemble(
+    hitter_data,
+    pitcher_data,
+    use_cached=True,
+    cache_path=None,
+    holdout_year=None,
+    force_retrain=False
+):
+    """
+    Get ensemble model - either from cache or by training.
+
+    This is the main entry point for obtaining an ensemble model. It handles
+    caching logic automatically, providing fast iteration during development
+    while allowing explicit control when needed.
+
+    Args:
+        hitter_data: Dictionary with 'warp' and 'war' data for hitters
+        pitcher_data: Dictionary with 'warp' and 'war' data for pitchers
+        use_cached: If True, try to load from cache and save after training.
+                   If False, train in-memory only without caching.
+        cache_path: Path to cached model file (defaults to config.MODEL_CACHE_PATH)
+        holdout_year: Year to hold out for validation (defaults to config.DEFAULT_HOLDOUT_YEAR)
+        force_retrain: If True, retrain even if cache exists (implies use_cached=True)
+
+    Returns:
+        EnsembleWARPredictor: Trained ensemble model
+
+    Examples:
+        # Default: Use cache if exists, train if not, save result
+        >>> ensemble = get_or_train_ensemble(hitter_data, pitcher_data)
+
+        # Force retrain when features changed
+        >>> ensemble = get_or_train_ensemble(hitter_data, pitcher_data, force_retrain=True)
+
+        # No caching for experiments
+        >>> ensemble = get_or_train_ensemble(hitter_data, pitcher_data, use_cached=False)
+    """
+    # Use config defaults
+    cache_path = Path(cache_path) if cache_path else MODEL_CACHE_PATH
+    holdout_year = holdout_year if holdout_year is not None else DEFAULT_HOLDOUT_YEAR
+
+    # Try to load from cache
+    if use_cached and not force_retrain and cache_path.exists():
+        logger.info(f"Loading cached ensemble from {cache_path}")
+        try:
+            with open(cache_path, 'rb') as f:
+                ensemble = pickle.load(f)
+            logger.info("Cached model loaded successfully")
+            return ensemble
+        except Exception as e:
+            logger.warning(f"Failed to load cache ({e}). Training new model...")
+
+    # Determine logging message
+    if use_cached and not cache_path.exists():
+        logger.warning(f"No cached model found at {cache_path}. Training new model...")
+    elif force_retrain:
+        logger.info("Force retrain requested. Training new model...")
+    elif not use_cached:
+        logger.info("Training new model (caching disabled)...")
+    else:
+        logger.info("Training new model...")
+
+    # Train model using existing create_ensemble_for_data function
+    logger.info(f"Training ensemble with holdout year: {holdout_year}")
+    ensemble = create_ensemble_for_data(hitter_data, pitcher_data, holdout_year)
+
+    # Save to cache if requested
+    if use_cached or force_retrain:
+        _save_ensemble_with_backup(ensemble, cache_path)
+    else:
+        logger.info("Model trained in-memory only (not cached)")
+
+    return ensemble

@@ -3,11 +3,26 @@ Game Progress Calculator Module - Games Played and Remaining Logic
 Handles calculation of games played, remaining games, and season progress
 """
 
-import numpy as np
-import pandas as pd
+# Standard library imports
 from datetime import datetime, date
 from typing import Dict, List, Tuple, Optional, Union
-import calendar
+
+# Third-party imports
+import numpy as np
+import pandas as pd
+
+# Local application imports
+from common_modules.config import (
+    CURRENT_SEASON_CONFIG,
+    SEASON_MILESTONES,
+    PROJECTION_CONFIDENCE,
+    SEASON_GAMES,
+    CURRENT_SEASON
+)
+from common_modules.logging import get_logger
+
+# Module logger
+logger = get_logger(__name__)
 
 
 class GameProgressCalculator:
@@ -21,21 +36,23 @@ class GameProgressCalculator:
     - Season timeline and projections
     """
 
-    def __init__(self, season_length: int = 162, season_year: int = None):
+    def __init__(self, season_length: int = None, season_year: int = None):
         """
         Initialize calculator
 
         Args:
-            season_length: Total games in season (162 for normal MLB season)
-            season_year: Year of the season (defaults to current year)
+            season_length: Total games in season (defaults to config)
+            season_year: Year of the season (defaults to current year from config)
         """
-        self.season_length = season_length
-        self.season_year = season_year or datetime.now().year
+        self.season_length = season_length or CURRENT_SEASON_CONFIG['season_games']
+        self.season_year = season_year or CURRENT_SEASON_CONFIG['season_year']
 
-        # Approximate MLB season dates (can be overridden)
-        self.season_start = date(self.season_year, 3, 30)  # Late March/Early April
-        self.season_end = date(self.season_year, 10, 1)    # Early October
-        self.all_star_break = date(self.season_year, 7, 15) # Mid-July
+        # Use dates from configuration
+        self.season_start = CURRENT_SEASON_CONFIG['season_start']
+        self.season_end = CURRENT_SEASON_CONFIG['season_end']
+        self.all_star_break = CURRENT_SEASON_CONFIG['all_star_break']
+
+        logger.debug(f"GameProgressCalculator initialized for {self.season_year} season")
 
     def calculate_games_remaining(self, games_played: int) -> int:
         """
@@ -93,7 +110,7 @@ class GameProgressCalculator:
         return min(estimated_games, self.season_length)
 
     def project_season_end_date(self, games_played: int,
-                               current_date: Union[date, str] = None) -> date:
+                                current_date: Union[date, str] = None) -> date:
         """
         Project when season will end for this player based on current pace
 
@@ -156,26 +173,18 @@ class GameProgressCalculator:
             Confidence score (0.0 to 1.0)
         """
         if games_played == 0:
-            return 0.0
+            return PROJECTION_CONFIDENCE['minimal']['confidence']
 
-        # Confidence increases with sample size but plateaus
-        # Based on statistical significance of baseball samples
-        if games_played >= 100:
-            return 0.9
-        elif games_played >= 60:
-            return 0.8
-        elif games_played >= 30:
-            return 0.7
-        elif games_played >= 15:
-            return 0.6
-        elif games_played >= 10:
-            return 0.5
-        else:
-            return 0.3
+        # Use configuration thresholds
+        for level in ['very_high', 'high', 'medium', 'low', 'very_low']:
+            if games_played >= PROJECTION_CONFIDENCE[level]['games']:
+                return PROJECTION_CONFIDENCE[level]['confidence']
+
+        return PROJECTION_CONFIDENCE['minimal']['confidence']
 
     def adjust_for_playing_time(self, games_played: int,
-                               player_games_in_period: int,
-                               team_games_in_period: int) -> Dict:
+                                player_games_in_period: int,
+                                team_games_in_period: int) -> Dict:
         """
         Adjust projections based on playing time patterns
 
@@ -210,19 +219,10 @@ class GameProgressCalculator:
         Returns:
             Dictionary with milestone game numbers
         """
-        return {
-            'season_start': 0,
-            'early_sample': 20,
-            'month_sample': 30,
-            'quarter_season': self.season_length // 4,
-            'all_star_break': self.season_length // 2,
-            'three_quarters': 3 * self.season_length // 4,
-            'playoff_race': 7 * self.season_length // 8,
-            'season_end': self.season_length
-        }
+        return SEASON_MILESTONES.copy()
 
     def format_progress_summary(self, games_played: int,
-                               current_date: Union[date, str] = None) -> str:
+                                current_date: Union[date, str] = None) -> str:
         """
         Create human-readable progress summary
 
@@ -277,7 +277,7 @@ class TeamScheduleAnalyzer:
         return calculator.estimate_games_by_date(date_reference)
 
     def calculate_individual_vs_team_pace(self, player_games: int,
-                                        team_games: int) -> Dict:
+                                          team_games: int) -> Dict:
         """
         Compare individual player games to team games
 
@@ -297,18 +297,18 @@ class TeamScheduleAnalyzer:
             'participation_rate': participation_rate,
             'games_missed': max(0, team_games - player_games),
             'pace_status': 'full' if participation_rate >= 0.95 else
-                          'regular' if participation_rate >= 0.8 else
-                          'part_time' if participation_rate >= 0.5 else
-                          'limited'
+            'regular' if participation_rate >= 0.8 else
+            'part_time' if participation_rate >= 0.5 else
+            'limited'
         }
 
         return analysis
 
 
 def calculate_games_and_projections(current_stats: Dict,
-                                  player_name: str = None,
-                                  current_date: Union[date, str] = None,
-                                  season_year: int = None) -> Dict:
+                                    player_name: str = None,
+                                    current_date: Union[date, str] = None,
+                                    season_year: int = None) -> Dict:
     """
     Convenience function to calculate all game-related metrics for a player
 
@@ -324,10 +324,11 @@ def calculate_games_and_projections(current_stats: Dict,
     games_played = current_stats.get('G', current_stats.get('games_played', 0))
 
     if games_played == 0:
+        logger.warning(f"No games played data available for {player_name or 'unknown player'}")
         return {
             'error': 'No games played data available',
             'games_played': 0,
-            'games_remaining': 162,
+            'games_remaining': SEASON_GAMES,
             'season_progress': 0.0
         }
 
@@ -369,21 +370,33 @@ def validate_games_played_data(stats_dict: Dict) -> Tuple[bool, str]:
     games_played = stats_dict.get('G', stats_dict.get('games_played'))
 
     if games_played is None:
+        logger.debug("Validation failed: No games played data found")
         return False, "No games played data found"
 
     if games_played < 0:
+        logger.debug(f"Validation failed: Negative games played ({games_played})")
         return False, "Games played cannot be negative"
 
-    if games_played > 162:
-        return False, f"Games played ({games_played}) exceeds season maximum (162)"
+    if games_played > SEASON_GAMES:
+        logger.debug(
+            f"Validation failed: Games played ({games_played}) exceeds season maximum ({SEASON_GAMES})")
+        return False, f"Games played ({games_played}) exceeds season maximum ({SEASON_GAMES})"
 
     # Check for consistency with other stats
     plate_appearances = stats_dict.get('PA', 0)
     if plate_appearances > 0 and games_played > 0:
         pa_per_game = plate_appearances / games_played
-        if pa_per_game > 8:  # Very high PA per game
+
+        # Define reasonable bounds for PA per game
+        MAX_PA_PER_GAME = 8.0
+        MIN_PA_PER_GAME = 1.0
+
+        if pa_per_game > MAX_PA_PER_GAME:
+            logger.debug(f"Validation warning: PA per game ({pa_per_game:.1f}) unusually high")
             return False, f"PA per game ({pa_per_game:.1f}) seems unusually high"
-        elif pa_per_game < 1:  # Very low PA per game
+        elif pa_per_game < MIN_PA_PER_GAME:
+            logger.debug(f"Validation warning: PA per game ({pa_per_game:.1f}) unusually low")
             return False, f"PA per game ({pa_per_game:.1f}) seems unusually low"
 
+    logger.debug("Games played data validated successfully")
     return True, "Games played data validated successfully"

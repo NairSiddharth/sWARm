@@ -9,18 +9,18 @@ the current system expectations.
 Created: 2025-09-27
 """
 
-import sys
 import os
-sys.path.append('.')
-
-import pandas as pd
-import numpy as np
 import pickle
+import sys
 from datetime import datetime
 
-# Import our modules
-from current_season_modules.predictive_modeling import prepare_data_for_kfold
+import numpy as np
+import pandas as pd
+
+# Absolute imports (PEP 8 recommended)
 from common_modules.ensemble_modeling import EnsembleWARPredictor
+from current_season_modules.predictive_modeling import prepare_data_for_kfold
+
 
 def quick_retrain():
     """Quick retrain with correct feature count."""
@@ -69,8 +69,10 @@ def quick_retrain():
     print("\nTesting with real player features...")
 
     # Skubal features (from previous output)
-    skubal_features = np.array([4.648074, 30.278884, 8.7719298, 72.0, 2.4, 0.0, 50.0, 0.0, 0.0, 52.24428006177364])
-    ohtani_features = np.array([10.357814999999999, 31.450094, 16.6666666, 72.0, 2.4, 0.0, 50.0, 0.0, 0.0, 52.90603041509424])
+    skubal_features = np.array([4.648074, 30.278884, 8.7719298, 72.0,
+                               2.4, 0.0, 50.0, 0.0, 0.0, 52.24428006177364])
+    ohtani_features = np.array([10.357814999999999, 31.450094, 16.6666666,
+                               72.0, 2.4, 0.0, 50.0, 0.0, 0.0, 52.90603041509424])
 
     print("Testing predictions...")
     try:
@@ -112,6 +114,7 @@ def quick_retrain():
         return False
 
     return True
+
 
 if __name__ == "__main__":
     success = quick_retrain()

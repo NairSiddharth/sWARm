@@ -11,7 +11,7 @@ import os
 import pandas as pd
 import numpy as np
 from current_season_modules.data_loading import load_comprehensive_fangraphs_data
-from current_season_modules.park_factors import get_player_park_adjustment
+from legacy_modules.park_factors import get_player_park_adjustment
 
 # Path configuration
 CACHE_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\cache"
