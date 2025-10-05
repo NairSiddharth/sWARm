@@ -121,44 +121,60 @@ def create_mlbid_mapping(
     warp_df: pd.DataFrame,
     war_df: pd.DataFrame
 ) -> Dict[int, int]:
-    """Create player mapping based on MLBID instead of names.
+    """Create player mapping based on MLBID AND YEAR instead of names.
 
     Args:
-        warp_df: DataFrame with WARP data (has 'mlbid' column)
-        war_df: DataFrame with WAR data (has 'MLBAMID' column)
+        warp_df: DataFrame with WARP data (has 'mlbid' and 'Season' columns)
+        war_df: DataFrame with WAR data (has 'MLBAMID' and 'Year' columns)
 
     Returns:
         Dictionary mapping of {warp_index: war_index} for matched players
     """
-    logger.info("Creating MLBID-based player mapping...")
+    logger.info("Creating MLBID+Year-based player mapping...")
 
-    # Get valid IDs from both datasets
-    warp_ids = warp_df['mlbid'].dropna().astype(int)
-    war_ids = war_df['MLBAMID'].dropna().astype(int)
+    # Determine year column names
+    warp_year_col = 'Season' if 'Season' in warp_df.columns else 'Year'
+    war_year_col = 'Year' if 'Year' in war_df.columns else 'Season'
 
-    logger.info(f"WARP data: {len(warp_ids)} records with valid mlbid")
-    logger.info(f"WAR data: {len(war_ids)} records with valid MLBAMID")
-
-    # Find common IDs
-    common_ids = set(warp_ids).intersection(set(war_ids))
-    logger.info(f"Common MLB IDs: {len(common_ids)}")
-
-    # Create index mapping
+    # Create index mapping by matching (mlbid, year) tuples
     index_mapping = {}
 
-    for mlbid in common_ids:
-        # Find all WARP records with this ID
-        warp_indices = warp_df[warp_df['mlbid'] == mlbid].index.tolist()
-        # Find all WAR records with this ID
-        war_indices = war_df[war_df['MLBAMID'] == mlbid].index.tolist()
+    # Build lookup dictionary for WAR data: {(mlbid, year): war_index}
+    war_lookup = {}
+    for idx, row in war_df.iterrows():
+        mlbid = row.get('MLBAMID')
+        year = row.get(war_year_col)
+        if pd.notna(mlbid) and pd.notna(year):
+            mlbid = int(mlbid)
+            year = int(year)
+            # If multiple WAR records for same (mlbid, year), keep first
+            if (mlbid, year) not in war_lookup:
+                war_lookup[(mlbid, year)] = idx
 
-        # Match each WARP record to each WAR record for this player
-        for warp_idx in warp_indices:
-            for war_idx in war_indices:
-                index_mapping[warp_idx] = war_idx
-                break  # Take first WAR match for each WARP record
+    logger.info(f"WAR data: {len(war_lookup)} unique (mlbid, year) combinations")
 
-    logger.info(f"Created {len(index_mapping)} WARP->WAR index mappings")
+    # Match WARP records to WAR records
+    matched_count = 0
+    unmatched_count = 0
+
+    for idx, row in warp_df.iterrows():
+        mlbid = row.get('mlbid')
+        year = row.get(warp_year_col)
+
+        if pd.notna(mlbid) and pd.notna(year):
+            mlbid = int(mlbid)
+            year = int(year)
+
+            # Look up matching WAR record
+            if (mlbid, year) in war_lookup:
+                index_mapping[idx] = war_lookup[(mlbid, year)]
+                matched_count += 1
+            else:
+                unmatched_count += 1
+
+    logger.info(f"WARP data: {matched_count} records matched, {unmatched_count} unmatched")
+    logger.info(f"Created {len(index_mapping)} unique WARP->WAR index mappings")
+
     return index_mapping
 
 
@@ -302,23 +318,56 @@ def prepare_data_for_kfold() -> Tuple[Optional[Dict], Optional[Dict]]:
             else:
                 df_enhanced['Positional_WAR'] = 0.0
 
-            # Add enhanced pitcher features for 11-feature expansion
+            # Add enhanced pitcher features for 14-feature expansion
             if player_type == 'pitcher':
                 # Load percentage-based pitcher features for consistent scaling
                 from common_modules.derived_stats import (
                     load_percentage_pitcher_features,
                     get_player_percentage_features,
                 )
+                from common_modules.wpa_li_features import (
+                    load_wpa_li_features,
+                    get_wpa_li_for_pitcher,
+                )
+                from common_modules.era_normalization import (
+                    load_era_normalization_data,
+                    calculate_era_normalization_factors,
+                    normalize_era,
+                )
+                from common_modules.plate_discipline_features import (
+                    load_plate_discipline_features,
+                    get_plate_discipline_for_pitcher,
+                )
+                from common_modules.pitcher_workload_calculator import classify_pitcher_role
 
                 # Load percentage-based features from all available years (2016-2024)
                 years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
                 percentage_features = load_percentage_pitcher_features(years)
 
-                # Initialize all pitcher feature columns with percentage scaling
+                # Load WPA/LI features
+                wpa_li_features = load_wpa_li_features(years)
+
+                # Load ERA normalization data
+                era_norm_data = load_era_normalization_data(years)
+                era_norm_factors = calculate_era_normalization_factors(era_norm_data)
+
+                # Load plate discipline features
+                plate_disc_data = load_plate_discipline_features(years)
+
+                # Initialize all pitcher feature columns (14 features now)
                 pitcher_feature_columns = [
-                    'BB%', 'K%', 'K-BB%', 'damage_control_ratio',
-                    'Opportunity_Success', 'Contact_Quality_Index',
-                    'HBP%', 'Statcast_Launch_Quality_Index',
+                    'BB%', 'K%', 'K-BB%',
+                    'ERA_normalized',  # NEW: Role & year-adjusted ERA
+                    'damage_control_ratio',
+                    'Opportunity_Success',
+                    'Contact_Quality_Index',
+                    'HBP%',
+                    'Statcast_Launch_Quality_Index',
+                    'WPA/LI',  # Win impact metric
+                    'CSW%',    # NEW: Called strike + whiff %
+                    'Contact%',  # NEW: Contact rate on swings
+                    'SwStr%',  # NEW: Swinging strike %
+                    'Dominance_Index',  # NEW: CSW%/Contact% composite metric
                 ]
                 for col in pitcher_feature_columns:
                     df_enhanced[col] = 0.0
@@ -327,8 +376,11 @@ def prepare_data_for_kfold() -> Tuple[Optional[Dict], Optional[Dict]]:
                 feature_load_failures = 0
                 for idx, row in df_enhanced.iterrows():
                     player_id = row.get('MLBAMID', row.get('mlbid', ''))
+                    season = row.get('Season', row.get('Year', 2024))
+
                     if player_id:
                         try:
+                            # Load existing percentage features
                             player_features = get_player_percentage_features(
                                 player_id, percentage_features,
                             )
@@ -336,6 +388,42 @@ def prepare_data_for_kfold() -> Tuple[Optional[Dict], Optional[Dict]]:
                             for feature_name, feature_value in player_features.items():
                                 if feature_name in df_enhanced.columns:
                                     df_enhanced.at[idx, feature_name] = feature_value
+
+                            # Add WPA/LI feature
+                            wpa_li_value = get_wpa_li_for_pitcher(
+                                player_id, wpa_li_features, default=0.0
+                            )
+                            df_enhanced.at[idx, 'WPA/LI'] = wpa_li_value
+
+                            # NEW: Add ERA normalization
+                            era = row.get('ERA', 4.0)
+                            games = row.get('G', 20)
+                            innings = row.get('IP', 50)
+                            games_started = row.get('GS', 0)
+
+                            role_info = classify_pitcher_role(
+                                games_pitched=games,
+                                innings_pitched=innings,
+                                games_started=games_started
+                            )
+
+                            era_normalized = normalize_era(
+                                era=era,
+                                role=role_info['role'],
+                                season=int(season),
+                                normalization_factors=era_norm_factors
+                            )
+                            df_enhanced.at[idx, 'ERA_normalized'] = era_normalized
+
+                            # NEW: Add plate discipline features (individual + composite)
+                            plate_disc = get_plate_discipline_for_pitcher(
+                                player_id, plate_disc_data
+                            )
+                            df_enhanced.at[idx, 'CSW%'] = plate_disc['CSW%']
+                            df_enhanced.at[idx, 'Contact%'] = plate_disc['Contact%']
+                            df_enhanced.at[idx, 'SwStr%'] = plate_disc['SwStr%']
+                            df_enhanced.at[idx, 'Dominance_Index'] = plate_disc['Dominance_Index']
+
                         except Exception as e:
                             # Log failure and use defaults
                             feature_load_failures += 1
@@ -356,6 +444,8 @@ def prepare_data_for_kfold() -> Tuple[Optional[Dict], Optional[Dict]]:
                     'BB%', 'K%', 'K-BB%', 'damage_control_ratio',
                     'Opportunity_Success', 'Contact_Quality_Index',
                     'HBP%', 'Statcast_Launch_Quality_Index',
+                    'WPA/LI',
+                    'WHIP',
                 ]
                 for col in pitcher_feature_columns:
                     df_enhanced[col] = 0.0
@@ -375,12 +465,18 @@ def prepare_data_for_kfold() -> Tuple[Optional[Dict], Optional[Dict]]:
             ]
             war_features = warp_features.copy()
         else:  # pitcher
-            # 10-FEATURE PITCHER SET
+            # 15-FEATURE PITCHER SET (includes ERA normalization + plate discipline)
             warp_features = [
-                'IP', 'BB%', 'K%', 'K-BB%', 'ERA',
+                'IP', 'BB%', 'K%', 'K-BB%',
+                'ERA_normalized',  # NEW: Role & year-adjusted ERA
                 'damage_control_ratio', 'Opportunity_Success',
                 'Contact_Quality_Index', 'HBP%',
                 'Statcast_Launch_Quality_Index',
+                'WPA/LI',
+                'CSW%',      # NEW: Called strike + whiff %
+                'Contact%',  # NEW: Contact rate on swings
+                'SwStr%',    # NEW: Swinging strike %
+                'Dominance_Index',  # NEW: CSW%/Contact% composite metric
             ]
             war_features = warp_features.copy()
 

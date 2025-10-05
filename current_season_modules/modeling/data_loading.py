@@ -117,7 +117,8 @@ def load_expanded_fangraphs_pitcher_data(
         f for f in pitcher_files
         if not any(
             suffix in f
-            for suffix in ['_standard', '_advanced', '_battedball', '_firsthalf']
+            for suffix in ['_standard', '_advanced', '_battedball', '_firsthalf',
+                          '_winprobability', '_stuff', '_plate_discipline']
         )
     ]
 

@@ -138,59 +138,41 @@ def calculate_percentage_damage_control_ratio(lob_pct_data: Dict[int, float],
 def calculate_normalized_damage_control_ratio(lob_pct_data: Dict[int, float],
                                              hr_fb_pct_data: Dict[int, float]) -> Dict[int, float]:
     """
-    Calculate normalized damage control ratio using z-score normalization.
+    Calculate RAW damage control ratio (NO normalization).
 
-    This follows the same normalization pattern as Contact Quality Index:
-    - Center at 50 (league average)
-    - Scale of 15 (standard deviation units)
-    - Formula: 50 + (z_score * 15)
+    PHASE 1 UPDATE: Removed normalization to fix double-normalization bug.
+    Tree models (RandomForest, XGBoost) don't require normalization.
+    StandardScaler will handle normalization for Keras if needed.
 
-    This normalization prevents extreme values from dominating the model
-    while preserving relative rankings between players.
+    Formula: LOB% / (HR/FB% + 0.5)
 
     Args:
         lob_pct_data: Dictionary mapping player_id to LOB% (percentage format)
         hr_fb_pct_data: Dictionary mapping player_id to HR/FB% (percentage format)
 
     Returns:
-        Dictionary mapping player_id to normalized damage_control_ratio (0-100 scale)
+        Dictionary mapping player_id to RAW damage_control_ratio
     """
-    # Calculate raw damage control ratio
+    # Calculate raw damage control ratio (no normalization)
     raw_damage_control = calculate_percentage_damage_control_ratio(lob_pct_data, hr_fb_pct_data)
 
     if not raw_damage_control:
-        logger.warning("No raw damage control data to normalize")
+        logger.warning("No raw damage control data")
         return {}
 
     try:
-        # Calculate population statistics
+        # Log statistics for monitoring
         raw_values = list(raw_damage_control.values())
-        population_mean = np.mean(raw_values)
-        population_std = np.std(raw_values, ddof=1)
-
-        if population_std == 0:
-            logger.warning("Standard deviation is 0 for damage control, returning centered values")
-            return {player_id: Z_SCORE_CENTER for player_id in raw_damage_control.keys()}
-
-        # Apply z-score normalization
-        normalized_damage = {}
-        for player_id, raw_value in raw_damage_control.items():
-            z_score = (raw_value - population_mean) / population_std
-            # Cap z-scores at +/- 3 to prevent extreme outliers
-            z_score = max(-3, min(3, z_score))
-            normalized_value = Z_SCORE_CENTER + (z_score * Z_SCORE_SCALE)
-            normalized_damage[player_id] = normalized_value
-
-        mean_normalized = np.mean(list(normalized_damage.values()))
-        std_normalized = np.std(list(normalized_damage.values()))
+        mean_raw = np.mean(raw_values)
+        std_raw = np.std(raw_values, ddof=1)
         logger.info(
-            f"Damage Control Ratio normalized: mean={mean_normalized:.1f}, std={std_normalized:.1f}"
+            f"Damage Control Ratio (RAW): mean={mean_raw:.1f}, std={std_raw:.1f}"
         )
 
-        return normalized_damage
+        return raw_damage_control
 
     except Exception as e:
-        logger.error(f"Error normalizing damage control ratio: {e}")
+        logger.error(f"Error calculating damage control ratio: {e}")
         raise
 
 
@@ -303,16 +285,13 @@ def calculate_normalized_contact_quality_index(hard_pct_data: Dict[int, float],
                                                med_pct_data: Dict[int, float],
                                                soft_pct_data: Dict[int, float]) -> Dict[int, float]:
     """
-    Calculate Contact Quality Index with Modified Z-Score Normalization.
+    Calculate RAW Contact Quality Index (NO normalization).
 
-    Formula: intuitive_cqi = 50 + (z_score * 15)
-    Where z_score = (raw_cqi - population_mean) / population_std
+    PHASE 1 UPDATE: Removed normalization to fix double-normalization bug.
+    Tree models (RandomForest, XGBoost) don't require normalization.
+    StandardScaler will handle normalization for Keras if needed.
 
-    Benefits:
-    - League average anchored at 50
-    - Intuitive 0-100 scale interpretation
-    - Preserves relative player rankings
-    - Improves model performance through standardization
+    Formula: -0.2926*Hard% + -2.3938*Med% + +2.1864*Soft%
 
     Args:
             hard_pct_data: Dictionary mapping player_id to hard contact % (0-100 scale)
@@ -320,44 +299,28 @@ def calculate_normalized_contact_quality_index(hard_pct_data: Dict[int, float],
             soft_pct_data: Dictionary mapping player_id to soft contact % (0-100 scale)
 
     Returns:
-            Dictionary mapping player_id to normalized contact quality index (0-100 scale)
+            Dictionary mapping player_id to RAW contact quality index
     """
-    # Calculate raw Contact Quality Index
+    # Calculate raw Contact Quality Index (no normalization)
     raw_cqi = calculate_contact_quality_index(hard_pct_data, med_pct_data, soft_pct_data)
 
     if not raw_cqi:
-        logger.warning("No raw CQI data to normalize")
+        logger.warning("No raw CQI data")
         return {}
 
     try:
-        # Calculate population statistics for normalization
+        # Log statistics for monitoring
         raw_values = list(raw_cqi.values())
-        population_mean = np.mean(raw_values)
-        population_std = np.std(raw_values, ddof=1)  # Sample standard deviation
-
-        if population_std == 0:
-            logger.warning("Standard deviation is 0, returning centered values")
-            return {player_id: Z_SCORE_CENTER for player_id in raw_cqi.keys()}
-
-        # Apply modified z-score normalization
-        normalized_cqi = {}
-        for player_id, raw_value in raw_cqi.items():
-            z_score = (raw_value - population_mean) / population_std
-            intuitive_index = Z_SCORE_CENTER + (z_score * Z_SCORE_SCALE)
-            normalized_cqi[player_id] = intuitive_index
-
-        mean_normalized = np.mean(list(normalized_cqi.values()))
-        std_normalized = np.std(list(normalized_cqi.values()))
+        mean_raw = np.mean(raw_values)
+        std_raw = np.std(raw_values, ddof=1)
         logger.info(
-            f"Contact Quality Index normalized: mean={
-                mean_normalized:.1f}, std={
-                std_normalized:.1f}")
+            f"Contact Quality Index (RAW): mean={mean_raw:.1f}, std={std_raw:.1f}")
 
     except Exception as e:
-        logger.error(f"Error normalizing contact quality index: {e}")
+        logger.error(f"Error calculating contact quality index: {e}")
         raise
 
-    return normalized_cqi
+    return raw_cqi
 
 
 def calculate_statcast_launch_quality_index(
@@ -407,57 +370,88 @@ def calculate_statcast_launch_quality_index(
 def calculate_normalized_statcast_launch_quality_index(
         statcast_data_dict: Dict[int, Dict[str, float]]) -> Dict[int, float]:
     """
-    Calculate Statcast Launch Quality Index with Modified Z-Score Normalization.
+    Calculate RAW Statcast Launch Quality Index (NO normalization).
 
-    Formula: intuitive_slqi = 50 + (z_score * 15)
+    PHASE 1 UPDATE: Removed normalization to fix double-normalization bug.
+    Tree models (RandomForest, XGBoost) don't require normalization.
+    StandardScaler will handle normalization for Keras if needed.
 
-    Benefits:
-    - League average anchored at 50
-    - Intuitive 0-100 scale interpretation
-    - Independent from Contact Quality Index
+    Formula: (avg_hit_angle weight) + (anglesweetspotpercent weight)
 
     Args:
             statcast_data_dict: Dictionary mapping player_id to exit velocity features
 
     Returns:
-            Dictionary mapping player_id to normalized SLQI (0-100 scale)
+            Dictionary mapping player_id to RAW SLQI
     """
-    # Calculate raw Statcast Launch Quality Index
+    # Calculate raw Statcast Launch Quality Index (no normalization)
     raw_slqi = calculate_statcast_launch_quality_index(statcast_data_dict)
 
     if not raw_slqi:
-        logger.warning("No raw SLQI data to normalize")
+        logger.warning("No raw SLQI data")
         return {}
 
     try:
-        # Calculate population statistics for normalization
+        # Log statistics for monitoring (no normalization)
         raw_values = list(raw_slqi.values())
-        population_mean = np.mean(raw_values)
-        population_std = np.std(raw_values, ddof=1)
-
-        if population_std == 0:
-            logger.warning("Standard deviation is 0, returning centered values")
-            return {player_id: Z_SCORE_CENTER for player_id in raw_slqi.keys()}
-
-        # Apply modified z-score normalization
-        normalized_slqi = {}
-        for player_id, raw_value in raw_slqi.items():
-            z_score = (raw_value - population_mean) / population_std
-            intuitive_index = Z_SCORE_CENTER + (z_score * Z_SCORE_SCALE)
-            normalized_slqi[player_id] = intuitive_index
-
-        mean_normalized = np.mean(list(normalized_slqi.values()))
-        std_normalized = np.std(list(normalized_slqi.values()))
+        mean_raw = np.mean(raw_values)
+        std_raw = np.std(raw_values, ddof=1)
         logger.info(
-            f"Statcast Launch Quality Index normalized: mean={
-                mean_normalized:.1f}, std={
-                std_normalized:.1f}")
+            f"Statcast Launch Quality Index (RAW): mean={mean_raw:.1f}, std={std_raw:.1f}")
 
     except Exception as e:
-        logger.error(f"Error normalizing Statcast launch quality index: {e}")
+        logger.error(f"Error calculating Statcast launch quality index: {e}")
         raise
 
-    return normalized_slqi
+    return raw_slqi
+
+
+def calculate_dominance_index(csw_pct_data: Dict[int, float],
+                              contact_pct_data: Dict[int, float]) -> Dict[int, float]:
+    """
+    Calculate Dominance Index = CSW% / Contact%.
+
+    This composite metric captures pitcher's ability to dominate plate appearances:
+    - High CSW% (Called Strike + Whiff %) = pitcher controls the strike zone
+    - Low Contact% = pitcher prevents balls in play
+    - Higher ratio = more dominant pitcher
+
+    Args:
+            csw_pct_data: Dictionary mapping player_id to CSW% (percentage format)
+            contact_pct_data: Dictionary mapping player_id to Contact% (percentage format)
+
+    Returns:
+            Dictionary mapping player_id to dominance_index
+
+    Example:
+            >>> calculate_dominance_index({123: 32.0}, {123: 75.0})
+            {123: 0.427}
+    """
+    dominance_index = {}
+
+    try:
+        # Calculate ratio for players with both CSW% and Contact% data
+        common_players = set(csw_pct_data.keys()) & set(contact_pct_data.keys())
+
+        for player_id in common_players:
+            csw_pct = csw_pct_data[player_id]
+            contact_pct = contact_pct_data[player_id]
+
+            # Avoid division by zero
+            if contact_pct == 0:
+                logger.warning(f"Contact% is 0 for player {player_id}, skipping")
+                continue
+
+            # dominance_index = CSW% / Contact%
+            dominance_index[player_id] = csw_pct / contact_pct
+
+        logger.info(f"Calculated dominance_index for {len(dominance_index)} players")
+
+    except Exception as e:
+        logger.error(f"Error calculating dominance index: {e}")
+        raise
+
+    return dominance_index
 
 
 def calculate_hbp_percentage(hbp_data: Dict[int, int],

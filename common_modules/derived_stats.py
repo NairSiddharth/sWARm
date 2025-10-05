@@ -208,7 +208,8 @@ def get_player_enhanced_features(
 
 
 def load_percentage_pitcher_features(
-        years: Optional[List[int]] = None) -> Dict[str, Dict[int, float]]:
+        years: Optional[List[int]] = None,
+        use_park_adjusted: bool = True) -> Dict[str, Dict[int, float]]:
     """
     Load pitcher features with consistent percentage scaling.
 
@@ -216,6 +217,7 @@ def load_percentage_pitcher_features(
 
     Args:
             years: List of years to process (defaults to 2016-2025)
+            use_park_adjusted: If True, load park-adjusted cache (default: True)
 
     Returns:
             Dictionary with all percentage-based pitcher features
@@ -225,6 +227,30 @@ def load_percentage_pitcher_features(
     """
     if years is None:
         years = DEFAULT_DATA_YEARS
+
+    # Try to load park-adjusted cache first
+    if use_park_adjusted:
+        from .config import CACHE_DIR
+        park_adjusted_cache = CACHE_DIR / 'pitcher_percentage_features_park_adjusted.json'
+
+        if park_adjusted_cache.exists():
+            try:
+                import json
+                with open(park_adjusted_cache, 'r') as f:
+                    cached_features = json.load(f)
+
+                # Convert string keys back to integers for player IDs
+                result = {}
+                for feature_name, feature_dict in cached_features.items():
+                    if isinstance(feature_dict, dict):
+                        result[feature_name] = {int(k): v for k, v in feature_dict.items()}
+                    else:
+                        result[feature_name] = feature_dict
+
+                logger.info(f"Loaded park-adjusted pitcher features from cache ({len(result)} features)")
+                return result
+            except Exception as e:
+                logger.warning(f"Could not load park-adjusted cache: {e}, falling back to regular features")
 
     logger.info(f"Loading percentage-based pitcher features for years {years[0]}-{years[-1]}")
 

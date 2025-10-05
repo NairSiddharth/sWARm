@@ -48,15 +48,23 @@ __all__ = [
 ]
 
 
-def load_park_factors(year: int = DEFAULT_YEAR) -> Dict[str, float]:
+def load_park_factors(year: int = DEFAULT_YEAR) -> Dict[str, Dict[str, float]]:
     """
-    Load official FanGraphs park factors using 3yr column.
+    Load official FanGraphs park factors with multiple components.
 
     Args:
         year: Year to load park factors for
 
     Returns:
-        Dictionary mapping team abbreviation to park factor (per 100)
+        Dictionary mapping team abbreviation to dict of park factors:
+        {
+            'NYY': {
+                '3yr': 95.0,
+                'HR': 92.0,
+                'FB': 97.0,
+                ...
+            }
+        }
 
     Raises:
         FileNotFoundError: If park factors file cannot be found
@@ -64,7 +72,7 @@ def load_park_factors(year: int = DEFAULT_YEAR) -> Dict[str, float]:
 
     Example:
         >>> park_factors = load_park_factors(2024)
-        >>> park_factors['NYY']
+        >>> park_factors['NYY']['3yr']
         95.0
     """
     # Check global cache first (fastest)
@@ -114,17 +122,25 @@ def load_park_factors(year: int = DEFAULT_YEAR) -> Dict[str, float]:
         if missing_columns:
             raise ValueError(f"Required columns missing: {missing_columns}")
 
-        # Create team -> park factor mapping using abbreviations
+        # Park factor columns we want to extract
+        factor_columns = ['3yr', 'HR', 'FB', 'GB', 'LD']
+
+        # Create team -> park factors mapping using abbreviations
         park_factors = {}
         for _, row in park_df.iterrows():
             team_name = row['Team']
-            park_factor_3yr = row['3yr']
 
-            if pd.notna(team_name) and pd.notna(park_factor_3yr):
+            if pd.notna(team_name):
                 # Convert FanGraphs team name to abbreviation
                 team_abbrev = FANGRAPHS_TO_ABBREV.get(str(team_name).strip())
                 if team_abbrev:
-                    park_factors[team_abbrev] = float(park_factor_3yr)
+                    team_factors = {}
+                    for col in factor_columns:
+                        if col in park_df.columns and pd.notna(row[col]):
+                            team_factors[col] = float(row[col])
+
+                    if team_factors:  # Only add if we got at least some factors
+                        park_factors[team_abbrev] = team_factors
 
         # Save to cache
         try:
@@ -153,6 +169,12 @@ def apply_park_factor_adjustments(
 ) -> Dict[str, float]:
     """
     Apply park factor adjustments to player statistics using FanGraphs data.
+
+    For pitchers, applies specific adjustments:
+    - ERA: 3yr park factor
+    - HR%: HR park factor
+    - FB%: FB park factor
+    - Hard%, Soft%, Med%: 3yr park factor
 
     Args:
         player_stats: Dictionary of player statistics to adjust
@@ -188,34 +210,32 @@ def apply_park_factor_adjustments(
         player_stats['park_factor_adjustment'] = 1.0
         return player_stats
 
-    # Get team's park factor
+    # Get team's park factors
     team_abbrev = str(team).upper().strip()
     if team_abbrev not in park_factors:
         logger.debug(f"Team {team_abbrev} not found in park factors, using neutral")
         player_stats['park_factor_adjustment'] = 1.0
         return player_stats
 
-    park_factor = park_factors[team_abbrev]
+    team_park_factors = park_factors[team_abbrev]
 
     # Apply park factor adjustment
     if player_type == 'hitter':
         # For hitters: park factor > 100 helps offense, < 100 hurts offense
         # Adjustment is inverse: if park helps hitters, adjust stats down
-        park_adjustment = NEUTRAL_PARK_FACTOR / park_factor
+        park_factor_3yr = team_park_factors.get('3yr', NEUTRAL_PARK_FACTOR)
+        park_adjustment = NEUTRAL_PARK_FACTOR / park_factor_3yr
 
         # Apply adjustments to offensive stats
         _adjust_hitter_stats(player_stats, park_adjustment)
 
+        player_stats['park_factor_adjustment'] = park_adjustment
+        logger.debug(f"Applied park factor {park_factor_3yr} (adj: {park_adjustment:.3f}) to {player_name}")
+
     else:  # pitcher
-        # For pitchers: park factor > 100 hurts pitchers, < 100 helps pitchers
-        # Adjustment is direct: if park helps hitters, credit pitcher more
-        park_adjustment = park_factor / NEUTRAL_PARK_FACTOR
+        # For pitchers: apply specific park factors for different stats
+        _adjust_pitcher_stats(player_stats, team_park_factors, player_name)
 
-        # Apply adjustments to pitching stats
-        _adjust_pitcher_stats(player_stats, park_adjustment)
-
-    player_stats['park_factor_adjustment'] = park_adjustment
-    logger.debug(f"Applied park factor {park_factor} (adj: {park_adjustment:.3f}) to {player_name}")
     return player_stats
 
 
@@ -234,19 +254,65 @@ def _adjust_hitter_stats(player_stats: Dict[str, float], park_adjustment: float)
             player_stats[stat] = player_stats[stat] * park_adjustment
 
 
-def _adjust_pitcher_stats(player_stats: Dict[str, float], park_adjustment: float) -> None:
+def _adjust_pitcher_stats(player_stats: Dict[str, float], team_park_factors: Dict[str, float], player_name: str) -> None:
     """
-    Apply park adjustments to pitcher statistics.
+    Apply park adjustments to pitcher statistics using specific park factors.
+
+    Adjustments:
+    - ERA: 3yr park factor
+    - HR%: HR park factor (if available, else 3yr)
+    - FB%: FB park factor (if available, else 3yr)
+    - Hard%, Soft%, Med%: 3yr park factor
 
     Args:
         player_stats: Dictionary of statistics to modify in-place
-        park_adjustment: Adjustment factor to apply
+        team_park_factors: Dictionary of park factors for the team
+        player_name: Player name for logging
     """
-    pitcher_stats_to_adjust = ['ERA', 'HR%', 'HR/9', 'FIP', 'xFIP']
+    # Get park factors with fallbacks
+    park_3yr = team_park_factors.get('3yr', NEUTRAL_PARK_FACTOR)
+    park_hr = team_park_factors.get('HR', park_3yr)  # Fallback to 3yr if HR not available
+    park_fb = team_park_factors.get('FB', park_3yr)  # Fallback to 3yr if FB not available
 
-    for stat in pitcher_stats_to_adjust:
-        if stat in player_stats and player_stats[stat] is not None:
-            player_stats[stat] = player_stats[stat] * park_adjustment
+    # Calculate effective park factors (blend with neutral for ~50% home games)
+    # Formula: (park_factor + 100) / 2 to account for home/road split
+    effective_park_3yr = (park_3yr + NEUTRAL_PARK_FACTOR) / 2
+    effective_park_hr = (park_hr + NEUTRAL_PARK_FACTOR) / 2
+    effective_park_fb = (park_fb + NEUTRAL_PARK_FACTOR) / 2
+
+    # Calculate adjustments (inverse: higher park factor = worse for pitcher = lower stat to credit pitcher)
+    adj_3yr = NEUTRAL_PARK_FACTOR / effective_park_3yr
+    adj_hr = NEUTRAL_PARK_FACTOR / effective_park_hr
+    adj_fb = NEUTRAL_PARK_FACTOR / effective_park_fb
+
+    # Apply specific adjustments
+    adjustments_made = []
+
+    # ERA: 3yr park factor
+    if 'ERA' in player_stats and player_stats['ERA'] is not None:
+        player_stats['ERA'] = player_stats['ERA'] * adj_3yr
+        adjustments_made.append(f"ERA({park_3yr:.1f})")
+
+    # HR%: HR park factor
+    if 'HR%' in player_stats and player_stats['HR%'] is not None:
+        player_stats['HR%'] = player_stats['HR%'] * adj_hr
+        adjustments_made.append(f"HR%({park_hr:.1f})")
+
+    # FB%: FB park factor
+    if 'FB%' in player_stats and player_stats['FB%'] is not None:
+        player_stats['FB%'] = player_stats['FB%'] * adj_fb
+        adjustments_made.append(f"FB%({park_fb:.1f})")
+
+    # Hard%, Soft%, Med%: DO NOT park adjust - these are pitcher skill metrics
+    # Park factors would destroy variance since contact quality is more skill than park
+
+    # Store the primary adjustment for tracking (3yr for ERA)
+    player_stats['park_factor_adjustment'] = adj_3yr
+
+    if adjustments_made:
+        logger.debug(f"Park adjustments for {player_name}: {', '.join(adjustments_made)}")
+    else:
+        logger.debug(f"No park adjustments applied for {player_name} (no matching stats)")
 
 
 def normalize_team_abbreviation(team: Optional[str]) -> Optional[str]:
