@@ -66,7 +66,232 @@ Note - **Baserunning** has dynamically allocated values for stealing 1st, 2nd, a
 - [X] **Model version control** - organized ensemble models with proper versioning in models/history/
 - [X] **Code modularization** - relocated utility scripts to appropriate module directories
 - [X] **Testing documentation** - updated TESTING.md framework and testing/README.md implementation
+- [X] **new_pipeline architecture** - sklearn-compatible pipeline system with modular transformers
+- [X] **Integration testing** - end-to-end validation from raw data to predictions (new_pipeline/tests/test_integration.py)
 - [ ] **Model deployment pipeline** - automate promotion of models from history to production
 - [ ] **Feature engineering pipeline** - systematic approach for adding and validating new baseball metrics
 - [ ] **Data pipeline optimization** - streamline multi-source data integration (FanGraphs, Statcast, Baseball Reference)
 - [ ] **Documentation maintenance** - keep module READMEs current as system evolves
+
+## new_pipeline Integration Test Results (2025-10-06)
+
+**Status**: ALL 6 TESTS PASSED
+
+### Test Summary
+
+1. **TEST 1: Data Loading** - PASS
+   - Loaded 840 pitchers from 2024 (training)
+   - Loaded 651 hitters from 2024 (training)
+   - Loaded 754 pitchers from 2025 (predictions)
+   - Loaded 606 hitters from 2025 (predictions)
+
+2. **TEST 2: Pipeline Execution** - PASS
+   - Pitcher pipeline: 655 qualified pitchers (filtered 185 position players)
+   - Hitter pipeline: 526 qualified hitters (filtered 125 low-PA players)
+   - FeatureSelector: 13 pitcher features + 9 metadata columns
+   - FeatureSelector: 10 hitter features + 8 metadata columns
+
+3. **TEST 3: Pitcher Model Training** - PASS
+   - Training shape: (655, 13)
+   - Role distribution: 326 relievers, 236 starters, 93 swing
+   - Training MAE: 1.096, RMSE: 1.642, R²: 0.592
+   - Models trained from scratch (RandomForest + Keras + MultiQuantileHistGB)
+
+4. **TEST 4: Hitter Model Training** - PASS
+   - Training shape: (526, 10)
+   - Training MAE: 1.096, RMSE: 1.404, R²: 0.714
+   - Models trained from scratch (RandomForest + Keras + MultiQuantileHistGB)
+
+5. **TEST 5: Prediction Generation** - PASS
+   - Generated predictions for 597 pitchers (2025)
+   - Generated predictions for 510 hitters (2025)
+   - ROS (Rest of Season) projections calculated
+   - Total projected WAR = Current WAR + ROS WAR
+
+6. **TEST 6: Utilities** - PASS
+   - Combined leaderboard creation successful
+   - Top projected player: Aaron Judge (8.29 WAR)
+   - Two-way player handling verified (0 detected in 2025 firsthalf)
+
+### Key Fixes Applied
+
+1. **FeatureSelector Transformer** - Added to filter pipeline output to exact modeling features
+2. **Feature Constants** - Added PITCHER_MODEL_FEATURES (13) and HITTER_MODEL_FEATURES (10) to constants.py
+3. **Data Loader Fix** - Changed partial season file pattern from `*_advanced.csv` to base files (includes IP, GS, G)
+4. **Prediction Function** - Updated generate_predictions to use feature constants instead of dynamic exclusion
+
+### Architecture Validation
+
+- Sklearn pipeline pattern working correctly
+- Feature order preserved (critical for monotonic constraints)
+- Metadata properly separated from modeling features
+- WAR normalization (WAR_per_162, WAR_per_600) functioning
+- Role-based pitcher ensembles (starter/reliever/swing) working
+- Two-way player detection framework in place
+
+---
+
+## new_pipeline Phase 6: Notebook Integration (2025-10-06)
+
+**Status**: PHASE 6 COMPLETE - All 3 core notebooks created
+
+### Notebooks Created
+
+**1. oWAR_overview.ipynb** (Dashboard)
+- **Location**: `new_pipeline/notebooks/oWAR_overview.ipynb`
+- **Size**: 6 cells (~5k characters)
+- **Purpose**: Quick current season dashboard
+- **Features**:
+  - Load 2025 pitcher + hitter data
+  - Interactive scatter plots (WAR vs IP/PA)
+  - Featured player tables with rankings
+  - Two-way player support (Shohei Ohtani)
+  - ROS (Rest of Season) projections
+
+**2. pitcher_pipeline_main.ipynb** (Full Training Workflow)
+- **Location**: `new_pipeline/notebooks/pitchers/pitcher_pipeline_main.ipynb`
+- **Size**: 14 cells (~12k characters)
+- **Purpose**: Complete pitcher training and validation
+- **Features**:
+  - Load historical data (2016-2024)
+  - Run full sklearn pipeline
+  - Split by role (starter/reliever/swing)
+  - Train role-based ensemble models
+  - Generate 2025 predictions
+  - Performance validation (actual vs predicted)
+  - Residual analysis by role
+  - Feature importance visualization
+  - Error analysis by role
+  - Save models and predictions
+
+**3. hitter_pipeline_main.ipynb** (Full Training Workflow)
+- **Location**: `new_pipeline/notebooks/hitters/hitter_pipeline_main.ipynb`
+- **Size**: 15 cells (~12k characters)
+- **Purpose**: Complete hitter training and validation
+- **Features**:
+  - Load historical data (2016-2024)
+  - Run full sklearn pipeline
+  - Train unified ensemble model (single model for all positions)
+  - Position distribution analysis
+  - Generate 2025 predictions
+  - Performance validation (actual vs predicted)
+  - Residual analysis by position
+  - Feature importance visualization
+  - Enhanced feature analysis (Baserunning, Defense)
+  - Save model and predictions
+
+### Key Design Decisions
+
+**Pitcher vs Hitter Models**:
+- **Pitchers**: 3 separate models (starter/reliever/swing) due to different usage patterns
+- **Hitters**: 1 unified model for all positions - positional differences handled by Positional_WAR feature
+
+**Notebook Architecture**:
+- All logic in shared utilities (`pipeline_runner.py`, `plotting_utils.py`, `table_utils.py`, `analysis_utils.py`)
+- Notebooks call functions, don't define them (maintainability)
+- Character counts kept under targets for Claude Code editability
+- Interactive Plotly visualizations with scattergl for performance
+
+### Integration Points
+
+All notebooks use:
+- `new_pipeline.common.transformers.pipeline_builder` - Build sklearn pipelines
+- `new_pipeline.models` - PitcherRoleEnsemble, HitterEnsemble
+- `new_pipeline.notebooks.shared.pipeline_runner` - Data loading, pipeline execution, predictions
+- `new_pipeline.notebooks.shared.plotting_utils` - Interactive plots
+- `new_pipeline.notebooks.shared.table_utils` - Featured player tables
+- `new_pipeline.notebooks.shared.analysis_utils` - Metrics, error analysis
+
+### Next Steps
+
+- [ ] User testing of all 5 notebooks
+- [ ] Validate predictions match integration test results
+- [ ] Deprecate old notebooks after validation period
+
+---
+
+## new_pipeline Phase 6 Completion: Deep-Dive Notebooks (2025-10-06)
+
+**Status**: PHASE 6 COMPLETE - All 5 notebooks created and utility functions updated
+
+### Notebooks Created (Deep-Dive Analysis)
+
+**1. pitcher_deep_dive.ipynb** (Advanced Pitcher Analysis)
+- **Location**: `new_pipeline/notebooks/pitchers/pitcher_deep_dive.ipynb`
+- **Size**: 13 cells
+- **Purpose**: Deep analysis of pitcher predictions
+- **Features**:
+  - Elite pitcher analysis (>5 WAR/162)
+  - Replacement level analysis (<0 WAR/162)
+  - Feature correlation heatmap (13 pitcher features)
+  - Partial dependence plots (K%, BB%, damage_control_ratio)
+  - SHAP values for top 20 pitchers
+  - Error analysis by year and team
+  - Prediction interval analysis (quantile predictions)
+  - Model component comparison (RF/Keras/XGBoost)
+  - Outlier investigation (>2 sigma residuals)
+
+**2. hitter_deep_dive.ipynb** (Advanced Hitter Analysis)
+- **Location**: `new_pipeline/notebooks/hitters/hitter_deep_dive.ipynb`
+- **Size**: 13 cells
+- **Purpose**: Deep analysis of hitter predictions
+- **Features**:
+  - Elite hitter analysis (>5 WAR/600)
+  - Position-specific performance analysis
+  - Enhanced feature impact (Baserunning, Defense, Positional_WAR)
+  - Positional adjustment validation
+  - Feature correlation heatmap (10 hitter features)
+  - Partial dependence plots (AVG, OBP, SLG)
+  - SHAP values for top 20 hitters
+  - Error analysis by year and team
+  - Model component comparison
+  - Outlier investigation
+
+### Utility Function Updates
+
+**1. analysis_utils.py**
+- Updated `calculate_elite_performance()` to return dict with 'elite_MAE' and 'elite_count' keys
+- Updated `analyze_errors_by_group()` to include 'count', 'MAE', 'RMSE', 'mean_error', 'std_error' keys
+- All functions match notebook usage patterns
+
+**2. plotting_utils.py**
+- Updated `create_partial_dependence()` to handle both DataFrames and numpy arrays
+- Added `feature_names` parameter for numpy array support
+- All deep-dive notebooks now pass feature_names correctly
+
+### Complete Notebook Suite (Phase 3-6)
+
+**Main Workflows** (Phase 6):
+1. `oWAR_overview.ipynb` - Quick dashboard (6 cells)
+2. `pitcher_pipeline_main.ipynb` - Complete pitcher training (14 cells)
+3. `hitter_pipeline_main.ipynb` - Complete hitter training (15 cells)
+
+**Deep-Dive Analysis** (Phase 6):
+4. `pitcher_deep_dive.ipynb` - Advanced pitcher analysis (13 cells)
+5. `hitter_deep_dive.ipynb` - Advanced hitter analysis (13 cells)
+
+**Shared Utilities** (Phase 5):
+- `pipeline_runner.py` - Data loading and pipeline execution (7 functions)
+- `plotting_utils.py` - Interactive visualizations (7 functions)
+- `table_utils.py` - Featured player tables (2 functions)
+- `analysis_utils.py` - Advanced analysis (6 functions)
+
+### Architecture Validation
+
+- All notebooks use sklearn pipeline pattern
+- Lean notebooks (<15k chars) call utilities, don't define them
+- Feature order preserved through FeatureSelector transformer
+- Role-based pitcher ensembles vs unified hitter model working correctly
+- Two-way player support (Shohei Ohtani) framework in place
+- SHAP integration for model interpretability
+- Partial dependence plots for feature relationships
+- Quantile prediction support for uncertainty quantification
+
+### Key Implementation Details
+
+**No Unicode Characters**: All notebooks avoid unicode (git bash compatibility per Claude.md)
+**Numpy Array Support**: All plotting/analysis functions handle both DataFrame and numpy array inputs
+**Graceful Degradation**: Notebooks check for data availability before analysis (handles current season vs historical)
+**Feature Constants**: PITCHER_MODEL_FEATURES and HITTER_MODEL_FEATURES from constants.py ensure consistency
+
+---
