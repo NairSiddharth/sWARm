@@ -98,7 +98,7 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
         if self.keep_metadata:
             # Metadata columns to preserve (if they exist)
             metadata_cols = [
-                'MLBAMID', 'Name', 'Team', 'Year', 'two_way_player',
+                'MLBAMID', 'Name', 'Team', 'Year', 'Age', 'Position', 'Primary_Position', 'two_way_player',
                 'GS', 'G', 'IP', 'PA', 'WAR', 'WAR_per_162', 'WAR_per_600'
             ]
 

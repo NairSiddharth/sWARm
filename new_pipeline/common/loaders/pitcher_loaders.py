@@ -13,8 +13,10 @@ Active Features:
 2. K% - Strikeout percentage
 3. SwStr% - Swinging strike percentage
 4. WPA/LI - Win probability added / Leverage index
-5. LOB% - Left on base percentage
-6. Hard% - Hard contact percentage
+5. SD - Shutdowns (high-leverage success count)
+6. MD - Meltdowns (high-leverage failure count)
+7. LOB% - Left on base percentage
+8. Hard% - Hard contact percentage
 
 Park-adjusted features (implemented separately):
 7. ERA - Earned run average (park-adjusted, 3yr factor)
@@ -141,6 +143,60 @@ def load_wpa_li_all_years(years: List[int]) -> Dict[int, float]:
     return wpa_li
 
 
+def load_sd_all_years(years: List[int]) -> Dict[int, int]:
+    """
+    Load SD (Shutdowns) - high-leverage success events.
+
+    This is a COUNT, not a percentage. No conversion needed.
+    Typical range: 0-30 (starters get 0, elite closers ~25+)
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {MLBAMID: SD count}
+    """
+    # Load raw data (integer counts)
+    sd_raw = _load_fangraphs_feature(years, 'winprobability', 'SD')
+
+    # Convert to int, default to 0 for missing
+    sd = {}
+    for pid, val in sd_raw.items():
+        try:
+            sd[pid] = int(val) if val else 0
+        except (ValueError, TypeError):
+            sd[pid] = 0
+
+    return sd
+
+
+def load_md_all_years(years: List[int]) -> Dict[int, int]:
+    """
+    Load MD (Meltdowns) - high-leverage failure events.
+
+    This is a COUNT, not a percentage. No conversion needed.
+    Typical range: 0-10 (starters get 0, struggling closers ~8-10)
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {MLBAMID: MD count}
+    """
+    # Load raw data (integer counts)
+    md_raw = _load_fangraphs_feature(years, 'winprobability', 'MD')
+
+    # Convert to int, default to 0 for missing
+    md = {}
+    for pid, val in md_raw.items():
+        try:
+            md[pid] = int(val) if val else 0
+        except (ValueError, TypeError):
+            md[pid] = 0
+
+    return md
+
+
 def load_lob_pct_all_years(years: List[int]) -> Dict[int, float]:
     """
     Load LOB% (left on base percentage).
@@ -159,9 +215,9 @@ def load_lob_pct_all_years(years: List[int]) -> Dict[int, float]:
     # Convert decimal → percentage
     lob_pct = {pid: _convert_decimal_to_percentage(val) for pid, val in lob_raw.items()}
 
-    # Validate (can have outliers due to small samples)
+    # Validate (LOB% is bounded - cannot physically exceed 100%)
     if lob_pct:
-        validate_percentage_scale(lob_pct, 'LOB%', expected_range=(50, 100))
+        validate_percentage_scale(lob_pct, 'LOB%', expected_range=(50, 100), is_bounded=True)
 
     return lob_pct
 
@@ -184,9 +240,9 @@ def load_hard_pct_all_years(years: List[int]) -> Dict[int, float]:
     # Convert decimal → percentage
     hard_pct = {pid: _convert_decimal_to_percentage(val) for pid, val in hard_raw.items()}
 
-    # Validate
+    # Validate (Hard% is bounded - cannot physically exceed 100%)
     if hard_pct:
-        validate_percentage_scale(hard_pct, 'Hard%', expected_range=(0, 100))
+        validate_percentage_scale(hard_pct, 'Hard%', expected_range=(0, 100), is_bounded=True)
 
     return hard_pct
 
@@ -228,23 +284,29 @@ def load_gb_pct_park_adjusted(years: List[int]) -> Dict[int, float]:
     FanGraphs stores as decimal (0.44 = 44%), we convert to percentage.
     Park adjustment uses GB factor.
 
+    GB% is capped at 100% because it represents ground balls / balls in play,
+    which cannot physically exceed 100%. Park adjustment can push values above
+    100% in extreme cases (e.g., 87.5% at park factor 85 -> 102.94%).
+
     Args:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: park-adjusted GB% in percentage format}
+        dict: {MLBAMID: park-adjusted GB% in percentage format, capped at 100%}
     """
     # Load GB% with park adjustment (returns raw decimals, park-adjusted)
+    # Note: cap_at_100=True caps at 1.0 for decimal format
     gb_raw_adjusted = _load_park_adjusted_fangraphs_feature(
-        years, 'battedball', 'GB%', 'GB'
+        years, 'battedball', 'GB%', 'GB', cap_at_100=True
     )
 
-    # Convert decimal → percentage
+    # Convert decimal → percentage (0.44 -> 44.0)
+    # Since we capped at 1.0, this will be at most 100.0
     gb_pct = {pid: _convert_decimal_to_percentage(val) for pid, val in gb_raw_adjusted.items()}
 
-    # Validate
+    # Validate (GB% is bounded - cannot physically exceed 100%)
     if gb_pct:
-        validate_percentage_scale(gb_pct, 'GB%', expected_range=(0, 100))
+        validate_percentage_scale(gb_pct, 'GB%', expected_range=(0, 100), is_bounded=True)
 
     return gb_pct
 

@@ -17,7 +17,9 @@ from ..constants import (
     COL_LOB_PCT,
     COL_HR_FB_PCT,
     COL_AVG_HIT_ANGLE,
-    COL_ANGLE_SWEET_SPOT_PCT
+    COL_ANGLE_SWEET_SPOT_PCT,
+    COL_SD,
+    COL_MD
 )
 from ..exceptions import MissingColumnError, InvalidDataTypeError
 from ..logging_config import get_logger
@@ -30,13 +32,14 @@ class PitcherCompositeTransformer(BaseEstimator, TransformerMixin):
     """
     Calculate all pitcher composite features.
 
-    Takes DataFrame with base features and adds 6 composite columns:
+    Takes DataFrame with base features and adds 7 composite columns:
     - damage_control_ratio
     - Opportunity_Success
     - strikeout_efficiency
     - contact_management
     - strikeout_contact_quality
     - Statcast_Launch_Quality_Index
+    - SD_MD_Net
 
     Requires base features from PitcherFeatureTransformer to be present.
     """
@@ -57,7 +60,7 @@ class PitcherCompositeTransformer(BaseEstimator, TransformerMixin):
             X: DataFrame with base pitcher features and MLBAMID column
 
         Returns:
-            DataFrame with 6 additional composite feature columns
+            DataFrame with 7 additional composite feature columns
 
         Raises:
             InvalidDataTypeError: If X is not a DataFrame
@@ -69,7 +72,8 @@ class PitcherCompositeTransformer(BaseEstimator, TransformerMixin):
         # Check for required columns
         required_cols = [
             COL_MLBAMID, COL_BB_PCT, COL_K_PCT, COL_GB_PCT, COL_HARD_PCT,
-            COL_LOB_PCT, COL_HR_FB_PCT, COL_AVG_HIT_ANGLE, COL_ANGLE_SWEET_SPOT_PCT
+            COL_LOB_PCT, COL_HR_FB_PCT, COL_AVG_HIT_ANGLE, COL_ANGLE_SWEET_SPOT_PCT,
+            COL_SD, COL_MD
         ]
         missing = [col for col in required_cols if col not in X.columns]
         if missing:
@@ -84,6 +88,8 @@ class PitcherCompositeTransformer(BaseEstimator, TransformerMixin):
         hard_pct_dict = X.set_index(COL_MLBAMID)[COL_HARD_PCT].to_dict()
         lob_pct_dict = X.set_index(COL_MLBAMID)[COL_LOB_PCT].to_dict()
         hr_fb_pct_dict = X.set_index(COL_MLBAMID)[COL_HR_FB_PCT].to_dict()
+        sd_dict = X.set_index(COL_MLBAMID)[COL_SD].to_dict()
+        md_dict = X.set_index(COL_MLBAMID)[COL_MD].to_dict()
 
         # Prepare Statcast nested dict
         statcast_dict = {}
@@ -103,7 +109,9 @@ class PitcherCompositeTransformer(BaseEstimator, TransformerMixin):
             hard_pct=hard_pct_dict,
             lob_pct=lob_pct_dict,
             hr_fb_pct=hr_fb_pct_dict,
-            statcast_data=statcast_dict
+            statcast_data=statcast_dict,
+            sd=sd_dict,
+            md=md_dict
         )
 
         # Add composite columns to DataFrame

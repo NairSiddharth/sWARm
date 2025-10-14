@@ -62,17 +62,23 @@ def create_featured_table(
     # Create table with appropriate columns
     if player_type == 'pitcher':
         table = PrettyTable()
-        table.field_names = ['Rank', 'Name', 'Type', 'Team', 'Current WAR', 'ROS WAR', 'Total Proj']
+        table.field_names = ['Type Rank', 'Overall', 'Name', 'Type', 'Team', 'Current WAR', 'ROS WAR', 'Total Proj']
     else:
         table = PrettyTable()
-        table.field_names = ['Rank', 'Name', 'Pos', 'Team', 'Current WAR', 'ROS WAR', 'Total Proj']
+        table.field_names = ['Pos Rank', 'Overall', 'Name', 'Pos', 'Team', 'Current WAR', 'ROS WAR', 'Total Proj']
 
     table.set_style(MARKDOWN)
     table.align = 'l'
     table.align['Current WAR'] = 'r'
     table.align['ROS WAR'] = 'r'
     table.align['Total Proj'] = 'r'
-    table.align['Rank'] = 'r'
+
+    # Right-align both rank columns
+    if player_type == 'pitcher':
+        table.align['Type Rank'] = 'r'
+    else:
+        table.align['Pos Rank'] = 'r'
+    table.align['Overall'] = 'r'
 
     # Add rows for each featured player
     for player_name in player_names:
@@ -83,15 +89,26 @@ def create_featured_table(
             player_row = df[df[COL_NAME] == player_name].iloc[0] if player_name in df[COL_NAME].values else None
 
             if player_row is not None:
-                rank = get_rank_within_type(
+                # Determine position for ranking
+                # For hitters: rank as DH; for pitchers: use actual pitcher type
+                if player_type == 'hitter':
+                    position_for_ranking = 'DH'
+                else:
+                    # For pitchers: get their actual type (Starter/Reliever/Swing)
+                    gs_per_g = player_row.get('GS_per_G', player_row.get('GS', 0) / max(player_row.get('G', 1), 1))
+                    position_for_ranking = get_pitcher_type(gs_per_g)
+
+                type_rank = get_rank_within_type(
                     player_name,
-                    'Two-Way',
+                    position_for_ranking,
                     df,
                     player_type
                 )
+                overall_rank = get_overall_rank(player_name, df)
 
                 table.add_row([
-                    rank,
+                    type_rank,
+                    overall_rank,
                     player_name,
                     'Two-Way',
                     player_row.get('Team', 'N/A'),
@@ -115,13 +132,14 @@ def create_featured_table(
             else:
                 player_type_label = player_row.get('Primary_Position', 'Unknown')
 
-            # Get rank within type
-            rank = get_rank_within_type(
+            # Get rank within type and overall rank
+            type_rank = get_rank_within_type(
                 player_name,
                 player_type_label,
                 df,
                 player_type
             )
+            overall_rank = get_overall_rank(player_name, df)
 
             # Get WAR values
             current_war = player_row.get('Current_WAR', player_row.get('WAR', 0.0))
@@ -129,7 +147,8 @@ def create_featured_table(
             total_proj = player_row.get('Total_Projected_WAR', current_war + ros_war)
 
             table.add_row([
-                rank,
+                type_rank,
+                overall_rank,
                 player_name,
                 player_type_label,
                 player_row.get('Team', 'N/A'),
@@ -295,7 +314,10 @@ def get_rank_within_type(
     else:
         # Use Primary_Position for hitters
         full_df = full_df.copy()
-        full_df['PlayerType'] = full_df.get('Primary_Position', 'Unknown')
+        if 'Primary_Position' in full_df.columns:
+            full_df['PlayerType'] = full_df['Primary_Position'].fillna('Unknown')
+        else:
+            full_df['PlayerType'] = 'Unknown'
 
     # Filter to same type
     same_type_df = full_df[full_df['PlayerType'] == player_type]
@@ -314,6 +336,42 @@ def get_rank_within_type(
 
     rank = list(same_type_df[COL_NAME]).index(player_name) + 1
     total = len(same_type_df)
+
+    return f"{rank}/{total}"
+
+
+def get_overall_rank(
+    player_name: str,
+    full_df: pd.DataFrame
+) -> str:
+    """
+    Calculate player's rank across ALL players of the same category.
+
+    Args:
+        player_name: Player to rank
+        full_df: All players data
+
+    Returns:
+        str: Rank format "3/510" (rank/total)
+
+    Example:
+        >>> get_overall_rank('Bobby Witt Jr.', df_all_hitters)
+        '3/510'
+    """
+    # Get WAR column
+    war_col = 'Total_Projected_WAR' if 'Total_Projected_WAR' in full_df.columns else 'WAR'
+
+    # Sort by WAR descending
+    sorted_df = full_df.sort_values(war_col, ascending=False)
+
+    # Find player rank
+    player_rows = sorted_df[sorted_df[COL_NAME] == player_name]
+
+    if len(player_rows) == 0:
+        return "N/A"
+
+    rank = list(sorted_df[COL_NAME]).index(player_name) + 1
+    total = len(sorted_df)
 
     return f"{rank}/{total}"
 

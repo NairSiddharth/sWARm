@@ -5,13 +5,14 @@ Each role has its own tier-based multi-quantile ensemble.
 """
 
 from typing import Dict, Optional
+import random
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.preprocessing import StandardScaler
 
 from .base_ensemble import TieredQuantileEnsemble
-from .keras_utils import build_multi_quantile_keras_adamw, get_keras_callbacks
+from .keras_utils import build_multi_quantile_keras_adamw, get_keras_callbacks, set_seed, OPTIMAL_SEED
 from .multi_quantile_histgb import MultiQuantileHistGB
 
 from new_pipeline.common.logging_config import get_logger
@@ -19,8 +20,8 @@ from new_pipeline.common.logging_config import get_logger
 logger = get_logger(__name__)
 
 
-# Monotonic constraints for 13 pitcher features
-# Order: BB%, K%, ERA, GB%, SwStr%, WPA/LI, damage_control, Opportunity, strikeout_eff, contact_mgmt, strikeout_contact, Launch_Quality, Running_Control
+# Monotonic constraints for 14 pitcher features
+# Order: BB%, K%, ERA, GB%, SwStr%, WPA/LI, damage_control, Opportunity, strikeout_eff, contact_mgmt, strikeout_contact, Launch_Quality, Running_Control, SD_MD_Net
 PITCHER_MONOTONIC_CONSTRAINTS = [
     -1,  # BB% - lower is better
      1,  # K% - higher is better
@@ -34,7 +35,8 @@ PITCHER_MONOTONIC_CONSTRAINTS = [
      1,  # contact_management - higher is better
      1,  # strikeout_contact_quality - higher is better
      0,  # Statcast_Launch_Quality_Index - uncertain direction
-     1   # Running_Control - higher is better
+     1,  # Running_Control - higher is better
+     1   # SD_MD_Net - higher is better (reliever-specific signal)
 ]
 
 
@@ -64,6 +66,7 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
             'swing': {}
         }
         self.scalers: Dict[str, StandardScaler] = {}
+        self._current_season_pct = 0.5  # Default to halfway point
 
     def _build_extratrees(self) -> ExtraTreesRegressor:
         """
@@ -86,39 +89,114 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
             n_jobs=-1
         )
 
-    def _build_keras(self, input_dim: int):
+    def _build_keras(self, input_dim: int, role: str):
         """
-        Build Keras multi-quantile model.
+        Build Keras multi-quantile model with role-specific hyperparameters.
+
+        Note: After implementing WAR_per_48.2 normalization for relievers, all roles
+        now use the same hyperparameters since they're on similar scales.
+
+        Unified settings for all roles:
+        - weight_decay=0.03
+        - quantile_weights=[0.25, 0.3, 0.45]
 
         Args:
             input_dim: Number of input features
+            role: Pitcher role ('starter', 'reliever', 'swing')
 
         Returns:
             Compiled Keras Sequential model
         """
-        return build_multi_quantile_keras_adamw(input_dim)
+        # Role-specific hyperparameters
+        # Note: With WAR_per_48.2 normalization, relievers are on similar scale to starters
+        # so we use the same hyperparameters for all roles
+        hyperparams = {
+            'starter': {
+                'weight_decay': 0.03,
+                'quantile_weights': [0.25, 0.3, 0.45]
+            },
+            'reliever': {
+                'weight_decay': 0.03,  # Same as starters (normalization fixed the issue)
+                'quantile_weights': [0.25, 0.3, 0.45]  # Same as starters
+            },
+            'swing': {
+                'weight_decay': 0.03,  # Same as starters
+                'quantile_weights': [0.25, 0.3, 0.45]  # Same as starters
+            }
+        }
 
-    def _build_histgb(self) -> MultiQuantileHistGB:
+        params = hyperparams[role]
+        return build_multi_quantile_keras_adamw(
+            input_dim,
+            weight_decay=params['weight_decay'],
+            quantile_weights=params['quantile_weights']
+        )
+
+    def _build_histgb(self, role: str) -> MultiQuantileHistGB:
         """
-        Build MultiQuantileHistGB with improved parameters and monotonic constraints.
+        Build MultiQuantileHistGB with role-specific hyperparameters and monotonic constraints.
+
+        Note: After implementing WAR_per_48.2 normalization for relievers, all roles
+        now use the same hyperparameters since they're on similar scales.
+
+        Unified settings for all roles:
+        - learning_rate=0.03
+        - l2_regularization=0.4
 
         Improvements from legacy implementation:
         - max_leaf_nodes=63 (better complexity control than max_depth alone)
-        - learning_rate=0.03 (down from 0.05, better generalization)
-        - l2_regularization=0.3 (down from 0.5, allow elite predictions)
         - max_iter=300 (up from 200, more iterations)
         - n_iter_no_change=15 (up from 10, more patience)
         - monotonic_cst for baseball logic enforcement
 
+        Args:
+            role: Pitcher role ('starter', 'reliever', 'swing')
+
         Returns:
             MultiQuantileHistGB instance with pitcher monotonic constraints
         """
+        # Role-specific hyperparameters
+        # Note: With WAR_per_48.2 normalization, relievers are on similar scale to starters
+        # so we use the same hyperparameters for all roles
+        hyperparams = {
+            'starter': {
+                'learning_rate': 0.03,
+                'l2_regularization': 0.4
+            },
+            'reliever': {
+                'learning_rate': 0.03,  # Same as starters (normalization fixed the issue)
+                'l2_regularization': 0.4  # Same as starters
+            },
+            'swing': {
+                'learning_rate': 0.03,  # Same as starters
+                'l2_regularization': 0.4  # Same as starters
+            }
+        }
+
+        params = hyperparams[role]
         return MultiQuantileHistGB(
             random_state=42,
-            monotonic_cst=PITCHER_MONOTONIC_CONSTRAINTS
+            monotonic_cst=PITCHER_MONOTONIC_CONSTRAINTS,
+            learning_rate=params['learning_rate'],
+            l2_regularization=params['l2_regularization']
         )
 
-    def fit(self, X: np.ndarray, y: np.ndarray, role_column: np.ndarray):
+    def set_season_progress(self, season_pct: float):
+        """
+        Set current season progress for dynamic threshold calculation.
+
+        Args:
+            season_pct: Season completion percentage (0.0 to 1.0)
+                       0.0 = season start, 0.5 = All-Star break, 1.0 = season end
+
+        Example:
+            >>> # For All-Star break predictions
+            >>> model.set_season_progress(0.5)
+            >>> predictions = model.predict(X, roles)
+        """
+        self._current_season_pct = min(max(season_pct, 0.0), 1.0)  # Clamp to [0, 1]
+
+    def fit(self, X: np.ndarray, y: np.ndarray, role_column: np.ndarray, seed: int = OPTIMAL_SEED, enable_determinism: bool = True):
         """
         Train 3 role-specific ensembles.
 
@@ -126,10 +204,15 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
             X: Feature matrix (n_samples, n_features)
             y: Target values (n_samples,)
             role_column: Role classification for each sample ('starter', 'reliever', 'swing')
+            seed: Random seed for reproducibility (default: OPTIMAL_SEED=3141)
+            enable_determinism: Whether to enable TensorFlow op determinism (default: True)
 
         Raises:
             ValueError: If role_column contains invalid values
         """
+        # Set all random seeds for reproducibility
+        set_seed(seed, enable_determinism=enable_determinism)
+
         valid_roles = ['starter', 'reliever', 'swing']
         unique_roles = np.unique(role_column)
 
@@ -161,8 +244,8 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
             et_model = self._build_extratrees()
             et_model.fit(X_scaled, y_role)
 
-            logger.info(f"  Training Keras (AdamW + Swish + BatchNorm)...")
-            keras_model = self._build_keras(input_dim)
+            logger.info(f"  Training Keras (AdamW + Swish + BatchNorm) with role-specific hyperparameters...")
+            keras_model = self._build_keras(input_dim, role)
             keras_model.fit(
                 X_scaled, y_role,
                 epochs=200,
@@ -172,8 +255,8 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
                 verbose=0
             )
 
-            logger.info(f"  Training MultiQuantileHistGB...")
-            histgb_model = self._build_histgb()
+            logger.info(f"  Training MultiQuantileHistGB with role-specific hyperparameters...")
+            histgb_model = self._build_histgb(role)
             histgb_model.fit(X_scaled, y_role)
 
             # Store models for this role
@@ -227,8 +310,15 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
             keras_quantiles = self.models[role]['keras'].predict(X_scaled, verbose=0)
             histgb_quantiles = self.models[role]['histgb'].get_quantile_predictions(X_scaled)
 
-            # Apply tier-based blending
-            role_predictions = self._blend_predictions(et_pred, keras_quantiles, histgb_quantiles)
+            # Get dynamic thresholds based on season progress and role
+            tier_thresholds = self._get_dynamic_thresholds(self._current_season_pct, role)
+
+            # Apply tier-based blending with dynamic thresholds and role-specific weights
+            role_predictions = self._blend_predictions(
+                et_pred, keras_quantiles, histgb_quantiles,
+                tier_thresholds=tier_thresholds,
+                role=role
+            )
 
             # Store predictions for this role
             predictions[role_mask] = role_predictions
@@ -312,9 +402,21 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
                 if keras_path.exists():
                     import keras
                     from .keras_utils import multi_quantile_loss
+
+                    # Role-specific quantile weights (must match training)
+                    # Note: All roles now use same weights after normalization fix
+                    role_weights = {
+                        'starter': [0.25, 0.3, 0.45],
+                        'reliever': [0.25, 0.3, 0.45],  # Unified with starters
+                        'swing': [0.25, 0.3, 0.45]  # Unified with starters
+                    }
+
                     # Provide custom loss function for loading
                     custom_objects = {
-                        'multi_quantile_loss_[0.5, 0.75, 0.9]': multi_quantile_loss([0.5, 0.75, 0.9], [0.2, 0.3, 0.5])
+                        'multi_quantile_loss_[0.5, 0.75, 0.9]': multi_quantile_loss(
+                            [0.5, 0.75, 0.9],
+                            role_weights[role]
+                        )
                     }
                     keras_model = keras.saving.load_model(str(keras_path), custom_objects=custom_objects)
 

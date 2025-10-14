@@ -17,19 +17,18 @@ from new_pipeline.common.logging_config import get_logger
 logger = get_logger(__name__)
 
 
-# Monotonic constraints for 10 hitter features
-# Order: K%, BB%, AVG, OBP, SLG, GDP_rate, Positional_WAR, Enhanced_BR, Enhanced_Def, wOBA
+# Monotonic constraints for 9 hitter features
+# Order: K%, BB%, AVG, OBP, SLG, GDP, Positional_WAR, Enhanced_BR, Enhanced_Def
 HITTER_MONOTONIC_CONSTRAINTS = [
-    -1,  # K% � lower is better
-    1,   # BB% � higher is better
-    1,   # AVG � higher is better
-    1,   # OBP � higher is better
-    1,   # SLG � higher is better
-    -1,  # GDP_rate � lower is better
-    1,   # Positional_WAR � higher is better
-    1,   # Enhanced_Baserunning � higher is better
-    1,   # Enhanced_Defense � higher is better
-    1    # wOBA � higher is better
+    -1,  # K% – lower is better
+    1,   # BB% – higher is better
+    1,   # AVG – higher is better
+    1,   # OBP – higher is better
+    1,   # SLG – higher is better
+    -1,  # GDP – lower is better
+    1,   # Positional_WAR – higher is better
+    1,   # Enhanced_Baserunning – higher is better
+    1    # Enhanced_Defense – higher is better
 ]
 
 

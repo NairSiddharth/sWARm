@@ -8,7 +8,7 @@ import glob
 import json
 import pandas as pd
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from datetime import datetime
 
 # Configuration - Import directory paths from constants
@@ -42,9 +42,9 @@ def _load_fangraphs_feature(
     file_type: str,
     column_name: str,
     player_type: str = 'pitchers'
-) -> Dict[int, float]:
+) -> Dict[Tuple[int, int], float]:
     """
-    Generic loader for FanGraphs features.
+    Generic loader for FanGraphs features with year-specific values.
 
     Handles all repetitive logic:
     - File pattern matching (with firsthalf for 2025+)
@@ -61,13 +61,13 @@ def _load_fangraphs_feature(
         player_type: 'pitchers' or 'hitters'
 
     Returns:
-        dict: {MLBAMID: raw_value} - most recent value per player
+        dict: {(MLBAMID, Year): raw_value} - year-specific values
 
     Example:
-        >>> # Load raw BB% (as decimals)
-        >>> bb_raw = _load_fangraphs_feature([2024], 'advanced', 'BB%')
-        >>> bb_raw[660271]
-        0.062  # Raw decimal, not converted yet
+        >>> # Load raw BB% (as decimals) for specific years
+        >>> bb_raw = _load_fangraphs_feature([2023, 2024], 'advanced', 'BB%')
+        >>> bb_raw[(660271, 2024)]
+        0.062  # Raw decimal for 2024, not converted yet
     """
     feature_dict = {}
 
@@ -133,8 +133,8 @@ def _load_fangraphs_feature(
                 if pd.notna(row[id_col]) and pd.notna(row[target_col]):
                     mlbamid = int(row[id_col])
                     value = float(row[target_col])
-                    # Most recent year overwrites earlier years
-                    feature_dict[mlbamid] = value
+                    # Store year-specific value (no overwriting)
+                    feature_dict[(mlbamid, year)] = value
 
         except Exception as e:
             # Silent failure - let caller decide if empty dict is a problem
@@ -148,10 +148,11 @@ def _load_park_adjusted_fangraphs_feature(
     file_type: str,
     column_name: str,
     park_factor_type: str,
-    player_type: str = 'pitchers'
-) -> Dict[int, float]:
+    player_type: str = 'pitchers',
+    cap_at_100: bool = False
+) -> Dict[Tuple[int, int], float]:
     """
-    Load FanGraphs feature with park adjustment applied.
+    Load FanGraphs feature with park adjustment applied (year-specific).
 
     Handles:
     - Loading raw stat + team from CSV
@@ -165,13 +166,16 @@ def _load_park_adjusted_fangraphs_feature(
         column_name: Stat column name
         park_factor_type: Park factor to use ('3yr', 'HR', 'GB', etc.)
         player_type: 'pitchers' or 'hitters'
+        cap_at_100: If True, cap adjusted values at 100.0 (for bounded percentages)
 
     Returns:
-        dict: {MLBAMID: park-adjusted value}
+        dict: {(MLBAMID, Year): park-adjusted value} - year-specific values
 
     Example:
         >>> # Load ERA with 3yr park adjustment (returns raw ERA, not percentage)
-        >>> era = _load_park_adjusted_fangraphs_feature([2024], 'advanced', 'ERA', '3yr')
+        >>> era = _load_park_adjusted_fangraphs_feature([2023, 2024], 'advanced', 'ERA', '3yr')
+        >>> era[(660271, 2024)]
+        3.25  # 2024 park-adjusted ERA
     """
     feature_dict = {}
 
@@ -248,9 +252,10 @@ def _load_park_adjusted_fangraphs_feature(
                     park_factor = team_factors.get(park_factor_type, 100.0)
 
                     # Apply park adjustment (CORRECTED - no double blending)
-                    adjusted_value = _apply_park_adjustment(raw_value, park_factor)
+                    adjusted_value = _apply_park_adjustment(raw_value, park_factor, cap_at_100=cap_at_100)
 
-                    feature_dict[mlbamid] = adjusted_value
+                    # Store year-specific value
+                    feature_dict[(mlbamid, year)] = adjusted_value
 
         except Exception as e:
             continue
@@ -321,7 +326,7 @@ def _load_park_factors(year):
         )
 
 
-def _apply_park_adjustment(value, park_factor, stat_type='percentage'):
+def _apply_park_adjustment(value, park_factor, stat_type='percentage', cap_at_100=False):
     """
     Apply park adjustment using pre-halved FanGraphs factors.
 
@@ -338,9 +343,11 @@ def _apply_park_adjustment(value, park_factor, stat_type='percentage'):
         adjusted_value = value * adjustment
 
     Args:
-        value (float): Raw stat value
+        value (float): Raw stat value (can be decimal 0-1 or percentage 0-100)
         park_factor (float): FanGraphs park factor (100 = neutral, ALREADY halved)
         stat_type (str): 'era' or 'percentage' (both use same formula)
+        cap_at_100 (bool): If True, cap result at 1.0 for decimals or 100.0 for percentages
+                          (for bounded percentages like GB%)
 
     Returns:
         float: Park-adjusted value
@@ -357,10 +364,24 @@ def _apply_park_adjustment(value, park_factor, stat_type='percentage'):
         HR/FB% 15.0 at Oracle (park factor 85, already halved):
         >>> _apply_park_adjustment(15.0, 85, stat_type='percentage')
         17.65  # Correct: 15.0 * (100/85)
+
+        GB% 0.875 (decimal) at pitcher-friendly park (factor 85, with capping):
+        >>> _apply_park_adjustment(0.875, 85, cap_at_100=True)
+        1.0  # Capped at 1.0: would be 1.029 without cap (physically impossible)
     """
     # Direct division - FanGraphs already did the 50% blend!
     adjustment = 100.0 / park_factor
-    return value * adjustment
+    adjusted_value = value * adjustment
+
+    # Cap at 1.0 (decimal) or 100.0 (percentage) for bounded percentages (GB%, Hard%, etc.)
+    # These represent fractions of a whole and cannot physically exceed 100%
+    if cap_at_100:
+        # Auto-detect scale: if value <= 1.5, assume decimal format (0-1)
+        # Otherwise assume percentage format (0-100)
+        cap_value = 1.0 if value <= 1.5 else 100.0
+        adjusted_value = min(adjusted_value, cap_value)
+
+    return adjusted_value
 
 
 def _load_counting_stat_with_proration(
@@ -466,7 +487,7 @@ def _load_counting_stat_with_proration(
     return feature_dict
 
 
-def validate_percentage_scale(feature_dict, feature_name, expected_range=(0, 100)):
+def validate_percentage_scale(feature_dict, feature_name, expected_range=(0, 100), is_bounded=False):
     """
     Validate that percentage features are on 0-100 scale, not 0-1.
 
@@ -477,6 +498,10 @@ def validate_percentage_scale(feature_dict, feature_name, expected_range=(0, 100
         feature_dict (dict): {MLBAMID: value}
         feature_name (str): Name of feature for error message
         expected_range (tuple): (min, max) expected values
+        is_bounded (bool): If True, use strict 5% tolerance. If False, use 50% tolerance.
+                          Bounded percentages (GB%, Hard%) represent fractions of a whole
+                          and cannot physically exceed 100%. Rate percentages (BB%, K%)
+                          can theoretically exceed limits in extreme cases.
 
     Raises:
         ValueError: If >50% of values are outside expected range
@@ -485,6 +510,10 @@ def validate_percentage_scale(feature_dict, feature_name, expected_range=(0, 100
         >>> bb_dict = {660271: 0.082}  # WRONG! Still in decimal
         >>> validate_percentage_scale(bb_dict, 'BB%')
         ValueError: BB%: Likely still in DECIMAL format (should be PERCENTAGE)!
+
+        >>> gb_dict = {660271: 102.5}  # Physically impossible (>100%)
+        >>> validate_percentage_scale(gb_dict, 'GB%', is_bounded=True)
+        Warning: GB% range [20.00, 102.50] outside expected [0, 100]
     """
     import numpy as np
 
@@ -503,6 +532,10 @@ def validate_percentage_scale(feature_dict, feature_name, expected_range=(0, 100
     min_val, max_val = values.min(), values.max()
     exp_min, exp_max = expected_range
 
-    if min_val < exp_min or max_val > exp_max * 1.5:  # Allow 50% over max
+    # Use stricter tolerance for bounded percentages (fractions of a whole)
+    # vs. rate percentages (can exceed 100% in theory)
+    tolerance_multiplier = 1.05 if is_bounded else 1.5
+
+    if min_val < exp_min or max_val > exp_max * tolerance_multiplier:
         print(f"Warning: {feature_name} range [{min_val:.2f}, {max_val:.2f}] "
               f"outside expected [{exp_min}, {exp_max}]")

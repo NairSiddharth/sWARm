@@ -28,6 +28,8 @@ COL_BB_PCT = 'BB%'  # Walk percentage
 COL_K_PCT = 'K%'  # Strikeout percentage
 COL_SWSTR_PCT = 'SwStr%'  # Swinging strike percentage
 COL_WPA_LI = 'WPA/LI'  # Win probability added / Leverage index
+COL_SD = 'SD'  # Shutdowns (high-leverage success)
+COL_MD = 'MD'  # Meltdowns (high-leverage failure)
 COL_LOB_PCT = 'LOB%'  # Left on base percentage
 COL_HARD_PCT = 'Hard%'  # Hard contact percentage
 COL_ERA = 'ERA'  # Earned run average
@@ -61,7 +63,7 @@ COL_TWO_WAY_PLAYER = 'two_way_player'  # Boolean flag
 
 # Minimum usage thresholds for data quality
 MIN_IP_DEFAULT = 20  # Minimum innings pitched for pitchers
-MIN_PA_DEFAULT = 50  # Minimum plate appearances for hitters
+MIN_PA_DEFAULT = 75  # Minimum plate appearances for hitters (~12% season, reduces bias)
 
 # Two-way player criteria (MLB designation, rule effective 2020)
 TWO_WAY_MIN_IP = 20  # Minimum IP to qualify as pitcher
@@ -90,8 +92,14 @@ HITTER_DUAL_POSITION_THRESHOLD = 0.08     # >8% time = significant playing time
 # WAR Normalization
 # ============================================================================
 
-WAR_NORMALIZATION_IP = 162  # Normalize pitcher WAR per 162 IP
+WAR_NORMALIZATION_IP = 162  # Normalize pitcher WAR per 162 IP (default/starters)
 WAR_NORMALIZATION_PA = 600  # Normalize hitter WAR per 600 PA
+
+# Role-specific WAR normalization for pitchers
+# Based on FanGraphs qualification thresholds and typical workloads
+WAR_NORMALIZATION_IP_STARTER = 162    # Starters: Full season workload
+WAR_NORMALIZATION_IP_RELIEVER = 48.2  # Relievers: FanGraphs qualification threshold (2025)
+WAR_NORMALIZATION_IP_SWING = 110      # Swing pitchers: Middle ground between roles
 
 # Full season usage for projection calculations (ROS projections)
 FULL_SEASON_GAMES = 162  # MLB regular season games
@@ -147,6 +155,8 @@ STATCAST_DIR = PROJECT_ROOT / "MLB Player Data/Statcast_Data"
 STATCAST_RUNNING_SPLITS_DIR = PROJECT_ROOT / "MLB Player Data/Statcast_Data/running_splits"
 
 # Baseball Prospectus data directories
+BP_HITTER_DIR = PROJECT_ROOT / "MLB Player Data/BP_Data/hitters"
+BP_PITCHER_DIR = PROJECT_ROOT / "MLB Player Data/BP_Data/pitchers"
 BP_BASERUNNING_DIR = PROJECT_ROOT / "MLB Player Data/BP_Data/baserunning"
 
 # Cache directory
@@ -198,7 +208,7 @@ HITTER_CRITICAL_FEATURES = [COL_BB_PCT, COL_K_PCT, COL_PA]
 # Modeling Feature Lists (for model input)
 # ============================================================================
 
-# Pitcher modeling features (13 total)
+# Pitcher modeling features (14 total)
 # ORDER MATCHES PITCHER_MONOTONIC_CONSTRAINTS in pitcher_ensemble.py
 # These are the final features used for model training after pipeline processing
 PITCHER_MODEL_FEATURES = [
@@ -214,10 +224,11 @@ PITCHER_MODEL_FEATURES = [
     'contact_management',               # Composite feature
     'strikeout_contact_quality',        # Composite feature
     'Statcast_Launch_Quality_Index',    # Composite feature
-    'Running_Control'                   # Base feature
+    'Running_Control',                  # Base feature
+    'SD_MD_Net'                         # Composite feature (reliever-specific signal)
 ]
 
-# Hitter modeling features (10 total)
+# Hitter modeling features (9 total)
 # ORDER MATCHES HITTER_MONOTONIC_CONSTRAINTS in hitter_ensemble.py
 # These are the final features used for model training after pipeline processing
 HITTER_MODEL_FEATURES = [
@@ -229,8 +240,7 @@ HITTER_MODEL_FEATURES = [
     'GDP',                   # Base feature (derived from GDP count)
     'Positional_WAR',        # Derived feature
     'Enhanced_Baserunning',  # Derived feature
-    'Enhanced_Defense',      # Derived feature
-    'wOBA'                   # Base feature
+    'Enhanced_Defense'       # Derived feature
 ]
 
 

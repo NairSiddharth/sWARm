@@ -16,14 +16,15 @@ Active Features:
 5. SLG - Slugging percentage (park-adjusted, 3yr factor)
 6. PA - Plate appearances
 7. Positional_WAR - Position adjustment per 600 PA
-8. GDP - Ground into double play count (for GDP_rate calculation in transformer)
-9. Enhanced_Baserunning - SB + XBT + sprint speed composite (3yr weighted)
-10. Enhanced_Defense - Fielding + position-specific metrics composite (3yr weighted)
+8. Position - Primary defensive position (from defensive files)
+9. GDP - Ground into double play count (for GDP_rate calculation in transformer)
+10. Enhanced_Baserunning - SB + XBT + sprint speed composite (3yr weighted)
+11. Enhanced_Defense - Fielding + position-specific metrics composite (3yr weighted)
 
 See: hitter_feature_pipeline_design.md for specifications
 """
 
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from pathlib import Path
 import pandas as pd
 from .helpers import (
@@ -48,9 +49,9 @@ POSITION_WAR_ADJUSTMENTS = {
 }
 
 
-def load_k_pct_all_years(years: List[int]) -> Dict[int, float]:
+def load_k_pct_all_years(years: List[int]) -> Dict[Tuple[int, int], float]:
     """
-    Load K% (strikeout percentage) for hitters.
+    Load K% (strikeout percentage) for hitters (year-specific).
 
     FanGraphs stores as decimal (0.232 = 23.2%), we convert to percentage.
 
@@ -58,24 +59,24 @@ def load_k_pct_all_years(years: List[int]) -> Dict[int, float]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: K% in percentage format}
+        dict: {(MLBAMID, Year): K% in percentage format}
     """
     # Load raw data (decimals) - K% is in advanced file for hitters
     k_raw = _load_fangraphs_feature(years, 'advanced', 'K%', player_type='hitters')
 
-    # Convert decimal → percentage
-    k_pct = {pid: _convert_decimal_to_percentage(val) for pid, val in k_raw.items()}
+    # Convert decimal → percentage (now with year tuples)
+    k_pct = {(pid, year): _convert_decimal_to_percentage(val) for (pid, year), val in k_raw.items()}
 
     # Validate
     if k_pct:
-        validate_percentage_scale(k_pct, 'K% (Hitters)', expected_range=(0, 100))
+        validate_percentage_scale({pid: val for (pid, year), val in k_pct.items()}, 'K% (Hitters)', expected_range=(0, 100))
 
     return k_pct
 
 
-def load_bb_pct_all_years(years: List[int]) -> Dict[int, float]:
+def load_bb_pct_all_years(years: List[int]) -> Dict[Tuple[int, int], float]:
     """
-    Load BB% (walk percentage) for hitters.
+    Load BB% (walk percentage) for hitters (year-specific).
 
     FanGraphs stores as decimal (0.105 = 10.5%), we convert to percentage.
 
@@ -83,24 +84,24 @@ def load_bb_pct_all_years(years: List[int]) -> Dict[int, float]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: BB% in percentage format}
+        dict: {(MLBAMID, Year): BB% in percentage format}
     """
     # Load raw data (decimals) - BB% is in advanced file for hitters
     bb_raw = _load_fangraphs_feature(years, 'advanced', 'BB%', player_type='hitters')
 
-    # Convert decimal → percentage
-    bb_pct = {pid: _convert_decimal_to_percentage(val) for pid, val in bb_raw.items()}
+    # Convert decimal → percentage (now with year tuples)
+    bb_pct = {(pid, year): _convert_decimal_to_percentage(val) for (pid, year), val in bb_raw.items()}
 
     # Validate
     if bb_pct:
-        validate_percentage_scale(bb_pct, 'BB% (Hitters)', expected_range=(0, 100))
+        validate_percentage_scale({pid: val for (pid, year), val in bb_pct.items()}, 'BB% (Hitters)', expected_range=(0, 100))
 
     return bb_pct
 
 
-def load_pa_all_years(years: List[int]) -> Dict[int, int]:
+def load_pa_all_years(years: List[int]) -> Dict[Tuple[int, int], int]:
     """
-    Load PA (plate appearances).
+    Load PA (plate appearances) - year-specific.
 
     This is a COUNT, not a percentage. No conversion needed.
 
@@ -108,20 +109,20 @@ def load_pa_all_years(years: List[int]) -> Dict[int, int]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: PA count}
+        dict: {(MLBAMID, Year): PA count}
     """
     # Load raw data (already correct scale - it's a count)
     pa_data = _load_fangraphs_feature(years, 'standard', 'PA', player_type='hitters')
 
-    # Convert to int
-    pa_int = {pid: int(val) for pid, val in pa_data.items()}
+    # Convert to int (now with year tuples)
+    pa_int = {(pid, year): int(val) for (pid, year), val in pa_data.items()}
 
     return pa_int
 
 
-def load_gdp_all_years(years: List[int]) -> Dict[int, int]:
+def load_gdp_all_years(years: List[int]) -> Dict[Tuple[int, int], int]:
     """
-    Load GDP (ground into double play count).
+    Load GDP (ground into double play count) - year-specific.
 
     This is a COUNT, not a percentage. GDP_rate calculated in transformer.
 
@@ -129,13 +130,13 @@ def load_gdp_all_years(years: List[int]) -> Dict[int, int]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: GDP count}
+        dict: {(MLBAMID, Year): GDP count}
     """
     # Load raw data (already correct scale - it's a count)
     gdp_data = _load_fangraphs_feature(years, 'standard', 'GDP', player_type='hitters')
 
-    # Convert to int
-    gdp_int = {pid: int(val) for pid, val in gdp_data.items()}
+    # Convert to int (now with year tuples)
+    gdp_int = {(pid, year): int(val) for (pid, year), val in gdp_data.items()}
 
     return gdp_int
 
@@ -145,9 +146,9 @@ def load_gdp_all_years(years: List[int]) -> Dict[int, int]:
 # ============================================================================
 
 
-def load_avg_park_adjusted(years: List[int]) -> Dict[int, float]:
+def load_avg_park_adjusted(years: List[int]) -> Dict[Tuple[int, int], float]:
     """
-    Load AVG with 3-year park factor adjustment.
+    Load AVG with 3-year park factor adjustment (year-specific).
 
     FanGraphs stores AVG as decimal (0.285 = .285 batting average).
     We keep it in decimal format (not percentage).
@@ -157,7 +158,7 @@ def load_avg_park_adjusted(years: List[int]) -> Dict[int, float]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: park-adjusted AVG in decimal format}
+        dict: {(MLBAMID, Year): park-adjusted AVG in decimal format}
 
     Example:
         Coors hitter with raw AVG .300, park factor 108:
@@ -172,9 +173,9 @@ def load_avg_park_adjusted(years: List[int]) -> Dict[int, float]:
     return avg_adjusted
 
 
-def load_obp_park_adjusted(years: List[int]) -> Dict[int, float]:
+def load_obp_park_adjusted(years: List[int]) -> Dict[Tuple[int, int], float]:
     """
-    Load OBP with 3-year park factor adjustment.
+    Load OBP with 3-year park factor adjustment (year-specific).
 
     FanGraphs stores OBP as decimal (0.355 = .355 OBP).
     We keep it in decimal format (not percentage).
@@ -184,7 +185,7 @@ def load_obp_park_adjusted(years: List[int]) -> Dict[int, float]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: park-adjusted OBP in decimal format}
+        dict: {(MLBAMID, Year): park-adjusted OBP in decimal format}
     """
     # Load OBP with park adjustment (no conversion - OBP is already decimal)
     # OBP is in advanced file for hitters
@@ -195,9 +196,9 @@ def load_obp_park_adjusted(years: List[int]) -> Dict[int, float]:
     return obp_adjusted
 
 
-def load_slg_park_adjusted(years: List[int]) -> Dict[int, float]:
+def load_slg_park_adjusted(years: List[int]) -> Dict[Tuple[int, int], float]:
     """
-    Load SLG with 3-year park factor adjustment.
+    Load SLG with 3-year park factor adjustment (year-specific).
 
     FanGraphs stores SLG as decimal (0.485 = .485 SLG).
     We keep it in decimal format (not percentage).
@@ -207,7 +208,7 @@ def load_slg_park_adjusted(years: List[int]) -> Dict[int, float]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: park-adjusted SLG in decimal format}
+        dict: {(MLBAMID, Year): park-adjusted SLG in decimal format}
     """
     # Load SLG with park adjustment (no conversion - SLG is already decimal)
     # SLG is in advanced file for hitters
@@ -225,14 +226,15 @@ def load_slg_park_adjusted(years: List[int]) -> Dict[int, float]:
 
 def load_positional_war(years: List[int]) -> Dict[int, float]:
     """
-    Load positional WAR adjustments per 600 PA.
+    Load innings-weighted positional WAR adjustments per 600 PA.
 
-    Maps each player's primary position to WAR adjustment value.
+    For multi-position players, calculates weighted average adjustment
+    based on innings played at each position across all years.
 
     Source: FanGraphs_Data/defensive/fangraphs_defensive_advanced_{year}.csv
-    Column: 'Pos' (primary position) - cross-referenced via MLBAMID
+    Columns: 'Pos' (position), 'Inn' (innings), 'MLBAMID' (player ID)
 
-    Note: Position data is in defensive files, not offensive files
+    Note: Multi-position players have separate rows for each position.
 
     Adjustments (per 600 PA):
     - C: +1.25 (hardest position)
@@ -249,17 +251,84 @@ def load_positional_war(years: List[int]) -> Dict[int, float]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: positional_war_adjustment}
+        dict: {MLBAMID: innings_weighted_positional_war_adjustment}
 
     Example:
-        Catcher with 500 PA:
-        - Base adjustment: +1.25 WAR per 600 PA
-        - Prorated: +1.25 * (500/600) = +1.04 WAR
+        Multi-position player:
+        - 127 inn at SS (+0.75), 188 inn at CF (+0.25), 2 inn at 2B (+0.30)
+        - Weighted: (0.75×127 + 0.25×188 + 0.30×2) / 317 = +0.45
     """
-    pos_war_dict = {}
+    # Track innings and weighted adjustments per player across all years
+    player_data = {}  # {mlbamid: {'total_inn': float, 'weighted_sum': float}}
 
     for year in years:
         csv_path = DEFENSIVE_DIR / f"fangraphs_defensive_advanced_{year}.csv"
+
+        if not csv_path.exists():
+            continue
+
+        try:
+            df = pd.read_csv(csv_path)
+
+            # Validate required columns
+            if 'MLBAMID' not in df.columns or 'Pos' not in df.columns or 'Inn' not in df.columns:
+                continue
+
+            # Process each position row (multi-position players have multiple rows)
+            for _, row in df.iterrows():
+                if pd.notna(row['MLBAMID']) and pd.notna(row['Pos']) and pd.notna(row['Inn']):
+                    mlbamid = int(row['MLBAMID'])
+                    position = str(row['Pos']).strip()
+                    innings = float(row['Inn'])
+
+                    # Get adjustment for this position
+                    adjustment = POSITION_WAR_ADJUSTMENTS.get(position, 0.0)
+
+                    # Initialize player if first encounter
+                    if mlbamid not in player_data:
+                        player_data[mlbamid] = {'total_inn': 0.0, 'weighted_sum': 0.0}
+
+                    # Accumulate innings-weighted adjustment
+                    player_data[mlbamid]['total_inn'] += innings
+                    player_data[mlbamid]['weighted_sum'] += (adjustment * innings)
+
+        except Exception as e:
+            continue
+
+    # Calculate final weighted averages
+    pos_war_dict = {}
+    for mlbamid, data in player_data.items():
+        if data['total_inn'] > 0:
+            pos_war_dict[mlbamid] = data['weighted_sum'] / data['total_inn']
+        else:
+            pos_war_dict[mlbamid] = 0.0
+
+    return pos_war_dict
+
+
+def load_positions_all_years(years: List[int]) -> Dict[int, str]:
+    """
+    Load primary position for each player.
+
+    Source: FanGraphs_Data/defensive/fangraphs_defensive_standard_{year}.csv
+    Column: 'Pos' (primary position)
+
+    Handles multi-position players by taking first position from slash-separated value
+    (e.g., "2B/SS" becomes "2B").
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {MLBAMID: Position string}
+
+    Example:
+        {12345: 'SS', 67890: 'CF', 11111: '1B'}
+    """
+    position_dict = {}
+
+    for year in years:
+        csv_path = DEFENSIVE_DIR / f"fangraphs_defensive_standard_{year}.csv"
 
         if not csv_path.exists():
             continue
@@ -277,23 +346,22 @@ def load_positional_war(years: List[int]) -> Dict[int, float]:
             if id_col is None or 'Pos' not in df.columns:
                 continue
 
-            # Extract position adjustments
+            # Extract positions
             for _, row in df.iterrows():
                 if pd.notna(row[id_col]) and pd.notna(row['Pos']):
                     mlbamid = int(row[id_col])
                     position = str(row['Pos']).strip()
 
-                    # Handle multi-position players (e.g., "2B/SS" → use first)
+                    # Handle multi-position players (e.g., "2B/SS" -> use first)
                     primary_pos = position.split('/')[0]
 
-                    # Map to adjustment value
-                    adjustment = POSITION_WAR_ADJUSTMENTS.get(primary_pos, 0.0)
-                    pos_war_dict[mlbamid] = adjustment
+                    # Store position (most recent year overwrites older)
+                    position_dict[mlbamid] = primary_pos
 
         except Exception as e:
             continue
 
-    return pos_war_dict
+    return position_dict
 
 
 # ============================================================================
@@ -301,9 +369,9 @@ def load_positional_war(years: List[int]) -> Dict[int, float]:
 # ============================================================================
 
 
-def load_enhanced_baserunning(years: List[int]) -> Dict[int, float]:
+def load_enhanced_baserunning(years: List[int]) -> Dict[Tuple[int, int], float]:
     """
-    Calculate Enhanced_Baserunning composite from multi-source data.
+    Calculate Enhanced_Baserunning composite with sliding window lookback.
 
     NEW IMPLEMENTATION (updated weights and yearly baselines):
 
@@ -323,14 +391,17 @@ def load_enhanced_baserunning(years: List[int]) -> Dict[int, float]:
     - PO: NEW (-0.50, equal to CS)
     - XBT/Speed: Use yearly median baseline (not hardcoded)
 
-    3-year weighted average: 50% recent, 30% year-1, 20% year-2
-    Capped to [-7, 10] range
+    Sliding window lookback for temporal features (no data leakage):
+    - Year 1: Use only year 1
+    - Year 2: Use 60% year 2 + 40% year 1
+    - Year 3+: Use 50% current + 30% year-1 + 20% year-2
+    Capped to [-7, 15] range
 
     Args:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: Enhanced_Baserunning value}
+        dict: {(MLBAMID, Year): Enhanced_Baserunning value} with year-specific lookback
 
     Example:
         Elite base stealer: 50 SB, 10 CS, 5 PO, 55% XBT, 29 ft/s
@@ -432,38 +503,34 @@ def load_enhanced_baserunning(years: List[int]) -> Dict[int, float]:
         except Exception as e:
             continue
 
-    # Apply 3-year weighted average: 50% recent, 30% year-1, 20% year-2
-    if len(years) >= 3:
-        sorted_years = sorted(years, reverse=True)
-        most_recent = sorted_years[0]
+    # Apply sliding window lookback for each player-year
+    # Each year uses up to 3-year lookback from THAT specific year (no data leakage)
+    for mlbamid, year_data in yearly_values.items():
+        for year in sorted(year_data.keys()):
+            # Lookback up to 3 years from THIS year
+            lookback_years = [y for y in [year, year-1, year-2] if y in year_data]
 
-        for mlbamid, year_data in yearly_values.items():
-            if most_recent in year_data:
-                weighted_sum = year_data[most_recent] * 0.5
-
-                # Add year-1 if exists
-                if sorted_years[1] in year_data:
-                    weighted_sum += year_data[sorted_years[1]] * 0.3
-
-                # Add year-2 if exists
-                if sorted_years[2] in year_data:
-                    weighted_sum += year_data[sorted_years[2]] * 0.2
-
-                baserunning_dict[mlbamid] = weighted_sum
+            if len(lookback_years) == 1:
+                # First year: No history, use current year only
+                value = year_data[lookback_years[0]]
+            elif len(lookback_years) == 2:
+                # Second year: Weight 60/40
+                value = (year_data[lookback_years[0]] * 0.6 +
+                        year_data[lookback_years[1]] * 0.4)
             else:
-                # Use most recent available
-                baserunning_dict[mlbamid] = year_data[max(year_data.keys())]
-    else:
-        # Use most recent year if < 3 years
-        for mlbamid, year_data in yearly_values.items():
-            baserunning_dict[mlbamid] = year_data[max(year_data.keys())]
+                # Third+ year: Weight 50/30/20
+                value = (year_data[lookback_years[0]] * 0.5 +
+                        year_data[lookback_years[1]] * 0.3 +
+                        year_data[lookback_years[2]] * 0.2)
+
+            baserunning_dict[(mlbamid, year)] = value
 
     return baserunning_dict
 
 
-def load_enhanced_defense(years: List[int]) -> Dict[int, float]:
+def load_enhanced_defense(years: List[int]) -> Dict[Tuple[int, int], float]:
     """
-    Load Enhanced_Defense composite using Range Factor baseline + position bonuses.
+    Load Enhanced_Defense composite with sliding window lookback.
 
     NEW IMPLEMENTATION (redesigned from old fielding% approach):
 
@@ -485,7 +552,10 @@ def load_enhanced_defense(years: List[int]) -> Dict[int, float]:
        - 1B: +15/-8 (easiest position, elite can offset penalty to ~0)
        - Corner OF: +18/-10 (CF-caliber tools playing corners)
 
-    4. 3-year weighted average: 50% recent, 30% year-1, 20% year-2
+    4. Sliding window lookback for temporal features (no data leakage):
+       - Year 1: Use only year 1
+       - Year 2: Use 60% year 2 + 40% year 1
+       - Year 3+: Use 50% current + 30% year-1 + 20% year-2
 
     Data Sources:
     - FanGraphs defensive_standard: PO, A, Inn, DPS, DPT, DPF, Scp
@@ -495,7 +565,7 @@ def load_enhanced_defense(years: List[int]) -> Dict[int, float]:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: Enhanced_Defense runs}
+        dict: {(MLBAMID, Year): Enhanced_Defense runs} with year-specific lookback
 
     Example:
         Elite SS (Simmons-level): +30 runs (range + DPs)
@@ -614,30 +684,26 @@ def load_enhanced_defense(years: List[int]) -> Dict[int, float]:
         except Exception as e:
             continue
 
-    # Apply 3-year weighted average: 50% recent, 30% year-1, 20% year-2
-    if len(years) >= 3:
-        sorted_years = sorted(years, reverse=True)
-        most_recent = sorted_years[0]
+    # Apply sliding window lookback for each player-year
+    # Each year uses up to 3-year lookback from THAT specific year (no data leakage)
+    for mlbamid, year_data in yearly_values.items():
+        for year in sorted(year_data.keys()):
+            # Lookback up to 3 years from THIS year
+            lookback_years = [y for y in [year, year-1, year-2] if y in year_data]
 
-        for mlbamid, year_data in yearly_values.items():
-            if most_recent in year_data:
-                weighted_sum = year_data[most_recent] * 0.5
-
-                # Add year-1 if exists
-                if sorted_years[1] in year_data:
-                    weighted_sum += year_data[sorted_years[1]] * 0.3
-
-                # Add year-2 if exists
-                if sorted_years[2] in year_data:
-                    weighted_sum += year_data[sorted_years[2]] * 0.2
-
-                defense_dict[mlbamid] = weighted_sum
+            if len(lookback_years) == 1:
+                # First year: No history, use current year only
+                value = year_data[lookback_years[0]]
+            elif len(lookback_years) == 2:
+                # Second year: Weight 60/40
+                value = (year_data[lookback_years[0]] * 0.6 +
+                        year_data[lookback_years[1]] * 0.4)
             else:
-                # Use most recent available
-                defense_dict[mlbamid] = year_data[max(year_data.keys())]
-    else:
-        # Use most recent year if < 3 years
-        for mlbamid, year_data in yearly_values.items():
-            defense_dict[mlbamid] = year_data[max(year_data.keys())]
+                # Third+ year: Weight 50/30/20
+                value = (year_data[lookback_years[0]] * 0.5 +
+                        year_data[lookback_years[1]] * 0.3 +
+                        year_data[lookback_years[2]] * 0.2)
+
+            defense_dict[(mlbamid, year)] = value
 
     return defense_dict

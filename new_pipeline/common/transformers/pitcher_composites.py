@@ -11,6 +11,7 @@ Active Composites (from feature_sets.py SKILL_FEATURES):
 4. contact_management = GB% × (100 - BB%)
 5. strikeout_contact_quality = K% × (100 - Hard%)
 6. Statcast_Launch_Quality_Index = empirical formula from Statcast components
+7. SD_MD_Net = SD - MD (reliever-specific high-leverage success)
 
 Interaction Features Note:
 Interaction features (3-5) produce values in range 1,500-4,000 due to multiplication.
@@ -233,7 +234,9 @@ def calculate_all_pitcher_composites(
     hard_pct: Dict[int, float],
     lob_pct: Dict[int, float],
     hr_fb_pct: Dict[int, float],
-    statcast_data: Dict[int, Dict[str, float]]
+    statcast_data: Dict[int, Dict[str, float]],
+    sd: Dict[int, int],
+    md: Dict[int, int]
 ) -> Dict[str, Dict[int, float]]:
     """
     Calculate all pitcher composite features at once.
@@ -248,6 +251,8 @@ def calculate_all_pitcher_composites(
         lob_pct: Left on base percentage data
         hr_fb_pct: Home run to fly ball percentage data (park-adjusted)
         statcast_data: Statcast components
+        sd: Shutdown count data
+        md: Meltdown count data
 
     Returns:
         dict: {
@@ -256,7 +261,8 @@ def calculate_all_pitcher_composites(
             'strikeout_efficiency': {...},
             'contact_management': {...},
             'strikeout_contact_quality': {...},
-            'Statcast_Launch_Quality_Index': {...}
+            'Statcast_Launch_Quality_Index': {...},
+            'SD_MD_Net': {...}
         }
     """
     return {
@@ -265,7 +271,8 @@ def calculate_all_pitcher_composites(
         'strikeout_efficiency': calculate_strikeout_efficiency(k_pct, bb_pct),
         'contact_management': calculate_contact_management(gb_pct, bb_pct),
         'strikeout_contact_quality': calculate_strikeout_contact_quality(k_pct, hard_pct),
-        'Statcast_Launch_Quality_Index': calculate_statcast_launch_quality_index(statcast_data)
+        'Statcast_Launch_Quality_Index': calculate_statcast_launch_quality_index(statcast_data),
+        'SD_MD_Net': calculate_shutdown_success(sd, md)
     }
 
 
@@ -323,3 +330,43 @@ def calculate_running_control(n_cs: int, n_pk: int, n_sb: int, n_bk: int) -> flo
     bk_value = n_bk * -0.50
 
     return cs_value + pk_value + sb_value + bk_value
+
+
+# ============================================================================
+# Shutdown Success (Reliever-Specific Signal)
+# ============================================================================
+
+def calculate_shutdown_success(
+    sd_data: Dict[int, int],
+    md_data: Dict[int, int]
+) -> Dict[int, float]:
+    """
+    Calculate SD_MD_Net = Shutdowns - Meltdowns.
+
+    Measures reliever's high-leverage success rate.
+    Starters get 0 (no SD/MD recorded).
+
+    From FanGraphs:
+    - SD (Shutdown): Entering high-leverage, getting outs without damage
+    - MD (Meltdown): Entering high-leverage, allowing inherited runs/blowing save
+
+    Args:
+        sd_data: {MLBAMID: Shutdown count}
+        md_data: {MLBAMID: Meltdown count}
+
+    Returns:
+        dict: {MLBAMID: SD_MD_Net}
+
+    Example:
+        Elite closer: SD=29, MD=6
+        >>> sd_md_net = 29 - 6 = 23
+
+        Starter: SD=0, MD=0
+        >>> sd_md_net = 0 - 0 = 0
+    """
+    common_players = set(sd_data.keys()) & set(md_data.keys())
+
+    return {
+        pid: float(sd_data[pid] - md_data[pid])
+        for pid in common_players
+    }

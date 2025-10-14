@@ -42,7 +42,9 @@ class MultiQuantileHistGB:
     def __init__(
         self,
         random_state: int = 42,
-        monotonic_cst: Optional[List[int]] = None
+        monotonic_cst: Optional[List[int]] = None,
+        learning_rate: float = 0.03,
+        l2_regularization: float = 0.4
     ):
         """
         Initialize multi-quantile HistGB ensemble.
@@ -53,9 +55,13 @@ class MultiQuantileHistGB:
                 -1 = decreasing (higher feature � lower target)
                 0 = no constraint
                 1 = increasing (higher feature � higher target)
+            learning_rate: Learning rate for gradient boosting (default: 0.03)
+            l2_regularization: L2 regularization strength (default: 0.4)
         """
         self.random_state = random_state
         self.monotonic_cst = monotonic_cst
+        self.learning_rate = learning_rate
+        self.l2_regularization = l2_regularization
         self.models = {}
 
     def fit(self, X, y):
@@ -85,8 +91,8 @@ class MultiQuantileHistGB:
                 max_leaf_nodes=63,  #  NEW - Direct complexity control (~2^6-1)
 
                 # Learning
-                learning_rate=0.03,  #  Slower for better generalization (was 0.05)
-                l2_regularization=0.3,  #  Less regularization to allow elites (was 0.5)
+                learning_rate=self.learning_rate,  #  Slower for better generalization (was 0.05)
+                l2_regularization=self.l2_regularization,  #  Less regularization to allow elites (was 0.5)
 
                 # Leaf constraints
                 min_samples_leaf=5,  #  KEEP

@@ -59,21 +59,31 @@ def create_war_scatter(
     if player_type not in ['pitcher', 'hitter']:
         raise ValueError(f"player_type must be 'pitcher' or 'hitter', got: {player_type}")
 
-    # Determine X-axis column and WAR column
+    # Determine X-axis column (try projection columns first, fallback to raw data)
     if player_type == 'pitcher':
-        x_col = 'IP'
-        war_col = 'Total_Projected_WAR' if 'Total_Projected_WAR' in df.columns else 'WAR'
+        if 'Total_Projected_IP' in df.columns:
+            x_col = 'Total_Projected_IP'
+        elif 'IP' in df.columns:
+            x_col = 'IP'
+        else:
+            raise ValueError("No IP column found (tried 'Total_Projected_IP', 'IP')")
         x_label = 'Innings Pitched'
     else:
-        x_col = 'PA'
-        war_col = 'Total_Projected_WAR' if 'Total_Projected_WAR' in df.columns else 'WAR'
+        if 'Total_Projected_PA' in df.columns:
+            x_col = 'Total_Projected_PA'
+        elif 'PA' in df.columns:
+            x_col = 'PA'
+        else:
+            raise ValueError("No PA column found (tried 'Total_Projected_PA', 'PA')")
         x_label = 'Plate Appearances'
 
-    # Validate columns exist
-    if x_col not in df.columns:
-        raise ValueError(f"Column '{x_col}' not found in DataFrame")
-    if war_col not in df.columns:
-        raise ValueError(f"Column '{war_col}' not found in DataFrame")
+    # Determine WAR column
+    if 'Total_Projected_WAR' in df.columns:
+        war_col = 'Total_Projected_WAR'
+    elif 'WAR' in df.columns:
+        war_col = 'WAR'
+    else:
+        raise ValueError("No WAR column found (tried 'Total_Projected_WAR', 'WAR')")
 
     # Default hover data
     if hover_data is None:

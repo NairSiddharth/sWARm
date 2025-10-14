@@ -1,12 +1,13 @@
 """
 Hitter feature transformer for the oWAR pipeline.
 
-Loads all 10 hitter features and maps them to DataFrame columns.
+Loads all 11 hitter features and maps them to DataFrame columns.
 """
 from typing import Optional, List
 
 from sklearn.base import BaseEstimator, TransformerMixin
 import pandas as pd
+import numpy as np
 
 from ..constants import (
     COL_MLBAMID,
@@ -33,6 +34,7 @@ from ..loaders.hitter_loaders import (
     load_obp_park_adjusted,
     load_slg_park_adjusted,
     load_positional_war,
+    load_positions_all_years,
     load_enhanced_baserunning,
     load_enhanced_defense
 )
@@ -93,57 +95,89 @@ class HitterFeatureTransformer(BaseEstimator, TransformerMixin):
         # Start with copy of input data
         result = X.copy()
 
-        # Load each feature and map to DataFrame
+        # Load each feature and map to DataFrame (year-specific)
         # 1. K%
         logger.debug(f"Loading {COL_K_PCT}...")
         k_pct_dict = load_k_pct_all_years(years)
-        result[COL_K_PCT] = result[COL_MLBAMID].map(k_pct_dict)
+        result[COL_K_PCT] = result.apply(
+            lambda row: k_pct_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
         # 2. BB%
         logger.debug(f"Loading {COL_BB_PCT}...")
         bb_pct_dict = load_bb_pct_all_years(years)
-        result[COL_BB_PCT] = result[COL_MLBAMID].map(bb_pct_dict)
+        result[COL_BB_PCT] = result.apply(
+            lambda row: bb_pct_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
         # 3. PA
         logger.debug(f"Loading {COL_PA}...")
         pa_dict = load_pa_all_years(years)
-        result[COL_PA] = result[COL_MLBAMID].map(pa_dict)
+        result[COL_PA] = result.apply(
+            lambda row: pa_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
         # 4. GDP
         logger.debug(f"Loading {COL_GDP}...")
         gdp_dict = load_gdp_all_years(years)
-        result[COL_GDP] = result[COL_MLBAMID].map(gdp_dict)
+        result[COL_GDP] = result.apply(
+            lambda row: gdp_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
-        # 5. AVG (park-adjusted)
+        # 5. AVG (park-adjusted, year-specific)
         logger.debug(f"Loading {COL_AVG} (park-adjusted)...")
         avg_dict = load_avg_park_adjusted(years)
-        result[COL_AVG] = result[COL_MLBAMID].map(avg_dict)
+        result[COL_AVG] = result.apply(
+            lambda row: avg_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
-        # 6. OBP (park-adjusted)
+        # 6. OBP (park-adjusted, year-specific)
         logger.debug(f"Loading {COL_OBP} (park-adjusted)...")
         obp_dict = load_obp_park_adjusted(years)
-        result[COL_OBP] = result[COL_MLBAMID].map(obp_dict)
+        result[COL_OBP] = result.apply(
+            lambda row: obp_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
-        # 7. SLG (park-adjusted)
+        # 7. SLG (park-adjusted, year-specific)
         logger.debug(f"Loading {COL_SLG} (park-adjusted)...")
         slg_dict = load_slg_park_adjusted(years)
-        result[COL_SLG] = result[COL_MLBAMID].map(slg_dict)
+        result[COL_SLG] = result.apply(
+            lambda row: slg_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
         # 8. Positional_WAR
         logger.debug(f"Loading {COL_POSITIONAL_WAR}...")
         pos_war_dict = load_positional_war(years)
         result[COL_POSITIONAL_WAR] = result[COL_MLBAMID].map(pos_war_dict)
 
-        # 9. Enhanced_Baserunning
+        # 9. Enhanced_Baserunning (year-specific with sliding window)
         logger.debug(f"Loading {COL_ENHANCED_BASERUNNING}...")
         baserunning_dict = load_enhanced_baserunning(years)
-        result[COL_ENHANCED_BASERUNNING] = result[COL_MLBAMID].map(baserunning_dict)
+        result[COL_ENHANCED_BASERUNNING] = result.apply(
+            lambda row: baserunning_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
-        # 10. Enhanced_Defense
+        # 10. Enhanced_Defense (year-specific with sliding window)
         logger.debug(f"Loading {COL_ENHANCED_DEFENSE}...")
         defense_dict = load_enhanced_defense(years)
-        result[COL_ENHANCED_DEFENSE] = result[COL_MLBAMID].map(defense_dict)
+        result[COL_ENHANCED_DEFENSE] = result.apply(
+            lambda row: defense_dict.get((row[COL_MLBAMID], row[COL_YEAR]), np.nan),
+            axis=1
+        )
 
-        logger.info(f"Loaded 10 hitter feature sets ({len(result.columns)} total columns)")
+        # 11. Primary_Position
+        logger.debug("Loading Primary_Position...")
+        position_dict = load_positions_all_years(years)
+        result['Primary_Position'] = result[COL_MLBAMID].map(position_dict)
+
+        logger.info(f"Loaded 11 hitter feature sets ({len(result.columns)} total columns)")
 
         return result

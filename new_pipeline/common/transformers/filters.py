@@ -367,10 +367,11 @@ class TwoWayPlayerFilter(BaseEstimator, TransformerMixin):
                         )
         else:
             # Can't determine two-way status without necessary columns
+            # This is expected when processing pitchers/hitters separately
             X[COL_TWO_WAY_PLAYER] = False
-            logger.warning(
+            logger.debug(
                 f"TwoWayPlayerFilter: Missing required columns ({COL_IP}, {COL_GS}, {COL_PA}), "
-                "marking all as False"
+                "marking all as False (expected when processing single player type)"
             )
 
         return X

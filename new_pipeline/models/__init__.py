@@ -1,12 +1,14 @@
 """
 Models package for new_pipeline.
 
-Contains tier-based multi-quantile ensemble models for WAR prediction.
+Contains current season and ROS prediction models.
 """
 
-from .base_ensemble import TieredQuantileEnsemble
-from .pitcher_ensemble import PitcherRoleEnsemble
-from .hitter_ensemble import HitterEnsemble
+from .current_season import (
+    TieredQuantileEnsemble,
+    PitcherRoleEnsemble,
+    HitterEnsemble
+)
 
 __all__ = [
     'TieredQuantileEnsemble',

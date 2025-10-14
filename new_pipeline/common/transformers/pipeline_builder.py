@@ -44,6 +44,7 @@ from .pitcher_features import PitcherFeatureTransformer
 from .pitcher_composite_transformer import PitcherCompositeTransformer
 from .hitter_features import HitterFeatureTransformer
 from .feature_selector import FeatureSelector
+from .age_enricher import AgeEnricher
 
 
 def build_pitcher_pipeline(
@@ -81,6 +82,7 @@ def build_pitcher_pipeline(
         ('no_id_filter', NoIDFilter(id_column=COL_MLBAMID)),
         ('two_way_filter', TwoWayPlayerFilter()),
         ('ip_filter', IPFilter()),
+        ('age_enricher', AgeEnricher(years=years, player_type='pitcher')),
         ('feature_loader', PitcherFeatureTransformer(years=years)),
         ('composite_calculator', PitcherCompositeTransformer()),
         ('imputer', MissingValueImputer()),
@@ -147,6 +149,7 @@ def build_hitter_pipeline(
         ('no_id_filter', NoIDFilter(id_column=COL_MLBAMID)),
         ('two_way_filter', TwoWayPlayerFilter()),
         ('pa_filter', PAFilter(min_pa=min_pa)),
+        ('age_enricher', AgeEnricher(years=years, player_type='hitter')),
         ('feature_loader', HitterFeatureTransformer(years=years)),
         ('imputer', MissingValueImputer()),
     ]

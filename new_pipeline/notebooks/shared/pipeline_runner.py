@@ -30,7 +30,10 @@ from new_pipeline.common.constants import (
     PITCHER_MODEL_FEATURES,
     HITTER_MODEL_FEATURES,
     FULL_SEASON_GAMES,
-    FULL_SEASON_PA
+    FULL_SEASON_PA,
+    WAR_NORMALIZATION_IP_STARTER,
+    WAR_NORMALIZATION_IP_RELIEVER,
+    WAR_NORMALIZATION_IP_SWING
 )
 from new_pipeline.common.projections import get_team_games_from_data, calculate_remaining_usage
 
@@ -179,11 +182,13 @@ def generate_predictions(
         pd.DataFrame: Original data + predictions + residuals
 
     Columns Added:
-        - Predicted_WAR_per_162 or Predicted_WAR_per_600
-        - Residual
-        - Current_WAR (actual cumulative)
+        - Predicted_WAR_per_162 or Predicted_WAR_per_600 (rate prediction)
+        - Residual (error in rate prediction)
+        - Predicted_Current_WAR (predicted cumulative WAR to date)
+        - Actual_Current_WAR (actual cumulative WAR from data, if available)
+        - Current_Residual (error in current season prediction)
         - ROS_WAR (rest of season projection)
-        - Total_Projected_WAR (current + ROS)
+        - Total_Projected_WAR (predicted current + predicted ROS)
 
     Example:
         >>> predictions = generate_predictions(df_2025, model, player_type='pitcher')
@@ -199,7 +204,7 @@ def generate_predictions(
         war_col = 'WAR_per_162'
         pred_col = 'Predicted_WAR_per_162'
         usage_col = COL_IP
-        full_season_usage = FULL_SEASON_GAMES
+        full_season_usage = FULL_SEASON_GAMES  # Default for current WAR calculations
     else:
         feature_cols = HITTER_MODEL_FEATURES
         war_col = 'WAR_per_600'
@@ -212,26 +217,86 @@ def generate_predictions(
 
     # Handle role-based models (pitcher ensembles use duck typing)
     try:
-        # Try role-based prediction (pitcher ensembles need role_column parameter)
+        # Pitcher ensembles: Need role-aware predictions
         roles = df_result.apply(lambda row: _get_pitcher_role(row), axis=1).values
-        predictions = model.predict(X, roles)
+
+        # For pitchers, predict role by role with role-specific season progress
+        if hasattr(model, 'set_season_progress') and usage_col in df_result.columns:
+            # Role-specific IP targets
+            role_ip_targets = {'starter': 162, 'reliever': 70, 'swing': 110}
+
+            # Initialize predictions array
+            predictions = np.zeros(len(df_result))
+
+            # Predict each role separately with correct season progress
+            for role, ip_target in role_ip_targets.items():
+                role_mask = roles == role
+                if not role_mask.any():
+                    continue
+
+                # Calculate role-specific season progress
+                role_avg_ip = df_result.loc[role_mask, usage_col].mean()
+                role_season_pct = min(role_avg_ip / ip_target, 1.0)
+
+                # Set season progress for this role
+                model.set_season_progress(role_season_pct)
+                print(f"  {role.capitalize()}s: {role_season_pct:.1%} season ({role_avg_ip:.1f} avg IP, target={ip_target})")
+
+                # Predict for this role only
+                X_role = X.iloc[role_mask] if hasattr(X, 'iloc') else X[role_mask]
+                roles_role = roles[role_mask]
+                predictions[role_mask] = model.predict(X_role, roles_role)
+        else:
+            # No season progress support or no usage data - predict all at once
+            predictions = model.predict(X, roles)
     except TypeError:
         # Standard model without role parameter (hitter ensembles)
+        # Detect season progress from usage data for dynamic threshold calculation
+        if hasattr(model, 'set_season_progress') and usage_col in df_result.columns:
+            avg_usage = df_result[usage_col].mean()
+            season_pct = min(avg_usage / full_season_usage, 1.0)
+            model.set_season_progress(season_pct)
+            print(f"  Detected season progress: {season_pct:.1%} ({avg_usage:.1f} avg {usage_col})")
+
         predictions = model.predict(X)
 
     df_result[pred_col] = predictions
 
-    # Calculate residuals (if actual WAR exists)
+    # Calculate residuals (if actual WAR rate exists)
     if war_col in df_result.columns:
         df_result['Residual'] = df_result[war_col] - predictions
     else:
         df_result['Residual'] = np.nan
 
-    # Calculate Current WAR (actual cumulative so far in season)
-    if 'WAR' in df_result.columns and usage_col in df_result.columns:
-        df_result['Current_WAR'] = df_result['WAR']
+    # Calculate Predicted Current WAR (cumulative based on current usage)
+    if usage_col in df_result.columns:
+        current_usage = df_result[usage_col].values
+
+        # For pitchers, use role-specific denominators
+        if player_type == 'pitcher':
+            # Get role-specific denominators for each pitcher
+            role_denominators = df_result.apply(
+                lambda row: _get_role_specific_denominator(_get_pitcher_role(row)),
+                axis=1
+            ).values
+            predicted_current_war = predictions * (current_usage / role_denominators)
+        else:
+            # For hitters, use single denominator
+            predicted_current_war = predictions * (current_usage / full_season_usage)
+
+        df_result['Predicted_Current_WAR'] = predicted_current_war
     else:
-        df_result['Current_WAR'] = 0.0
+        df_result['Predicted_Current_WAR'] = 0.0
+
+    # Calculate Actual Current WAR (for validation when actual WAR exists)
+    if 'WAR' in df_result.columns:
+        df_result['Actual_Current_WAR'] = df_result['WAR']
+
+        # Calculate current season prediction error
+        df_result['Current_Residual'] = df_result['Actual_Current_WAR'] - df_result['Predicted_Current_WAR']
+    else:
+        df_result['Actual_Current_WAR'] = np.nan
+        df_result['Current_Residual'] = np.nan
 
     # Calculate ROS (Rest of Season) projection
     # Uses IP/G approach for pitchers, G/team_G for hitters
@@ -251,15 +316,24 @@ def generate_predictions(
         )
 
         # Prorated prediction for remaining usage
-        # For pitchers: WAR_per_162 * (remaining_IP / 162)
+        # For pitchers: Use role-specific denominators (162/48.2/110)
         # For hitters: WAR_per_600 * (remaining_PA / 600)
-        ros_war = (predictions * (remaining_usage / full_season_usage))
+        if player_type == 'pitcher':
+            # Get role-specific denominators for each pitcher
+            role_denominators = df_result.apply(
+                lambda row: _get_role_specific_denominator(_get_pitcher_role(row)),
+                axis=1
+            ).values
+            ros_war = predictions * (remaining_usage / role_denominators)
+        else:
+            ros_war = predictions * (remaining_usage / full_season_usage)
+
         df_result['ROS_WAR'] = ros_war
     else:
         df_result['ROS_WAR'] = predictions
 
-    # Total projection = current + ROS
-    df_result['Total_Projected_WAR'] = df_result['Current_WAR'] + df_result['ROS_WAR']
+    # Total projection = predicted current + predicted ROS (consistent projection)
+    df_result['Total_Projected_WAR'] = df_result['Predicted_Current_WAR'] + df_result['ROS_WAR']
 
     return df_result
 
@@ -387,9 +461,12 @@ def create_combined_leaderboard(
     Handles two-way players by combining their pitcher and hitter WAR.
     Pure pitchers and hitters show only their respective WAR component.
 
+    Two-way detection: Players appearing in BOTH datasets (by MLBAMID) are
+    automatically identified as two-way players.
+
     Args:
-        pitcher_df: Pitcher predictions with MLBAMID, Name, WAR_per_162, two_way_player
-        hitter_df: Hitter predictions with MLBAMID, Name, WAR_per_600, two_way_player
+        pitcher_df: Pitcher predictions with MLBAMID, Name, WAR_per_162
+        hitter_df: Hitter predictions with MLBAMID, Name, WAR_per_600
         top_n: Number of top players to return (default: 100)
         war_col_pitcher: Column name for pitcher WAR (default: 'WAR_per_162')
         war_col_hitter: Column name for hitter WAR (default: 'WAR_per_600')
@@ -415,8 +492,9 @@ def create_combined_leaderboard(
         >>> #   4     Tarik Skubal       Pitcher   6.8        6.8          0.0
     """
     # Validate required columns
-    required_pitcher_cols = [COL_MLBAMID, war_col_pitcher, COL_TWO_WAY_PLAYER]
-    required_hitter_cols = [COL_MLBAMID, war_col_hitter, COL_TWO_WAY_PLAYER]
+    # Note: COL_TWO_WAY_PLAYER not required - we detect two-way via MLBAMID cross-check
+    required_pitcher_cols = [COL_MLBAMID, war_col_pitcher]
+    required_hitter_cols = [COL_MLBAMID, war_col_hitter]
 
     missing_pitcher = [col for col in required_pitcher_cols if col not in pitcher_df.columns]
     missing_hitter = [col for col in required_hitter_cols if col not in hitter_df.columns]
@@ -426,14 +504,12 @@ def create_combined_leaderboard(
     if missing_hitter:
         raise ValueError(f"hitter_df missing required columns: {missing_hitter}")
 
-    # Find two-way players (appear in both datasets with two_way_player=True)
-    two_way_pitcher_ids = set(
-        pitcher_df[pitcher_df[COL_TWO_WAY_PLAYER] == True][COL_MLBAMID]
-    )
-    two_way_hitter_ids = set(
-        hitter_df[hitter_df[COL_TWO_WAY_PLAYER] == True][COL_MLBAMID]
-    )
-    two_way_ids = two_way_pitcher_ids & two_way_hitter_ids
+    # Find two-way players (appear in both datasets)
+    # Cross-check MLBAMIDs instead of relying on two_way_player flag
+    # (flag can't be set correctly when pipelines run separately)
+    pitcher_ids = set(pitcher_df[COL_MLBAMID].dropna())
+    hitter_ids = set(hitter_df[COL_MLBAMID].dropna())
+    two_way_ids = pitcher_ids & hitter_ids
 
     combined_rows = []
 
@@ -508,3 +584,21 @@ def _get_pitcher_role(row: pd.Series) -> str:
         return 'reliever'
     else:
         return 'swing'
+
+
+def _get_role_specific_denominator(role: str) -> float:
+    """
+    Helper: Get WAR normalization denominator for pitcher role.
+
+    Args:
+        role: 'starter', 'reliever', or 'swing'
+
+    Returns:
+        float: Normalization denominator (IP for full season equivalent)
+    """
+    role_denominators = {
+        'starter': WAR_NORMALIZATION_IP_STARTER,    # 162
+        'reliever': WAR_NORMALIZATION_IP_RELIEVER,  # 48.2
+        'swing': WAR_NORMALIZATION_IP_SWING         # 110
+    }
+    return role_denominators.get(role, WAR_NORMALIZATION_IP_STARTER)
