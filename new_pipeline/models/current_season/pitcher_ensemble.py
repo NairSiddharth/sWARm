@@ -311,7 +311,8 @@ class PitcherRoleEnsemble(TieredQuantileEnsemble):
             histgb_quantiles = self.models[role]['histgb'].get_quantile_predictions(X_scaled)
 
             # Get dynamic thresholds based on season progress and role
-            tier_thresholds = self._get_dynamic_thresholds(self._current_season_pct, role)
+            from . import tier_thresholds as tier_thresh
+            tier_thresholds = tier_thresh.get_thresholds(self._current_season_pct, role)
 
             # Apply tier-based blending with dynamic thresholds and role-specific weights
             role_predictions = self._blend_predictions(

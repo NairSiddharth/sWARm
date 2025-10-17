@@ -221,9 +221,50 @@ def check_recurring_injury(
     return len(matching_injuries) >= 2  # Recurring = 2+ occurrences
 
 
+def is_season_ending_injury(
+    eligible_date: datetime,
+    return_date: datetime,
+    season_end_date: datetime
+) -> bool:
+    """
+    Determine if injury will prevent player from returning this season.
+
+    Args:
+        eligible_date: Date player eligible to return from IL
+        return_date: Actual return date (may be NaN)
+        season_end_date: End date of current season (typically Sep 30)
+
+    Returns:
+        True if player will not return this season, False otherwise
+
+    Logic:
+        - If return_date exists and is after season end → season-ending
+        - If return_date is NaN and eligible_date is after season end → season-ending
+        - Otherwise → not season-ending
+
+    Example:
+        >>> # John Means: injured 06/03/24, eligible 05/23/25
+        >>> season_end = datetime(2024, 9, 30)
+        >>> eligible = datetime(2025, 5, 23)
+        >>> is_season_ending_injury(eligible, pd.NaT, season_end)
+        True  # Won't return in 2024 season
+    """
+    # If player has already returned, check if return was after season
+    if pd.notna(return_date):
+        return return_date > season_end_date
+
+    # If not yet returned, check if eligible date is after season end
+    if pd.notna(eligible_date):
+        return eligible_date > season_end_date
+
+    # If no dates available, assume not season-ending
+    return False
+
+
 def extract_injury_features(
     player_injury_data: Optional[pd.DataFrame],
-    current_date: datetime = None
+    current_date: datetime = None,
+    season_end_date: datetime = None
 ) -> Dict[str, float]:
     """
     Extract all injury features for ROS model.
@@ -231,18 +272,21 @@ def extract_injury_features(
     Args:
         player_injury_data: Injury history for player with columns:
             - Year
-            - injury_description
+            - injury_description or injury_type
             - return_date (datetime or str)
+            - eligible_date (datetime or str, optional)
             - injury_type (optional, will classify if missing)
         current_date: Date for calculating recovery (default: today)
+        season_end_date: End date of season for season-ending check (default: Sep 30 of current year)
 
     Returns:
-        Dictionary with 5 injury features:
+        Dictionary with 6 injury features:
         - injury_flag: int (0/1, has active/recent injury)
         - injury_recovery_factor: float (0.0-1.0)
         - days_since_injury: int
         - injury_severity_encoded: int (0-3)
         - recurring_injury: int (0/1)
+        - season_ending_injury: int (0/1, injury prevents return this season)
 
     Example:
         >>> # Player with recent shoulder surgery
@@ -262,13 +306,18 @@ def extract_injury_features(
     if current_date is None:
         current_date = datetime.now()
 
+    if season_end_date is None:
+        # Default to September 30 of current year (MLB regular season end)
+        season_end_date = datetime(current_date.year, 9, 30)
+
     # Default values (no injury)
     default_features = {
         'injury_flag': 0,
         'injury_recovery_factor': 1.0,
         'days_since_injury': 0,
         'injury_severity_encoded': 0,
-        'recurring_injury': 0
+        'recurring_injury': 0,
+        'season_ending_injury': 0
     }
 
     if player_injury_data is None or player_injury_data.empty:
@@ -316,10 +365,22 @@ def extract_injury_features(
     # Active injury flag (within last 180 days)
     injury_flag = int(days_since <= 180)
 
+    # Season-ending injury check
+    eligible_date = recent_injury.get('eligible_date')
+    if isinstance(eligible_date, str):
+        eligible_date = pd.to_datetime(eligible_date)
+
+    season_ending = is_season_ending_injury(
+        eligible_date if pd.notna(eligible_date) else return_date,
+        return_date,
+        season_end_date
+    )
+
     return {
         'injury_flag': injury_flag,
         'injury_recovery_factor': recovery_factor,
         'days_since_injury': max(0, days_since),
         'injury_severity_encoded': injury_info['severity'],
-        'recurring_injury': int(is_recurring)
+        'recurring_injury': int(is_recurring),
+        'season_ending_injury': int(season_ending)
     }

@@ -302,14 +302,15 @@ def generate_predictions(
     # Uses IP/G approach for pitchers, G/team_G for hitters
     if usage_col in df_result.columns:
         # Get team games context from data
-        team_games = get_team_games_from_data(df_result)
+        team_games_dict, league_median_games = get_team_games_from_data(df_result)
 
         # Calculate remaining usage (IP for pitchers, games for hitters)
         remaining_usage = df_result.apply(
             lambda row: calculate_remaining_usage(
                 row,
                 player_type,
-                team_games,
+                team_games_dict,
+                league_median_games,
                 season_length=162
             ),
             axis=1

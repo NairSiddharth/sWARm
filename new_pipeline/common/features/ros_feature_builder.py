@@ -132,12 +132,12 @@ class ROSFeatureBuilder:
 
         # 8. Usage features
         if self.player_type == 'hitter':
-            features['PA'] = current_season.get('PA', 0)
-            features['Games'] = current_season.get('G', 0)
+            features['PA'] = current_season.get('current_PA', current_season.get('PA'))
+            features['Games'] = current_season.get('current_G', current_season.get('G'))
         else:
-            features['IP'] = current_season.get('IP', 0.0)
-            features['G'] = current_season.get('G', 0)
-            features['GS'] = current_season.get('GS', 0)
+            features['IP'] = current_season.get('current_IP', current_season.get('IP'))
+            features['G'] = current_season.get('current_G', current_season.get('G'))
+            features['GS'] = current_season.get('current_GS', current_season.get('GS'))
 
         # Season timing (critical for flexible ROS predictions)
         features['season_completion_pct'] = current_season.get('season_completion_pct', 0.5)
@@ -217,6 +217,15 @@ class ROSFeatureBuilder:
                     current_season_df['playerid'] = current_season_df[col]
                     break
 
+        # Normalize playerid column name in injury_df as well
+        if injury_df is not None:
+            injury_df = injury_df.copy()
+            if 'playerid' not in injury_df.columns:
+                for col in ['MLBAMID', 'PlayerId']:
+                    if col in injury_df.columns:
+                        injury_df['playerid'] = injury_df[col]
+                        break
+
         all_features = []
 
         for idx, current_row in current_season_df.iterrows():
@@ -252,7 +261,7 @@ class ROSFeatureBuilder:
                 features['Primary_Position'] = current_row.get('Primary_Position', '')
 
                 # Add target and metadata from splits (if present)
-                for col in ['remaining_WAR', 'remaining_PA', 'remaining_IP', 'Year', 'split_point']:
+                for col in ['WAR', 'current_WAR', 'full_WAR', 'IP', 'current_IP', 'full_IP', 'G', 'current_G', 'full_G', 'GS', 'current_GS', 'full_GS', 'PA', 'current_PA', 'full_PA', 'Games', 'remaining_WAR', 'remaining_PA', 'remaining_IP', 'Year', 'split_point', '_multi_team_current', '_multi_team_stints']:
                     if col in current_row.index:
                         features[col] = current_row[col]
 

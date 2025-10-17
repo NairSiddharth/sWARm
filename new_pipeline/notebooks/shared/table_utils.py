@@ -402,3 +402,159 @@ def handle_two_way_player(
         'ROS_WAR': pitcher_war.get('ROS', 0.0) + hitter_war.get('ROS', 0.0),
         'total_proj': pitcher_war.get('total', 0.0) + hitter_war.get('total', 0.0)
     }
+
+
+def create_ros_diagnostic_table(
+    names: List[str],
+    teams: List[str],
+    tiers: List[str],
+    usage_current: List[float],
+    usage_projected: List[float],
+    ros_display: Dict[str, List[float]],
+    player_type: str,
+    role: str = None,
+    additional_cols: Dict[str, List[float]] = None
+) -> PrettyTable:
+    """
+    Create formatted diagnostic table for ROS predictions.
+
+    Args:
+        names: Player names
+        teams: Teams
+        tiers: Tier classifications ('average', 'good', 'elite')
+        usage_current: Current IP (pitchers) or PA (hitters)
+        usage_projected: Projected remaining IP or PA
+        ros_display: Dict from format_pitcher_ros_display/format_hitter_ros_display
+                    Expected keys: 'ros_war', 'ros_rate', 'ros_q50', 'ros_q90'
+        player_type: 'pitcher' or 'hitter'
+        role: 'starter', 'reliever', 'swing' (pitchers only)
+        additional_cols: Optional dict of {column_name: values} for role-specific columns
+
+    Returns:
+        PrettyTable with proper formatting and markdown style
+
+    Example:
+        >>> # Starter example
+        >>> table = create_ros_diagnostic_table(
+        ...     names=['Tarik Skubal', 'Zack Wheeler'],
+        ...     teams=['DET', 'PHI'],
+        ...     tiers=['elite', 'good'],
+        ...     usage_current=[130.0, 125.0],
+        ...     usage_projected=[64.0, 68.0],
+        ...     ros_display={'ros_war': [2.9, 2.7], 'ros_rate': [4.52, 3.97], ...},
+        ...     player_type='pitcher',
+        ...     role='starter',
+        ...     additional_cols={'Starts': [21, 20], 'IP/Start': [6.2, 6.3], 'TeamG': [95, 96]}
+        ... )
+        >>> print(table)
+    """
+    if player_type not in ['pitcher', 'hitter']:
+        raise ValueError(f"player_type must be 'pitcher' or 'hitter', got: {player_type}")
+
+    # Create table
+    table = PrettyTable()
+    table.set_style(MARKDOWN)
+    table.align = 'l'
+
+    # Build field names based on player type and role
+    base_fields = ['Name', 'Team', 'Tier']
+
+    if player_type == 'pitcher':
+        usage_label = 'IP'
+        usage_proj_label = 'Proj_IP'
+
+        if role == 'starter':
+            # Starter-specific columns
+            field_names = base_fields + [usage_label]
+            if additional_cols and 'Starts' in additional_cols:
+                field_names.append('Starts')
+            if additional_cols and 'IP/Start' in additional_cols:
+                field_names.append('IP/Start')
+            if additional_cols and 'TeamG' in additional_cols:
+                field_names.append('TeamG')
+            field_names += [usage_proj_label, 'ROS_Rate', 'ROS_WAR', 'ROS_q50', 'ROS_q90']
+        else:
+            # Reliever/Swing columns
+            field_names = base_fields + [usage_label]
+            if additional_cols and 'G' in additional_cols:
+                field_names.append('G')
+            if additional_cols and 'IP/G' in additional_cols:
+                field_names.append('IP/G')
+            if additional_cols and 'App_Rate' in additional_cols:
+                field_names.append('App_Rate')
+            if additional_cols and 'TeamG' in additional_cols:
+                field_names.append('TeamG')
+            field_names += [usage_proj_label, 'ROS_Rate', 'ROS_WAR', 'ROS_q50', 'ROS_q90']
+    else:
+        # Hitter columns
+        usage_label = 'PA'
+        usage_proj_label = 'Remaining_PA'
+        field_names = base_fields + [usage_label]
+        if additional_cols and 'G' in additional_cols:
+            field_names.append('G')
+        if additional_cols and 'TeamG' in additional_cols:
+            field_names.append('TeamG')
+        field_names += [usage_proj_label, 'Total_PA_Proj', 'ROS_Rate', 'ROS_WAR', 'ROS_q50', 'ROS_q90']
+
+    table.field_names = field_names
+
+    # Right-align numeric columns
+    numeric_cols = [usage_label, usage_proj_label, 'ROS_Rate', 'ROS_WAR', 'ROS_q50', 'ROS_q90']
+    if 'Total_PA_Proj' in field_names:
+        numeric_cols.append('Total_PA_Proj')
+    if 'Starts' in field_names:
+        numeric_cols.append('Starts')
+    if 'G' in field_names:
+        numeric_cols.append('G')
+    if 'TeamG' in field_names:
+        numeric_cols.append('TeamG')
+    if 'IP/Start' in field_names:
+        numeric_cols.append('IP/Start')
+    if 'IP/G' in field_names:
+        numeric_cols.append('IP/G')
+    if 'App_Rate' in field_names:
+        numeric_cols.append('App_Rate')
+
+    for col in numeric_cols:
+        if col in field_names:
+            table.align[col] = 'r'
+
+    # Add rows
+    for i in range(len(names)):
+        row = [names[i], teams[i], tiers[i]]
+
+        # Add usage current
+        row.append(f"{usage_current[i]:.0f}")
+
+        # Add role-specific columns
+        if additional_cols:
+            if 'Starts' in field_names and 'Starts' in additional_cols:
+                row.append(f"{additional_cols['Starts'][i]:.0f}")
+            if 'IP/Start' in field_names and 'IP/Start' in additional_cols:
+                row.append(f"{additional_cols['IP/Start'][i]:.1f}")
+            if 'G' in field_names and 'G' in additional_cols:
+                row.append(f"{additional_cols['G'][i]:.0f}")
+            if 'IP/G' in field_names and 'IP/G' in additional_cols:
+                row.append(f"{additional_cols['IP/G'][i]:.2f}")
+            if 'App_Rate' in field_names and 'App_Rate' in additional_cols:
+                row.append(f"{additional_cols['App_Rate'][i]:.2f}")
+            if 'TeamG' in field_names and 'TeamG' in additional_cols:
+                row.append(f"{additional_cols['TeamG'][i]:.0f}")
+
+        # Add projected usage
+        row.append(f"{usage_projected[i]:.0f}")
+
+        # Add total projected PA for hitters
+        if 'Total_PA_Proj' in field_names:
+            total_proj = usage_current[i] + usage_projected[i]
+            row.append(f"{total_proj:.0f}")
+
+        # Add ROS predictions
+        row.append(f"{ros_display['ros_rate'][i]:.2f}")
+        row.append(f"{ros_display['ros_war'][i]:.1f}")
+        row.append(f"{ros_display['ros_q50'][i]:.1f}")
+        row.append(f"{ros_display['ros_q90'][i]:.1f}")
+
+        table.add_row(row)
+
+    return table

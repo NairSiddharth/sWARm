@@ -75,6 +75,7 @@ ROS_PITCHER_FEATURES = [
     'days_since_injury',
     'injury_severity_encoded',  # 0=none, 1=strain, 2=surgery
     'recurring_injury',  # 0/1 (same type in last 2 years)
+    'season_ending_injury',  # 0/1 (injury prevents return this season)
 
     # ===== Usage Context =====
     'IP',  # Innings pitched to date
@@ -453,10 +454,124 @@ class PitcherROSEnsemble(BaseEnsemble):
 
         return predictions
 
+    def predict_with_elite_adjustments(
+        self,
+        current_df: pd.DataFrame,
+        historical_df: Optional[pd.DataFrame] = None,
+        season_pct: float = 0.59,
+        blend_ratio: float = 0.70,
+        team_games_dict: Optional[Dict[str, int]] = None,
+        league_median_games: Optional[int] = None
+    ) -> np.ndarray:
+        """
+        Generate ROS predictions with elite player blend ratio adjustments.
+
+        Applies tier-based post-processing to base ensemble predictions:
+        1. Get base predictions from ensemble
+        2. For each player, check if they qualify as elite candidate
+        3. If elite: blend current WAR rate with baseline using blend_ratio
+        4. If not elite: use baseline prediction as-is
+
+        Args:
+            current_df: Current season data (must include 'WAR', 'IP', 'G', 'GS', 'playerid')
+            historical_df: Historical data for elite candidate detection
+            season_pct: Season completion percentage (0.0-1.0, default 0.59 = ~95 games)
+            blend_ratio: Weight for current rate in blending (default 0.70)
+                        Final prediction = blend_ratio * current_rate_proj + (1-blend_ratio) * baseline
+
+        Returns:
+            Adjusted ROS WAR predictions (n_samples,)
+
+        Example:
+            >>> # Predict 2025 ROS with elite adjustments at All-Star break
+            >>> ros_predictions = ensemble.predict_with_elite_adjustments(
+            ...     current_2025, historical_2016_2024, season_pct=0.59, blend_ratio=0.70
+            ... )
+        """
+        from .tier_thresholds import (
+            get_thresholds,
+            calculate_war_rate,
+            is_elite_candidate,
+            calculate_blended_prediction,
+            subclassify_swing_pitcher
+        )
+        from new_pipeline.common.projections.usage_projections import calculate_remaining_usage, get_team_games_from_data
+
+        # Get team games data if not provided
+        if team_games_dict is None or league_median_games is None:
+            team_games_dict, league_median_games = get_team_games_from_data(current_df)
+
+        # Get base ensemble predictions
+        base_predictions = self.predict(current_df, historical_df)
+
+        # If no historical data, can't do elite detection - return base predictions
+        if historical_df is None:
+            print("  No historical data - returning base predictions without elite adjustments")
+            return base_predictions
+
+        # Get tier thresholds for current season progress
+        adjusted_predictions = base_predictions.copy()
+
+        # Build player history lookup (one row per year, using 0.75 split as proxy for full season)
+        player_history = {}
+        for playerid in historical_df['playerid'].unique():
+            player_hist = historical_df[historical_df['playerid'] == playerid]
+            # For multi-split data, keep only 0.75 split (closest to full season) per year
+            if 'split_point' in player_hist.columns:
+                player_hist = player_hist[player_hist['split_point'] == 0.75]
+            player_history[playerid] = player_hist
+
+        # Process each player
+        for idx, row in current_df.iterrows():
+            playerid = row['playerid']
+            base_pred = base_predictions[idx]
+
+            # Determine role (with swing pitcher subclassification)
+            from new_pipeline.common.projections.usage_projections import classify_pitcher_role
+            base_role = classify_pitcher_role(row['GS'], row['G'], row['IP'])
+
+            if base_role == 'swing':
+                role = subclassify_swing_pitcher(row['GS'], row['G'], row['IP'])
+            else:
+                role = base_role
+
+            # Get thresholds for this role
+            good_threshold, elite_threshold = get_thresholds(role, season_pct)
+
+            # Calculate current WAR rate
+            current_usage = row['IP']
+            current_war_rate = calculate_war_rate(row['WAR'], current_usage, role)
+
+            # Check if elite candidate
+            history = player_history.get(playerid, pd.DataFrame())
+            is_candidate, reason = is_elite_candidate(
+                history, current_war_rate, role, elite_threshold, good_threshold
+            )
+
+            if is_candidate:
+                # Calculate remaining usage projection
+                remaining_usage = calculate_remaining_usage(
+                    row, 'pitcher', team_games_dict, league_median_games
+                )
+
+                # Apply blend ratio adjustment
+                adjusted_pred = calculate_blended_prediction(
+                    current_war_rate, remaining_usage, base_pred, blend_ratio, role
+                )
+
+                adjusted_predictions[idx] = adjusted_pred
+
+        return adjusted_predictions
+
     def predict_with_uncertainty(
         self,
         current_df: pd.DataFrame,
-        historical_df: Optional[pd.DataFrame] = None
+        historical_df: Optional[pd.DataFrame] = None,
+        apply_elite_adjustments: bool = False,
+        season_pct: float = 0.59,
+        blend_ratio: float = 0.70,
+        team_games_dict: Optional[Dict[str, int]] = None,
+        league_median_games: Optional[int] = None
     ) -> Dict[str, np.ndarray]:
         """
         Generate predictions with uncertainty bands.
@@ -466,22 +581,30 @@ class PitcherROSEnsemble(BaseEnsemble):
         Args:
             current_df: Current season data
             historical_df: Historical data (optional)
+            apply_elite_adjustments: If True, apply blend ratio adjustments to elite players (default: False)
+            season_pct: Season completion percentage for elite adjustments (default: 0.59)
+            blend_ratio: Blend ratio for elite adjustments (default: 0.70)
 
         Returns:
             Dictionary with:
-            - 'mean': Ensemble mean predictions
+            - 'mean': Ensemble mean predictions (with elite adjustments if enabled)
             - 'q10', 'q25', 'q50', 'q75', 'q90': Quantile predictions
             - 'std': Standard deviation across components
             - 'uncertainty_band': q90 - q10
 
         Example:
+            >>> # Without elite adjustments
             >>> preds = ensemble.predict_with_uncertainty(X_2025, historical_df)
             >>> preds['mean']
             array([3.8, 2.9, ...])
-            >>> preds['q10']  # Floor
-            array([2.1, 1.5, ...])
-            >>> preds['q90']  # Ceiling
-            array([5.2, 4.3, ...])
+
+            >>> # With elite adjustments
+            >>> preds = ensemble.predict_with_uncertainty(
+            ...     X_2025, historical_df,
+            ...     apply_elite_adjustments=True, season_pct=0.59, blend_ratio=0.70
+            ... )
+            >>> preds['mean']  # Elite players adjusted upward
+            array([4.2, 2.9, ...])
         """
         if not self.is_fitted:
             raise ValueError("Ensemble not fitted. Call fit() first.")
@@ -494,8 +617,14 @@ class PitcherROSEnsemble(BaseEnsemble):
         baseline_pred = self.baseline_model.predict(X_baseline)
         quantile_preds = self.baseline_model.predict_quantiles(X_baseline)
 
-        # Use predict() for ensemble mean (handles tiers correctly)
-        mean_pred = self.predict(current_df, historical_df)
+        # Use predict() or predict_with_elite_adjustments() for ensemble mean
+        if apply_elite_adjustments:
+            mean_pred = self.predict_with_elite_adjustments(
+                current_df, historical_df, season_pct, blend_ratio,
+                team_games_dict, league_median_games
+            )
+        else:
+            mean_pred = self.predict(current_df, historical_df)
 
         # Calculate component std by tracking available predictions per player
         # Initialize with baseline std (will be overwritten for players with more components)
@@ -605,15 +734,27 @@ class PitcherROSEnsemble(BaseEnsemble):
             for q in [0.1, 0.25, 0.5, 0.75, 0.9]
         }
 
+        # Enforce monotonicity: q10 <= q25 <= q50 <= q75 <= q90
+        # Independent quantile models can produce inconsistent orderings
+        # Sort quantiles per player to fix inversions (e.g., q50 > q90)
+        quantile_array = np.column_stack([
+            scaled_quantiles[0.1],
+            scaled_quantiles[0.25],
+            scaled_quantiles[0.5],
+            scaled_quantiles[0.75],
+            scaled_quantiles[0.9]
+        ])
+        quantile_array_sorted = np.sort(quantile_array, axis=1)
+
         return {
             'mean': mean_pred,
-            'q10': scaled_quantiles[0.1],
-            'q25': scaled_quantiles[0.25],
-            'q50': scaled_quantiles[0.5],
-            'q75': scaled_quantiles[0.75],
-            'q90': scaled_quantiles[0.9],
+            'q10': quantile_array_sorted[:, 0],
+            'q25': quantile_array_sorted[:, 1],
+            'q50': quantile_array_sorted[:, 2],
+            'q75': quantile_array_sorted[:, 3],
+            'q90': quantile_array_sorted[:, 4],
             'std': component_std,
-            'uncertainty_band': scaled_quantiles[0.9] - scaled_quantiles[0.1]
+            'uncertainty_band': quantile_array_sorted[:, 4] - quantile_array_sorted[:, 0]
         }
 
     def get_component_predictions(

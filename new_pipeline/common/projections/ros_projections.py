@@ -22,7 +22,7 @@ Example:
     }
 """
 
-from typing import Dict, Union
+from typing import Dict, Union, Any, Optional
 import numpy as np
 from ..constants import (
     WAR_NORMALIZATION_IP_STARTER,
@@ -248,3 +248,120 @@ def format_ros_predictions_for_display(
         )
     else:
         raise ValueError(f"player_type must be 'pitcher' or 'hitter', got {player_type!r}")
+
+
+def run_ros_predictions(
+    ensemble,
+    current_df,
+    historical_df,
+    player_type: str,
+    role: str,
+    season_pct: float,
+    blend_ratio: float = 0.70,
+    team_games_dict: Optional[Dict] = None,
+    league_median_games: Optional[int] = None,
+    use_percentile_tiers: bool = True
+) -> Dict[str, Any]:
+    """
+    Complete ROS prediction workflow with tier classification.
+
+    Orchestrates the entire ROS prediction process:
+    1. Generate predictions with uncertainty bands
+    2. Calculate remaining usage projections
+    3. Format predictions for display
+    4. Classify players into tiers
+
+    Args:
+        ensemble: Fitted ROS ensemble (PitcherROSEnsemble or HitterROSEnsemble)
+        current_df: Current season data (must include playerid, WAR, usage columns)
+        historical_df: Historical data for time series models
+        player_type: 'pitcher' or 'hitter'
+        role: 'starter', 'swing_starter', 'swing_reliever', 'reliever', or 'hitter'
+        season_pct: Fraction of season completed (0.0 to 1.0)
+        blend_ratio: Weight for current rate in elite adjustments (default 0.70)
+        team_games_dict: Optional team games remaining dict
+        league_median_games: Optional league median games remaining
+        use_percentile_tiers: If True, use percentile-based tier classification
+            instead of scaled absolute thresholds. Guarantees consistent tier
+            sizes (elite=top 3-6%, good=next 8-11%) regardless of talent pool.
+            Default True (recommended for ROS projections). Set to False for legacy behavior.
+
+    Returns:
+        Dict with:
+        - 'predictions': Dict from predict_with_uncertainty()
+            - 'mean': Ensemble mean predictions
+            - 'q10', 'q25', 'q50', 'q75', 'q90': Quantile predictions
+            - 'std': Component standard deviation
+            - 'uncertainty_band': q90 - q10
+        - 'display': Dict from format_*_ros_display()
+            - 'ros_war': Cumulative remaining WAR
+            - 'ros_rate': Implied rate (WAR_per_X)
+            - 'ros_q10', 'ros_q25', 'ros_q50', 'ros_q75', 'ros_q90': Quantiles
+        - 'tiers': np.ndarray of tier labels ('average', 'good', 'elite')
+        - 'usage_projected': np.ndarray of remaining IP (pitchers) or PA (hitters)
+
+    Example:
+        >>> # Starters at All-Star break
+        >>> results = run_ros_predictions(
+        ...     pitcher_ros, current_2025_starters, historical_2016_2024,
+        ...     'pitcher', 'starter', 0.59, blend_ratio=0.70
+        ... )
+        >>> results['tiers']
+        array(['good', 'elite', 'average', ...])
+        >>> results['display']['ros_war']
+        array([2.5, 3.1, 1.2, ...])
+    """
+    from new_pipeline.common.projections.usage_projections import (
+        calculate_remaining_usage,
+        get_team_games_from_data
+    )
+    from new_pipeline.models.ros.tier_thresholds import classify_tier
+
+    # 1. Get predictions with uncertainty
+    predictions = ensemble.predict_with_uncertainty(
+        current_df=current_df,
+        historical_df=historical_df,
+        apply_elite_adjustments=True,
+        season_pct=season_pct,
+        blend_ratio=blend_ratio,
+        team_games_dict=team_games_dict,
+        league_median_games=league_median_games
+    )
+
+    # 2. Calculate remaining usage
+    if team_games_dict is None or league_median_games is None:
+        team_games_dict, league_median_games = get_team_games_from_data(current_df)
+
+    usage_projected = np.array([
+        calculate_remaining_usage(row, player_type, team_games_dict, league_median_games)
+        for _, row in current_df.iterrows()
+    ])
+
+    # 3. Format for display
+    if player_type == 'pitcher':
+        display = format_pitcher_ros_display(
+            predictions,
+            usage_projected,
+            role=role,
+            include_rates=True
+        )
+    else:
+        display = format_hitter_ros_display(
+            predictions,
+            usage_projected,
+            include_rates=True
+        )
+
+    # 4. Classify tiers
+    if use_percentile_tiers:
+        from new_pipeline.models.ros.tier_thresholds import classify_tier_percentile
+        tiers = classify_tier_percentile(predictions['mean'], role)
+    else:
+        tiers = classify_tier(predictions['mean'], role, season_pct)
+
+    return {
+        'predictions': predictions,
+        'display': display,
+        'tiers': tiers,
+        'usage_projected': usage_projected
+    }

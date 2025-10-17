@@ -318,13 +318,14 @@ class CompleteProjectionGenerator:
         # Use team_games_source_df if provided (critical for pitchers!)
         # Pitchers don't play every game, so max(pitcher_G) underestimates team games
         team_games_df = team_games_source_df if team_games_source_df is not None else firsthalf_data
-        team_games = get_team_games_from_data(team_games_df)
+        team_games_dict, league_median_games = get_team_games_from_data(team_games_df)
 
         remaining_usage = np.array([
             calculate_remaining_usage(
                 player_row=row,
                 player_type=self.player_type,
-                team_games_dict=team_games,
+                team_games_dict=team_games_dict,
+                league_median_games=league_median_games,
                 season_length=season_length
             )
             for _, row in firsthalf_data.iterrows()
@@ -337,6 +338,24 @@ class CompleteProjectionGenerator:
         # The model was trained on remaining_WAR (cumulative), not rates
         ros_WAR = ros_cumulative_war
         ros_WAR_quantiles = quantiles_cumulative
+
+        # ===== Apply season-ending injury constraint =====
+        # Zero out ROS projections for players with season-ending injuries
+        if 'season_ending_injury' in ros_features_df.columns:
+            season_ending_mask = ros_features_df['season_ending_injury'] == 1
+            if season_ending_mask.any():
+                n_injured = season_ending_mask.sum()
+                print(f"  Applying season-ending injury constraint to {n_injured} player(s)...")
+
+                # Zero out ROS WAR for season-ending injuries
+                ros_WAR[season_ending_mask] = 0.0
+
+                # Zero out all quantiles for season-ending injuries
+                for q in ['q10', 'q25', 'q50', 'q75', 'q90']:
+                    ros_WAR_quantiles[q][season_ending_mask] = 0.0
+
+                # Zero out remaining usage as well
+                remaining_usage[season_ending_mask] = 0.0
 
         # For display purposes, we can calculate implied rates (for debugging/comparison)
         # But we don't use these for the actual projections

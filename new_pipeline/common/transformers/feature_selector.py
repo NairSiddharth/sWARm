@@ -39,6 +39,8 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
         - IP, PA: Innings pitched, plate appearances
         - WAR: Raw WAR
         - WAR_per_162, WAR_per_600: Normalized WAR targets
+        - _multi_team_current: Current team for multi-team players
+        - _multi_team_stints: JSON stint data for weighted calculations
 
     Example:
         >>> selector = FeatureSelector(
@@ -99,7 +101,8 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
             # Metadata columns to preserve (if they exist)
             metadata_cols = [
                 'MLBAMID', 'Name', 'Team', 'Year', 'Age', 'Position', 'Primary_Position', 'two_way_player',
-                'GS', 'G', 'IP', 'PA', 'WAR', 'WAR_per_162', 'WAR_per_600'
+                'GS', 'G', 'IP', 'PA', 'WAR', 'WAR_per_162', 'WAR_per_600',
+                '_multi_team_current', '_multi_team_stints'  # Multi-team player metadata
             ]
 
             # Keep only metadata that exists in input

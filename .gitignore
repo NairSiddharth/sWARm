@@ -217,6 +217,5 @@ results/future_projections_*.csv
 results/validation_report.csv
 results/issues/dropped_players_log.txt
 
-# Model files (now in models/)
-models/*.pkl
-models/history/*.pkl
+# Older Model files (now in models/)
+models/history/*
