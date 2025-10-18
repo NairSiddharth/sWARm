@@ -33,7 +33,7 @@ from .helpers import (
     _convert_decimal_to_percentage,
     validate_percentage_scale
 )
-from ..constants import DEFENSIVE_DIR, BP_BASERUNNING_DIR, STATCAST_RUNNING_SPLITS_DIR
+from ..constants import DEFENSIVE_DIR, BP_BASERUNNING_DIR, STATCAST_RUNNING_SPLITS_DIR, FANGRAPHS_HITTER_DIR
 
 # Position adjustments (per 600 PA)
 POSITION_WAR_ADJUSTMENTS = {
@@ -308,57 +308,131 @@ def load_positional_war(years: List[int]) -> Dict[int, float]:
 
 def load_positions_all_years(years: List[int]) -> Dict[int, str]:
     """
-    Load primary position for each player.
+    Load primary position for each player with DH detection.
 
-    Source: FanGraphs_Data/defensive/fangraphs_defensive_standard_{year}.csv
-    Column: 'Pos' (primary position)
+    DH Detection Logic:
+    - Players not in defensive CSV → Primary DH (100% DH time)
+    - Players in defensive CSV → Calculate DH%:
+      * DH% = 1 - (total_defensive_innings / (games × 9))
+      * If DH% >= 50% → Assign "DH"
+      * Else → Use fielding position
 
-    Handles multi-position players by taking first position from slash-separated value
-    (e.g., "2B/SS" becomes "2B").
+    This approach correctly identifies players like Marcell Ozuna (pure DH) and
+    Yordan Alvarez (splits time between LF and DH).
+
+    Sources:
+    - FanGraphs_Data/defensive/fangraphs_defensive_standard_{year}.csv (defensive stats)
+    - FanGraphs_Data/hitters/fangraphs_hitters_{year}.csv (offensive games played)
 
     Args:
         years: Years to load
 
     Returns:
-        dict: {MLBAMID: Position string}
+        dict: {MLBAMID: Position string} (includes "DH" for primary DHs)
 
     Example:
-        {12345: 'SS', 67890: 'CF', 11111: '1B'}
+        {670541: 'LF',      # Yordan Alvarez (48% DH time → keeps LF)
+         542303: 'DH',      # Marcell Ozuna (100% DH time)
+         592351: 'SS'}      # Bobby Witt Jr. (regular fielder)
     """
     position_dict = {}
 
     for year in years:
-        csv_path = DEFENSIVE_DIR / f"fangraphs_defensive_standard_{year}.csv"
+        defensive_path = DEFENSIVE_DIR / f"fangraphs_defensive_standard_{year}.csv"
+        hitter_path = FANGRAPHS_HITTER_DIR / f"fangraphs_hitters_{year}.csv"
 
-        if not csv_path.exists():
+        # Try partial season files first (e.g., fangraphs_hitters_2025_firsthalf.csv)
+        if not hitter_path.exists():
+            import glob
+            partial_files = glob.glob(str(FANGRAPHS_HITTER_DIR / f"fangraphs_hitters_{year}_*.csv"))
+            if partial_files:
+                # Exclude secondary splits (advanced, standard, etc.)
+                base_files = [f for f in partial_files if not any(
+                    suffix in f for suffix in ['_advanced', '_standard', '_battedball']
+                )]
+                if base_files:
+                    hitter_path = Path(base_files[0])  # Use first partial season file
+
+        if not hitter_path.exists():
             continue
 
         try:
-            df = pd.read_csv(csv_path, encoding='utf-8')
+            # Load offensive stats to get Games played
+            df_hitters = pd.read_csv(hitter_path, encoding='utf-8')
 
-            # Find player ID column
-            id_col = None
+            # Find MLBAM ID column in hitters file
+            hitter_id_col = None
             for col in ['MLBAMID', 'PlayerId', 'playerid']:
-                if col in df.columns:
-                    id_col = col
+                if col in df_hitters.columns:
+                    hitter_id_col = col
                     break
 
-            if id_col is None or 'Pos' not in df.columns:
+            if hitter_id_col is None or 'G' not in df_hitters.columns:
                 continue
 
-            # Extract positions
-            for _, row in df.iterrows():
-                if pd.notna(row[id_col]) and pd.notna(row['Pos']):
-                    mlbamid = int(row[id_col])
-                    position = str(row['Pos']).strip()
+            # Build games played dictionary
+            games_dict = {}
+            for _, row in df_hitters.iterrows():
+                if pd.notna(row[hitter_id_col]) and pd.notna(row['G']):
+                    mlbamid = int(row[hitter_id_col])
+                    games_dict[mlbamid] = int(row['G'])
 
-                    # Handle multi-position players (e.g., "2B/SS" -> use first)
-                    primary_pos = position.split('/')[0]
+            # Load defensive stats (if available)
+            defensive_innings_dict = {}  # {MLBAMID: total_defensive_innings}
+            fielding_position_dict = {}  # {MLBAMID: fielding_position}
 
-                    # Store position (most recent year overwrites older)
-                    position_dict[mlbamid] = primary_pos
+            if defensive_path.exists():
+                df_defensive = pd.read_csv(defensive_path, encoding='utf-8')
+
+                # Find player ID column in defensive file
+                def_id_col = None
+                for col in ['MLBAMID', 'PlayerId', 'playerid']:
+                    if col in df_defensive.columns:
+                        def_id_col = col
+                        break
+
+                if def_id_col is not None and 'Inn' in df_defensive.columns and 'Pos' in df_defensive.columns:
+                    # Sum defensive innings across all positions for each player
+                    for _, row in df_defensive.iterrows():
+                        if pd.notna(row[def_id_col]) and pd.notna(row['Inn']) and pd.notna(row['Pos']):
+                            mlbamid = int(row[def_id_col])
+                            innings = float(row['Inn'])
+                            position = str(row['Pos']).strip()
+
+                            # Sum innings across positions
+                            if mlbamid in defensive_innings_dict:
+                                defensive_innings_dict[mlbamid] += innings
+                            else:
+                                defensive_innings_dict[mlbamid] = innings
+                                # Store first fielding position seen (for non-DH classification)
+                                fielding_position_dict[mlbamid] = position.split('/')[0]
+
+            # Assign positions based on DH calculation
+            for mlbamid in games_dict:
+                games = games_dict[mlbamid]
+
+                if mlbamid in defensive_innings_dict:
+                    # Player has defensive stats - calculate DH percentage
+                    total_def_innings = defensive_innings_dict[mlbamid]
+                    expected_innings = games * 9
+
+                    if expected_innings > 0:
+                        dh_percentage = 1 - (total_def_innings / expected_innings)
+
+                        # Assign "DH" if player DHs 50%+ of the time
+                        if dh_percentage >= 0.50:
+                            position_dict[mlbamid] = 'DH'
+                        else:
+                            position_dict[mlbamid] = fielding_position_dict.get(mlbamid, 'OF')
+                    else:
+                        # Edge case: no games → use fielding position
+                        position_dict[mlbamid] = fielding_position_dict.get(mlbamid, 'OF')
+                else:
+                    # Player not in defensive CSV → Primary DH
+                    position_dict[mlbamid] = 'DH'
 
         except Exception as e:
+            # Silently continue on errors (maintain existing behavior)
             continue
 
     return position_dict
