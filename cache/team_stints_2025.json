@@ -1126,5 +1126,145 @@
       }
     ],
     "cached_date": "2025-10-17 18:25:06.130781"
+  },
+  "31501_2025": {
+    "player_name": "Michael Darrell-Hicks",
+    "player_type": "pitcher",
+    "current_team": "PIT",
+    "stints": [
+      {
+        "team": "LAA",
+        "G": 6,
+        "IP": 7.2,
+        "order": 0
+      },
+      {
+        "team": "PIT",
+        "G": 1,
+        "IP": 2.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:05.850744"
+  },
+  "23091_2025": {
+    "player_name": "Robinson Pina",
+    "player_type": "pitcher",
+    "current_team": "MIA",
+    "stints": [
+      {
+        "team": "TOR",
+        "G": 1,
+        "IP": 1.1,
+        "order": 0
+      },
+      {
+        "team": "MIA",
+        "G": 1,
+        "IP": 1.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:11.708543"
+  },
+  "19586_2025": {
+    "player_name": "Forrest Whitley",
+    "player_type": "pitcher",
+    "current_team": "HOU",
+    "stints": [
+      {
+        "team": "TBR",
+        "G": 5,
+        "IP": 4.2,
+        "order": 0
+      },
+      {
+        "team": "HOU",
+        "G": 5,
+        "IP": 7.1,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:17.333577"
+  },
+  "29521_2025": {
+    "player_name": "Ryan Loutos",
+    "player_type": "pitcher",
+    "current_team": "LAD",
+    "stints": [
+      {
+        "team": "WSN",
+        "G": 10,
+        "IP": 9.0,
+        "order": 0
+      },
+      {
+        "team": "LAD",
+        "G": 2,
+        "IP": 3.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:23.589350"
+  },
+  "25467_2025": {
+    "player_name": "Will Robertson",
+    "player_type": "hitter",
+    "current_team": "TOR",
+    "stints": [
+      {
+        "team": "CHW",
+        "G": 24,
+        "PA": 63.0,
+        "order": 0
+      },
+      {
+        "team": "TOR",
+        "G": 3,
+        "PA": 12.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:30.341574"
+  },
+  "27573_2025": {
+    "player_name": "Gage Workman",
+    "player_type": "hitter",
+    "current_team": "CHW",
+    "stints": [
+      {
+        "team": "CHC",
+        "G": 9,
+        "PA": 15.0,
+        "order": 0
+      },
+      {
+        "team": "CHW",
+        "G": 3,
+        "PA": 2.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:37.685465"
+  },
+  "25183_2025": {
+    "player_name": "Drew Avans",
+    "player_type": "hitter",
+    "current_team": "MIL",
+    "stints": [
+      {
+        "team": "ATH",
+        "G": 7,
+        "PA": 15.0,
+        "order": 0
+      },
+      {
+        "team": "MIL",
+        "G": 1,
+        "PA": 3.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:45.390870"
   }
 }

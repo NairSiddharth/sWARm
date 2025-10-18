@@ -74,21 +74,36 @@ def clean_multi_team_players(
 
     # Process each multi-team player
     for idx, player in multi_team_players.iterrows():
-        mlbam_id = player['MLBAMID']
-        player_name = player.get('Name', f'MLBAM{mlbam_id}')
+        player_name = player.get('Name', 'Unknown')
+        mlbam_id = player.get('MLBAMID', None)
 
-        # Convert MLBAM ID to FanGraphs ID
-        try:
-            id_lookup = playerid_reverse_lookup([mlbam_id], key_type='mlbam')
-            if len(id_lookup) == 0:
-                print(f"  Warning: Could not find FanGraphs ID for {player_name} (MLBAM {mlbam_id}), skipping")
+        # Try to get FanGraphs playerid directly from the data first
+        playerid_fg = player.get('PlayerId', None)
+
+        if playerid_fg is not None and not pd.isna(playerid_fg):
+            # FanGraphs CSV includes playerid - use it directly
+            try:
+                playerid_fg = int(playerid_fg)
+            except (ValueError, TypeError):
+                playerid_fg = None  # Invalid format, try fallback
+
+        # Fallback: Convert MLBAM ID to FanGraphs ID via pybaseball
+        if playerid_fg is None:
+            if mlbam_id is None or pd.isna(mlbam_id):
+                print(f"  Warning: No playerid or MLBAM ID for {player_name}, skipping")
                 continue
 
-            playerid_fg = int(id_lookup.iloc[0]['key_fangraphs'])
+            try:
+                id_lookup = playerid_reverse_lookup([mlbam_id], key_type='mlbam')
+                if len(id_lookup) == 0:
+                    print(f"  Warning: Could not find FanGraphs ID for {player_name} (MLBAM {mlbam_id}), skipping")
+                    continue
 
-        except Exception as e:
-            print(f"  Error converting MLBAM to FanGraphs ID for {player_name}: {e}")
-            continue
+                playerid_fg = int(id_lookup.iloc[0]['key_fangraphs'])
+
+            except Exception as e:
+                print(f"  Error converting MLBAM to FanGraphs ID for {player_name}: {e}")
+                continue
 
         try:
             # Get chronological stints

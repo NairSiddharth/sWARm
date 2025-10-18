@@ -313,6 +313,64 @@ class CompleteProjectionGenerator:
             'q90': ros_predictions['q90']
         }
 
+        # ===== Step 4.5: Apply rookie/call-up regression =====
+        # If historical_splits provided, apply regression to blend model predictions
+        # with positional averages for players below MLB qualification standards
+        if historical_splits is not None:
+            print("  Step 4.5: Applying rookie/call-up regression...")
+            from .usage_projections import calculate_regression_weight, get_team_games_from_data
+            from .ros_projections import calculate_positional_average_ros
+
+            # Calculate team games for regression weights
+            team_games_df = team_games_source_df if team_games_source_df is not None else firsthalf_data
+            team_games_dict_reg, league_median_games_reg = get_team_games_from_data(team_games_df)
+
+            # Get current usage for each player
+            current_usage = firsthalf_data[self.usage_col].values
+
+            # Calculate regression weight for each player based on their role and usage
+            regression_weights = []
+            positional_avg_list = []
+
+            for i in range(len(firsthalf_data)):
+                row = firsthalf_data.iloc[i]
+
+                if self.player_type == 'pitcher':
+                    role = self._get_pitcher_role(row)
+                else:
+                    role = 'hitter'
+
+                usage = row[self.usage_col]
+                team_games = team_games_dict_reg.get(row.get('Team'), league_median_games_reg)
+                weight = calculate_regression_weight(usage, team_games, role)
+                regression_weights.append(weight)
+
+                # Calculate positional average for this player
+                season_pct = ros_features_df.iloc[i].get('season_completion_pct', 0.5) if 'season_completion_pct' in ros_features_df.columns else 0.5
+                avg = calculate_positional_average_ros(historical_splits, role, season_pct)
+                positional_avg_list.append(avg)
+
+            regression_weights = np.array(regression_weights)
+            positional_avg_array = np.array(positional_avg_list)
+
+            # Apply regression to mean predictions
+            # Formula: regressed_prediction = weight * model_pred + (1 - weight) * positional_avg
+            ros_cumulative_war = (
+                regression_weights * ros_cumulative_war +
+                (1 - regression_weights) * positional_avg_array
+            )
+
+            # Apply regression to quantiles for consistency
+            for q in ['q10', 'q25', 'q50', 'q75', 'q90']:
+                quantiles_cumulative[q] = (
+                    regression_weights * quantiles_cumulative[q] +
+                    (1 - regression_weights) * positional_avg_array
+                )
+
+            # Report how many players were affected
+            num_regressed = (regression_weights < 1.0).sum()
+            print(f"    Applied regression to {num_regressed} players below qualification standards")
+
         # ===== Step 5: Project remaining usage =====
         print("  Step 5: Projecting remaining usage...")
         # Use team_games_source_df if provided (critical for pitchers!)
