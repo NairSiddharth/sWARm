@@ -268,7 +268,7 @@ def load_positional_war(years: List[int]) -> Dict[int, float]:
             continue
 
         try:
-            df = pd.read_csv(csv_path)
+            df = pd.read_csv(csv_path, encoding='utf-8')
 
             # Validate required columns
             if 'MLBAMID' not in df.columns or 'Pos' not in df.columns or 'Inn' not in df.columns:
@@ -334,7 +334,7 @@ def load_positions_all_years(years: List[int]) -> Dict[int, str]:
             continue
 
         try:
-            df = pd.read_csv(csv_path)
+            df = pd.read_csv(csv_path, encoding='utf-8')
 
             # Find player ID column
             id_col = None
@@ -431,13 +431,13 @@ def load_enhanced_baserunning(years: List[int]) -> Dict[Tuple[int, int], float]:
             continue
 
         try:
-            bp_df = pd.read_csv(bp_path)
+            bp_df = pd.read_csv(bp_path, encoding='utf-8')
 
             # Load Statcast sprint speed (optional)
             statcast_df = None
             statcast_path = STATCAST_RUNNING_SPLITS_DIR / f"running_splits_statcast_{year}.csv"
             if statcast_path.exists():
-                statcast_df = pd.read_csv(statcast_path)
+                statcast_df = pd.read_csv(statcast_path, encoding='utf-8')
 
             # Calculate yearly baselines (medians)
             baselines = calculate_yearly_baselines(bp_df, statcast_df)
@@ -596,12 +596,12 @@ def load_enhanced_defense(years: List[int]) -> Dict[Tuple[int, int], float]:
             continue
 
         try:
-            df_standard = pd.read_csv(def_standard_path)
+            df_standard = pd.read_csv(def_standard_path, encoding='utf-8')
 
             # Load statcast data for catchers (if available)
             catcher_statcast = {}
             if def_statcast_path.exists():
-                df_statcast = pd.read_csv(def_statcast_path)
+                df_statcast = pd.read_csv(def_statcast_path, encoding='utf-8')
                 for _, row in df_statcast.iterrows():
                     if pd.notna(row.get('MLBAMID')) and row.get('Pos') == 'C':
                         try:

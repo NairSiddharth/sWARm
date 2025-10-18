@@ -385,7 +385,7 @@ def load_statcast_data(years: List[int]) -> Dict[int, Dict[str, float]]:
             continue
 
         try:
-            df = pd.read_csv(csv_path)
+            df = pd.read_csv(csv_path, encoding='utf-8')
 
             # player_id is the MLBAMID equivalent in Statcast data
             if 'player_id' not in df.columns:
@@ -467,7 +467,7 @@ def load_running_control_all_years(years: List[int]) -> Dict[int, float]:
             continue
 
         try:
-            df = pd.read_csv(csv_path)
+            df = pd.read_csv(csv_path, encoding='utf-8')
 
             # Check required columns exist
             required_cols = ['player_id', 'n_cs', 'n_pk', 'n_sb', 'n_bk']

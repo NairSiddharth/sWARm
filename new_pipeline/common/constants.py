@@ -107,6 +107,29 @@ FULL_SEASON_PA = 600     # Standard full-time hitter PA
 
 
 # ============================================================================
+# Rookie/Call-up Regression Thresholds
+# ============================================================================
+
+# Qualification rates for determining when to apply regression to ROS projections
+# Based on MLB participation standards (IP/game or PA/game)
+QUALIFICATION_RATES = {
+    'starter': WAR_NORMALIZATION_IP_STARTER / 162,     # 1.0 IP/game
+    'reliever': WAR_NORMALIZATION_IP_RELIEVER / 162,   # 0.298 IP/game (48.2/162)
+    'swing': WAR_NORMALIZATION_IP_SWING / 162,         # 0.679 IP/game (110/162)
+    'hitter': 3.1  # MLB standard (not 600/162 = 3.7)
+}
+
+# Minimum usage thresholds to prevent 1-game flukes
+# Values chosen via empirical testing (see ROOKIE_ROS_REGRESSION_TESTING_PLAN.md)
+MINIMUM_USAGE_THRESHOLDS = {
+    'starter': 20,      # IP
+    'reliever': 15,     # IP
+    'swing': 15,        # IP
+    'hitter': 40        # PA
+}
+
+
+# ============================================================================
 # Validation Ranges (for data quality checks)
 # ============================================================================
 

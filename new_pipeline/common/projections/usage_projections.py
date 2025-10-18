@@ -577,3 +577,67 @@ def calculate_remaining_usage(
 
     else:
         return 0.0
+
+
+def calculate_regression_weight(current_usage, team_games, role, thresholds=None):
+    """
+    Calculate regression weight for rookie/call-up ROS projections.
+
+    Players with limited playing time get their projections blended with
+    positional averages to avoid absurd small-sample extrapolations.
+
+    Args:
+        current_usage: Current IP (pitchers) or PA (hitters)
+        team_games: Number of games team has played
+        role: Player role ('starter', 'reliever', 'swing', 'hitter')
+        thresholds: Optional dict with 'qualification_rates' and 'minimum_usage'
+                   If None, uses constants from constants.py
+
+    Returns:
+        float: Weight between 0 and 1
+            - 1.0 = fully qualified, use model prediction entirely
+            - 0.0 = complete rookie, use positional average entirely
+            - Between 0-1 = blend model prediction with positional average
+
+    Formula:
+        weight = min(rate_ratio, volume_ratio, 1.0)
+        where:
+            rate_ratio = (current_usage / team_games) / qualification_rate
+            volume_ratio = current_usage / minimum_usage
+
+    Example:
+        Emmet Sheehan: 13.1 IP, 95 games, swing pitcher
+        - rate_ratio = (13.1/95) / 0.679 = 0.208
+        - volume_ratio = 13.1 / 15 = 0.873
+        - weight = min(0.208, 0.873, 1.0) = 0.208
+
+        His projection gets 20.8% model + 79.2% positional average
+    """
+    from new_pipeline.common.constants import QUALIFICATION_RATES, MINIMUM_USAGE_THRESHOLDS
+
+    # Use provided thresholds or default to constants
+    if thresholds is None:
+        qualification_rates = QUALIFICATION_RATES
+        minimum_usage = MINIMUM_USAGE_THRESHOLDS
+    else:
+        qualification_rates = thresholds.get('qualification_rates', QUALIFICATION_RATES)
+        minimum_usage = thresholds.get('minimum_usage', MINIMUM_USAGE_THRESHOLDS)
+
+    # Get role-specific thresholds
+    qual_rate = qualification_rates[role]
+    min_usage = minimum_usage[role]
+
+    # Calculate participation rate (usage per game)
+    team_games = max(team_games, 1)  # Avoid division by zero
+    current_rate = current_usage / team_games
+
+    # Calculate ratios
+    rate_ratio = current_rate / qual_rate if qual_rate > 0 else 0.0
+    volume_ratio = current_usage / min_usage if min_usage > 0 else 0.0
+
+    # Both conditions must be met to be fully qualified
+    if rate_ratio >= 1.0 and volume_ratio >= 1.0:
+        return 1.0
+
+    # Otherwise, use the more limiting factor (lower ratio)
+    return min(rate_ratio, volume_ratio, 1.0)

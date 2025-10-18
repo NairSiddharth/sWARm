@@ -250,6 +250,80 @@ def format_ros_predictions_for_display(
         raise ValueError(f"player_type must be 'pitcher' or 'hitter', got {player_type!r}")
 
 
+def calculate_positional_average_ros(historical_splits, role, season_pct):
+    """
+    Calculate positional average ROS WAR for regression to the mean.
+
+    Used to blend with model predictions for rookies/call-ups with limited sample size.
+    Finds similar historical contexts (same role, similar season completion %) and
+    returns the median remaining_WAR as a conservative baseline.
+
+    Args:
+        historical_splits: Historical splits dataframe with columns:
+            - role (if pitcher data) or position (if hitter data)
+            - split_point: Fraction of season completed when split was created
+            - remaining_WAR: Actual remaining WAR after the split
+        role: Player role ('starter', 'reliever', 'swing', 'hitter')
+        season_pct: Current season completion percentage (e.g., 0.59 for 59%)
+
+    Returns:
+        float: Median remaining WAR for similar historical contexts
+            Typically ranges from 0.2 to 0.8 depending on role and season point
+
+    Example:
+        For swing pitcher at 59% season completion:
+        - Finds all swing pitchers in historical_splits at ~50-60% completion
+        - Returns median remaining_WAR (e.g., 0.35)
+        - Used to regress extreme rookie projections toward this baseline
+
+    Fallback logic:
+        1. Try to match role + season_pct within ±5%
+        2. If < 20 samples, expand to ±10%
+        3. If < 10 samples, use all samples for that role
+        4. If no samples found, return 0.3 as default
+    """
+    # Classify historical splits by role if not already done
+    if 'role' not in historical_splits.columns:
+        from new_pipeline.common.projections.usage_projections import classify_pitcher_role
+
+        # Use appropriate IP column (some historical data uses 'full_IP' instead of 'IP')
+        ip_col = 'IP' if 'IP' in historical_splits.columns else 'full_IP'
+
+        historical_splits = historical_splits.copy()
+        historical_splits['role'] = historical_splits.apply(
+            lambda row: classify_pitcher_role(
+                row.get('GS', 0),
+                row.get('G', 0),
+                row.get(ip_col, 0)
+            ),
+            axis=1
+        )
+
+    # Filter to matching role and similar season point (±5%)
+    similar = historical_splits[
+        (historical_splits['role'] == role) &
+        (abs(historical_splits['split_point'] - season_pct) < 0.05)
+    ]
+
+    # Fallback 1: Expand window if too few samples (±10%)
+    if len(similar) < 20:
+        similar = historical_splits[
+            (historical_splits['role'] == role) &
+            (abs(historical_splits['split_point'] - season_pct) < 0.10)
+        ]
+
+    # Fallback 2: Use all samples for this role if still too few
+    if len(similar) < 10:
+        similar = historical_splits[historical_splits['role'] == role]
+
+    # Calculate median remaining WAR (conservative baseline)
+    if len(similar) > 0:
+        return similar['remaining_WAR'].median()
+    else:
+        # Ultimate fallback: reasonable default for replacement-level production
+        return 0.3
+
+
 def run_ros_predictions(
     ensemble,
     current_df,
@@ -260,7 +334,9 @@ def run_ros_predictions(
     blend_ratio: float = 0.70,
     team_games_dict: Optional[Dict] = None,
     league_median_games: Optional[int] = None,
-    use_percentile_tiers: bool = True
+    use_percentile_tiers: bool = True,
+    apply_rookie_regression: bool = True,
+    historical_splits=None
 ) -> Dict[str, Any]:
     """
     Complete ROS prediction workflow with tier classification.
@@ -285,6 +361,10 @@ def run_ros_predictions(
             instead of scaled absolute thresholds. Guarantees consistent tier
             sizes (elite=top 3-6%, good=next 8-11%) regardless of talent pool.
             Default True (recommended for ROS projections). Set to False for legacy behavior.
+        apply_rookie_regression: If True, apply regression for players with limited
+            playing time to avoid absurd small-sample projections. Default True.
+        historical_splits: Historical splits data for positional averages (required
+            if apply_rookie_regression=True). If None, rookie regression is skipped.
 
     Returns:
         Dict with:
@@ -299,6 +379,8 @@ def run_ros_predictions(
             - 'ros_q10', 'ros_q25', 'ros_q50', 'ros_q75', 'ros_q90': Quantiles
         - 'tiers': np.ndarray of tier labels ('average', 'good', 'elite')
         - 'usage_projected': np.ndarray of remaining IP (pitchers) or PA (hitters)
+        - 'regression_weights': np.ndarray of regression weights (1.0 = fully qualified,
+            0.0 = fully regressed to positional average)
 
     Example:
         >>> # Starters at All-Star break
@@ -337,6 +419,48 @@ def run_ros_predictions(
         for _, row in current_df.iterrows()
     ])
 
+    # 2.5. Apply rookie/call-up regression (if enabled)
+    regression_weights = np.ones(len(current_df))  # Default: no regression
+
+    if apply_rookie_regression and historical_splits is not None:
+        from new_pipeline.common.projections.usage_projections import calculate_regression_weight
+
+        # Get current usage and team games for each player
+        if player_type == 'pitcher':
+            current_usage = current_df['IP'].values
+        else:
+            current_usage = current_df['PA'].values
+
+        # Get team games for each player
+        team_games_array = np.array([
+            team_games_dict.get(row.get('Team'), league_median_games)
+            for _, row in current_df.iterrows()
+        ])
+
+        # Calculate regression weight for each player
+        regression_weights = np.array([
+            calculate_regression_weight(usage, tg, role)
+            for usage, tg in zip(current_usage, team_games_array)
+        ])
+
+        # Calculate positional average
+        positional_avg = calculate_positional_average_ros(historical_splits, role, season_pct)
+
+        # Apply regression: blend model predictions with positional average
+        # weight=1.0 -> use model entirely, weight=0.0 -> use positional avg entirely
+        predictions['mean'] = (
+            regression_weights * predictions['mean'] +
+            (1 - regression_weights) * positional_avg
+        )
+
+        # Also regress quantiles for consistency
+        for q in ['q10', 'q25', 'q50', 'q75', 'q90']:
+            if q in predictions:
+                predictions[q] = (
+                    regression_weights * predictions[q] +
+                    (1 - regression_weights) * positional_avg
+                )
+
     # 3. Format for display
     if player_type == 'pitcher':
         display = format_pitcher_ros_display(
@@ -363,5 +487,6 @@ def run_ros_predictions(
         'predictions': predictions,
         'display': display,
         'tiers': tiers,
-        'usage_projected': usage_projected
+        'usage_projected': usage_projected,
+        'regression_weights': regression_weights
     }

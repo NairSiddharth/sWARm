@@ -102,7 +102,7 @@ def _load_fangraphs_feature(
             continue
 
         try:
-            df = pd.read_csv(files_found[0])
+            df = pd.read_csv(files_found[0], encoding='utf-8')
 
             # Find player ID column (handle variations)
             id_col = None
@@ -215,7 +215,7 @@ def _load_park_adjusted_fangraphs_feature(
             continue
 
         try:
-            df = pd.read_csv(files_found[0])
+            df = pd.read_csv(files_found[0], encoding='utf-8')
 
             # Find player ID column
             id_col = None
@@ -440,7 +440,7 @@ def _load_counting_stat_with_proration(
             continue
 
         try:
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(file_path, encoding='utf-8')
 
             # Check required columns exist
             if id_column not in df.columns or column_name not in df.columns or usage_column not in df.columns:
