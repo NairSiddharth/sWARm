@@ -162,6 +162,19 @@ def run_data_pipeline(df: pd.DataFrame, player_type: str) -> pd.DataFrame:
     # Transform data
     df_processed = pipeline.fit_transform(df)
 
+    # Normalize player ID column name (handle PlayerId, playerid, MLBAMID variations)
+    # This ensures consistency with CompleteProjectionGenerator and other components
+    player_id_col = None
+    for col in ['playerid', 'PlayerId', 'MLBAMID']:
+        if col in df_processed.columns:
+            player_id_col = col
+            break
+
+    # If not already 'playerid', create alias for consistency
+    if player_id_col and player_id_col != 'playerid':
+        df_processed = df_processed.copy()
+        df_processed['playerid'] = df_processed[player_id_col]
+
     return df_processed
 
 
