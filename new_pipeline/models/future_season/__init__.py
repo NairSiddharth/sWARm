@@ -22,6 +22,7 @@ from .joint_projection import JointProjectionModel
 from .expected_stats import ExpectedStatsCalculator
 
 # Phase 4: Adjustments (Week 4)
+from .elite_player_adjuster import ElitePlayerAdjuster
 from .elite_adjustments import (
     apply_elite_adjustments,
     apply_elite_adjustment_to_war,
@@ -60,6 +61,7 @@ __all__ = [
     'ExpectedStatsCalculator',
 
     # Phase 4: Adjustments
+    'ElitePlayerAdjuster',
     'apply_elite_adjustments',
     'apply_elite_adjustment_to_war',
     'FutureEliteProtector',

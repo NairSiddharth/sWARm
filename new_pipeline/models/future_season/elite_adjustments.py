@@ -1,7 +1,7 @@
 """
 Elite Player Adjustment for Future Projections
 
-Wrapper around common_modules.elite_adjustment_base.ElitePlayerAdjuster
+Wrapper around new_pipeline.models.future_season.elite_player_adjuster.ElitePlayerAdjuster
 Protects elite players (6+ WAR) from over-regression in future projections.
 
 See FUTURE_PROJECTIONS_MIGRATION_GUIDE.md Section 4.
@@ -9,14 +9,8 @@ See FUTURE_PROJECTIONS_MIGRATION_GUIDE.md Section 4.
 
 import pandas as pd
 import numpy as np
-from pathlib import Path
-import sys
 
-# Add project root to path
-project_root = Path(__file__).resolve().parents[3]
-sys.path.insert(0, str(project_root))
-
-from common_modules.elite_adjustment_base import ElitePlayerAdjuster
+from new_pipeline.models.future_season.elite_player_adjuster import ElitePlayerAdjuster
 
 
 def apply_elite_adjustments(
@@ -27,7 +21,7 @@ def apply_elite_adjustments(
     """
     Apply elite player protection to future projections.
 
-    Wrapper around common_modules.elite_adjustment_base.ElitePlayerAdjuster.
+    Wrapper around new_pipeline.models.future_season.elite_player_adjuster.ElitePlayerAdjuster.
 
     Protects elite players from over-regression:
     - MVP Level (6+ WAR): 75-80% regression reduction
