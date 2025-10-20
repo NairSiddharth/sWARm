@@ -3,25 +3,29 @@ Real-Time Data Loader Module - Live Data Integration
 Primary CSV-based with pybaseball API enhancement for current season analysis
 """
 
+# Standard library imports
+import os
+from datetime import datetime, date
+from typing import Dict, List, Optional, Tuple, Union
+
+# Third-party imports
 import pandas as pd
 import numpy as np
-import os
-from typing import Dict, List, Optional, Tuple, Union
-from datetime import datetime, date
-import sys
 
-# Import game progress calculator
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from common_modules.game_progress_calculator import GameProgressCalculator
+# Local application imports
+from current_season_modules.game_progress_calculator import GameProgressCalculator
+from common_modules.logging import get_logger
 
-# Try to import pybaseball
+# Module logger
+logger = get_logger(__name__)
+
+# Try to import pybaseball, but don't fail if not available
 try:
     import pybaseball as pyb
     HAS_PYBASEBALL = True
-    print("pybaseball available for live data integration")
 except ImportError:
+    logger.warning("pybaseball not available, will use CSV files only")
     HAS_PYBASEBALL = False
-    print("pybaseball not available - using CSV-only mode")
 
 
 class CurrentSeasonDataLoader:
@@ -69,25 +73,25 @@ class CurrentSeasonDataLoader:
         Returns:
             DataFrame with current season hitter statistics
         """
-        print(f"Loading {self.season_year} hitter data...")
+        logger.info(f"Loading {self.season_year} hitter data...")
 
         # Try pybaseball first if requested and available
         if use_pybaseball and HAS_PYBASEBALL:
             try:
                 live_data = self._load_live_hitters_pybaseball()
                 if live_data is not None and not live_data.empty:
-                    print(f"  Loaded {len(live_data)} hitters from pybaseball API")
+                    logger.info(f"Loaded {len(live_data)} hitters from pybaseball API")
                     self.data_freshness['hitters'] = datetime.now()
                     return live_data
                 else:
-                    print("  pybaseball returned no hitter data, falling back to CSV")
+                    logger.info("pybaseball returned no hitter data, falling back to CSV")
             except Exception as e:
-                print(f"  pybaseball failed: {e}, falling back to CSV")
+                logger.warning(f"pybaseball failed: {e}, falling back to CSV")
 
         # Fallback to CSV
         csv_data = self._load_csv_hitters()
         if csv_data is not None:
-            print(f"  Loaded {len(csv_data)} hitters from CSV files")
+            logger.info(f"Loaded {len(csv_data)} hitters from CSV files")
             self.data_freshness['hitters'] = datetime.now()
 
         return csv_data
@@ -102,33 +106,31 @@ class CurrentSeasonDataLoader:
         Returns:
             DataFrame with current season pitcher statistics
         """
-        print(f"Loading {self.season_year} pitcher data...")
+        logger.info(f"Loading {self.season_year} pitcher data...")
 
         # Try pybaseball first if requested and available
         if use_pybaseball and HAS_PYBASEBALL:
             try:
                 live_data = self._load_live_pitchers_pybaseball()
                 if live_data is not None and not live_data.empty:
-                    print(f"  Loaded {len(live_data)} pitchers from pybaseball API")
+                    logger.info(f"Loaded {len(live_data)} pitchers from pybaseball API")
                     self.data_freshness['pitchers'] = datetime.now()
                     return live_data
                 else:
-                    print("  pybaseball returned no pitcher data, falling back to CSV")
+                    logger.info("pybaseball returned no pitcher data, falling back to CSV")
             except Exception as e:
-                print(f"  pybaseball failed: {e}, falling back to CSV")
+                logger.warning(f"pybaseball failed: {e}, falling back to CSV")
 
         # Fallback to CSV
         csv_data = self._load_csv_pitchers()
         if csv_data is not None:
-            print(f"  Loaded {len(csv_data)} pitchers from CSV files")
+            logger.info(f"Loaded {len(csv_data)} pitchers from CSV files")
             self.data_freshness['pitchers'] = datetime.now()
 
         return csv_data
 
     def _load_live_hitters_pybaseball(self) -> Optional[pd.DataFrame]:
         """Load live hitter data using pybaseball"""
-        if not HAS_PYBASEBALL:
-            return None
 
         try:
             # Get current season batting stats
@@ -151,13 +153,11 @@ class CurrentSeasonDataLoader:
             return batting_data
 
         except Exception as e:
-            print(f"Error loading pybaseball hitter data: {e}")
+            logger.error(f"Error loading pybaseball hitter data: {e}")
             return None
 
     def _load_live_pitchers_pybaseball(self) -> Optional[pd.DataFrame]:
         """Load live pitcher data using pybaseball"""
-        if not HAS_PYBASEBALL:
-            return None
 
         try:
             # Get current season pitching stats
@@ -179,23 +179,35 @@ class CurrentSeasonDataLoader:
             return pitching_data
 
         except Exception as e:
-            print(f"Error loading pybaseball pitcher data: {e}")
+            logger.error(f"Error loading pybaseball pitcher data: {e}")
             return None
 
     def _load_csv_hitters(self) -> Optional[pd.DataFrame]:
         """Load hitter data from CSV files"""
         possible_paths = [
-            os.path.join(self.data_path, "FanGraphs_Data", "hitters", f"fangraphs_hitters_{self.season_year}.csv"),
-            os.path.join(self.data_path, "Statcast_Data", "hitters", f"statcast_hitters_{self.season_year}.csv"),
-            os.path.join(self.data_path, "BP_Data", "hitters", f"bp_hitters_{self.season_year}.csv"),
-            os.path.join(self.data_path, f"current_season_hitters_{self.season_year}.csv")
+            os.path.join(
+                self.data_path, "FanGraphs_Data", "hitters",
+                f"fangraphs_hitters_{self.season_year}.csv"
+            ),
+            os.path.join(
+                self.data_path, "Statcast_Data", "hitters",
+                f"statcast_hitters_{self.season_year}.csv"
+            ),
+            os.path.join(
+                self.data_path, "BP_Data", "hitters",
+                f"bp_hitters_{self.season_year}.csv"
+            ),
+            os.path.join(
+                self.data_path,
+                f"current_season_hitters_{self.season_year}.csv"
+            )
         ]
 
         for path in possible_paths:
             if os.path.exists(path):
                 try:
                     data = pd.read_csv(path)
-                    print(f"  Found CSV file: {os.path.basename(path)}")
+                    logger.info(f"Found CSV file: {os.path.basename(path)}")
 
                     # Standardize and add games played info
                     data = self._standardize_hitter_columns(data)
@@ -203,26 +215,38 @@ class CurrentSeasonDataLoader:
 
                     return data
                 except Exception as e:
-                    print(f"  Error reading {path}: {e}")
+                    logger.error(f"Error reading {path}: {e}")
                     continue
 
-        print(f"  No {self.season_year} hitter CSV files found in expected locations")
+        logger.warning(f"No {self.season_year} hitter CSV files found in expected locations")
         return None
 
     def _load_csv_pitchers(self) -> Optional[pd.DataFrame]:
         """Load pitcher data from CSV files"""
         possible_paths = [
-            os.path.join(self.data_path, "FanGraphs_Data", "pitchers", f"fangraphs_pitchers_{self.season_year}.csv"),
-            os.path.join(self.data_path, "Statcast_Data", "pitchers", f"statcast_pitchers_{self.season_year}.csv"),
-            os.path.join(self.data_path, "BP_Data", "pitchers", f"bp_pitchers_{self.season_year}.csv"),
-            os.path.join(self.data_path, f"current_season_pitchers_{self.season_year}.csv")
+            os.path.join(
+                self.data_path, "FanGraphs_Data", "pitchers",
+                f"fangraphs_pitchers_{self.season_year}.csv"
+            ),
+            os.path.join(
+                self.data_path, "Statcast_Data", "pitchers",
+                f"statcast_pitchers_{self.season_year}.csv"
+            ),
+            os.path.join(
+                self.data_path, "BP_Data", "pitchers",
+                f"bp_pitchers_{self.season_year}.csv"
+            ),
+            os.path.join(
+                self.data_path,
+                f"current_season_pitchers_{self.season_year}.csv"
+            )
         ]
 
         for path in possible_paths:
             if os.path.exists(path):
                 try:
                     data = pd.read_csv(path)
-                    print(f"  Found CSV file: {os.path.basename(path)}")
+                    logger.info(f"Found CSV file: {os.path.basename(path)}")
 
                     # Standardize and add games played info
                     data = self._standardize_pitcher_columns(data)
@@ -230,10 +254,10 @@ class CurrentSeasonDataLoader:
 
                     return data
                 except Exception as e:
-                    print(f"  Error reading {path}: {e}")
+                    logger.error(f"Error reading {path}: {e}")
                     continue
 
-        print(f"  No {self.season_year} pitcher CSV files found in expected locations")
+        logger.warning(f"No {self.season_year} pitcher CSV files found in expected locations")
         return None
 
     def _standardize_hitter_columns(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -413,12 +437,12 @@ class CurrentSeasonDataLoader:
         ]
 
         if player_matches.empty:
-            print(f"Player '{player_name}' not found in {player_type} data")
+            logger.warning(f"Player '{player_name}' not found in {player_type} data")
             return None
 
         if len(player_matches) > 1:
-            print(f"Multiple matches found for '{player_name}':")
-            print(player_matches[['player_name', 'team']].to_string())
+            logger.info(f"Multiple matches found for '{player_name}':")
+            logger.info(player_matches[['player_name', 'team']].to_string())
             # Return first match
             player_row = player_matches.iloc[0]
         else:
@@ -463,7 +487,8 @@ class CurrentSeasonDataLoader:
                 validation_results['warnings'].append("Some players have >162 games played")
 
         if player_type == 'hitter' and 'PA' in data.columns:
-            avg_pa_per_game = data[data['games_played'] > 0]['PA'] / data[data['games_played'] > 0]['games_played']
+            avg_pa_per_game = data[data['games_played'] > 0]['PA'] / \
+                data[data['games_played'] > 0]['games_played']
             if avg_pa_per_game.mean() > 8:
                 validation_results['warnings'].append("High PA per game average")
 
@@ -495,8 +520,9 @@ class CurrentSeasonDataLoader:
 
 
 def load_current_season_data(season_year: int = 2025,
-                           use_pybaseball: bool = True,
-                           data_path: str = None) -> Tuple[Optional[pd.DataFrame], Optional[pd.DataFrame]]:
+                             use_pybaseball: bool = True,
+                             data_path: str = None) -> Tuple[Optional[pd.DataFrame],
+                                                             Optional[pd.DataFrame]]:
     """
     Convenience function to load current season data for both hitters and pitchers
 
@@ -523,29 +549,29 @@ def test_data_loading(season_year: int = 2025) -> None:
     Args:
         season_year: Year to test
     """
-    print(f"Testing data loading for {season_year} season...")
+    logger.info(f"Testing data loading for {season_year} season...")
 
     loader = CurrentSeasonDataLoader(season_year=season_year)
 
     # Test hitters
     hitters = loader.load_current_season_hitters()
     if hitters is not None:
-        print(f"Hitters loaded: {len(hitters)} players")
+        logger.info(f"Hitters loaded: {len(hitters)} players")
         validation = loader.validate_data_quality(hitters, 'hitter')
-        print(f"Hitter data validation: {validation}")
+        logger.info(f"Hitter data validation: {validation}")
     else:
-        print("No hitter data available")
+        logger.warning("No hitter data available")
 
     # Test pitchers
     pitchers = loader.load_current_season_pitchers()
     if pitchers is not None:
-        print(f"Pitchers loaded: {len(pitchers)} players")
+        logger.info(f"Pitchers loaded: {len(pitchers)} players")
         validation = loader.validate_data_quality(pitchers, 'pitcher')
-        print(f"Pitcher data validation: {validation}")
+        logger.info(f"Pitcher data validation: {validation}")
     else:
-        print("No pitcher data available")
+        logger.warning("No pitcher data available")
 
-    print(f"Available seasons: {loader.get_available_seasons()}")
+    logger.info(f"Available seasons: {loader.get_available_seasons()}")
 
 
 if __name__ == "__main__":

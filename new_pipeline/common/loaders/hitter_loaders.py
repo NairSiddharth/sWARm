@@ -1,0 +1,783 @@
+"""
+Hitter Feature Loaders - Clean Implementation
+
+Each loader is declarative and focuses on:
+1. What to load (file type, column name)
+2. How to convert (decimal→percentage or keep raw)
+3. What to validate (expected range)
+
+All file handling, error handling, and repetitive logic is in helpers._load_fangraphs_feature()
+
+Active Features:
+1. K% - Strikeout percentage
+2. BB% - Walk percentage
+3. AVG - Batting average (park-adjusted, 3yr factor)
+4. OBP - On-base percentage (park-adjusted, 3yr factor)
+5. SLG - Slugging percentage (park-adjusted, 3yr factor)
+6. PA - Plate appearances
+7. Positional_WAR - Position adjustment per 600 PA
+8. Position - Primary defensive position (from defensive files)
+9. GDP - Ground into double play count (for GDP_rate calculation in transformer)
+10. Enhanced_Baserunning - SB + XBT + sprint speed composite (3yr weighted)
+11. Enhanced_Defense - Fielding + position-specific metrics composite (3yr weighted)
+
+See: hitter_feature_pipeline_design.md for specifications
+"""
+
+from typing import Dict, List, Tuple
+from pathlib import Path
+import pandas as pd
+from .helpers import (
+    _load_fangraphs_feature,
+    _load_park_adjusted_fangraphs_feature,
+    _convert_decimal_to_percentage,
+    validate_percentage_scale
+)
+from ..constants import DEFENSIVE_DIR, BP_BASERUNNING_DIR, STATCAST_RUNNING_SPLITS_DIR, FANGRAPHS_HITTER_DIR
+
+# Position adjustments (per 600 PA)
+POSITION_WAR_ADJUSTMENTS = {
+    'C': +1.25,
+    'SS': +0.75,
+    '2B': +0.30,
+    '3B': +0.20,
+    'CF': +0.25,
+    'LF': -0.70,
+    'RF': -0.75,
+    '1B': -1.25,
+    'DH': -1.50
+}
+
+
+def load_k_pct_all_years(years: List[int]) -> Dict[Tuple[int, int], float]:
+    """
+    Load K% (strikeout percentage) for hitters (year-specific).
+
+    FanGraphs stores as decimal (0.232 = 23.2%), we convert to percentage.
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): K% in percentage format}
+    """
+    # Load raw data (decimals) - K% is in advanced file for hitters
+    k_raw = _load_fangraphs_feature(years, 'advanced', 'K%', player_type='hitters')
+
+    # Convert decimal → percentage (now with year tuples)
+    k_pct = {(pid, year): _convert_decimal_to_percentage(val) for (pid, year), val in k_raw.items()}
+
+    # Validate
+    if k_pct:
+        validate_percentage_scale({pid: val for (pid, year), val in k_pct.items()}, 'K% (Hitters)', expected_range=(0, 100))
+
+    return k_pct
+
+
+def load_bb_pct_all_years(years: List[int]) -> Dict[Tuple[int, int], float]:
+    """
+    Load BB% (walk percentage) for hitters (year-specific).
+
+    FanGraphs stores as decimal (0.105 = 10.5%), we convert to percentage.
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): BB% in percentage format}
+    """
+    # Load raw data (decimals) - BB% is in advanced file for hitters
+    bb_raw = _load_fangraphs_feature(years, 'advanced', 'BB%', player_type='hitters')
+
+    # Convert decimal → percentage (now with year tuples)
+    bb_pct = {(pid, year): _convert_decimal_to_percentage(val) for (pid, year), val in bb_raw.items()}
+
+    # Validate
+    if bb_pct:
+        validate_percentage_scale({pid: val for (pid, year), val in bb_pct.items()}, 'BB% (Hitters)', expected_range=(0, 100))
+
+    return bb_pct
+
+
+def load_pa_all_years(years: List[int]) -> Dict[Tuple[int, int], int]:
+    """
+    Load PA (plate appearances) - year-specific.
+
+    This is a COUNT, not a percentage. No conversion needed.
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): PA count}
+    """
+    # Load raw data (already correct scale - it's a count)
+    pa_data = _load_fangraphs_feature(years, 'standard', 'PA', player_type='hitters')
+
+    # Convert to int (now with year tuples)
+    pa_int = {(pid, year): int(val) for (pid, year), val in pa_data.items()}
+
+    return pa_int
+
+
+def load_gdp_all_years(years: List[int]) -> Dict[Tuple[int, int], int]:
+    """
+    Load GDP (ground into double play count) - year-specific.
+
+    This is a COUNT, not a percentage. GDP_rate calculated in transformer.
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): GDP count}
+    """
+    # Load raw data (already correct scale - it's a count)
+    gdp_data = _load_fangraphs_feature(years, 'standard', 'GDP', player_type='hitters')
+
+    # Convert to int (now with year tuples)
+    gdp_int = {(pid, year): int(val) for (pid, year), val in gdp_data.items()}
+
+    return gdp_int
+
+
+# ============================================================================
+# Park-Adjusted Loaders
+# ============================================================================
+
+
+def load_avg_park_adjusted(years: List[int]) -> Dict[Tuple[int, int], float]:
+    """
+    Load AVG with 3-year park factor adjustment (year-specific).
+
+    FanGraphs stores AVG as decimal (0.285 = .285 batting average).
+    We keep it in decimal format (not percentage).
+    Park adjustment uses 3yr factor (already halved by FanGraphs).
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): park-adjusted AVG in decimal format}
+
+    Example:
+        Coors hitter with raw AVG .300, park factor 108:
+        - Adjusted AVG = .300 * (100/108) = .278
+    """
+    # Load AVG with park adjustment (no conversion - AVG is already decimal)
+    # AVG is in advanced file for hitters
+    avg_adjusted = _load_park_adjusted_fangraphs_feature(
+        years, 'advanced', 'AVG', '3yr', player_type='hitters'
+    )
+
+    return avg_adjusted
+
+
+def load_obp_park_adjusted(years: List[int]) -> Dict[Tuple[int, int], float]:
+    """
+    Load OBP with 3-year park factor adjustment (year-specific).
+
+    FanGraphs stores OBP as decimal (0.355 = .355 OBP).
+    We keep it in decimal format (not percentage).
+    Park adjustment uses 3yr factor.
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): park-adjusted OBP in decimal format}
+    """
+    # Load OBP with park adjustment (no conversion - OBP is already decimal)
+    # OBP is in advanced file for hitters
+    obp_adjusted = _load_park_adjusted_fangraphs_feature(
+        years, 'advanced', 'OBP', '3yr', player_type='hitters'
+    )
+
+    return obp_adjusted
+
+
+def load_slg_park_adjusted(years: List[int]) -> Dict[Tuple[int, int], float]:
+    """
+    Load SLG with 3-year park factor adjustment (year-specific).
+
+    FanGraphs stores SLG as decimal (0.485 = .485 SLG).
+    We keep it in decimal format (not percentage).
+    Park adjustment uses 3yr factor.
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): park-adjusted SLG in decimal format}
+    """
+    # Load SLG with park adjustment (no conversion - SLG is already decimal)
+    # SLG is in advanced file for hitters
+    slg_adjusted = _load_park_adjusted_fangraphs_feature(
+        years, 'advanced', 'SLG', '3yr', player_type='hitters'
+    )
+
+    return slg_adjusted
+
+
+# ============================================================================
+# Positional Adjustment Loader
+# ============================================================================
+
+
+def load_positional_war(years: List[int]) -> Dict[int, float]:
+    """
+    Load innings-weighted positional WAR adjustments per 600 PA.
+
+    For multi-position players, calculates weighted average adjustment
+    based on innings played at each position across all years.
+
+    Source: FanGraphs_Data/defensive/fangraphs_defensive_advanced_{year}.csv
+    Columns: 'Pos' (position), 'Inn' (innings), 'MLBAMID' (player ID)
+
+    Note: Multi-position players have separate rows for each position.
+
+    Adjustments (per 600 PA):
+    - C: +1.25 (hardest position)
+    - SS: +0.75
+    - 2B: +0.30
+    - 3B: +0.20
+    - CF: +0.25
+    - LF: -0.70
+    - RF: -0.75
+    - 1B: -1.25
+    - DH: -1.50 (easiest position)
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {MLBAMID: innings_weighted_positional_war_adjustment}
+
+    Example:
+        Multi-position player:
+        - 127 inn at SS (+0.75), 188 inn at CF (+0.25), 2 inn at 2B (+0.30)
+        - Weighted: (0.75×127 + 0.25×188 + 0.30×2) / 317 = +0.45
+    """
+    # Track innings and weighted adjustments per player across all years
+    player_data = {}  # {mlbamid: {'total_inn': float, 'weighted_sum': float}}
+
+    for year in years:
+        csv_path = DEFENSIVE_DIR / f"fangraphs_defensive_advanced_{year}.csv"
+
+        if not csv_path.exists():
+            continue
+
+        try:
+            df = pd.read_csv(csv_path, encoding='utf-8')
+
+            # Validate required columns
+            if 'MLBAMID' not in df.columns or 'Pos' not in df.columns or 'Inn' not in df.columns:
+                continue
+
+            # Process each position row (multi-position players have multiple rows)
+            for _, row in df.iterrows():
+                if pd.notna(row['MLBAMID']) and pd.notna(row['Pos']) and pd.notna(row['Inn']):
+                    mlbamid = int(row['MLBAMID'])
+                    position = str(row['Pos']).strip()
+                    innings = float(row['Inn'])
+
+                    # Get adjustment for this position
+                    adjustment = POSITION_WAR_ADJUSTMENTS.get(position, 0.0)
+
+                    # Initialize player if first encounter
+                    if mlbamid not in player_data:
+                        player_data[mlbamid] = {'total_inn': 0.0, 'weighted_sum': 0.0}
+
+                    # Accumulate innings-weighted adjustment
+                    player_data[mlbamid]['total_inn'] += innings
+                    player_data[mlbamid]['weighted_sum'] += (adjustment * innings)
+
+        except Exception as e:
+            continue
+
+    # Calculate final weighted averages
+    pos_war_dict = {}
+    for mlbamid, data in player_data.items():
+        if data['total_inn'] > 0:
+            pos_war_dict[mlbamid] = data['weighted_sum'] / data['total_inn']
+        else:
+            pos_war_dict[mlbamid] = 0.0
+
+    return pos_war_dict
+
+
+def load_positions_all_years(years: List[int]) -> Dict[int, str]:
+    """
+    Load primary position for each player with DH detection.
+
+    DH Detection Logic:
+    - Players not in defensive CSV → Primary DH (100% DH time)
+    - Players in defensive CSV → Calculate DH%:
+      * DH% = 1 - (total_defensive_innings / (games × 9))
+      * If DH% >= 50% → Assign "DH"
+      * Else → Use fielding position
+
+    This approach correctly identifies players like Marcell Ozuna (pure DH) and
+    Yordan Alvarez (splits time between LF and DH).
+
+    Sources:
+    - FanGraphs_Data/defensive/fangraphs_defensive_standard_{year}.csv (defensive stats)
+    - FanGraphs_Data/hitters/fangraphs_hitters_{year}.csv (offensive games played)
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {MLBAMID: Position string} (includes "DH" for primary DHs)
+
+    Example:
+        {670541: 'LF',      # Yordan Alvarez (48% DH time → keeps LF)
+         542303: 'DH',      # Marcell Ozuna (100% DH time)
+         592351: 'SS'}      # Bobby Witt Jr. (regular fielder)
+    """
+    position_dict = {}
+
+    for year in years:
+        defensive_path = DEFENSIVE_DIR / f"fangraphs_defensive_standard_{year}.csv"
+        hitter_path = FANGRAPHS_HITTER_DIR / f"fangraphs_hitters_{year}.csv"
+
+        # Try partial season files first (e.g., fangraphs_hitters_2025_firsthalf.csv)
+        if not hitter_path.exists():
+            import glob
+            partial_files = glob.glob(str(FANGRAPHS_HITTER_DIR / f"fangraphs_hitters_{year}_*.csv"))
+            if partial_files:
+                # Exclude secondary splits (advanced, standard, etc.)
+                base_files = [f for f in partial_files if not any(
+                    suffix in f for suffix in ['_advanced', '_standard', '_battedball']
+                )]
+                if base_files:
+                    hitter_path = Path(base_files[0])  # Use first partial season file
+
+        if not hitter_path.exists():
+            continue
+
+        try:
+            # Load offensive stats to get Games played
+            df_hitters = pd.read_csv(hitter_path, encoding='utf-8')
+
+            # Find MLBAM ID column in hitters file
+            hitter_id_col = None
+            for col in ['MLBAMID', 'PlayerId', 'playerid']:
+                if col in df_hitters.columns:
+                    hitter_id_col = col
+                    break
+
+            if hitter_id_col is None or 'G' not in df_hitters.columns:
+                continue
+
+            # Build games played dictionary
+            games_dict = {}
+            for _, row in df_hitters.iterrows():
+                if pd.notna(row[hitter_id_col]) and pd.notna(row['G']):
+                    mlbamid = int(row[hitter_id_col])
+                    games_dict[mlbamid] = int(row['G'])
+
+            # Load defensive stats (if available)
+            defensive_innings_dict = {}  # {MLBAMID: total_defensive_innings}
+            fielding_position_dict = {}  # {MLBAMID: fielding_position}
+
+            if defensive_path.exists():
+                df_defensive = pd.read_csv(defensive_path, encoding='utf-8')
+
+                # Find player ID column in defensive file
+                def_id_col = None
+                for col in ['MLBAMID', 'PlayerId', 'playerid']:
+                    if col in df_defensive.columns:
+                        def_id_col = col
+                        break
+
+                if def_id_col is not None and 'Inn' in df_defensive.columns and 'Pos' in df_defensive.columns:
+                    # Sum defensive innings across all positions for each player
+                    for _, row in df_defensive.iterrows():
+                        if pd.notna(row[def_id_col]) and pd.notna(row['Inn']) and pd.notna(row['Pos']):
+                            mlbamid = int(row[def_id_col])
+                            innings = float(row['Inn'])
+                            position = str(row['Pos']).strip()
+
+                            # Sum innings across positions
+                            if mlbamid in defensive_innings_dict:
+                                defensive_innings_dict[mlbamid] += innings
+                            else:
+                                defensive_innings_dict[mlbamid] = innings
+                                # Store first fielding position seen (for non-DH classification)
+                                fielding_position_dict[mlbamid] = position.split('/')[0]
+
+            # Assign positions based on DH calculation
+            for mlbamid in games_dict:
+                games = games_dict[mlbamid]
+
+                if mlbamid in defensive_innings_dict:
+                    # Player has defensive stats - calculate DH percentage
+                    total_def_innings = defensive_innings_dict[mlbamid]
+                    expected_innings = games * 9
+
+                    if expected_innings > 0:
+                        dh_percentage = 1 - (total_def_innings / expected_innings)
+
+                        # Assign "DH" if player DHs 50%+ of the time
+                        if dh_percentage >= 0.50:
+                            position_dict[mlbamid] = 'DH'
+                        else:
+                            position_dict[mlbamid] = fielding_position_dict.get(mlbamid, 'OF')
+                    else:
+                        # Edge case: no games → use fielding position
+                        position_dict[mlbamid] = fielding_position_dict.get(mlbamid, 'OF')
+                else:
+                    # Player not in defensive CSV → Primary DH
+                    position_dict[mlbamid] = 'DH'
+
+        except Exception as e:
+            # Silently continue on errors (maintain existing behavior)
+            continue
+
+    return position_dict
+
+
+# ============================================================================
+# Enhanced Multi-Source Features
+# ============================================================================
+
+
+def load_enhanced_baserunning(years: List[int]) -> Dict[Tuple[int, int], float]:
+    """
+    Calculate Enhanced_Baserunning composite with sliding window lookback.
+
+    NEW IMPLEMENTATION (updated weights and yearly baselines):
+
+    Sources:
+    - BP baserunning: SB, CS, PO, XBT%
+    - Statcast running splits: seconds_since_hit_090 (sprint speed)
+
+    Formula:
+        steal_runs = (SB × 0.25) - (CS × 0.50) - (PO × 0.50)
+        xbt_runs = (player_xbt - yearly_median_xbt) × 10
+        speed_value = (player_speed - yearly_median_speed) × 0.5
+        total = steal_runs + xbt_runs + speed_value
+
+    Key changes from old implementation:
+    - SB: 0.20 → 0.25 (captures threat/strategic value)
+    - CS: 0.40 → 0.50 (research-informed from run expectancy)
+    - PO: NEW (-0.50, equal to CS)
+    - XBT/Speed: Use yearly median baseline (not hardcoded)
+
+    Sliding window lookback for temporal features (no data leakage):
+    - Year 1: Use only year 1
+    - Year 2: Use 60% year 2 + 40% year 1
+    - Year 3+: Use 50% current + 30% year-1 + 20% year-2
+    Capped to [-7, 15] range
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): Enhanced_Baserunning value} with year-specific lookback
+
+    Example:
+        Elite base stealer: 50 SB, 10 CS, 5 PO, 55% XBT, 29 ft/s
+        Yearly medians: 40% XBT, 27 ft/s
+        >>> steal_runs = (50×0.25) - (10×0.50) - (5×0.50) = 5.0
+        >>> xbt_runs = (55 - 40) × 0.10 = 1.5
+        >>> speed_value = (29 - 27) × 0.5 = 1.0
+        >>> total = 7.5
+    """
+    from ..transformers.baserunning_helpers import (
+        calculate_steal_runs,
+        calculate_xbt_runs,
+        calculate_speed_value,
+        calculate_sprint_speed,
+        apply_baserunning_cap,
+        calculate_yearly_baselines
+    )
+
+    baserunning_dict = {}
+    yearly_values = {}  # {mlbamid: {year: value}}
+
+    for year in years:
+        # Load BP baserunning data
+        bp_path = BP_BASERUNNING_DIR / f"bp_baserunning_{year}.csv"
+
+        if not bp_path.exists():
+            continue
+
+        try:
+            bp_df = pd.read_csv(bp_path, encoding='utf-8')
+
+            # Load Statcast sprint speed (optional)
+            statcast_df = None
+            statcast_path = STATCAST_RUNNING_SPLITS_DIR / f"running_splits_statcast_{year}.csv"
+            if statcast_path.exists():
+                statcast_df = pd.read_csv(statcast_path, encoding='utf-8')
+
+            # Calculate yearly baselines (medians)
+            baselines = calculate_yearly_baselines(bp_df, statcast_df)
+            xbt_median = baselines['xbt_median']
+            speed_median = baselines['speed_median']
+
+            # Find ID column in BP data (BP uses 'mlbid' not 'MLBAMID')
+            id_col = None
+            for col in ['mlbid', 'MLBAMID', 'mlbam_id', 'player_id']:
+                if col in bp_df.columns:
+                    id_col = col
+                    break
+
+            if id_col is None:
+                continue
+
+            for _, row in bp_df.iterrows():
+                if pd.notna(row[id_col]):
+                    mlbamid = int(row[id_col])
+
+                    # 1. Steal component (SB, CS, PO)
+                    # Handle NaN values
+                    sb = row.get('SB', 0)
+                    cs = row.get('CS', 0)
+                    po = row.get('PO', 0)
+
+                    # Skip if all steal stats are missing (pitchers, etc.)
+                    if pd.isna(sb) and pd.isna(cs) and pd.isna(po):
+                        continue
+
+                    sb = 0.0 if pd.isna(sb) else float(sb)
+                    cs = 0.0 if pd.isna(cs) else float(cs)
+                    po = 0.0 if pd.isna(po) else float(po)
+                    steal_runs = calculate_steal_runs(sb, cs, po)
+
+                    # 2. Extra base taking component (relative to yearly median)
+                    xbt_pct = row.get('XBT%', xbt_median)
+                    if pd.isna(xbt_pct):
+                        xbt_pct = xbt_median  # Use median if missing
+                    xbt_runs = calculate_xbt_runs(float(xbt_pct), xbt_median)
+
+                    # 3. Sprint speed component (if available)
+                    speed_value = 0.0
+                    if statcast_df is not None and speed_median > 0:
+                        player_statcast = statcast_df[statcast_df['player_id'] == mlbamid]
+                        if not player_statcast.empty:
+                            seconds = player_statcast.iloc[0].get('seconds_since_hit_090', 0)
+                            if pd.notna(seconds) and float(seconds) > 0:
+                                player_speed = calculate_sprint_speed(float(seconds))
+                                speed_value = calculate_speed_value(player_speed, speed_median)
+
+                    # Total baserunning value
+                    total = steal_runs + xbt_runs + speed_value
+
+                    # Apply cap
+                    total = apply_baserunning_cap(total)
+
+                    # Store yearly value
+                    if mlbamid not in yearly_values:
+                        yearly_values[mlbamid] = {}
+                    yearly_values[mlbamid][year] = total
+
+        except Exception as e:
+            continue
+
+    # Apply sliding window lookback for each player-year
+    # Each year uses up to 3-year lookback from THAT specific year (no data leakage)
+    for mlbamid, year_data in yearly_values.items():
+        for year in sorted(year_data.keys()):
+            # Lookback up to 3 years from THIS year
+            lookback_years = [y for y in [year, year-1, year-2] if y in year_data]
+
+            if len(lookback_years) == 1:
+                # First year: No history, use current year only
+                value = year_data[lookback_years[0]]
+            elif len(lookback_years) == 2:
+                # Second year: Weight 60/40
+                value = (year_data[lookback_years[0]] * 0.6 +
+                        year_data[lookback_years[1]] * 0.4)
+            else:
+                # Third+ year: Weight 50/30/20
+                value = (year_data[lookback_years[0]] * 0.5 +
+                        year_data[lookback_years[1]] * 0.3 +
+                        year_data[lookback_years[2]] * 0.2)
+
+            baserunning_dict[(mlbamid, year)] = value
+
+    return baserunning_dict
+
+
+def load_enhanced_defense(years: List[int]) -> Dict[Tuple[int, int], float]:
+    """
+    Load Enhanced_Defense composite with sliding window lookback.
+
+    NEW IMPLEMENTATION (redesigned from old fielding% approach):
+
+    Methodology:
+    1. Baseline: Position-relative Range Factor
+       - RF = 9 × (A + PO) / Inn
+       - Compare to position average
+       - Scale to run value
+
+    2. Position-specific bonuses:
+       - 2B/SS: Weighted DP value (DPS×0.9 + DPT×1.0 + DPF×0.3)
+       - 3B: DP starts (DPS×0.9)
+       - 1B: Scoops (×0.6) + DP finishes (DPF×0.3)
+       - C: Framing (60%) + Throwing (25%) + Blocking (15%)
+       - OF: [Future: catch probability metrics]
+
+    3. Position-specific caps (asymmetric):
+       - SS/C: ±30/±25 (hardest positions, widest skill range)
+       - 1B: +15/-8 (easiest position, elite can offset penalty to ~0)
+       - Corner OF: +18/-10 (CF-caliber tools playing corners)
+
+    4. Sliding window lookback for temporal features (no data leakage):
+       - Year 1: Use only year 1
+       - Year 2: Use 60% year 2 + 40% year 1
+       - Year 3+: Use 50% current + 30% year-1 + 20% year-2
+
+    Data Sources:
+    - FanGraphs defensive_standard: PO, A, Inn, DPS, DPT, DPF, Scp
+    - FanGraphs defensive_statcast: Framing, Throwing, Blocking (catchers)
+
+    Args:
+        years: Years to load
+
+    Returns:
+        dict: {(MLBAMID, Year): Enhanced_Defense runs} with year-specific lookback
+
+    Example:
+        Elite SS (Simmons-level): +30 runs (range + DPs)
+        Elite 1B (Goldschmidt): +13 runs (scoops + DPF) → offsets -12.5 penalty to ~0
+        Poor corner OF: -10 runs
+    """
+    from ..transformers.defensive_helpers import (
+        calculate_range_factor,
+        calculate_position_relative_rf,
+        calculate_infielder_dp_value,
+        calculate_first_base_scoop_value,
+        calculate_catcher_metrics_value,
+        apply_defensive_cap,
+        POSITION_AVG_RF
+    )
+
+    defense_dict = {}
+    yearly_values = {}
+
+    for year in years:
+        # Load defensive standard file (PO, A, Inn, DPS, DPT, DPF, Scp)
+        def_standard_path = DEFENSIVE_DIR / f"fangraphs_defensive_standard_{year}.csv"
+
+        # Load defensive statcast file (Framing, Throwing, Blocking for catchers)
+        def_statcast_path = DEFENSIVE_DIR / f"fangraphs_defensive_statcast_{year}.csv"
+
+        if not def_standard_path.exists():
+            continue
+
+        try:
+            df_standard = pd.read_csv(def_standard_path, encoding='utf-8')
+
+            # Load statcast data for catchers (if available)
+            catcher_statcast = {}
+            if def_statcast_path.exists():
+                df_statcast = pd.read_csv(def_statcast_path, encoding='utf-8')
+                for _, row in df_statcast.iterrows():
+                    if pd.notna(row.get('MLBAMID')) and row.get('Pos') == 'C':
+                        try:
+                            mlbamid = int(float(row['MLBAMID']))
+                            catcher_statcast[mlbamid] = {
+                                'Framing': float(row.get('Framing', 0.0)),
+                                'Throwing': float(row.get('Throwing', 0.0)),
+                                'Blocking': float(row.get('Blocking', 0.0))
+                            }
+                        except (ValueError, TypeError):
+                            continue
+
+            # Process each player
+            for _, row in df_standard.iterrows():
+                if pd.notna(row.get('MLBAMID')):
+                    try:
+                        mlbamid = int(float(row['MLBAMID']))
+                        position = row.get('Pos', '')
+
+                        if not position or pd.isna(position) or position == 'DH':
+                            continue
+
+                        # Get counting stats
+                        assists = float(row.get('A', 0.0))
+                        putouts = float(row.get('PO', 0.0))
+                        innings = float(row.get('Inn', 0.0))
+
+                        if innings < 50:  # Minimum sample size
+                            continue
+
+                        # 1. Calculate Range Factor baseline
+                        player_rf = calculate_range_factor(assists, putouts, innings)
+                        position_avg = POSITION_AVG_RF.get(position, 3.0)
+                        baseline_runs = calculate_position_relative_rf(player_rf, position_avg)
+
+                        # 2. Calculate position-specific bonuses
+                        position_bonus = 0.0
+
+                        if position in ['2B', 'SS', '3B', '1B']:
+                            # Infielders: DP value
+                            dps = int(row.get('DPS', 0))
+                            dpt = int(row.get('DPT', 0))
+                            dpf = int(row.get('DPF', 0))
+                            position_bonus = calculate_infielder_dp_value(dps, dpt, dpf, position)
+
+                            # First basemen also get scoop value
+                            if position == '1B':
+                                scoops = int(row.get('Scp', 0))
+                                position_bonus += calculate_first_base_scoop_value(scoops)
+
+                        elif position == 'C':
+                            # Catchers: Weighted framing/throwing/blocking
+                            if mlbamid in catcher_statcast:
+                                metrics = catcher_statcast[mlbamid]
+                                position_bonus = calculate_catcher_metrics_value(
+                                    metrics['Framing'],
+                                    metrics['Throwing'],
+                                    metrics['Blocking']
+                                )
+
+                        # elif position in ['LF', 'CF', 'RF']:
+                        #     # Outfielders: Future implementation with catch probability
+                        #     # For now, baseline RF is sufficient
+                        #     pass
+
+                        # 3. Combine baseline + bonus
+                        total_runs = baseline_runs + position_bonus
+
+                        # 4. Apply position-specific cap
+                        capped_runs = apply_defensive_cap(total_runs, position)
+
+                        # Store yearly value
+                        if mlbamid not in yearly_values:
+                            yearly_values[mlbamid] = {}
+                        yearly_values[mlbamid][year] = capped_runs
+
+                    except (ValueError, TypeError, KeyError):
+                        continue
+
+        except Exception as e:
+            continue
+
+    # Apply sliding window lookback for each player-year
+    # Each year uses up to 3-year lookback from THAT specific year (no data leakage)
+    for mlbamid, year_data in yearly_values.items():
+        for year in sorted(year_data.keys()):
+            # Lookback up to 3 years from THIS year
+            lookback_years = [y for y in [year, year-1, year-2] if y in year_data]
+
+            if len(lookback_years) == 1:
+                # First year: No history, use current year only
+                value = year_data[lookback_years[0]]
+            elif len(lookback_years) == 2:
+                # Second year: Weight 60/40
+                value = (year_data[lookback_years[0]] * 0.6 +
+                        year_data[lookback_years[1]] * 0.4)
+            else:
+                # Third+ year: Weight 50/30/20
+                value = (year_data[lookback_years[0]] * 0.5 +
+                        year_data[lookback_years[1]] * 0.3 +
+                        year_data[lookback_years[2]] * 0.2)
+
+            defense_dict[(mlbamid, year)] = value
+
+    return defense_dict

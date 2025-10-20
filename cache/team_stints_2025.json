@@ -1,0 +1,1270 @@
+{
+  "16943_2025": {
+    "player_name": "Sean Newcomb",
+    "player_type": "pitcher",
+    "current_team": "BOS",
+    "stints": [
+      {
+        "team": "ATH",
+        "G": 36,
+        "IP": 51.1,
+        "order": 0
+      },
+      {
+        "team": "BOS",
+        "G": 12,
+        "IP": 41.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:48:34.914129"
+  },
+  "17735_2025": {
+    "player_name": "Tyler Alexander",
+    "player_type": "pitcher",
+    "current_team": "MIL",
+    "stints": [
+      {
+        "team": "CHW",
+        "G": 31,
+        "IP": 61.1,
+        "order": 0
+      },
+      {
+        "team": "MIL",
+        "G": 21,
+        "IP": 36.1,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:48:42.092135"
+  },
+  "19618_2025": {
+    "player_name": "Jordan Hicks",
+    "player_type": "pitcher",
+    "current_team": "SFG",
+    "stints": [
+      {
+        "team": "BOS",
+        "G": 21,
+        "IP": 18.2,
+        "order": 0
+      },
+      {
+        "team": "SFG",
+        "G": 13,
+        "IP": 48.2,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:48:52.116165"
+  },
+  "12760_2025": {
+    "player_name": "Rafael Montero",
+    "player_type": "pitcher",
+    "current_team": "DET",
+    "stints": [
+      {
+        "team": "ATL",
+        "G": 36,
+        "IP": 34.1,
+        "order": 0
+      },
+      {
+        "team": "HOU",
+        "G": 3,
+        "IP": 4.0,
+        "order": 1
+      },
+      {
+        "team": "DET",
+        "G": 20,
+        "IP": 22.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:00.438438"
+  },
+  "6984_2025": {
+    "player_name": "Luis Garcia",
+    "player_type": "pitcher",
+    "current_team": "WSN",
+    "stints": [
+      {
+        "team": "LAD",
+        "G": 28,
+        "IP": 27.1,
+        "order": 0
+      },
+      {
+        "team": "LAA",
+        "G": 20,
+        "IP": 18.0,
+        "order": 1
+      },
+      {
+        "team": "WSN",
+        "G": 10,
+        "IP": 10.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:07.280439"
+  },
+  "19804_2025": {
+    "player_name": "Bryan Baker",
+    "player_type": "pitcher",
+    "current_team": "TBR",
+    "stints": [
+      {
+        "team": "BAL",
+        "G": 42,
+        "IP": 38.1,
+        "order": 0
+      },
+      {
+        "team": "TBR",
+        "G": 31,
+        "IP": 30.1,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:14.564281"
+  },
+  "11804_2025": {
+    "player_name": "Hector Neris",
+    "player_type": "pitcher",
+    "current_team": "ATL",
+    "stints": [
+      {
+        "team": "LAA",
+        "G": 21,
+        "IP": 14.0,
+        "order": 0
+      },
+      {
+        "team": "HOU",
+        "G": 12,
+        "IP": 11.2,
+        "order": 1
+      },
+      {
+        "team": "ATL",
+        "G": 2,
+        "IP": 1.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:20.700284"
+  },
+  "19459_2025": {
+    "player_name": "Jorge Alcala",
+    "player_type": "pitcher",
+    "current_team": "STL",
+    "stints": [
+      {
+        "team": "MIN",
+        "G": 22,
+        "IP": 24.1,
+        "order": 0
+      },
+      {
+        "team": "BOS",
+        "G": 19,
+        "IP": 16.1,
+        "order": 1
+      },
+      {
+        "team": "STL",
+        "G": 15,
+        "IP": 14.1,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:27.344476"
+  },
+  "22713_2025": {
+    "player_name": "Carlos Hernandez",
+    "player_type": "pitcher",
+    "current_team": "CLE",
+    "stints": [
+      {
+        "team": "PHI",
+        "G": 25,
+        "IP": 25.2,
+        "order": 0
+      },
+      {
+        "team": "DET",
+        "G": 11,
+        "IP": 10.2,
+        "order": 1
+      },
+      {
+        "team": "CLE",
+        "G": 5,
+        "IP": 7.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:33.908381"
+  },
+  "11121_2025": {
+    "player_name": "Casey Lawrence",
+    "player_type": "pitcher",
+    "current_team": "TOR",
+    "stints": [
+      {
+        "team": "SEA",
+        "G": 5,
+        "IP": 15.0,
+        "order": 0
+      },
+      {
+        "team": "TOR",
+        "G": 1,
+        "IP": 2.2,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:41.352191"
+  },
+  "19962_2025": {
+    "player_name": "Joey Wentz",
+    "player_type": "pitcher",
+    "current_team": "ATL",
+    "stints": [
+      {
+        "team": "PIT",
+        "G": 19,
+        "IP": 26.0,
+        "order": 0
+      },
+      {
+        "team": "MIN",
+        "G": 6,
+        "IP": 8.0,
+        "order": 1
+      },
+      {
+        "team": "ATL",
+        "G": 14,
+        "IP": 64.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:49.416149"
+  },
+  "15043_2025": {
+    "player_name": "Lou Trivino",
+    "player_type": "pitcher",
+    "current_team": "PHI",
+    "stints": [
+      {
+        "team": "LAD",
+        "G": 26,
+        "IP": 26.1,
+        "order": 0
+      },
+      {
+        "team": "SFG",
+        "G": 11,
+        "IP": 12.1,
+        "order": 1
+      },
+      {
+        "team": "PHI",
+        "G": 10,
+        "IP": 9.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:49:57.225958"
+  },
+  "19479_2025": {
+    "player_name": "Aaron Civale",
+    "player_type": "pitcher",
+    "current_team": "CHC",
+    "stints": [
+      {
+        "team": "CHW",
+        "G": 13,
+        "IP": 67.0,
+        "order": 0
+      },
+      {
+        "team": "MIL",
+        "G": 5,
+        "IP": 22.0,
+        "order": 1
+      },
+      {
+        "team": "CHC",
+        "G": 5,
+        "IP": 13.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:50:04.764867"
+  },
+  "15369_2025": {
+    "player_name": "Kevin Herget",
+    "player_type": "pitcher",
+    "current_team": "NYM",
+    "stints": [
+      {
+        "team": "ATL",
+        "G": 1,
+        "IP": 1.0,
+        "order": 0
+      },
+      {
+        "team": "NYM",
+        "G": 6,
+        "IP": 12.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:50:11.980890"
+  },
+  "13218_2025": {
+    "player_name": "Michael Fulmer",
+    "player_type": "pitcher",
+    "current_team": "BOS",
+    "stints": [
+      {
+        "team": "CHC",
+        "G": 2,
+        "IP": 3.0,
+        "order": 0
+      },
+      {
+        "team": "BOS",
+        "G": 1,
+        "IP": 2.2,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:50:26.779253"
+  },
+  "13761_2025": {
+    "player_name": "Chris Stratton",
+    "player_type": "pitcher",
+    "current_team": "LAD",
+    "stints": [
+      {
+        "team": "KCR",
+        "G": 12,
+        "IP": 17.0,
+        "order": 0
+      },
+      {
+        "team": "LAD",
+        "G": 3,
+        "IP": 4.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:50:33.356404"
+  },
+  "19666_2025": {
+    "player_name": "Jason Alexander",
+    "player_type": "pitcher",
+    "current_team": "HOU",
+    "stints": [
+      {
+        "team": "ATH",
+        "G": 4,
+        "IP": 6.0,
+        "order": 0
+      },
+      {
+        "team": "HOU",
+        "G": 14,
+        "IP": 71.1,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:50:46.215754"
+  },
+  "11589_2025": {
+    "player_name": "Jose Urena",
+    "player_type": "pitcher",
+    "current_team": "NYM",
+    "stints": [
+      {
+        "team": "LAA",
+        "G": 6,
+        "IP": 19.0,
+        "order": 0
+      },
+      {
+        "team": "TOR",
+        "G": 6,
+        "IP": 12.1,
+        "order": 1
+      },
+      {
+        "team": "MIN",
+        "G": 4,
+        "IP": 17.2,
+        "order": 2
+      },
+      {
+        "team": "LAD",
+        "G": 2,
+        "IP": 3.0,
+        "order": 3
+      },
+      {
+        "team": "NYM",
+        "G": 1,
+        "IP": 3.0,
+        "order": 4
+      }
+    ],
+    "cached_date": "2025-10-17 12:50:52.589395"
+  },
+  "14552_2025": {
+    "player_name": "Jose Ruiz",
+    "player_type": "pitcher",
+    "current_team": "ATL",
+    "stints": [
+      {
+        "team": "PHI",
+        "G": 16,
+        "IP": 14.1,
+        "order": 0
+      },
+      {
+        "team": "ATL",
+        "G": 2,
+        "IP": 2.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:05.144084"
+  },
+  "19403_2025": {
+    "player_name": "Colin Poche",
+    "player_type": "pitcher",
+    "current_team": "NYM",
+    "stints": [
+      {
+        "team": "WSN",
+        "G": 13,
+        "IP": 8.2,
+        "order": 0
+      },
+      {
+        "team": "NYM",
+        "G": 1,
+        "IP": 0.2,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:12.115242"
+  },
+  "16610_2025": {
+    "player_name": "J.P. Feyereisen",
+    "player_type": "pitcher",
+    "current_team": "LAD",
+    "stints": [
+      {
+        "team": "ARI",
+        "G": 2,
+        "IP": 2.0,
+        "order": 0
+      },
+      {
+        "team": "LAD",
+        "G": 2,
+        "IP": 2.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:24.309076"
+  },
+  "17169_2025": {
+    "player_name": "Jose Castillo",
+    "player_type": "pitcher",
+    "current_team": "SEA",
+    "stints": [
+      {
+        "team": "NYM",
+        "G": 16,
+        "IP": 15.1,
+        "order": 0
+      },
+      {
+        "team": "BAL",
+        "G": 5,
+        "IP": 7.1,
+        "order": 1
+      },
+      {
+        "team": "ARI",
+        "G": 5,
+        "IP": 6.1,
+        "order": 2
+      },
+      {
+        "team": "SEA",
+        "G": 3,
+        "IP": 3.0,
+        "order": 3
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:31.311792"
+  },
+  "19337_2025": {
+    "player_name": "Richard Lovelady",
+    "player_type": "pitcher",
+    "current_team": "NYM",
+    "stints": [
+      {
+        "team": "TOR",
+        "G": 2,
+        "IP": 1.2,
+        "order": 0
+      },
+      {
+        "team": "NYM",
+        "G": 8,
+        "IP": 10.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:39.701941"
+  },
+  "22872_2025": {
+    "player_name": "Yoendrys Gomez",
+    "player_type": "pitcher",
+    "current_team": "LAD",
+    "stints": [
+      {
+        "team": "CHW",
+        "G": 12,
+        "IP": 48.1,
+        "order": 0
+      },
+      {
+        "team": "NYY",
+        "G": 6,
+        "IP": 10.0,
+        "order": 1
+      },
+      {
+        "team": "LAD",
+        "G": 3,
+        "IP": 4.1,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:45.949983"
+  },
+  "13652_2025": {
+    "player_name": "Tayler Scott",
+    "player_type": "pitcher",
+    "current_team": "ARI",
+    "stints": [
+      {
+        "team": "HOU",
+        "G": 18,
+        "IP": 18.1,
+        "order": 0
+      },
+      {
+        "team": "ARI",
+        "G": 6,
+        "IP": 9.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:53.175820"
+  },
+  "17490_2025": {
+    "player_name": "Genesis Cabrera",
+    "player_type": "pitcher",
+    "current_team": "NYM",
+    "stints": [
+      {
+        "team": "MIN",
+        "G": 16,
+        "IP": 14.2,
+        "order": 0
+      },
+      {
+        "team": "PIT",
+        "G": 9,
+        "IP": 11.0,
+        "order": 1
+      },
+      {
+        "team": "CHC",
+        "G": 9,
+        "IP": 9.1,
+        "order": 2
+      },
+      {
+        "team": "NYM",
+        "G": 6,
+        "IP": 7.2,
+        "order": 3
+      }
+    ],
+    "cached_date": "2025-10-17 12:51:59.076554"
+  },
+  "20185_2025": {
+    "player_name": "Zach Pop",
+    "player_type": "pitcher",
+    "current_team": "NYM",
+    "stints": [
+      {
+        "team": "SEA",
+        "G": 4,
+        "IP": 5.1,
+        "order": 0
+      },
+      {
+        "team": "NYM",
+        "G": 1,
+        "IP": 1.1,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:52:06.898278"
+  },
+  "16427_2025": {
+    "player_name": "Scott Blewett",
+    "player_type": "pitcher",
+    "current_team": "MIN",
+    "stints": [
+      {
+        "team": "BAL",
+        "G": 13,
+        "IP": 23.1,
+        "order": 0
+      },
+      {
+        "team": "ATL",
+        "G": 11,
+        "IP": 16.1,
+        "order": 1
+      },
+      {
+        "team": "MIN",
+        "G": 2,
+        "IP": 4.2,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:52:15.494712"
+  },
+  "10591_2025": {
+    "player_name": "Scott Alexander",
+    "player_type": "pitcher",
+    "current_team": "SFG",
+    "stints": [
+      {
+        "team": "COL",
+        "G": 19,
+        "IP": 16.1,
+        "order": 0
+      },
+      {
+        "team": "SFG",
+        "G": 2,
+        "IP": 1.1,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:52:23.602887"
+  },
+  "17350_2025": {
+    "player_name": "Rafael Devers",
+    "player_type": "hitter",
+    "current_team": "BOS",
+    "stints": [
+      {
+        "team": "SFG",
+        "G": 90,
+        "PA": 395.0,
+        "order": 0
+      },
+      {
+        "team": "BOS",
+        "G": 73,
+        "PA": 334.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:52:34.089733"
+  },
+  "20572_2025": {
+    "player_name": "Kody Clemens",
+    "player_type": "hitter",
+    "current_team": "MIN",
+    "stints": [
+      {
+        "team": "PHI",
+        "G": 7,
+        "PA": 7.0,
+        "order": 0
+      },
+      {
+        "team": "MIN",
+        "G": 112,
+        "PA": 379.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:52:43.422715"
+  },
+  "15271_2025": {
+    "player_name": "Austin Wynns",
+    "player_type": "hitter",
+    "current_team": "CIN",
+    "stints": [
+      {
+        "team": "ATH",
+        "G": 22,
+        "PA": 67.0,
+        "order": 0
+      },
+      {
+        "team": "CIN",
+        "G": 18,
+        "PA": 43.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:52:52.478758"
+  },
+  "19318_2025": {
+    "player_name": "Matt Thaiss",
+    "player_type": "hitter",
+    "current_team": "TBR",
+    "stints": [
+      {
+        "team": "CHW",
+        "G": 35,
+        "PA": 110.0,
+        "order": 0
+      },
+      {
+        "team": "TBR",
+        "G": 25,
+        "PA": 80.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:53:01.553556"
+  },
+  "19458_2025": {
+    "player_name": "Cooper Hummel",
+    "player_type": "hitter",
+    "current_team": "BAL",
+    "stints": [
+      {
+        "team": "HOU",
+        "G": 36,
+        "PA": 104.0,
+        "order": 0
+      },
+      {
+        "team": "BAL",
+        "G": 1,
+        "PA": 1.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:53:10.776145"
+  },
+  "19262_2025": {
+    "player_name": "Garrett Hampson",
+    "player_type": "hitter",
+    "current_team": "CIN",
+    "stints": [
+      {
+        "team": "STL",
+        "G": 35,
+        "PA": 31.0,
+        "order": 0
+      },
+      {
+        "team": "ARI",
+        "G": 18,
+        "PA": 41.0,
+        "order": 1
+      },
+      {
+        "team": "CIN",
+        "G": 9,
+        "PA": 19.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:53:20.664974"
+  },
+  "13768_2025": {
+    "player_name": "Travis Jankowski",
+    "player_type": "hitter",
+    "current_team": "NYM",
+    "stints": [
+      {
+        "team": "TBR",
+        "G": 14,
+        "PA": 34.0,
+        "order": 0
+      },
+      {
+        "team": "CHW",
+        "G": 7,
+        "PA": 15.0,
+        "order": 1
+      },
+      {
+        "team": "NYM",
+        "G": 5,
+        "PA": 1.0,
+        "order": 2
+      }
+    ],
+    "cached_date": "2025-10-17 12:53:30.539694"
+  },
+  "16953_2025": {
+    "player_name": "Chadwick Tromp",
+    "player_type": "hitter",
+    "current_team": "ATL",
+    "stints": [
+      {
+        "team": "BAL",
+        "G": 6,
+        "PA": 16.0,
+        "order": 0
+      },
+      {
+        "team": "ATL",
+        "G": 2,
+        "PA": 6.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:53:40.426522"
+  },
+  "12155_2025": {
+    "player_name": "Eddie Rosario",
+    "player_type": "hitter",
+    "current_team": "LAD",
+    "stints": [
+      {
+        "team": "ATL",
+        "G": 3,
+        "PA": 4.0,
+        "order": 0
+      },
+      {
+        "team": "LAD",
+        "G": 2,
+        "PA": 4.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:53:50.348111"
+  },
+  "18821_2025": {
+    "player_name": "Jose Azocar",
+    "player_type": "hitter",
+    "current_team": "ATL",
+    "stints": [
+      {
+        "team": "NYM",
+        "G": 12,
+        "PA": 20.0,
+        "order": 0
+      },
+      {
+        "team": "ATL",
+        "G": 2,
+        "PA": 1.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:53:58.537806"
+  },
+  "22165_2025": {
+    "player_name": "Ryan Vilade",
+    "player_type": "hitter",
+    "current_team": "CIN",
+    "stints": [
+      {
+        "team": "STL",
+        "G": 7,
+        "PA": 15.0,
+        "order": 0
+      },
+      {
+        "team": "CIN",
+        "G": 1,
+        "PA": 0.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:54:26.803827"
+  },
+  "13757_2025": {
+    "player_name": "Chris Taylor",
+    "player_type": "hitter",
+    "current_team": "LAA",
+    "stints": [
+      {
+        "team": "LAD",
+        "G": 28,
+        "PA": 35.0,
+        "order": 0
+      },
+      {
+        "team": "LAA",
+        "G": 30,
+        "PA": 90.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:54:37.194174"
+  },
+  "19339_2025": {
+    "player_name": "Nicky Lopez",
+    "player_type": "hitter",
+    "current_team": "LAA",
+    "stints": [
+      {
+        "team": "CHC",
+        "G": 14,
+        "PA": 22.0,
+        "order": 0
+      },
+      {
+        "team": "LAA",
+        "G": 5,
+        "PA": 6.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:54:58.058009"
+  },
+  "13185_2025": {
+    "player_name": "Orlando Arcia",
+    "player_type": "hitter",
+    "current_team": "COL",
+    "stints": [
+      {
+        "team": "ATL",
+        "G": 14,
+        "PA": 32.0,
+        "order": 0
+      },
+      {
+        "team": "COL",
+        "G": 62,
+        "PA": 182.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:55:18.619702"
+  },
+  "24703_2025": {
+    "player_name": "Jonah Bride",
+    "player_type": "hitter",
+    "current_team": "MIA",
+    "stints": [
+      {
+        "team": "MIN",
+        "G": 33,
+        "PA": 80.0,
+        "order": 0
+      },
+      {
+        "team": "MIA",
+        "G": 12,
+        "PA": 45.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:55:29.810707"
+  },
+  "16572_2025": {
+    "player_name": "Connor Joe",
+    "player_type": "hitter",
+    "current_team": "SDP",
+    "stints": [
+      {
+        "team": "CIN",
+        "G": 35,
+        "PA": 70.0,
+        "order": 0
+      },
+      {
+        "team": "SDP",
+        "G": 7,
+        "PA": 10.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:55:40.625640"
+  },
+  "18900_2025": {
+    "player_name": "Leody Taveras",
+    "player_type": "hitter",
+    "current_team": "SEA",
+    "stints": [
+      {
+        "team": "TEX",
+        "G": 30,
+        "PA": 82.0,
+        "order": 0
+      },
+      {
+        "team": "SEA",
+        "G": 28,
+        "PA": 98.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:55:50.958616"
+  },
+  "26197_2025": {
+    "player_name": "Andrew Vaughn",
+    "player_type": "hitter",
+    "current_team": "MIL",
+    "stints": [
+      {
+        "team": "CHW",
+        "G": 48,
+        "PA": 193.0,
+        "order": 0
+      },
+      {
+        "team": "MIL",
+        "G": 64,
+        "PA": 254.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:56:00.598381"
+  },
+  "25040_2025": {
+    "player_name": "Vinny Capra",
+    "player_type": "hitter",
+    "current_team": "CHW",
+    "stints": [
+      {
+        "team": "MIL",
+        "G": 24,
+        "PA": 59.0,
+        "order": 0
+      },
+      {
+        "team": "CHW",
+        "G": 23,
+        "PA": 46.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:56:09.855967"
+  },
+  "13723_2025": {
+    "player_name": "Jacob Stallings",
+    "player_type": "hitter",
+    "current_team": "BAL",
+    "stints": [
+      {
+        "team": "COL",
+        "G": 29,
+        "PA": 93.0,
+        "order": 0
+      },
+      {
+        "team": "BAL",
+        "G": 14,
+        "PA": 36.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:56:17.830202"
+  },
+  "18126_2025": {
+    "player_name": "LaMonte Wade Jr.",
+    "player_type": "hitter",
+    "current_team": "LAA",
+    "stints": [
+      {
+        "team": "SFG",
+        "G": 50,
+        "PA": 169.0,
+        "order": 0
+      },
+      {
+        "team": "LAA",
+        "G": 30,
+        "PA": 73.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-17 12:56:25.246810"
+  },
+  "14916_2025": {
+    "player_name": "Jon Gray",
+    "player_type": "pitcher",
+    "current_team": "TEX",
+    "stints": [
+      {
+        "team": "TEX",
+        "G": 6,
+        "IP": 14.0,
+        "order": 0
+      }
+    ],
+    "cached_date": "2025-10-17 18:25:06.130781"
+  },
+  "31501_2025": {
+    "player_name": "Michael Darrell-Hicks",
+    "player_type": "pitcher",
+    "current_team": "PIT",
+    "stints": [
+      {
+        "team": "LAA",
+        "G": 6,
+        "IP": 7.2,
+        "order": 0
+      },
+      {
+        "team": "PIT",
+        "G": 1,
+        "IP": 2.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:05.850744"
+  },
+  "23091_2025": {
+    "player_name": "Robinson Pina",
+    "player_type": "pitcher",
+    "current_team": "MIA",
+    "stints": [
+      {
+        "team": "TOR",
+        "G": 1,
+        "IP": 1.1,
+        "order": 0
+      },
+      {
+        "team": "MIA",
+        "G": 1,
+        "IP": 1.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:11.708543"
+  },
+  "19586_2025": {
+    "player_name": "Forrest Whitley",
+    "player_type": "pitcher",
+    "current_team": "HOU",
+    "stints": [
+      {
+        "team": "TBR",
+        "G": 5,
+        "IP": 4.2,
+        "order": 0
+      },
+      {
+        "team": "HOU",
+        "G": 5,
+        "IP": 7.1,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:17.333577"
+  },
+  "29521_2025": {
+    "player_name": "Ryan Loutos",
+    "player_type": "pitcher",
+    "current_team": "LAD",
+    "stints": [
+      {
+        "team": "WSN",
+        "G": 10,
+        "IP": 9.0,
+        "order": 0
+      },
+      {
+        "team": "LAD",
+        "G": 2,
+        "IP": 3.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:23.589350"
+  },
+  "25467_2025": {
+    "player_name": "Will Robertson",
+    "player_type": "hitter",
+    "current_team": "TOR",
+    "stints": [
+      {
+        "team": "CHW",
+        "G": 24,
+        "PA": 63.0,
+        "order": 0
+      },
+      {
+        "team": "TOR",
+        "G": 3,
+        "PA": 12.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:30.341574"
+  },
+  "27573_2025": {
+    "player_name": "Gage Workman",
+    "player_type": "hitter",
+    "current_team": "CHW",
+    "stints": [
+      {
+        "team": "CHC",
+        "G": 9,
+        "PA": 15.0,
+        "order": 0
+      },
+      {
+        "team": "CHW",
+        "G": 3,
+        "PA": 2.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:37.685465"
+  },
+  "25183_2025": {
+    "player_name": "Drew Avans",
+    "player_type": "hitter",
+    "current_team": "MIL",
+    "stints": [
+      {
+        "team": "ATH",
+        "G": 7,
+        "PA": 15.0,
+        "order": 0
+      },
+      {
+        "team": "MIL",
+        "G": 1,
+        "PA": 3.0,
+        "order": 1
+      }
+    ],
+    "cached_date": "2025-10-18 17:16:45.390870"
+  }
+}

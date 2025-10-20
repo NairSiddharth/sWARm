@@ -1,0 +1,414 @@
+00:44:50 - common_modules.logging - INFO - Logging module initialized
+2025-10-01 00:44:50.913439: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-10-01 00:44:53.189745: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Preparing comprehensive dataset for K-fold cross-validation...
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Loading enhanced features...
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Loading Baseball Prospectus WARP data...
+00:44:54 - common_modules.derived_stats - INFO - Loading Baseball Prospectus WARP data via public API
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Loading BP data with fixed derived statistics
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2016 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2017 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2018 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2019 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2016 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2017 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2018 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Calculating derived statistics for 2019 data
+00:44:54 - common_modules.pitcher_feature_calculations - INFO - Loaded 6503 hitter and 7345 pitcher records
+00:44:54 - common_modules.derived_stats - INFO - Successfully loaded 6503 hitter and 7345 pitcher records
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Loading EXPANDED FanGraphs data...
+00:44:54 - current_season_modules.modeling.data_loading - INFO - Loading expanded FanGraphs hitter data...
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2016: 633 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2017: 625 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2018: 629 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2019: 635 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2020: 581 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2021: 661 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2022: 690 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2023: 655 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2024: 651 hitter records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - Expanded FanGraphs hitter data: 5760 total records
+00:44:54 - current_season_modules.modeling.data_loading - INFO - PA range: 0 to 753
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Filtering pitchers from WAR hitting data...
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Skipping pitcher filtering for simplified testing
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - WAR hitting data: 5760 records (no filtering applied)
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Filtering pitchers from WARP hitting data...
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Skipping pitcher filtering for simplified testing
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - WARP hitting data: 6503 records (no filtering applied)
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Loading EXPANDED pitcher data...
+00:44:54 - current_season_modules.modeling.data_loading - INFO - Loading expanded FanGraphs pitcher data...
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2016: 736 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2017: 743 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2018: 784 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2019: 818 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2020: 719 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2021: 885 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2022: 861 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2023: 851 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - SUCCESS 2024: 840 pitcher records loaded
+00:44:54 - current_season_modules.modeling.data_loading - INFO - Expanded FanGraphs pitcher data: 7237 total records
+00:44:54 - current_season_modules.modeling.data_loading - INFO - Games range: 1 to 83
+00:44:54 - current_season_modules.modeling.data_preparation - INFO - Pitcher data after two-way filtering: 7345 WARP, 7237 WAR
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - Loaded data: 6503 hitter WARP, 7345 pitcher WARP
+00:44:58 - current_season_modules.modeling.data_preparation - INFO -               5760 hitter WAR, 7237 pitcher WAR
+00:44:58 - current_season_modules.modeling.data_preparation - INFO -               11234 BP positions, 20831 FG positions
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - Creating MLBID-based player mappings...
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - Creating MLBID-based player mapping...
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - WARP data: 6503 records with valid mlbid
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - WAR data: 5760 records with valid MLBAMID
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - Common MLB IDs: 1536
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - Created 5743 WARP->WAR index mappings
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - Creating MLBID-based player mapping...
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - WARP data: 7345 records with valid mlbid
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - WAR data: 7237 records with valid MLBAMID
+00:44:58 - current_season_modules.modeling.data_preparation - INFO - Common MLB IDs: 2236
+00:44:59 - current_season_modules.modeling.data_preparation - INFO - Created 7307 WARP->WAR index mappings
+00:44:59 - current_season_modules.modeling.data_preparation - INFO - MLBID mappings created: 5743 hitters, 7307 pitchers
+00:44:59 - current_season_modules.modeling.data_preparation - INFO - WARP data: 5743/5743 records with valid WARP
+00:44:59 - current_season_modules.modeling.data_preparation - INFO - WAR data: 5743/5743 records with valid WAR
+00:44:59 - common_modules.derived_stats - INFO - Loading percentage-based pitcher features for years 2016-2024
+00:44:59 - common_modules.pitcher_feature_calculations - INFO - Loading percentage features for years 2016-2024
+00:45:00 - common_modules.pitcher_feature_calculations - INFO - Loading opportunity components for years 2016-2024
+00:45:01 - common_modules.feature_calculations - INFO - Calculated opportunity_success for 2236 players
+00:45:01 - common_modules.feature_calculations - INFO - Calculated percentage damage_control_ratio for 2236 players
+00:45:01 - common_modules.feature_calculations - INFO - Damage Control Ratio normalized: mean=50.0, std=15.0
+00:45:01 - common_modules.pitcher_feature_calculations - INFO - Loading contact quality data for years 2016-2024
+00:45:01 - common_modules.feature_calculations - INFO - Contact Quality Index normalized: mean=50.0, std=15.0
+00:45:01 - common_modules.pitcher_feature_calculations - INFO - Loading Statcast exit velocity data
+00:45:01 - common_modules.pitcher_feature_calculations - INFO - Loaded Statcast data for 2277 total players
+00:45:01 - common_modules.feature_calculations - INFO - Statcast Launch Quality Index normalized: mean=50.0, std=15.0
+00:45:01 - common_modules.derived_stats - INFO - Percentage features loaded successfully
+00:45:02 - common_modules.derived_stats - INFO - Loading percentage-based pitcher features for years 2016-2024
+00:45:02 - common_modules.pitcher_feature_calculations - INFO - Loading percentage features for years 2016-2024
+00:45:03 - common_modules.pitcher_feature_calculations - INFO - Loading opportunity components for years 2016-2024
+00:45:04 - common_modules.feature_calculations - INFO - Calculated opportunity_success for 2236 players
+00:45:04 - common_modules.feature_calculations - INFO - Calculated percentage damage_control_ratio for 2236 players
+00:45:04 - common_modules.feature_calculations - INFO - Damage Control Ratio normalized: mean=50.0, std=15.0
+00:45:04 - common_modules.pitcher_feature_calculations - INFO - Loading contact quality data for years 2016-2024
+00:45:05 - common_modules.feature_calculations - INFO - Contact Quality Index normalized: mean=50.0, std=15.0
+00:45:05 - common_modules.pitcher_feature_calculations - INFO - Loading Statcast exit velocity data
+00:45:05 - common_modules.pitcher_feature_calculations - INFO - Loaded Statcast data for 2277 total players
+00:45:05 - common_modules.feature_calculations - INFO - Statcast Launch Quality Index normalized: mean=50.0, std=15.0
+00:45:05 - common_modules.derived_stats - INFO - Percentage features loaded successfully
+00:45:06 - current_season_modules.modeling.data_preparation - INFO - WARP data: 7289/7307 records with valid WARP
+00:45:06 - current_season_modules.modeling.data_preparation - INFO - WAR data: 7307/7307 records with valid WAR
+00:45:06 - current_season_modules.modeling.data_preparation - INFO - Applying legitimate pitcher filtering...
+00:45:06 - common_modules.filter_legitimate_pitchers - INFO - Before filtering: 7307 pitchers
+00:45:06 - common_modules.filter_legitimate_pitchers - INFO - After filtering: 4456 pitchers (removed 2851 position players)
+00:45:06 - current_season_modules.modeling.data_preparation - INFO - Pitcher filtering applied successfully
+00:45:06 - current_season_modules.modeling.data_preparation - INFO - Applying legitimate hitter filtering...
+00:45:06 - common_modules.filter_legitimate_pitchers - INFO - Before filtering: 5743 hitters
+00:45:06 - common_modules.filter_legitimate_pitchers - INFO - Kept 6 legitimate two-way players
+00:45:06 - common_modules.filter_legitimate_pitchers - INFO - After filtering: 5743 hitters (removed 0 forced hitters)
+00:45:06 - current_season_modules.modeling.data_preparation - INFO - Hitter filtering applied successfully
+2025-10-01 00:45:06.812490: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 AVX_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+C:\Users\nairs\Documents\GithubProjects\oWAR\.venv\Lib\site-packages\sklearn\utils\validation.py:2749: UserWarning: X does not have valid feature names, but LGBMRegressor was fitted with feature names
+  warnings.warn(
+Traceback (most recent call last):
+  File "C:\Users\nairs\Documents\GithubProjects\oWAR\current_season_modules\modeling\compare_ensembles.py", line 310, in main
+    results = compare_ensembles(hitter_data, pitcher_data, holdout_year=2024)
+  File "C:\Users\nairs\Documents\GithubProjects\oWAR\current_season_modules\modeling\compare_ensembles.py", line 196, in compare_ensembles
+    print(f"  Improvement:              \u0394R² = {tree_r2 - orig_r2:+.4f}, \u0394RMSE = {tree_rmse - orig_rmse:+.4f}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\nairs\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u0394' in position 28: character maps to <undefined>
+Loading and preparing data...
+Loading enhanced features...
+=== LOADING BASERUNNING DATA ===
+Loaded cached baserunning data (2465 players)
+=== LOADING DEFENSE DATA ===
+Loaded cached defense data (3510 players)
+Loading positional data for projections...
+  FG defensive data: 20831 records
+  BP fielding data: 11234 player-seasons
+Positional data loaded:
+  FG positions: 20831
+  BP positions: 11234
+================================================================================
+ENSEMBLE COMPARISON: RF+Keras vs RF+XGBoost+LightGBM
+================================================================================
+
+Training ORIGINAL ensemble (RF + Keras)...
+Training SEPARATE ensemble for hitter WAR...
+  Training on 5635 samples
+  Target range: -2.04 to 8.64
+  Target mean: 0.852, std: 1.574
+  Training RandomForest for WAR...
+  Training Keras neural network...
+  Validating ensemble for hitter war...
+    RandomForest R² = 0.7211 ± 0.0147
+    Keras R² = 0.7417 ± 0.0234
+    Ensemble R² = 0.7567 ± 0.0170
+    Ensemble improvement: +0.0150
+  Ensemble training completed for hitter_war
+Training SEPARATE ensemble for hitter WARP...
+  Training on 5094 samples
+  Target range: -1.70 to 10.50
+  Target mean: 0.871, std: 1.264
+  Training RandomForest for WARP...
+  Training Keras neural network...
+  Validating ensemble for hitter warp...
+    RandomForest R² = 0.7922 ± 0.0071
+    Keras R² = 0.7884 ± 0.0203
+    Ensemble R² = 0.8016 ± 0.0011
+    Ensemble improvement: +0.0094
+  Ensemble training completed for hitter_warp
+Training SEPARATE ensemble for pitcher WAR...
+  Training on 4385 samples
+  Target range: -1.18 to 6.35
+  Target mean: 0.830, std: 1.186
+  Training RandomForest for WAR...
+  Training Keras neural network...
+  Validating ensemble for pitcher war...
+    RandomForest R² = 0.5932 ± 0.0624
+    Keras R² = 0.6202 ± 0.0195
+    Ensemble R² = 0.6354 ± 0.0236
+    Ensemble improvement: +0.0152
+  Ensemble training completed for pitcher_war
+Training SEPARATE ensemble for pitcher WARP...
+  Training on 6451 samples
+  Target range: -3.50 to 8.00
+  Target mean: 0.447, std: 1.032
+  Training RandomForest for WARP...
+  Training Keras neural network...
+  Validating ensemble for pitcher warp...
+    RandomForest R² = 0.7050 ± 0.0834
+    Keras R² = 0.6444 ± 0.0478
+    Ensemble R² = 0.7078 ± 0.0703
+    Ensemble improvement: +0.0028
+  Ensemble training completed for pitcher_warp
+
+Training NEW ensemble (RF + XGBoost + LightGBM)...
+Training THREE-TREE ensemble for hitter WAR...
+  Training on 5635 samples
+  Target range: -2.04 to 8.64
+  Target mean: 0.852, std: 1.574
+  Training RandomForest for WAR...
+  Training XGBoost for WAR...
+  Training LightGBM for WAR...
+  Validating ensemble for hitter war...
+    RandomForest R² = 0.7211 ± 0.0147
+    XGBoost R² = 0.7041 ± 0.0250
+    LightGBM R² = 0.7107 ± 0.0105
+    Ensemble R² = 0.7279 ± 0.0126
+    Ensemble improvement: +0.0068
+  Ensemble training completed for hitter_war
+Training THREE-TREE ensemble for hitter WARP...
+  Training on 5094 samples
+  Target range: -1.70 to 10.50
+  Target mean: 0.871, std: 1.264
+  Training RandomForest for WARP...
+  Training XGBoost for WARP...
+  Training LightGBM for WARP...
+  Validating ensemble for hitter warp...
+    RandomForest R² = 0.7922 ± 0.0071
+    XGBoost R² = 0.7708 ± 0.0087
+    LightGBM R² = 0.7901 ± 0.0094
+    Ensemble R² = 0.7941 ± 0.0064
+    Ensemble improvement: +0.0019
+  Ensemble training completed for hitter_warp
+Training THREE-TREE ensemble for pitcher WAR...
+  Training on 4385 samples
+  Target range: -1.18 to 6.35
+  Target mean: 0.830, std: 1.186
+  Training RandomForest for WAR...
+  Training XGBoost for WAR...
+  Training LightGBM for WAR...
+  Validating ensemble for pitcher war...
+    RandomForest R² = 0.5932 ± 0.0624
+    XGBoost R² = 0.5395 ± 0.0070
+    LightGBM R² = 0.5676 ± 0.0192
+    Ensemble R² = 0.5878 ± 0.0238
+    Ensemble improvement: -0.0054
+  Ensemble training completed for pitcher_war
+Training THREE-TREE ensemble for pitcher WARP...
+  Training on 6451 samples
+  Target range: -3.50 to 8.00
+  Target mean: 0.447, std: 1.032
+  Training RandomForest for WARP...
+  Training XGBoost for WARP...
+  Training LightGBM for WARP...
+  Validating ensemble for pitcher warp...
+    RandomForest R² = 0.7050 ± 0.0834
+    XGBoost R² = 0.6868 ± 0.0632
+    LightGBM R² = 0.7160 ± 0.0731
+    Ensemble R² = 0.7178 ± 0.0738
+    Ensemble improvement: +0.0018
+  Ensemble training completed for pitcher_warp
+
+
+================================================================================
+Comparing PITCHER WAR predictions
+================================================================================
+
+OVERALL PERFORMANCE:
+  Original (RF+Keras):      R² = 0.0260, RMSE = 0.9615
+  New (RF+XGB+LGBM):        R² = 0.7390, RMSE = 0.4978
+Error: 'charmap' codec can't encode character '\u0394' in position 28: character maps to <undefined>

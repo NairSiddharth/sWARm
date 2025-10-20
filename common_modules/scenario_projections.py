@@ -36,9 +36,9 @@ class ScenarioProjector:
         }
 
     def calculate_all_scenarios(self, current_stats: Dict, games_played: int,
-                              career_stats: Optional[Dict] = None,
-                              expected_stats: Optional[Dict] = None,
-                              player_type: str = 'hitter') -> Dict[str, Dict]:
+                                career_stats: Optional[Dict] = None,
+                                expected_stats: Optional[Dict] = None,
+                                player_type: str = 'hitter') -> Dict[str, Dict]:
         """
         Calculate all 5 projection scenarios for a player
 
@@ -96,8 +96,8 @@ class ScenarioProjector:
         return scenarios
 
     def _calculate_rate_scenario(self, current_stats: Dict, games_played: int,
-                                games_remaining: int, rate_percentage: float,
-                                player_type: str) -> Dict:
+                                 games_remaining: int, rate_percentage: float,
+                                 player_type: str) -> Dict:
         """Calculate projection based on current rate * percentage"""
         projected_stats = current_stats.copy()
 
@@ -129,8 +129,8 @@ class ScenarioProjector:
         return projected_stats
 
     def _adjust_ratio_stats(self, projected_stats: Dict, current_stats: Dict,
-                           games_played: int, games_remaining: int,
-                           rate_percentage: float, player_type: str) -> Dict:
+                            games_played: int, games_remaining: int,
+                            rate_percentage: float, player_type: str) -> Dict:
         """Adjust ratio-based statistics for projections"""
 
         if player_type == 'hitter':
@@ -154,10 +154,10 @@ class ScenarioProjector:
                 if 'HR' in projected_stats and projected_total_pa > 0:
                     # Simplified SLG estimation
                     singles = max(0, projected_stats['H'] - projected_stats.get('2B', 0) -
-                                projected_stats.get('3B', 0) - projected_stats['HR'])
+                                  projected_stats.get('3B', 0) - projected_stats['HR'])
                     doubles = projected_stats.get('2B', current_stats.get('2B', 0))
                     triples = projected_stats.get('3B', current_stats.get('3B', 0))
-                    total_bases = singles + 2*doubles + 3*triples + 4*projected_stats['HR']
+                    total_bases = singles + 2 * doubles + 3 * triples + 4 * projected_stats['HR']
                     projected_stats['SLG'] = total_bases / projected_total_pa
 
                 projected_stats['OPS'] = projected_stats['OBP'] + projected_stats.get('SLG', 0)
@@ -175,7 +175,8 @@ class ScenarioProjector:
 
             # Adjust WHIP
             if 'H' in projected_stats and 'BB' in projected_stats and projected_total_ip > 0:
-                projected_stats['WHIP'] = (projected_stats['H'] + projected_stats['BB']) / projected_total_ip
+                projected_stats['WHIP'] = (
+                    projected_stats['H'] + projected_stats['BB']) / projected_total_ip
 
             # Adjust rate stats per 9 innings
             for stat_per_9 in ['K/9', 'BB/9', 'HR/9']:
@@ -183,13 +184,14 @@ class ScenarioProjector:
                 if base_stat in projected_stats and projected_total_ip > 0:
                     if base_stat == 'K':
                         base_stat = 'SO'  # Handle strikeouts
-                    projected_stats[stat_per_9] = (projected_stats[base_stat] * 9) / projected_total_ip
+                    projected_stats[stat_per_9] = (
+                        projected_stats[base_stat] * 9) / projected_total_ip
 
         return projected_stats
 
     def _calculate_career_regression(self, current_stats: Dict, games_played: int,
-                                   games_remaining: int, career_stats: Optional[Dict],
-                                   expected_stats: Optional[Dict], player_type: str) -> Dict:
+                                     games_remaining: int, career_stats: Optional[Dict],
+                                     expected_stats: Optional[Dict], player_type: str) -> Dict:
         """
         Calculate career regression scenario using weighted blend
 
@@ -231,7 +233,7 @@ class ScenarioProjector:
                         weight_current = games_played / (games_played + games_remaining)
                         weight_target = games_remaining / (games_played + games_remaining)
                         projected_stats[stat] = (weight_current * current_value +
-                                               weight_target * target_rate)
+                                                 weight_target * target_rate)
                     else:
                         # Counting stats
                         additional_production = target_rate * additional_pa
@@ -248,7 +250,7 @@ class ScenarioProjector:
                         weight_current = current_ip / (current_ip + additional_ip)
                         weight_target = additional_ip / (current_ip + additional_ip)
                         projected_stats[stat] = (weight_current * current_value +
-                                               weight_target * target_rate)
+                                                 weight_target * target_rate)
                     else:
                         # Counting stats based on IP
                         if stat == 'SO':
@@ -267,8 +269,8 @@ class ScenarioProjector:
         return projected_stats
 
     def _calculate_regression_targets(self, career_stats: Optional[Dict],
-                                    expected_stats: Optional[Dict],
-                                    player_type: str) -> Dict:
+                                      expected_stats: Optional[Dict],
+                                      player_type: str) -> Dict:
         """Calculate regression targets using weighted blend of career and expected stats"""
         targets = {}
 
@@ -284,7 +286,7 @@ class ScenarioProjector:
             if expected_value is not None and career_value is not None:
                 # Use weighted blend
                 target_value = (self.career_regression_weights['expected_stats'] * expected_value +
-                              self.career_regression_weights['career_average'] * career_value)
+                                self.career_regression_weights['career_average'] * career_value)
                 targets[stat] = target_value
             elif expected_value is not None:
                 # Use expected stats only
@@ -303,7 +305,7 @@ class ScenarioProjector:
             return ['ERA', 'WHIP', 'K/9', 'BB/9', 'HR/9', 'SO', 'BB', 'HR']
 
     def calculate_war_warp_scenarios(self, stat_scenarios: Dict[str, Dict],
-                                   player_type: str, warp_calculator=None) -> Dict[str, Dict]:
+                                     player_type: str, warp_calculator=None) -> Dict[str, Dict]:
         """
         Convert statistical scenarios to WAR/WARP projections
 
@@ -374,10 +376,10 @@ class ScenarioProjector:
 
 
 def project_player_scenarios(current_stats: Dict, games_played: int,
-                            career_stats: Optional[Dict] = None,
-                            expected_stats: Optional[Dict] = None,
-                            player_type: str = 'hitter',
-                            warp_calculator=None) -> Dict[str, Dict]:
+                             career_stats: Optional[Dict] = None,
+                             expected_stats: Optional[Dict] = None,
+                             player_type: str = 'hitter',
+                             warp_calculator=None) -> Dict[str, Dict]:
     """
     Convenience function to generate all scenarios for a player
 

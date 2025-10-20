@@ -45,14 +45,19 @@ def classify_pitcher_role(games_pitched, innings_pitched, games_started=None):
         return {'role': 'swing', 'confidence': 0.3}
 
 
-def calculate_pitcher_remaining_workload(current_games, current_ip, role_classification):
+def calculate_pitcher_remaining_workload(current_games, current_ip, role_classification,
+                                        team_games_played=None, team_games_total=162):
     """
-    Calculate realistic remaining workload for pitcher based on role
+    Calculate realistic remaining workload for pitcher based on role.
+
+    Now supports actual team games for accurate participation-based projections.
 
     Args:
         current_games: Games pitched so far
         current_ip: Innings pitched so far
         role_classification: Result from classify_pitcher_role()
+        team_games_played: Actual games team has played (for participation rate)
+        team_games_total: Total games in season (default 162)
 
     Returns:
         dict: {
@@ -60,7 +65,8 @@ def calculate_pitcher_remaining_workload(current_games, current_ip, role_classif
             'remaining_ip': float,
             'total_season_games': int,
             'total_season_ip': float,
-            'projection_basis': str
+            'projection_basis': str,
+            'participation_rate': float (if team games provided)
         }
     """
     role = role_classification['role']
@@ -72,32 +78,51 @@ def calculate_pitcher_remaining_workload(current_games, current_ip, role_classif
         projected_total_games = 32
         projected_total_ip = 200  # Conservative starter target
 
-        # Adjust based on current pace if significantly different
-        if current_games > 0:
-            current_pace_games = (current_games / current_games) * 32  # Linear projection
-            current_pace_ip = (current_ip / current_games) * projected_total_games
+        # Use participation rate if team games available
+        if team_games_played and current_games > 0:
+            # Calculate actual participation rate
+            participation_rate = current_games / team_games_played
+            remaining_team_games = team_games_total - team_games_played
 
-            # Blend current pace with typical starter expectations
-            blend_factor = min(0.7, confidence)  # Higher confidence = more typical
-            projected_total_games = int(
-                blend_factor * projected_total_games +
-                (1 - blend_factor) * min(35, current_pace_games)
-            )
-            projected_total_ip = (
-                blend_factor * projected_total_ip +
-                (1 - blend_factor) * min(230, current_pace_ip)
-            )
+            # Project based on participation rate (accounting for 5-man rotation)
+            # Max ~32 starts for starters even with perfect attendance
+            max_starts_remaining = remaining_team_games / 5  # 5-man rotation
+            projected_remaining = min(participation_rate * remaining_team_games, max_starts_remaining)
+
+            projected_total_games = current_games + int(projected_remaining)
+
+            # Calculate IP based on current average
+            ip_per_game = current_ip / current_games
+            projected_total_ip = projected_total_games * ip_per_game
+        elif current_games > 0:
+            # Fallback to simple pace calculation without team games
+            ip_per_game = current_ip / current_games
+
+            # For starters, typical is 32 games, but adjust based on current usage
+            # No need to blend - just use typical starter values
+            projected_total_games = 32
+            projected_total_ip = ip_per_game * projected_total_games
+        else:
+            # No games played yet - use defaults
+            projected_total_games = 32
+            projected_total_ip = 200
 
         remaining_games = max(0, projected_total_games - current_games)
         remaining_ip = max(0, projected_total_ip - current_ip)
 
-        return {
+        result = {
             'remaining_games': remaining_games,
             'remaining_ip': remaining_ip,
             'total_season_games': projected_total_games,
             'total_season_ip': projected_total_ip,
             'projection_basis': f'Starter rotation (conf: {confidence:.2f})'
         }
+
+        # Add participation rate if calculated
+        if team_games_played and current_games > 0:
+            result['participation_rate'] = current_games / team_games_played
+
+        return result
 
     elif role == 'reliever':
         # Relievers: ~50-70 games, 60-80 IP per season
@@ -145,15 +170,29 @@ def calculate_pitcher_remaining_workload(current_games, current_ip, role_classif
         }
 
 
-def calculate_pitcher_projections(player_data, ensemble_predictor, player_feature_vector, total_remaining_games=None):
+def calculate_pitcher_projections(
+        player_data,
+        ensemble_predictor,
+        player_feature_vector,
+        total_remaining_games=None,
+        team_games_dict=None,
+        hitter_df=None,
+        pitcher_df=None):
     """
-    Calculate pitcher projections using realistic workload expectations
+    Calculate pitcher projections using realistic workload expectations.
+
+    Now supports:
+    - Actual team games for participation-based projections
+    - Automatic two-way player detection and constraints
 
     Args:
         player_data: DataFrame row with pitcher data
         ensemble_predictor: Trained ensemble model
         player_feature_vector: Feature vector for predictions
-        total_remaining_games: Optional constraint for two-way players or late-season callups
+        total_remaining_games: Optional manual constraint
+        team_games_dict: Dictionary mapping team to actual games played
+        hitter_df: Full hitter DataFrame for two-way player detection
+        pitcher_df: Full pitcher DataFrame for two-way player detection
 
     Returns:
         dict: Complete projection data with realistic workload
@@ -163,16 +202,55 @@ def calculate_pitcher_projections(player_data, ensemble_predictor, player_featur
     current_ip = player_data.get('IP', 0.0)
     current_gs = player_data.get('GS', None)  # Games started if available
 
+    # Get team games - load automatically if not provided
+    team_games_played = None
+    if team_games_dict is None:
+        # Try to load team games for current season
+        try:
+            from current_season_modules.current_season_data_loading import calculate_team_games_from_hitters
+            team_games_dict = calculate_team_games_from_hitters(2025, 'fangraphs')
+        except Exception:
+            # If loading fails, team_games_dict remains None
+            pass
+
+    if team_games_dict:
+        team = player_data.get('Team', player_data.get('team', None))
+        if team and team in team_games_dict:
+            team_games_played = team_games_dict[team]
+
     # Classify pitcher role
     role_classification = classify_pitcher_role(current_games, current_ip, current_gs)
 
-    # Calculate realistic remaining workload
+    # Calculate realistic remaining workload with team games if available
     workload_projection = calculate_pitcher_remaining_workload(
-        current_games, current_ip, role_classification
+        current_games, current_ip, role_classification,
+        team_games_played=team_games_played
     )
 
-    # Apply game constraint for two-way players or late-season callups
-    if total_remaining_games is not None:
+    # Check for two-way player constraints
+    if hitter_df is not None and pitcher_df is not None:
+        from common_modules.two_way_player_handler import apply_two_way_constraints_to_projections
+
+        original_remaining = workload_projection['remaining_games']
+        constrained_remaining = apply_two_way_constraints_to_projections(
+            player_data,
+            'pitcher',
+            original_remaining,
+            hitter_df,
+            pitcher_df
+        )
+
+        if constrained_remaining != original_remaining:
+            # Adjust for two-way player
+            ip_ratio = constrained_remaining / original_remaining if original_remaining > 0 else 0
+            workload_projection['remaining_games'] = constrained_remaining
+            workload_projection['remaining_ip'] = workload_projection['remaining_ip'] * ip_ratio
+            workload_projection['total_season_games'] = current_games + constrained_remaining
+            workload_projection['total_season_ip'] = current_ip + workload_projection['remaining_ip']
+            workload_projection['projection_basis'] += ' (two-way player adjusted)'
+
+    # Apply manual constraint if provided (for late-season callups, etc.)
+    elif total_remaining_games is not None:
         original_remaining = workload_projection['remaining_games']
         constrained_remaining = min(workload_projection['remaining_games'], total_remaining_games)
 
@@ -183,17 +261,63 @@ def calculate_pitcher_projections(player_data, ensemble_predictor, player_featur
             workload_projection['remaining_ip'] = workload_projection['remaining_ip'] * ip_ratio
             workload_projection['total_season_games'] = current_games + constrained_remaining
             workload_projection['total_season_ip'] = current_ip + workload_projection['remaining_ip']
-            workload_projection['projection_basis'] += f' (constrained by {total_remaining_games} remaining team games)'
+            workload_projection['projection_basis'] += f' (manually constrained to {total_remaining_games} games)'
 
     # Calculate current performance using ensemble
-    print(f"DEBUG: Feature vector for {player_data.get('Name', 'Unknown')}: {player_feature_vector}")
+    print(
+        f"DEBUG: Feature vector for {
+            player_data.get(
+                'Name',
+                'Unknown')}: {player_feature_vector}")
     print(f"DEBUG: Feature vector shape: {np.array(player_feature_vector).shape}")
     print(f"DEBUG: Feature vector type: {type(player_feature_vector)}")
 
-    current_war = ensemble_predictor.predict_ensemble(player_feature_vector, 'war', 'pitcher')['ensemble']
-    current_warp = ensemble_predictor.predict_ensemble(player_feature_vector, 'warp', 'pitcher')['ensemble']
+    # Check if this is a Phase 1 pitcher ensemble (rate-based three-path)
+    if hasattr(ensemble_predictor, 'pitcher_ensemble') and ensemble_predictor.pitcher_ensemble:
+        # Use Phase 1 interface
+        print("DEBUG: Using Phase 1 rate-based prediction interface")
 
-    print(f"DEBUG: Predicted WAR: {current_war:.3f}, WARP: {current_warp:.3f}")
+        # Phase 1 expects features WITHOUT IP (IP is first feature, so skip it)
+        features_no_ip = player_feature_vector[1:] if len(player_feature_vector) > 1 else player_feature_vector
+
+        # Get G and GS from player_data
+        G = player_data.get('G', current_games)
+        GS = player_data.get('GS', 0)
+
+        # Predict current performance using Phase 1
+        war_pred = ensemble_predictor.pitcher_ensemble.predict(
+            features=features_no_ip,
+            GS=int(GS),
+            G=int(G),
+            IP=float(current_ip),
+            metric_type='war'
+        )
+        warp_pred = ensemble_predictor.pitcher_ensemble.predict(
+            features=features_no_ip,
+            GS=int(GS),
+            G=int(G),
+            IP=float(current_ip),
+            metric_type='warp'
+        )
+
+        current_war = war_pred['current_war']
+        current_warp = warp_pred['current_war']  # Phase 1 calls it 'current_war' for both metrics
+
+        # Also get projected WAR if available (for future use)
+        phase1_projected_war = war_pred.get('projected_war', None)
+        phase1_projected_warp = warp_pred.get('projected_war', None)
+        phase1_role = war_pred['role']
+
+        print(f"DEBUG: Phase 1 predicted WAR: {current_war:.3f}, WARP: {current_warp:.3f}")
+        print(f"DEBUG: Phase 1 classified role: {phase1_role}")
+    else:
+        # Use original interface (backward compatibility)
+        current_war = ensemble_predictor.predict_ensemble(
+            player_feature_vector, 'war', 'pitcher')['ensemble']
+        current_warp = ensemble_predictor.predict_ensemble(
+            player_feature_vector, 'warp', 'pitcher')['ensemble']
+
+        print(f"DEBUG: Predicted WAR: {current_war:.3f}, WARP: {current_warp:.3f}")
 
     # Calculate per-game and per-inning rates
     war_per_game = current_war / current_games if current_games > 0 else 0

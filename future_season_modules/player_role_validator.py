@@ -60,7 +60,7 @@ class PlayerRoleValidator:
         self.rookie_system = None
         if enable_rookie_protection:
             try:
-                from common_modules.elite_adjustment import RookieEliteProtection
+                from common_modules.rookie_elite_protection import RookieEliteProtection
                 self.rookie_system = RookieEliteProtection(use_enhanced_system=True)
             except ImportError:
                 print("Warning: RookieEliteProtection not available - rookie bypass disabled")

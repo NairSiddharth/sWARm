@@ -14,7 +14,14 @@ import glob
 import os
 from typing import Dict, List, Optional, Tuple
 
-# Industry-aligned positional WAR adjustments per 600 PA (calibrated to FanGraphs/Baseball-Reference)
+# Public API exports
+__all__ = [
+    'POSITION_WAR_ADJUSTMENTS',
+    'PositionalAdjustmentCalculator'
+]
+
+# Industry-aligned positional WAR adjustments per 600 PA (calibrated to
+# FanGraphs/Baseball-Reference)
 POSITION_WAR_ADJUSTMENTS = {
     'C': +1.25,   # Catcher: highest positive adjustment
     'SS': +0.75,  # Shortstop: high positive adjustment
@@ -66,8 +73,11 @@ class PositionalAdjustmentCalculator:
     def _load_fangraphs_defensive_data(self) -> Optional[pd.DataFrame]:
         """Load FanGraphs defensive data."""
         defensive_files = glob.glob(
-            os.path.join(self.data_dir, "FanGraphs_Data", "defensive", "fangraphs_defensive_standard_*.csv")
-        )
+            os.path.join(
+                self.data_dir,
+                "FanGraphs_Data",
+                "defensive",
+                "fangraphs_defensive_standard_*.csv"))
 
         if not defensive_files:
             print("  Warning: No FanGraphs defensive files found")
@@ -83,7 +93,10 @@ class PositionalAdjustmentCalculator:
                 df['Season'] = year
                 defensive_cols = ['MLBAMID', 'Name', 'Season', 'Pos', 'Inn']
                 df_filtered = df[defensive_cols].copy()
-                df_filtered = df_filtered.rename(columns={'Pos': 'Primary_Position', 'Inn': 'Total_Innings'})
+                df_filtered = df_filtered.rename(
+                    columns={
+                        'Pos': 'Primary_Position',
+                        'Inn': 'Total_Innings'})
                 df_filtered = df_filtered.dropna(subset=['MLBAMID', 'Primary_Position'])
 
                 all_defensive_data.append(df_filtered)
@@ -161,9 +174,9 @@ class PositionalAdjustmentCalculator:
         return pd.DataFrame(player_year_positions)
 
     def calculate_positional_adjustment(self,
-                                     primary_position: str,
-                                     playing_time_pa: float,
-                                     full_season_pa: float = 600) -> float:
+                                        primary_position: str,
+                                        playing_time_pa: float,
+                                        full_season_pa: float = 600) -> float:
         """
         Calculate positional WAR adjustment based on position and playing time.
 
@@ -249,8 +262,10 @@ class PositionalAdjustmentCalculator:
                     suffixes=('', '_bp')
                 )
 
-                df_enhanced.loc[missing_positions, 'Primary_Position'] = bp_merge['Primary_Position_bp'].values
-                df_enhanced.loc[missing_positions, 'Total_Innings'] = bp_merge['Total_Innings_bp'].values
+                df_enhanced.loc[missing_positions,
+                                'Primary_Position'] = bp_merge['Primary_Position_bp'].values
+                df_enhanced.loc[missing_positions,
+                                'Total_Innings'] = bp_merge['Total_Innings_bp'].values
 
         # Calculate positional WAR adjustments
         df_enhanced['Positional_WAR'] = df_enhanced.apply(
@@ -262,10 +277,17 @@ class PositionalAdjustmentCalculator:
 
         # Report success rate
         total_with_positions = df_enhanced['Primary_Position'].notna().sum()
-        print(f"  Position assignment: {total_with_positions}/{len(df_enhanced)} ({total_with_positions/len(df_enhanced)*100:.1f}%)")
+        print(
+            f"  Position assignment: {total_with_positions}/{
+                len(df_enhanced)} ({
+                total_with_positions / len(df_enhanced) * 100:.1f}%)")
 
         if total_with_positions > 0:
             adj_stats = df_enhanced['Positional_WAR'].describe()
-            print(f"  Positional WAR range: {adj_stats['min']:.3f} to {adj_stats['max']:.3f} (mean: {adj_stats['mean']:.3f})")
+            print(
+                f"  Positional WAR range: {
+                    adj_stats['min']:.3f} to {
+                    adj_stats['max']:.3f} (mean: {
+                    adj_stats['mean']:.3f})")
 
         return df_enhanced

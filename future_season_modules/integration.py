@@ -31,7 +31,7 @@ project_root = os.path.dirname(current_dir)
 if project_root not in sys.path:
     sys.path.append(project_root)
 
-from common_modules.elite_adjustment import ElitePlayerAdjuster
+from common_modules.elite_adjustment_base import ElitePlayerAdjuster
 # from .positional_adjustments import PositionalAdjustmentCalculator  # Not needed - adjustments already in WAR/WARP
 DATA_DIR = r"C:\Users\nairs\Documents\GithubProjects\oWAR\MLB Player Data"
 

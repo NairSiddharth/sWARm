@@ -7,7 +7,6 @@ based on current performance metrics and player characteristics.
 """
 
 import pandas as pd
-import numpy as np
 from typing import Dict, Optional
 
 
@@ -39,10 +38,10 @@ class SimpleConfidenceScorer:
         }
 
     def calculate_confidence_score(self,
-                                 war_value: float,
-                                 age: Optional[float] = None,
-                                 position: Optional[str] = None,
-                                 ip_or_pa: Optional[float] = None) -> float:
+                                   war_value: float,
+                                   age: Optional[float] = None,
+                                   position: Optional[str] = None,
+                                   ip_or_pa: Optional[float] = None) -> float:
         """
         Calculate confidence score for a player.
 
@@ -119,11 +118,11 @@ class SimpleConfidenceScorer:
         return min(final_confidence, 8.0)
 
     def calculate_batch_confidence(self,
-                                 players_df: pd.DataFrame,
-                                 war_column: str = 'WAR',
-                                 age_column: str = 'Age',
-                                 position_column: str = 'Pos',
-                                 volume_column: str = 'IP') -> Dict[int, float]:
+                                   players_df: pd.DataFrame,
+                                   war_column: str = 'WAR',
+                                   age_column: str = 'Age',
+                                   position_column: str = 'Pos',
+                                   volume_column: str = 'IP') -> Dict[int, float]:
         """
         Calculate confidence scores for a batch of players.
 
@@ -158,10 +157,10 @@ class SimpleConfidenceScorer:
         return confidence_scores
 
     def calculate_undervaluation_adjusted_confidence(self,
-                                                   war_value: float,
-                                                   age: Optional[float] = None,
-                                                   position: Optional[str] = None,
-                                                   ip_or_pa: Optional[float] = None) -> float:
+                                                     war_value: float,
+                                                     age: Optional[float] = None,
+                                                     position: Optional[str] = None,
+                                                     ip_or_pa: Optional[float] = None) -> float:
         """
         Calculate confidence score adjusted for systematic WAR undervaluation.
 
@@ -245,8 +244,8 @@ class SimpleConfidenceScorer:
 
 
 def calculate_simple_confidence_scores(current_war_data: pd.DataFrame,
-                                     war_column: str = 'Current_WAR',
-                                     player_type: str = 'pitcher') -> Dict[int, float]:
+                                       war_column: str = 'Current_WAR',
+                                       player_type: str = 'pitcher') -> Dict[int, float]:
     """
     Convenience function to calculate confidence scores for WAR data.
 
