@@ -32,7 +32,10 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 project_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(project_root))
 
-from new_pipeline.common.constants import HITTER_MODEL_FEATURES, PITCHER_MODEL_FEATURES
+from new_pipeline.models.future_season.constants import (
+    FUTURE_HITTER_MODEL_FEATURES,
+    FUTURE_PITCHER_MODEL_FEATURES
+)
 
 
 def get_baseline_ensemble_weights(player_history_length: int) -> List[float]:
@@ -395,7 +398,7 @@ class ExtraTreesFallbackModel:
             raise ValueError(f"player_type must be 'hitter' or 'pitcher'")
 
         self.player_type = player_type
-        self.model_features = HITTER_MODEL_FEATURES if player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        self.model_features = FUTURE_HITTER_MODEL_FEATURES if player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         # Same hyperparameters as current season ExtraTrees (from hitter_ensemble.py)
         self.model = ExtraTreesRegressor(
@@ -583,7 +586,7 @@ class EnsembleLongitudinalModel:
             DataFrame with sequences (same format as build_longitudinal_sequences())
         """
         sequences = []
-        model_features = HITTER_MODEL_FEATURES if self.player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        model_features = FUTURE_HITTER_MODEL_FEATURES if self.player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         for i, (target_ts, cov_ts) in enumerate(zip(target_series, covariate_series)):
             # Get values as arrays
@@ -666,7 +669,7 @@ class EnsembleLongitudinalModel:
         Returns:
             Single-row DataFrame with columns matching sequences_df format
         """
-        model_features = HITTER_MODEL_FEATURES if self.player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        model_features = FUTURE_HITTER_MODEL_FEATURES if self.player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         # Get most recent year data
         war_values = target_series.values().flatten()
@@ -913,7 +916,7 @@ class EnsembleLongitudinalModel:
         Returns:
             Single-row DataFrame with fallback model features
         """
-        model_features = HITTER_MODEL_FEATURES if self.player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        model_features = FUTURE_HITTER_MODEL_FEATURES if self.player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         # Build row
         row = {
@@ -977,7 +980,7 @@ class EnsembleLongitudinalModel:
         if not self.is_fitted:
             raise RuntimeError("Ensemble not fitted. Call train() first.")
 
-        model_features = HITTER_MODEL_FEATURES if self.player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        model_features = FUTURE_HITTER_MODEL_FEATURES if self.player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         # Sort by year to ensure correct ordering
         player_history_df = player_history_df.sort_values('Year').copy()

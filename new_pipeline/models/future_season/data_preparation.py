@@ -17,8 +17,15 @@ import sys
 project_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(project_root))
 
-from new_pipeline.notebooks.shared.pipeline_runner import load_historical_data, run_data_pipeline
-from new_pipeline.common.constants import HITTER_MODEL_FEATURES, PITCHER_MODEL_FEATURES
+from new_pipeline.notebooks.shared.pipeline_runner import load_historical_data
+from new_pipeline.models.future_season.constants import (
+    FUTURE_HITTER_MODEL_FEATURES,
+    FUTURE_PITCHER_MODEL_FEATURES
+)
+from new_pipeline.models.future_season.transformers import (
+    FuturePitcherTransformer,
+    FutureHitterTransformer
+)
 from new_pipeline.models.future_season.injury_feature_builder import InjuryFeatureBuilder
 
 
@@ -47,7 +54,7 @@ def load_historical_player_data(
             - Year
             - Age
             - WAR
-            - Model features (9 for hitters, 14 for pitchers)
+            - Model features (19 for hitters, 21 for pitchers)
             - Usage metric (PA for hitters, IP for pitchers)
     """
     if player_type not in ['hitter', 'pitcher']:
@@ -77,12 +84,25 @@ def load_historical_player_data(
     injury_builder.load_injury_data(years=range(2020, 2026))
     df_raw = injury_builder.add_injury_features_to_historical_data(df_raw)
 
-    # Process through new pipeline transformers to get features
-    df_processed = run_data_pipeline(df_raw, player_type=player_type)
-    print(f"  Processed {len(df_processed)} player-seasons through pipeline")
+    # Ensure required columns for transformers (rename playerid to MLBAMID if needed)
+    if 'playerid' in df_raw.columns and 'MLBAMID' not in df_raw.columns:
+        df_raw = df_raw.rename(columns={'playerid': 'MLBAMID'})
 
-    # Select required columns
-    model_features = HITTER_MODEL_FEATURES if player_type == 'hitter' else PITCHER_MODEL_FEATURES
+    # Process through future season transformers to get features
+    if player_type == 'hitter':
+        transformer = FutureHitterTransformer(years=list(years))
+        model_features = FUTURE_HITTER_MODEL_FEATURES
+    else:
+        transformer = FuturePitcherTransformer(years=list(years))
+        model_features = FUTURE_PITCHER_MODEL_FEATURES
+
+    df_processed = transformer.fit_transform(df_raw)
+    print(f"  Processed {len(df_processed)} player-seasons through future season pipeline")
+
+    # Rename MLBAMID back to playerid for consistency with rest of codebase
+    if 'MLBAMID' in df_processed.columns:
+        df_processed = df_processed.rename(columns={'MLBAMID': 'playerid'})
+
     usage_col = 'PA' if player_type == 'hitter' else 'IP'
 
     required_cols = ['playerid', 'Name', 'Team', 'Year', 'Age', 'WAR', usage_col] + model_features
@@ -128,7 +148,7 @@ def build_longitudinal_sequences(
             - [feature]_n: Each model feature from Year N (e.g. 'K%_n', 'BB%_n')
             - war_n_plus_1: WAR in Year N+1 (TARGET)
     """
-    model_features = HITTER_MODEL_FEATURES if player_type == 'hitter' else PITCHER_MODEL_FEATURES
+    model_features = FUTURE_HITTER_MODEL_FEATURES if player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
     sequences = []
 

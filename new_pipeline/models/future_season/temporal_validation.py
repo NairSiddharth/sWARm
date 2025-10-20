@@ -164,6 +164,43 @@ class TemporalValidator:
                 'mean_predicted': predictions.mean()
             }
 
+            # Track feature importance (if available from model)
+            try:
+                from new_pipeline.models.future_season.constants import (
+                    FUTURE_PITCHER_MODEL_FEATURES,
+                    FUTURE_HITTER_MODEL_FEATURES
+                )
+
+                # Get player type from model
+                player_type = getattr(model, 'player_type', None)
+                if player_type:
+                    feature_names = (FUTURE_PITCHER_MODEL_FEATURES if player_type == 'pitcher'
+                                   else FUTURE_HITTER_MODEL_FEATURES)
+
+                    # Try to extract feature importance from ensemble model
+                    if hasattr(model, 'ensemble_model') and hasattr(model.ensemble_model, 'extratrees'):
+                        # Get from ExtraTrees model (most interpretable)
+                        if hasattr(model.ensemble_model.extratrees, 'model') and \
+                           hasattr(model.ensemble_model.extratrees.model, 'feature_importances_'):
+                            importance = model.ensemble_model.extratrees.model.feature_importances_
+
+                            # Map to feature names
+                            feature_importance = dict(zip(feature_names, importance))
+
+                            # Sort by importance
+                            sorted_features = sorted(feature_importance.items(),
+                                                   key=lambda x: x[1], reverse=True)
+
+                            # Add top 10 to metrics
+                            metrics['feature_importance'] = dict(sorted_features)
+
+                            print("\nTop 10 Most Important Features:")
+                            for feat, imp in sorted_features[:10]:
+                                print(f"  {feat}: {imp:.4f}")
+            except Exception as e:
+                # Feature importance tracking is optional, don't fail validation if it errors
+                print(f"Note: Could not extract feature importance: {e}")
+
             return metrics
 
         except Exception as e:
