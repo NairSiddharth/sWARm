@@ -231,10 +231,11 @@ HITTER_CRITICAL_FEATURES = [COL_BB_PCT, COL_K_PCT, COL_PA]
 # Modeling Feature Lists (for model input)
 # ============================================================================
 
-# Pitcher modeling features (14 total)
+# Pitcher modeling features (19 total: 14 base + 5 injury features)
 # ORDER MATCHES PITCHER_MONOTONIC_CONSTRAINTS in pitcher_ensemble.py
 # These are the final features used for model training after pipeline processing
 PITCHER_MODEL_FEATURES = [
+    # Base and composite features
     'BB%',                              # Base feature
     'K%',                               # Base feature
     'ERA',                              # Base feature
@@ -248,13 +249,20 @@ PITCHER_MODEL_FEATURES = [
     'strikeout_contact_quality',        # Composite feature
     'Statcast_Launch_Quality_Index',    # Composite feature
     'Running_Control',                  # Base feature
-    'SD_MD_Net'                         # Composite feature (reliever-specific signal)
+    'SD_MD_Net',                        # Composite feature (reliever-specific signal)
+    # Injury features (added Phase 1: Injury Feature Engineering)
+    'has_injury_data',
+    'had_tommy_john_ever',
+    'years_since_tommy_john',
+    'total_il_days_past_year',
+    'had_major_injury_past_year'
 ]
 
-# Hitter modeling features (9 total)
+# Hitter modeling features (14 total: 9 base + 5 injury features)
 # ORDER MATCHES HITTER_MONOTONIC_CONSTRAINTS in hitter_ensemble.py
 # These are the final features used for model training after pipeline processing
 HITTER_MODEL_FEATURES = [
+    # Base features
     'K%',                    # Base feature
     'BB%',                   # Base feature
     'AVG',                   # Base feature
@@ -263,7 +271,13 @@ HITTER_MODEL_FEATURES = [
     'GDP',                   # Base feature (derived from GDP count)
     'Positional_WAR',        # Derived feature
     'Enhanced_Baserunning',  # Derived feature
-    'Enhanced_Defense'       # Derived feature
+    'Enhanced_Defense',      # Derived feature
+    # Injury features (added Phase 1: Injury Feature Engineering)
+    'has_injury_data',
+    'had_tommy_john_ever',
+    'years_since_tommy_john',
+    'total_il_days_past_year',
+    'had_major_injury_past_year'
 ]
 
 
