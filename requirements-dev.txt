@@ -1,0 +1,15 @@
+# Development and analysis dependencies
+# Install with: pip install -r requirements-core.txt -r requirements-dev.txt
+#
+# These packages are needed for:
+# - Running Jupyter notebooks
+# - Visualization in notebooks
+# - Running tests
+# - Table formatting in notebook utilities
+
+jupyter==1.1.1
+jupyterlab==4.4.7
+matplotlib==3.10.6
+notebook==7.4.5
+prettytable==3.16.0
+pytest==8.4.2
