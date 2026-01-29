@@ -441,35 +441,20 @@ class FutureProjectionPipeline:
         else:
             return 'Below Replacement Level'
 
-    def save_projections(
-        self,
-        output_path: Optional[str] = None,
-        include_metadata: bool = True
-    ) -> str:
+    def _prepare_output_dataframe(self, include_metadata: bool = True) -> pd.DataFrame:
         """
-        Save projections to CSV file with enhanced readability.
+        Prepare output DataFrame with metadata and formatting.
 
         Args:
-            output_path: Path to save file (default: predictions/future_projections_{player_type}_{year}.csv)
             include_metadata: Include metadata columns (age, position, etc.)
 
         Returns:
-            Path where file was saved
+            Enriched DataFrame with player metadata and formatted projections
         """
-        print(f"\n--- Step 6: Saving Projections ---")
-
         if self.projections_df is None:
-            raise RuntimeError("No projections to save. Run pipeline first.")
+            raise RuntimeError("No projections to prepare. Run pipeline first.")
 
-        # Default output path
-        if output_path is None:
-            predictions_dir = project_root / "predictions"
-            predictions_dir.mkdir(exist_ok=True)
-
-            filename = f"future_projections_{self.player_type}_{self.base_year + 1}.csv"
-            output_path = predictions_dir / filename
-
-        # Prepare output DataFrame
+        # Start with projections
         output_df = self.projections_df.copy()
 
         # Merge player info from current year data
@@ -592,6 +577,36 @@ class FutureProjectionPipeline:
         final_cols = [col for col in final_cols if col in output_df.columns]
         output_df = output_df[final_cols]
 
+        return output_df
+
+    def save_projections(
+        self,
+        output_path: Optional[str] = None,
+        include_metadata: bool = True
+    ) -> Tuple[str, pd.DataFrame]:
+        """
+        Save projections to CSV file with enhanced readability.
+
+        Args:
+            output_path: Path to save file (default: predictions/future_projections_{player_type}_{year}.csv)
+            include_metadata: Include metadata columns (age, position, etc.)
+
+        Returns:
+            Tuple of (path where file was saved, enriched DataFrame with metadata)
+        """
+        print(f"\n--- Step 6: Saving Projections ---")
+
+        # Default output path
+        if output_path is None:
+            predictions_dir = project_root / "predictions"
+            predictions_dir.mkdir(exist_ok=True)
+
+            filename = f"future_projections_{self.player_type}_{self.base_year + 1}.csv"
+            output_path = predictions_dir / filename
+
+        # Prepare output DataFrame with metadata
+        output_df = self._prepare_output_dataframe(include_metadata=include_metadata)
+
         # Save to CSV
         output_df.to_csv(output_path, index=False)
 
@@ -600,7 +615,7 @@ class FutureProjectionPipeline:
         print(f"  Columns: {len(output_df.columns)}")
         print(f"  Projection years: {self.base_year + 1}-{self.base_year + self.years_ahead}")
 
-        return str(output_path)
+        return str(output_path), output_df
 
     def run_full_pipeline(
         self,
@@ -703,7 +718,11 @@ def generate_league_projections(
         pitcher_projections=pitcher_pipeline.projections_df
     )
 
-    # Save outputs
+    # Prepare enriched DataFrames with metadata
+    hitter_output = hitter_pipeline._prepare_output_dataframe(include_metadata=True)
+    pitcher_output = pitcher_pipeline._prepare_output_dataframe(include_metadata=True)
+
+    # Save outputs if requested
     if save_output:
         hitter_pipeline.save_projections()
         pitcher_pipeline.save_projections()
@@ -712,4 +731,4 @@ def generate_league_projections(
     print("LEAGUE-WIDE PROJECTIONS COMPLETE")
     print("="*70)
 
-    return hitter_pipeline.projections_df, pitcher_pipeline.projections_df
+    return hitter_output, pitcher_output
