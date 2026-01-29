@@ -21,7 +21,7 @@ import sys
 project_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(project_root))
 
-from new_pipeline.common.constants import HITTER_MODEL_FEATURES, PITCHER_MODEL_FEATURES
+from new_pipeline.models.future_season.constants import FUTURE_HITTER_MODEL_FEATURES, FUTURE_PITCHER_MODEL_FEATURES
 
 
 class LongitudinalModel:
@@ -48,7 +48,7 @@ class LongitudinalModel:
             raise ValueError(f"player_type must be 'hitter' or 'pitcher', got {player_type}")
 
         self.player_type = player_type
-        self.model_features = HITTER_MODEL_FEATURES if player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        self.model_features = FUTURE_HITTER_MODEL_FEATURES if player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         # Proven hyperparameters from MODEL_ARCHITECTURE.md
         # Based on old system + research tuning

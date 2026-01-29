@@ -18,7 +18,7 @@ import sys
 project_root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(project_root))
 
-from new_pipeline.common.constants import HITTER_MODEL_FEATURES, PITCHER_MODEL_FEATURES
+from new_pipeline.models.future_season.constants import FUTURE_HITTER_MODEL_FEATURES, FUTURE_PITCHER_MODEL_FEATURES
 
 
 class ExpectedStatsCalculator:
@@ -57,9 +57,9 @@ class ExpectedStatsCalculator:
         # Use new pipeline features instead of old wOBA/ISO
         if player_type == 'hitter':
             # NEW: Use new pipeline features + WAR
-            self.base_features = list(HITTER_MODEL_FEATURES) + ['WAR']
+            self.base_features = list(FUTURE_HITTER_MODEL_FEATURES) + ['WAR']
         else:
-            self.base_features = list(PITCHER_MODEL_FEATURES) + ['WAR']
+            self.base_features = list(FUTURE_PITCHER_MODEL_FEATURES) + ['WAR']
 
         # Consistency features (for variance calculation)
         # OLD: ['WAR', 'wOBA', 'OPS']

@@ -27,6 +27,7 @@ from new_pipeline.models.future_season.transformers import (
     FutureHitterTransformer
 )
 from new_pipeline.models.future_season.injury_feature_builder import InjuryFeatureBuilder
+from new_pipeline.common.transformers.age_enricher import AgeEnricher
 
 
 def load_historical_player_data(
@@ -79,10 +80,15 @@ def load_historical_player_data(
     # Add injury features BEFORE pipeline processing (Phase 1: Injury Feature Engineering)
     print("  Adding injury features to raw data...")
     injury_builder = InjuryFeatureBuilder(
-        injury_data_dir=Path("MLB Player Data/FanGraphs_Data/injuries")
+        injury_data_dir=project_root / "MLB Player Data" / "FanGraphs_Data" / "injuries"
     )
     injury_builder.load_injury_data(years=range(2020, 2026))
     df_raw = injury_builder.add_injury_features_to_historical_data(df_raw)
+
+    # Add Age column from Baseball Prospectus data
+    print("  Adding age data from Baseball Prospectus...")
+    age_enricher = AgeEnricher(years=list(years), player_type=player_type)
+    df_raw = age_enricher.fit_transform(df_raw)
 
     # Ensure required columns for transformers (rename playerid to MLBAMID if needed)
     if 'playerid' in df_raw.columns and 'MLBAMID' not in df_raw.columns:
@@ -99,6 +105,16 @@ def load_historical_player_data(
     df_processed = transformer.fit_transform(df_raw)
     print(f"  Processed {len(df_processed)} player-seasons through future season pipeline")
 
+    # Debug: Check what columns exist after transformation
+    print(f"  DEBUG: Checking for new features after transformation:")
+    for feat in ['ISO', 'GB%', 'HR/FB', 'Hard%', 'Pull%']:
+        if feat in df_processed.columns:
+            non_nan = df_processed[feat].notna().sum()
+            total = len(df_processed)
+            print(f"    {feat}: {non_nan}/{total} non-NaN values")
+        else:
+            print(f"    {feat}: MISSING from DataFrame")
+
     # Rename MLBAMID back to playerid for consistency with rest of codebase
     if 'MLBAMID' in df_processed.columns:
         df_processed = df_processed.rename(columns={'MLBAMID': 'playerid'})
@@ -109,6 +125,7 @@ def load_historical_player_data(
 
     # Filter to columns that exist
     available_cols = [col for col in required_cols if col in df_processed.columns]
+    print(f"  DEBUG: Features in available_cols: {[c for c in available_cols if c in ['ISO', 'GB%', 'HR/FB', 'Hard%', 'Pull%']]}")
     df_filtered = df_processed[available_cols].copy()
 
     # Apply usage threshold
@@ -187,6 +204,16 @@ def build_longitudinal_sequences(
             sequences.append(sequence)
 
     sequences_df = pd.DataFrame(sequences)
+
+    # Debug: Check what _n feature columns exist in sequences
+    print(f"  DEBUG: Checking for _n feature columns in sequences:")
+    for feat in ['ISO_n', 'GB%_n', 'HR/FB_n', 'Hard%_n', 'Pull%_n']:
+        if feat in sequences_df.columns:
+            non_nan = sequences_df[feat].notna().sum()
+            total = len(sequences_df)
+            print(f"    {feat}: {non_nan}/{total} non-NaN values")
+        else:
+            print(f"    {feat}: MISSING from sequences DataFrame")
 
     print(f"Created {len(sequences_df)} training sequences from {df['playerid'].nunique()} players")
     print(f"  Year range: {sequences_df['year_n'].min()}-{sequences_df['year_n'].max()}")

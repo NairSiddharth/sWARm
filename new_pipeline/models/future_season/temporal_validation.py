@@ -514,9 +514,9 @@ def validate_ensemble_model(
         Dict with ensemble metrics including individual model performance
     """
     from darts import TimeSeries
-    from new_pipeline.common.constants import HITTER_MODEL_FEATURES, PITCHER_MODEL_FEATURES
+    from new_pipeline.models.future_season.constants import FUTURE_HITTER_MODEL_FEATURES, FUTURE_PITCHER_MODEL_FEATURES
 
-    feature_cols = HITTER_MODEL_FEATURES if player_type == 'hitter' else PITCHER_MODEL_FEATURES
+    feature_cols = FUTURE_HITTER_MODEL_FEATURES if player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
     # Filter to validation years only
     val_df = historical_df[historical_df['Year'].isin(val_years)].copy()

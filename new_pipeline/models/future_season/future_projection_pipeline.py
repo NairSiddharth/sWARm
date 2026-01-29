@@ -113,9 +113,9 @@ class FutureProjectionPipeline:
         Returns:
             Tuple of (target_series_list, covariate_series_list, player_info_dict)
         """
-        from new_pipeline.common.constants import HITTER_MODEL_FEATURES, PITCHER_MODEL_FEATURES
+        from new_pipeline.models.future_season.constants import FUTURE_HITTER_MODEL_FEATURES, FUTURE_PITCHER_MODEL_FEATURES
 
-        feature_cols = HITTER_MODEL_FEATURES if self.player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        feature_cols = FUTURE_HITTER_MODEL_FEATURES if self.player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         target_series_list = []
         covariate_series_list = []
@@ -287,9 +287,9 @@ class FutureProjectionPipeline:
 
         # Convert current year data to sequence format (without target)
         from new_pipeline.models.future_season.data_preparation import add_age_context_features
-        from new_pipeline.common.constants import HITTER_MODEL_FEATURES, PITCHER_MODEL_FEATURES
+        from new_pipeline.models.future_season.constants import FUTURE_HITTER_MODEL_FEATURES, FUTURE_PITCHER_MODEL_FEATURES
 
-        model_features = HITTER_MODEL_FEATURES if self.player_type == 'hitter' else PITCHER_MODEL_FEATURES
+        model_features = FUTURE_HITTER_MODEL_FEATURES if self.player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
         current_sequences = []
         for _, row in current_year_data.iterrows():

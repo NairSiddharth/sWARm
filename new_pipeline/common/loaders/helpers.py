@@ -102,7 +102,7 @@ def _load_fangraphs_feature(
             continue
 
         try:
-            df = pd.read_csv(files_found[0], encoding='utf-8')
+            df = pd.read_csv(files_found[0], encoding='utf-8-sig')
 
             # Find player ID column (handle variations)
             id_col = None
@@ -215,7 +215,7 @@ def _load_park_adjusted_fangraphs_feature(
             continue
 
         try:
-            df = pd.read_csv(files_found[0], encoding='utf-8')
+            df = pd.read_csv(files_found[0], encoding='utf-8-sig')
 
             # Find player ID column
             id_col = None
