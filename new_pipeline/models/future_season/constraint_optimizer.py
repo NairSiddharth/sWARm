@@ -193,13 +193,13 @@ class ConstraintOptimizer:
         }
 
         tier_factors = {
-            'superstar': 1.05,   # Slight protection for elite rankings
-            'elite': 1.02,       # Minimal protection
-            'above_avg': 1.00,   # Baseline
-            'average': 0.98,     # Slight reduction
-            'below_avg': 0.95    # Larger reduction for replacement-level
+            'superstar': 1.15,   # 15% more WAR preserved (6+ WAR players)
+            'elite': 1.10,       # 10% more WAR preserved (4-6 WAR players)
+            'above_avg': 1.05,   # 5% more WAR preserved (2-4 WAR players)
+            'average': 1.00,     # Baseline (0-2 WAR players)
+            'below_avg': 0.95    # 5% less WAR preserved (<0 WAR players)
         }
-        # Balanced weights: preserve relative rankings without systematic inflation
+        # Preserve elite player rankings during zero-sum constraint enforcement
 
         # Assign tiers
         def get_tier(war):

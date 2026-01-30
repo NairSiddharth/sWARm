@@ -74,7 +74,8 @@ def apply_elite_adjustments(
 
     # Generate confidence scores based on historical WAR
     # Higher WAR = higher confidence in elite status
-    confidence_scores = historical_war.clip(0, 10) / 10.0  # Scale 0-1
+    # Keep as WAR values (not scaled 0-1) to match elite_threshold defaults (5.5, 4.5, 3.0)
+    confidence_scores = historical_war.clip(0, 10)
 
     # Apply adjustment to each projection year
     for war_col in war_columns:
@@ -136,8 +137,8 @@ def apply_elite_adjustment_to_war(
     # Initialize adjuster
     adjuster = ElitePlayerAdjuster(use_enhanced_system=True)
 
-    # Generate confidence scores
-    confidence_scores = historical_war.clip(0, 10) / 10.0
+    # Generate confidence scores (keep as WAR values to match thresholds)
+    confidence_scores = historical_war.clip(0, 10)
 
     # Create predictions DataFrame
     # ElitePlayerAdjuster expects column named 'predicted_war'

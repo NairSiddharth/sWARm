@@ -359,10 +359,18 @@ class FutureProjectionPipeline:
         # Elite player protection
         if apply_elite:
             print("Applying elite player protection...")
-            # Use Year 1 projections as baseline for elite detection
+            # Get actual historical WAR from base year as baseline for elite detection
+            # (NOT the projection - we need to compare against actual performance)
+            historical_war_series = self.historical_data[
+                self.historical_data['Year'] == self.base_year
+            ].set_index('playerid')['WAR']
+
+            # Align with projections DataFrame
+            historical_war_aligned = adjusted_df['playerid'].map(historical_war_series)
+
             adjusted_df = apply_elite_adjustments(
                 adjusted_df,
-                historical_war=adjusted_df['war_year_1'],
+                historical_war=historical_war_aligned,  # Use actual base year WAR
                 war_columns=[f'war_year_{i}' for i in range(1, self.years_ahead + 1)]
             )
 
