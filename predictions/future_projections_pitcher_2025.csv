@@ -1,542 +1,542 @@
-playerid,Name,Team,Age,war_2024,IP,war_2025,war_2026,war_2027,war_2025_tier,war_2025_percentile,projection_date,base_year,model_version,player_type
-434378.0,Justin Verlander,HOU,41,0.68,90.1,0.61,0.62,0.58,Average,43.3,2026-01-29,2024,v1.0,pitcher
-445276.0,Kenley Jansen,BOS,36,1.42,54.2,0.75,0.87,0.92,Average,60.0,2026-01-29,2024,v1.0,pitcher
-445926.0,Jesse Chavez,ATL,40,-0.2,63.1,0.48,0.33,0.21,Average,28.3,2026-01-29,2024,v1.0,pitcher
-450203.0,Charlie Morton,ATL,40,1.11,165.1,0.79,0.89,0.91,Average,62.7,2026-01-29,2024,v1.0,pitcher
-453286.0,Max Scherzer,TEX,39,0.61,43.1,0.83,0.82,0.73,Average,66.5,2026-01-29,2024,v1.0,pitcher
-455119.0,Chris Martin,BOS,38,0.9,44.1,0.65,0.68,0.65,Average,49.2,2026-01-29,2024,v1.0,pitcher
-458677.0,Justin Wilson,CIN,36,0.12,46.2,0.65,0.49,0.34,Average,49.2,2026-01-29,2024,v1.0,pitcher
-458681.0,Lance Lynn,STL,37,1.31,117.1,0.8,0.91,0.95,Average,63.6,2026-01-29,2024,v1.0,pitcher
-471911.0,Carlos Carrasco,CLE,37,0.14,103.2,0.6,0.46,0.33,Average,42.0,2026-01-29,2024,v1.0,pitcher
-472610.0,Luis García,- - -,37,0.27,59.0,0.55,0.46,0.35,Average,36.2,2026-01-29,2024,v1.0,pitcher
-477132.0,Clayton Kershaw,LAD,36,0.66,30.0,0.7,0.67,0.58,Average,54.8,2026-01-29,2024,v1.0,pitcher
-489446.0,Kirby Yates,TEX,37,1.9,61.2,0.85,1.07,1.22,Average,68.6,2026-01-29,2024,v1.0,pitcher
-493603.0,Adam Ottavino,NYM,38,0.46,56.0,0.72,0.66,0.55,Average,57.0,2026-01-29,2024,v1.0,pitcher
-500779.0,Jose Quintana,NYM,35,1.06,170.1,0.68,0.73,0.71,Average,52.3,2026-01-29,2024,v1.0,pitcher
-502043.0,Kyle Gibson,STL,36,1.43,169.2,0.78,0.91,0.96,Average,61.9,2026-01-29,2024,v1.0,pitcher
-502085.0,David Robertson,TEX,39,1.85,72.0,0.81,1.01,1.15,Average,64.5,2026-01-29,2024,v1.0,pitcher
-502624.0,Chase Anderson,- - -,36,-0.5,58.1,0.35,0.17,0.08,Average,11.6,2026-01-29,2024,v1.0,pitcher
-506433.0,Yu Darvish,SDP,37,1.06,81.2,0.85,0.92,0.91,Average,68.6,2026-01-29,2024,v1.0,pitcher
-518397.0,Scott Alexander,OAK,34,0.08,38.2,0.58,0.41,0.26,Average,40.0,2026-01-29,2024,v1.0,pitcher
-518489.0,Ryan Brasier,LAD,36,0.38,28.0,0.4,0.34,0.27,Average,17.3,2026-01-29,2024,v1.0,pitcher
-518585.0,Fernando Cruz,CIN,34,1.19,66.2,0.82,0.9,0.89,Average,65.6,2026-01-29,2024,v1.0,pitcher
-518617.0,Jake Diekman,NYM,37,-0.81,32.0,0.38,0.15,0.05,Average,15.2,2026-01-29,2024,v1.0,pitcher
-518876.0,Merrill Kelly,ARI,35,0.65,73.2,0.82,0.77,0.66,Average,65.6,2026-01-29,2024,v1.0,pitcher
-518886.0,Craig Kimbrel,BAL,36,0.18,52.1,0.69,0.54,0.39,Average,53.5,2026-01-29,2024,v1.0,pitcher
-519008.0,T.J. McFarland,OAK,35,0.34,56.2,0.44,0.36,0.27,Average,22.0,2026-01-29,2024,v1.0,pitcher
-519043.0,Matt Moore,LAA,35,-0.78,48.1,0.32,0.11,0.04,Average,8.9,2026-01-29,2024,v1.0,pitcher
-519151.0,Ryan Pressly,HOU,35,0.85,56.2,0.81,0.81,0.75,Average,64.5,2026-01-29,2024,v1.0,pitcher
-519242.0,Chris Sale,ATL,35,6.42,177.2,2.72,3.94,5.16,Average,99.6,2026-01-29,2024,v1.0,pitcher
-519293.0,Will Smith,KCR,34,-0.38,41.1,0.39,0.19,0.09,Average,16.2,2026-01-29,2024,v1.0,pitcher
-519326.0,Hunter Strickland,LAA,35,0.21,73.1,0.44,0.34,0.24,Average,22.0,2026-01-29,2024,v1.0,pitcher
-523260.0,Joe Kelly,LAD,36,-0.02,32.0,0.58,0.4,0.26,Average,40.0,2026-01-29,2024,v1.0,pitcher
-527048.0,Martín Pérez,- - -,33,0.49,135.0,0.71,0.61,0.47,Average,56.0,2026-01-29,2024,v1.0,pitcher
-541640.0,Erasmo Ramírez,TBR,34,-0.53,20.2,0.27,0.12,0.05,Average,3.1,2026-01-29,2024,v1.0,pitcher
-542881.0,Tyler Anderson,LAA,34,1.51,179.1,0.93,1.09,1.15,Average,73.2,2026-01-29,2024,v1.0,pitcher
-542888.0,Shawn Armstrong,- - -,33,0.68,66.2,0.68,0.62,0.53,Average,52.3,2026-01-29,2024,v1.0,pitcher
-543037.0,Gerrit Cole,NYY,33,1.77,95.0,1.16,1.4,1.55,Average,83.4,2026-01-29,2024,v1.0,pitcher
-543056.0,Danny Coulombe,BAL,34,0.54,29.2,0.56,0.5,0.4,Average,37.5,2026-01-29,2024,v1.0,pitcher
-543135.0,Nathan Eovaldi,TEX,34,2.64,170.2,1.43,1.91,2.31,Average,90.9,2026-01-29,2024,v1.0,pitcher
-543243.0,Sonny Gray,STL,34,3.81,166.1,2.09,2.95,3.58,Average,96.5,2026-01-29,2024,v1.0,pitcher
-543294.0,Kyle Hendricks,CHC,34,0.4,130.2,0.59,0.49,0.37,Average,41.1,2026-01-29,2024,v1.0,pitcher
-543339.0,Daniel Hudson,LAD,37,0.26,63.0,0.51,0.42,0.32,Average,31.3,2026-01-29,2024,v1.0,pitcher
-543351.0,Jay Jackson,MIN,36,-0.27,26.1,0.26,0.15,0.08,Average,2.6,2026-01-29,2024,v1.0,pitcher
-543518.0,Scott McGough,ARI,34,-0.66,32.2,0.36,0.14,0.05,Average,12.8,2026-01-29,2024,v1.0,pitcher
-543859.0,Michael Tonkin,- - -,34,0.62,79.1,0.78,0.71,0.6,Average,61.9,2026-01-29,2024,v1.0,pitcher
-544150.0,Albert Suárez,BAL,34,1.5,133.2,0.84,0.98,1.04,Average,67.5,2026-01-29,2024,v1.0,pitcher
-547001.0,Cody Poteet,NYY,29,0.22,24.1,0.33,0.22,0.14,Average,10.1,2026-01-29,2024,v1.0,pitcher
-547179.0,Michael Lorenzen,- - -,32,0.69,130.1,0.69,0.63,0.52,Average,53.5,2026-01-29,2024,v1.0,pitcher
-547184.0,Michael Kelly,OAK,31,0.13,31.1,0.53,0.35,0.22,Average,34.2,2026-01-29,2024,v1.0,pitcher
-547973.0,Aroldis Chapman,PIT,36,1.09,61.2,0.66,0.72,0.71,Average,50.5,2026-01-29,2024,v1.0,pitcher
-548389.0,Ross Stripling,OAK,34,1.11,85.1,0.64,0.68,0.66,Average,47.6,2026-01-29,2024,v1.0,pitcher
-552640.0,Andrew Kittredge,STL,34,0.29,70.2,0.58,0.46,0.33,Average,40.0,2026-01-29,2024,v1.0,pitcher
-554340.0,Yimi García,- - -,33,0.4,39.0,0.77,0.63,0.47,Average,61.6,2026-01-29,2024,v1.0,pitcher
-554430.0,Zack Wheeler,PHI,34,5.4,200.0,2.44,3.52,4.59,Average,98.3,2026-01-29,2024,v1.0,pitcher
-570632.0,José Ureña,TEX,32,0.04,109.0,0.42,0.27,0.16,Average,19.5,2026-01-29,2024,v1.0,pitcher
-571510.0,Matthew Boyd,CLE,33,0.89,39.2,0.83,0.83,0.75,Average,66.5,2026-01-29,2024,v1.0,pitcher
-571578.0,Patrick Corbin,WSN,34,1.74,174.2,0.89,1.08,1.19,Average,71.4,2026-01-29,2024,v1.0,pitcher
-571656.0,Buck Farmer,CIN,33,0.55,71.0,0.69,0.6,0.48,Average,53.5,2026-01-29,2024,v1.0,pitcher
-571670.0,Dylan Floro,- - -,33,0.6,68.2,0.58,0.51,0.42,Average,40.0,2026-01-29,2024,v1.0,pitcher
-571760.0,Andrew Heaney,TEX,33,2.18,160.0,1.11,1.42,1.65,Average,81.0,2026-01-29,2024,v1.0,pitcher
-571882.0,Derek Law,WSN,33,1.12,90.0,0.73,0.77,0.75,Average,58.2,2026-01-29,2024,v1.0,pitcher
-571927.0,Steven Matz,STL,33,0.04,44.1,0.5,0.33,0.2,Average,30.4,2026-01-29,2024,v1.0,pitcher
-571945.0,Miles Mikolas,STL,35,1.94,171.2,0.71,0.89,1.01,Average,56.0,2026-01-29,2024,v1.0,pitcher
-571946.0,Shelby Miller,DET,33,-0.16,55.2,0.59,0.34,0.18,Average,41.1,2026-01-29,2024,v1.0,pitcher
-571948.0,Hoby Milner,MIL,33,0.9,64.2,0.73,0.73,0.66,Average,58.2,2026-01-29,2024,v1.0,pitcher
-572020.0,James Paxton,- - -,35,0.79,100.1,0.61,0.6,0.54,Average,43.3,2026-01-29,2024,v1.0,pitcher
-572143.0,Burch Smith,- - -,34,0.35,56.1,0.67,0.55,0.41,Average,51.4,2026-01-29,2024,v1.0,pitcher
-572955.0,Pierce Johnson,ATL,33,0.46,56.1,0.62,0.52,0.4,Average,44.7,2026-01-29,2024,v1.0,pitcher
-573009.0,Joe Mantiply,ARI,33,1.19,59.2,0.71,0.77,0.75,Average,56.0,2026-01-29,2024,v1.0,pitcher
-573124.0,Taylor Rogers,SFG,33,0.16,60.0,0.64,0.46,0.3,Average,47.6,2026-01-29,2024,v1.0,pitcher
-573186.0,Marcus Stroman,NYY,33,0.92,154.2,0.76,0.76,0.69,Average,61.0,2026-01-29,2024,v1.0,pitcher
-573204.0,Caleb Thielbar,MIN,37,0.19,47.1,0.62,0.5,0.36,Average,44.7,2026-01-29,2024,v1.0,pitcher
-579328.0,Yusei Kikuchi,- - -,33,3.64,175.2,1.82,2.56,3.24,Average,95.0,2026-01-29,2024,v1.0,pitcher
-592094.0,Jason Adam,- - -,32,1.3,73.2,0.88,0.97,0.96,Average,70.9,2026-01-29,2024,v1.0,pitcher
-592155.0,Cam Booser,BOS,32,0.29,42.2,0.6,0.46,0.31,Average,42.0,2026-01-29,2024,v1.0,pitcher
-592332.0,Kevin Gausman,TOR,33,3.0,181.0,1.26,1.71,2.11,Average,86.0,2026-01-29,2024,v1.0,pitcher
-592351.0,Jon Gray,TEX,32,1.81,102.2,0.94,1.14,1.26,Average,73.6,2026-01-29,2024,v1.0,pitcher
-592426.0,Luke Jackson,- - -,32,-0.11,53.0,0.53,0.31,0.17,Average,34.2,2026-01-29,2024,v1.0,pitcher
-592454.0,Tommy Kahnle,NYY,34,0.06,42.2,0.52,0.36,0.23,Average,32.7,2026-01-29,2024,v1.0,pitcher
-592662.0,Robbie Ray,SFG,32,0.05,30.2,0.81,0.53,0.32,Average,64.5,2026-01-29,2024,v1.0,pitcher
-592767.0,Drew Smyly,CHC,35,-0.26,58.2,0.48,0.28,0.15,Average,28.3,2026-01-29,2024,v1.0,pitcher
-592773.0,Ryne Stanek,- - -,32,-0.03,55.1,0.48,0.3,0.17,Average,28.3,2026-01-29,2024,v1.0,pitcher
-592791.0,Jameson Taillon,CHC,32,2.34,165.1,1.07,1.39,1.63,Average,78.9,2026-01-29,2024,v1.0,pitcher
-592836.0,Taijuan Walker,PHI,31,-1.15,83.2,0.32,0.05,0.01,Average,8.9,2026-01-29,2024,v1.0,pitcher
-592866.0,Trevor Williams,WSN,32,1.98,66.2,1.21,1.5,1.69,Average,84.9,2026-01-29,2024,v1.0,pitcher
-593334.0,Domingo Germán,PIT,31,-0.2,20.2,0.3,0.16,0.08,Average,6.1,2026-01-29,2024,v1.0,pitcher
-593423.0,Frankie Montas,- - -,31,1.3,150.2,0.94,1.02,1.01,Average,73.6,2026-01-29,2024,v1.0,pitcher
-593576.0,Héctor Neris,- - -,35,0.04,59.1,0.44,0.31,0.2,Average,22.0,2026-01-29,2024,v1.0,pitcher
-593958.0,Eduardo Rodriguez,ARI,31,0.29,50.0,0.63,0.46,0.31,Average,46.1,2026-01-29,2024,v1.0,pitcher
-593974.0,Wandy Peralta,SDP,32,-0.46,38.1,0.36,0.16,0.06,Average,12.8,2026-01-29,2024,v1.0,pitcher
-594580.0,Sam Moll,CIN,32,0.44,37.2,0.67,0.55,0.41,Average,51.4,2026-01-29,2024,v1.0,pitcher
-594835.0,Marco Gonzales,PIT,32,0.21,33.2,0.52,0.38,0.25,Average,32.7,2026-01-29,2024,v1.0,pitcher
-594902.0,Ben Lively,CLE,32,0.8,151.0,0.71,0.67,0.58,Average,56.0,2026-01-29,2024,v1.0,pitcher
-595014.0,Blake Treinen,LAD,36,1.01,46.2,0.84,0.89,0.86,Average,67.5,2026-01-29,2024,v1.0,pitcher
-595345.0,Steven Okert,MIN,32,-0.25,35.1,0.48,0.25,0.12,Average,28.3,2026-01-29,2024,v1.0,pitcher
-596001.0,Jakob Junis,- - -,31,0.84,67.0,0.82,0.78,0.68,Average,65.6,2026-01-29,2024,v1.0,pitcher
-596133.0,Luke Weaver,NYY,30,0.98,84.0,0.88,0.87,0.78,Average,70.9,2026-01-29,2024,v1.0,pitcher
-596295.0,Austin Gomber,COL,30,1.28,165.0,0.79,0.85,0.83,Average,62.7,2026-01-29,2024,v1.0,pitcher
-600917.0,José Leclerc,TEX,30,0.81,66.2,1.02,0.94,0.79,Average,77.4,2026-01-29,2024,v1.0,pitcher
-600986.0,Thyago Vieira,- - -,31,-0.4,38.0,0.42,0.19,0.08,Average,19.5,2026-01-29,2024,v1.0,pitcher
-601713.0,Nick Pivetta,BOS,31,2.02,145.2,1.39,1.72,1.94,Average,89.9,2026-01-29,2024,v1.0,pitcher
-605121.0,Justin Anderson,CHW,31,0.21,53.1,0.54,0.38,0.25,Average,35.2,2026-01-29,2024,v1.0,pitcher
-605130.0,Scott Barlow,CLE,31,0.04,55.0,0.54,0.34,0.2,Average,35.2,2026-01-29,2024,v1.0,pitcher
-605135.0,Chris Bassitt,TOR,35,2.32,171.0,0.98,1.28,1.51,Average,75.5,2026-01-29,2024,v1.0,pitcher
-605154.0,John Brebbia,- - -,34,0.13,55.1,0.57,0.41,0.27,Average,38.7,2026-01-29,2024,v1.0,pitcher
-605155.0,Colten Brewer,CHC,31,0.29,20.2,0.36,0.27,0.18,Average,12.8,2026-01-29,2024,v1.0,pitcher
-605156.0,Aaron Brooks,OAK,34,-0.11,26.2,0.22,0.14,0.08,Average,1.7,2026-01-29,2024,v1.0,pitcher
-605177.0,Andrew Chafin,- - -,34,0.43,56.1,0.54,0.46,0.35,Average,35.2,2026-01-29,2024,v1.0,pitcher
-605280.0,Clay Holmes,NYY,31,1.16,63.0,0.7,0.73,0.7,Average,54.8,2026-01-29,2024,v1.0,pitcher
-605288.0,Adrian Houser,NYM,31,-0.14,69.1,0.49,0.27,0.14,Average,29.6,2026-01-29,2024,v1.0,pitcher
-605347.0,Jorge López,- - -,31,0.2,53.0,0.56,0.39,0.25,Average,37.5,2026-01-29,2024,v1.0,pitcher
-605397.0,Joe Musgrove,SDP,31,1.37,99.2,1.07,1.18,1.19,Average,78.9,2026-01-29,2024,v1.0,pitcher
-605400.0,Aaron Nola,PHI,31,3.13,199.1,1.75,2.4,2.98,Average,94.3,2026-01-29,2024,v1.0,pitcher
-605452.0,Joe Ross,MIL,31,0.89,74.0,0.82,0.79,0.7,Average,65.6,2026-01-29,2024,v1.0,pitcher
-605463.0,Tayler Scott,HOU,32,0.19,68.2,0.57,0.41,0.27,Average,38.7,2026-01-29,2024,v1.0,pitcher
-605483.0,Blake Snell,SFG,31,3.07,104.0,2.19,2.99,3.53,Average,97.2,2026-01-29,2024,v1.0,pitcher
-605488.0,Jeffrey Springs,TBR,31,0.4,33.0,0.73,0.57,0.41,Average,58.2,2026-01-29,2024,v1.0,pitcher
-605513.0,Spencer Turnbull,PHI,31,0.66,54.1,0.86,0.76,0.61,Average,69.4,2026-01-29,2024,v1.0,pitcher
-606149.0,Giovanny Gallegos,STL,32,-0.47,20.2,0.27,0.12,0.05,Average,3.1,2026-01-29,2024,v1.0,pitcher
-606160.0,Rafael Montero,HOU,33,-0.9,38.1,0.3,0.08,0.02,Average,6.1,2026-01-29,2024,v1.0,pitcher
-606303.0,Joel Payamps,MIL,30,0.54,59.0,0.62,0.5,0.38,Average,44.7,2026-01-29,2024,v1.0,pitcher
-606930.0,Jacob Barnes,WSN,34,0.02,66.0,0.56,0.38,0.23,Average,37.5,2026-01-29,2024,v1.0,pitcher
-606965.0,Chris Devenski,TBR,33,-0.67,26.2,0.24,0.09,0.03,Average,2.0,2026-01-29,2024,v1.0,pitcher
-607067.0,Colin Rea,MIL,34,0.81,167.2,0.73,0.72,0.64,Average,58.2,2026-01-29,2024,v1.0,pitcher
-607074.0,Carlos Rodón,NYY,31,1.61,175.0,1.14,1.32,1.4,Average,82.3,2026-01-29,2024,v1.0,pitcher
-607179.0,Jordan Weems,WSN,31,-0.48,41.2,0.44,0.18,0.07,Average,22.0,2026-01-29,2024,v1.0,pitcher
-607192.0,Tyler Glasnow,LAD,30,3.89,134.0,2.48,3.5,4.47,Average,99.1,2026-01-29,2024,v1.0,pitcher
-607200.0,Erick Fedde,- - -,31,3.41,177.1,1.5,2.08,2.62,Average,91.9,2026-01-29,2024,v1.0,pitcher
-607259.0,Nick Martinez,CIN,33,3.41,142.1,1.14,1.58,1.99,Average,82.3,2026-01-29,2024,v1.0,pitcher
-607455.0,Anthony Banda,LAD,30,0.58,49.2,0.7,0.59,0.45,Average,54.8,2026-01-29,2024,v1.0,pitcher
-607481.0,Aaron Bummer,ATL,30,1.1,55.1,1.15,1.17,1.09,Average,82.8,2026-01-29,2024,v1.0,pitcher
-607536.0,Kyle Freeland,COL,31,0.94,113.1,0.72,0.71,0.64,Average,57.0,2026-01-29,2024,v1.0,pitcher
-607625.0,Seth Lugo,KCR,34,4.68,206.2,1.74,2.49,3.22,Average,94.1,2026-01-29,2024,v1.0,pitcher
-607644.0,John Means,BAL,31,0.48,20.2,0.32,0.26,0.2,Average,8.9,2026-01-29,2024,v1.0,pitcher
-608032.0,Carlos Estévez,- - -,31,1.13,55.0,0.67,0.69,0.66,Average,51.4,2026-01-29,2024,v1.0,pitcher
-608331.0,Max Fried,ATL,30,3.36,174.1,2.08,2.74,3.43,Average,96.2,2026-01-29,2024,v1.0,pitcher
-608334.0,Carson Fulmer,LAA,30,0.21,86.2,0.6,0.41,0.26,Average,42.0,2026-01-29,2024,v1.0,pitcher
-608344.0,Cole Irvin,- - -,30,0.36,111.0,0.44,0.33,0.23,Average,22.0,2026-01-29,2024,v1.0,pitcher
-608371.0,Lucas Sims,- - -,30,-0.32,49.1,0.33,0.15,0.06,Average,10.1,2026-01-29,2024,v1.0,pitcher
-608379.0,Michael Wacha,KCR,33,3.32,166.2,1.3,1.81,2.26,Average,87.5,2026-01-29,2024,v1.0,pitcher
-608638.0,JT Chargois,- - -,33,-0.2,36.1,0.52,0.29,0.15,Average,32.7,2026-01-29,2024,v1.0,pitcher
-608717.0,Chris Stratton,KCR,33,-0.2,58.1,0.43,0.24,0.13,Average,20.6,2026-01-29,2024,v1.0,pitcher
-608718.0,Brent Suter,CIN,34,0.18,65.2,0.69,0.52,0.35,Average,53.5,2026-01-29,2024,v1.0,pitcher
-608723.0,Austin Voth,SEA,32,-0.0,61.0,0.59,0.37,0.21,Average,41.1,2026-01-29,2024,v1.0,pitcher
-613534.0,Austin Adams,OAK,33,0.02,41.1,0.57,0.37,0.23,Average,38.7,2026-01-29,2024,v1.0,pitcher
-614179.0,José Ruiz,PHI,29,0.08,51.0,0.6,0.37,0.21,Average,42.0,2026-01-29,2024,v1.0,pitcher
-615698.0,Cal Quantrill,COL,29,0.54,148.1,0.59,0.48,0.36,Average,41.1,2026-01-29,2024,v1.0,pitcher
-621051.0,Steven Wilson,CHW,29,-0.75,34.2,0.3,0.08,0.02,Average,6.1,2026-01-29,2024,v1.0,pitcher
-621053.0,Tyler Ferguson,OAK,30,0.67,51.1,0.78,0.68,0.54,Average,61.9,2026-01-29,2024,v1.0,pitcher
-621107.0,Zach Eflin,- - -,30,2.81,165.1,1.39,1.87,2.27,Average,89.9,2026-01-29,2024,v1.0,pitcher
-621111.0,Walker Buehler,LAD,29,-0.1,75.1,0.52,0.28,0.14,Average,32.7,2026-01-29,2024,v1.0,pitcher
-621112.0,Paul Blackburn,- - -,30,0.45,75.1,0.69,0.54,0.39,Average,53.5,2026-01-29,2024,v1.0,pitcher
-621114.0,Ryan Burr,TOR,30,0.46,32.2,0.97,0.77,0.56,Average,74.9,2026-01-29,2024,v1.0,pitcher
-621199.0,Matt Bowman,- - -,33,-0.24,30.2,0.47,0.25,0.13,Average,26.6,2026-01-29,2024,v1.0,pitcher
-621237.0,José Alvarado,PHI,29,0.6,61.2,0.58,0.49,0.37,Average,40.0,2026-01-29,2024,v1.0,pitcher
-621242.0,Edwin Díaz,NYM,30,1.08,53.2,1.1,1.11,1.02,Average,80.5,2026-01-29,2024,v1.0,pitcher
-621244.0,José Berríos,TOR,30,1.13,192.1,0.83,0.86,0.8,Average,66.5,2026-01-29,2024,v1.0,pitcher
-621345.0,A.J. Minter,ATL,30,-0.05,34.1,0.65,0.37,0.19,Average,49.2,2026-01-29,2024,v1.0,pitcher
-621363.0,Colin Poche,TBR,30,-0.32,37.1,0.33,0.15,0.06,Average,10.1,2026-01-29,2024,v1.0,pitcher
-621381.0,Matt Strahm,PHI,32,2.06,62.2,1.08,1.36,1.55,Average,79.6,2026-01-29,2024,v1.0,pitcher
-621383.0,Tanner Banks,- - -,32,1.12,72.1,0.87,0.91,0.87,Average,70.2,2026-01-29,2024,v1.0,pitcher
-621389.0,Ty Blach,COL,33,-0.61,71.1,0.35,0.14,0.05,Average,11.6,2026-01-29,2024,v1.0,pitcher
-622072.0,Alex Wood,OAK,33,-0.06,39.1,0.47,0.29,0.17,Average,26.6,2026-01-29,2024,v1.0,pitcher
-622251.0,Josh Staumont,MIN,30,0.22,24.1,0.31,0.22,0.14,Average,7.6,2026-01-29,2024,v1.0,pitcher
-622253.0,Dillon Tate,- - -,30,0.23,36.2,0.52,0.36,0.23,Average,32.7,2026-01-29,2024,v1.0,pitcher
-622491.0,Luis Castillo,SEA,31,2.29,175.1,1.31,1.68,1.96,Average,88.0,2026-01-29,2024,v1.0,pitcher
-622554.0,Seranthony Domínguez,- - -,29,-0.11,58.2,0.56,0.3,0.14,Average,37.5,2026-01-29,2024,v1.0,pitcher
-622663.0,Luis Severino,NYM,30,2.11,182.0,1.29,1.61,1.83,Average,87.0,2026-01-29,2024,v1.0,pitcher
-622786.0,Jesus Tinoco,- - -,29,0.68,40.2,0.79,0.69,0.54,Average,62.7,2026-01-29,2024,v1.0,pitcher
-623149.0,Paul Sewald,ARI,34,0.35,39.2,0.63,0.51,0.38,Average,46.1,2026-01-29,2024,v1.0,pitcher
-623167.0,Chris Flexen,CHW,30,1.32,160.0,0.74,0.79,0.78,Average,59.2,2026-01-29,2024,v1.0,pitcher
-623211.0,Huascar Brazobán,- - -,34,0.65,51.2,0.61,0.56,0.47,Average,43.3,2026-01-29,2024,v1.0,pitcher
-623352.0,Josh Hader,HOU,30,0.95,71.0,0.97,0.94,0.83,Average,74.9,2026-01-29,2024,v1.0,pitcher
-623433.0,Nick Anderson,KCR,33,-0.22,35.2,0.47,0.26,0.13,Average,26.6,2026-01-29,2024,v1.0,pitcher
-623465.0,Evan Phillips,LAD,29,0.89,54.2,0.94,0.89,0.76,Average,73.6,2026-01-29,2024,v1.0,pitcher
-624133.0,Ranger Suárez,PHI,28,3.44,150.2,2.08,2.92,3.54,Average,96.2,2026-01-29,2024,v1.0,pitcher
-624522.0,Keegan Thompson,CHC,29,0.15,30.1,0.71,0.46,0.27,Average,56.0,2026-01-29,2024,v1.0,pitcher
-624647.0,Victor González,NYY,28,-0.44,23.1,0.16,0.06,0.02,Average,0.6,2026-01-29,2024,v1.0,pitcher
-625643.0,Reynaldo López,ATL,30,3.52,135.2,1.97,2.62,3.31,Average,95.2,2026-01-29,2024,v1.0,pitcher
-628317.0,Kenta Maeda,DET,36,0.02,112.1,0.56,0.4,0.26,Average,37.5,2026-01-29,2024,v1.0,pitcher
-628452.0,Raisel Iglesias,ATL,34,1.57,69.1,0.86,1.01,1.09,Average,69.4,2026-01-29,2024,v1.0,pitcher
-628708.0,Yunior Marte,PHI,29,-0.25,26.0,0.3,0.14,0.06,Average,6.1,2026-01-29,2024,v1.0,pitcher
-630023.0,Yonny Chirinos,MIA,30,-0.17,30.0,0.45,0.23,0.11,Average,23.5,2026-01-29,2024,v1.0,pitcher
-640448.0,Kyle Finnegan,WSN,32,-0.02,63.2,0.46,0.29,0.16,Average,24.9,2026-01-29,2024,v1.0,pitcher
-640451.0,Hunter Harvey,- - -,29,0.69,50.2,0.75,0.66,0.52,Average,60.0,2026-01-29,2024,v1.0,pitcher
-640455.0,Sean Manaea,NYM,32,2.79,181.2,1.47,1.97,2.4,Average,91.3,2026-01-29,2024,v1.0,pitcher
-640462.0,A.J. Puk,- - -,29,1.71,71.1,1.13,1.34,1.42,Average,81.7,2026-01-29,2024,v1.0,pitcher
-641154.0,Pablo López,MIN,28,3.21,185.1,2.02,2.67,3.36,Average,95.6,2026-01-29,2024,v1.0,pitcher
-641302.0,Tyler Alexander,TBR,29,-0.57,107.2,0.37,0.12,0.04,Average,14.0,2026-01-29,2024,v1.0,pitcher
-641329.0,Bryan Baker,BAL,29,0.16,23.1,0.31,0.2,0.12,Average,7.6,2026-01-29,2024,v1.0,pitcher
-641482.0,Nestor Cortes,NYY,29,3.07,174.1,1.39,1.92,2.36,Average,89.9,2026-01-29,2024,v1.0,pitcher
-641540.0,Dane Dunning,TEX,29,-0.1,95.0,0.51,0.28,0.14,Average,31.3,2026-01-29,2024,v1.0,pitcher
-641585.0,J.P. France,HOU,29,-0.06,25.1,0.29,0.16,0.08,Average,4.8,2026-01-29,2024,v1.0,pitcher
-641656.0,Ian Hamilton,NYY,29,0.63,37.2,0.85,0.73,0.56,Average,68.6,2026-01-29,2024,v1.0,pitcher
-641703.0,Brent Honeywell,- - -,29,0.08,37.2,0.32,0.2,0.11,Average,8.9,2026-01-29,2024,v1.0,pitcher
-641712.0,Dakota Hudson,COL,29,0.03,89.0,0.35,0.21,0.11,Average,11.6,2026-01-29,2024,v1.0,pitcher
-641729.0,Joe Jiménez,ATL,29,1.82,68.2,1.15,1.39,1.5,Average,82.8,2026-01-29,2024,v1.0,pitcher
-641745.0,Brad Keller,- - -,28,-0.38,41.1,0.4,0.16,0.06,Average,17.3,2026-01-29,2024,v1.0,pitcher
-641755.0,Tyler Kinley,COL,33,-0.09,64.0,0.43,0.26,0.15,Average,20.6,2026-01-29,2024,v1.0,pitcher
-641771.0,Chad Kuhl,CHW,31,0.28,53.1,0.58,0.42,0.28,Average,40.0,2026-01-29,2024,v1.0,pitcher
-641793.0,Zack Littell,TBR,28,2.27,156.1,1.29,1.65,1.92,Average,87.0,2026-01-29,2024,v1.0,pitcher
-641835.0,Tim Mayza,- - -,32,-0.13,42.2,0.48,0.27,0.15,Average,28.3,2026-01-29,2024,v1.0,pitcher
-641927.0,Bailey Ober,MIN,28,2.94,178.2,1.98,2.58,3.2,Average,95.4,2026-01-29,2024,v1.0,pitcher
-641941.0,Emilio Pagán,CIN,33,0.48,38.0,0.67,0.57,0.44,Average,51.4,2026-01-29,2024,v1.0,pitcher
-642048.0,Tayler Saucedo,SEA,31,0.2,38.2,0.62,0.44,0.28,Average,44.7,2026-01-29,2024,v1.0,pitcher
-642100.0,Gabe Speier,SEA,29,0.19,23.2,0.45,0.3,0.18,Average,23.5,2026-01-29,2024,v1.0,pitcher
-642207.0,Devin Williams,MIL,29,0.83,21.2,0.69,0.64,0.54,Average,53.5,2026-01-29,2024,v1.0,pitcher
-642232.0,Ryan Yarbrough,- - -,32,0.01,98.2,0.47,0.3,0.17,Average,26.6,2026-01-29,2024,v1.0,pitcher
-642397.0,Gregory Soto,- - -,29,0.46,53.0,0.82,0.64,0.45,Average,65.6,2026-01-29,2024,v1.0,pitcher
-642520.0,Gerson Garabito,TEX,28,-0.14,26.1,0.3,0.15,0.07,Average,6.1,2026-01-29,2024,v1.0,pitcher
-642546.0,Jonathan Hernández,- - -,27,-0.4,43.1,0.47,0.17,0.06,Average,26.6,2026-01-29,2024,v1.0,pitcher
-642547.0,Freddy Peralta,MIL,28,2.27,173.2,1.54,1.98,2.31,Average,92.2,2026-01-29,2024,v1.0,pitcher
-642629.0,Emmanuel Ramirez,MIA,29,-0.04,20.2,0.27,0.15,0.08,Average,3.1,2026-01-29,2024,v1.0,pitcher
-642701.0,Dennis Santana,- - -,28,1.15,71.2,0.79,0.81,0.76,Average,62.7,2026-01-29,2024,v1.0,pitcher
-643256.0,Adam Cimber,LAA,33,-0.06,24.1,0.28,0.18,0.1,Average,4.0,2026-01-29,2024,v1.0,pitcher
-643338.0,Chad Green,TOR,33,0.08,53.1,0.5,0.34,0.22,Average,30.4,2026-01-29,2024,v1.0,pitcher
-643377.0,Griffin Jax,MIN,29,2.59,71.0,1.5,2.0,2.38,Average,91.9,2026-01-29,2024,v1.0,pitcher
-643410.0,Mark Leiter Jr.,- - -,33,1.13,58.0,0.86,0.92,0.89,Average,69.4,2026-01-29,2024,v1.0,pitcher
-643511.0,Tyler Rogers,SFG,33,0.58,70.1,0.48,0.42,0.34,Average,28.3,2026-01-29,2024,v1.0,pitcher
-647315.0,Zach Pop,TOR,27,-0.63,48.1,0.32,0.09,0.02,Average,8.9,2026-01-29,2024,v1.0,pitcher
-647336.0,Michael Soroka,CHW,26,0.37,79.2,0.63,0.44,0.27,Average,46.1,2026-01-29,2024,v1.0,pitcher
-650556.0,Bryan Abreu,HOU,27,0.88,78.1,0.85,0.76,0.64,Average,68.6,2026-01-29,2024,v1.0,pitcher
-650633.0,Michael King,SDP,29,3.9,173.2,2.14,3.07,3.74,Average,96.9,2026-01-29,2024,v1.0,pitcher
-650644.0,Aaron Civale,- - -,29,0.9,161.0,0.8,0.76,0.66,Average,63.6,2026-01-29,2024,v1.0,pitcher
-650893.0,Génesis Cabrera,TOR,27,-0.44,62.2,0.34,0.12,0.04,Average,10.9,2026-01-29,2024,v1.0,pitcher
-650911.0,Cristopher Sánchez,PHI,27,4.66,181.2,2.46,3.54,4.67,Average,98.7,2026-01-29,2024,v1.0,pitcher
-655889.0,Manuel Rodríguez,TBR,27,0.22,37.2,0.71,0.45,0.27,Average,56.0,2026-01-29,2024,v1.0,pitcher
-656222.0,Jalen Beeks,- - -,30,0.63,70.0,0.57,0.49,0.38,Average,38.7,2026-01-29,2024,v1.0,pitcher
-656232.0,Brandon Bielak,- - -,28,-0.33,29.2,0.17,0.07,0.03,Average,0.7,2026-01-29,2024,v1.0,pitcher
-656234.0,Jake Bird,COL,28,-0.34,40.0,0.4,0.16,0.06,Average,17.3,2026-01-29,2024,v1.0,pitcher
-656240.0,Scott Blewett,MIN,28,0.05,20.1,0.32,0.18,0.1,Average,8.9,2026-01-29,2024,v1.0,pitcher
-656271.0,Brock Burke,- - -,27,0.38,34.0,0.84,0.59,0.39,Average,67.5,2026-01-29,2024,v1.0,pitcher
-656288.0,Griffin Canning,LAA,28,0.09,171.2,0.51,0.31,0.17,Average,31.3,2026-01-29,2024,v1.0,pitcher
-656302.0,Dylan Cease,SDP,28,4.74,189.1,2.47,3.6,4.75,Average,98.9,2026-01-29,2024,v1.0,pitcher
-656412.0,Alex Faedo,DET,28,-0.42,57.1,0.46,0.18,0.06,Average,24.9,2026-01-29,2024,v1.0,pitcher
-656427.0,Jack Flaherty,- - -,28,3.31,162.0,2.23,3.11,3.75,Average,97.5,2026-01-29,2024,v1.0,pitcher
-656464.0,Kevin Ginkel,ARI,30,1.26,70.0,1.01,1.07,1.04,Average,76.9,2026-01-29,2024,v1.0,pitcher
-656529.0,Sam Hentges,CLE,27,0.26,23.2,0.47,0.3,0.18,Average,26.6,2026-01-29,2024,v1.0,pitcher
-656546.0,Jeff Hoffman,PHI,31,2.03,66.1,1.18,1.47,1.66,Average,84.0,2026-01-29,2024,v1.0,pitcher
-656550.0,Grant Holmes,ATL,28,1.18,68.1,1.09,1.12,1.06,Average,80.1,2026-01-29,2024,v1.0,pitcher
-656557.0,Tanner Houck,BOS,28,3.89,178.2,2.15,3.08,3.99,Average,97.0,2026-01-29,2024,v1.0,pitcher
-656605.0,Mitch Keller,PIT,28,2.15,178.0,1.26,1.59,1.83,Average,86.0,2026-01-29,2024,v1.0,pitcher
-656629.0,Michael Kopech,- - -,28,0.4,67.2,0.84,0.62,0.42,Average,67.5,2026-01-29,2024,v1.0,pitcher
-656641.0,Jacob Latz,TEX,28,-0.27,43.2,0.4,0.18,0.07,Average,17.3,2026-01-29,2024,v1.0,pitcher
-656730.0,Trevor Megill,MIL,30,0.98,46.1,0.76,0.75,0.67,Average,61.0,2026-01-29,2024,v1.0,pitcher
-656731.0,Tylor Megill,NYM,28,1.4,78.0,1.2,1.32,1.32,Average,84.6,2026-01-29,2024,v1.0,pitcher
-656756.0,Jordan Montgomery,ARI,31,0.61,117.0,0.64,0.55,0.43,Average,47.6,2026-01-29,2024,v1.0,pitcher
-656849.0,David Peterson,NYM,28,1.88,121.0,1.18,1.43,1.58,Average,84.0,2026-01-29,2024,v1.0,pitcher
-656876.0,Drew Rasmussen,TBR,28,0.98,28.2,0.67,0.65,0.57,Average,51.4,2026-01-29,2024,v1.0,pitcher
-656887.0,Sean Reid-Foley,NYM,28,0.4,21.2,0.44,0.32,0.22,Average,22.0,2026-01-29,2024,v1.0,pitcher
-656924.0,Ryder Ryan,PIT,29,-0.01,20.2,0.29,0.17,0.09,Average,4.8,2026-01-29,2024,v1.0,pitcher
-656945.0,Tanner Scott,- - -,29,1.64,72.0,1.08,1.27,1.33,Average,79.6,2026-01-29,2024,v1.0,pitcher
-657006.0,Justin Steele,CHC,28,2.99,134.2,2.1,2.74,3.41,Average,96.7,2026-01-29,2024,v1.0,pitcher
-657024.0,Erik Swanson,TOR,30,-0.63,39.1,0.4,0.13,0.04,Average,17.3,2026-01-29,2024,v1.0,pitcher
-657044.0,Ryan Thompson,ARI,32,0.88,66.1,0.62,0.6,0.54,Average,44.7,2026-01-29,2024,v1.0,pitcher
-657053.0,Touki Toussaint,CHW,28,-0.15,23.0,0.31,0.15,0.07,Average,7.6,2026-01-29,2024,v1.0,pitcher
-657097.0,Jacob Webb,BAL,30,0.67,56.2,0.61,0.53,0.42,Average,43.3,2026-01-29,2024,v1.0,pitcher
-657277.0,Logan Webb,SFG,27,4.43,204.2,2.45,3.51,4.6,Average,98.5,2026-01-29,2024,v1.0,pitcher
-657376.0,Clarke Schmidt,NYY,28,1.67,85.1,1.34,1.56,1.66,Average,88.6,2026-01-29,2024,v1.0,pitcher
-657508.0,Mike Baumann,- - -,28,-0.41,58.1,0.45,0.17,0.06,Average,23.5,2026-01-29,2024,v1.0,pitcher
-657514.0,Brennan Bernardino,BOS,32,0.2,51.0,0.55,0.4,0.26,Average,36.2,2026-01-29,2024,v1.0,pitcher
-657571.0,Caleb Ferguson,- - -,27,0.27,54.1,0.68,0.44,0.27,Average,52.3,2026-01-29,2024,v1.0,pitcher
-657585.0,Reed Garrett,NYM,31,0.91,57.1,0.85,0.82,0.73,Average,68.6,2026-01-29,2024,v1.0,pitcher
-657612.0,Tim Hill,- - -,34,0.47,67.0,0.47,0.4,0.32,Average,26.6,2026-01-29,2024,v1.0,pitcher
-657649.0,Jared Koenig,MIL,30,0.92,62.0,0.76,0.73,0.64,Average,61.0,2026-01-29,2024,v1.0,pitcher
-657746.0,Joe Ryan,MIN,28,3.13,135.0,1.8,2.49,3.12,Average,94.5,2026-01-29,2024,v1.0,pitcher
-658648.0,Pedro Avila,- - -,27,0.22,82.2,0.66,0.42,0.25,Average,50.5,2026-01-29,2024,v1.0,pitcher
-660600.0,Enoli Paredes,- - -,28,0.25,21.2,0.37,0.25,0.15,Average,14.0,2026-01-29,2024,v1.0,pitcher
-660761.0,José Suarez,LAA,26,0.06,52.1,0.53,0.29,0.15,Average,34.2,2026-01-29,2024,v1.0,pitcher
-660825.0,Eduard Bazardo,SEA,28,0.28,27.2,0.46,0.32,0.2,Average,24.9,2026-01-29,2024,v1.0,pitcher
-660853.0,Enyel De Los Santos,- - -,28,-0.96,64.0,0.36,0.06,0.01,Average,12.8,2026-01-29,2024,v1.0,pitcher
-660896.0,Jorge Alcala,MIN,28,0.3,58.1,0.56,0.39,0.25,Average,37.5,2026-01-29,2024,v1.0,pitcher
-661395.0,Jhoan Duran,MIN,26,1.19,54.1,1.04,1.06,0.96,Average,77.8,2026-01-29,2024,v1.0,pitcher
-661403.0,Emmanuel Clase,CLE,26,2.25,74.1,1.49,1.91,2.17,Average,91.5,2026-01-29,2024,v1.0,pitcher
-661527.0,Seth Martinez,HOU,29,-0.15,52.2,0.41,0.21,0.1,Average,18.4,2026-01-29,2024,v1.0,pitcher
-661563.0,Luis Gil,NYY,26,2.09,151.2,1.3,1.63,1.82,Average,87.5,2026-01-29,2024,v1.0,pitcher
-662253.0,Andrés Muñoz,SEA,25,0.63,59.1,0.99,0.8,0.58,Average,76.2,2026-01-29,2024,v1.0,pitcher
-663158.0,Robert Suarez,SDP,33,0.88,65.0,0.62,0.61,0.55,Average,44.7,2026-01-29,2024,v1.0,pitcher
-663362.0,Matt Waldron,SDP,27,1.76,146.2,1.14,1.33,1.42,Average,82.3,2026-01-29,2024,v1.0,pitcher
-663372.0,Ryan Feltner,COL,27,2.47,162.1,1.37,1.77,2.1,Average,89.2,2026-01-29,2024,v1.0,pitcher
-663423.0,Trent Thornton,SEA,30,0.57,72.1,0.73,0.61,0.46,Average,58.2,2026-01-29,2024,v1.0,pitcher
-663432.0,Tanner Rainey,WSN,31,-0.2,51.0,0.43,0.22,0.11,Average,20.6,2026-01-29,2024,v1.0,pitcher
-663436.0,Davis Martin,CHW,27,0.63,50.0,0.81,0.65,0.48,Average,64.5,2026-01-29,2024,v1.0,pitcher
-663460.0,Kris Bubic,KCR,26,0.92,30.1,1.31,1.21,1.0,Average,88.0,2026-01-29,2024,v1.0,pitcher
-663465.0,Kolby Allard,PHI,26,0.07,27.0,0.34,0.19,0.09,Average,10.9,2026-01-29,2024,v1.0,pitcher
-663474.0,Triston McKenzie,CLE,26,-0.97,75.2,0.31,0.05,0.01,Average,7.6,2026-01-29,2024,v1.0,pitcher
-663485.0,Cole Sands,MIN,26,1.51,71.1,1.24,1.39,1.39,Average,85.3,2026-01-29,2024,v1.0,pitcher
-663531.0,Logan Allen,ARI,27,-0.01,28.0,0.27,0.14,0.07,Average,3.1,2026-01-29,2024,v1.0,pitcher
-663542.0,Bryan Hudson,MIL,27,0.73,62.1,0.8,0.67,0.53,Average,63.6,2026-01-29,2024,v1.0,pitcher
-663546.0,Sean Hjelle,SFG,27,0.3,80.2,0.84,0.56,0.35,Average,67.5,2026-01-29,2024,v1.0,pitcher
-663554.0,Casey Mize,DET,27,1.34,102.1,0.92,0.97,0.94,Average,72.9,2026-01-29,2024,v1.0,pitcher
-663559.0,Bailey Falter,PIT,27,1.67,142.1,0.86,0.98,1.03,Average,69.4,2026-01-29,2024,v1.0,pitcher
-663562.0,Noah Davis,COL,27,0.01,20.1,0.27,0.15,0.07,Average,3.1,2026-01-29,2024,v1.0,pitcher
-663567.0,Peter Lambert,COL,27,0.21,61.1,0.49,0.31,0.18,Average,29.6,2026-01-29,2024,v1.0,pitcher
-663568.0,Stephen Kolek,SDP,27,0.27,46.2,0.71,0.46,0.28,Average,56.0,2026-01-29,2024,v1.0,pitcher
-663574.0,Tony Santillan,CIN,27,0.76,30.0,1.11,0.95,0.76,Average,81.0,2026-01-29,2024,v1.0,pitcher
-663623.0,Jake Irvin,WSN,27,1.82,187.2,1.17,1.38,1.49,Average,83.7,2026-01-29,2024,v1.0,pitcher
-663687.0,Hogan Harris,OAK,27,0.51,72.1,0.56,0.42,0.3,Average,37.5,2026-01-29,2024,v1.0,pitcher
-663704.0,James McArthur,KCR,27,0.09,56.2,0.66,0.38,0.2,Average,50.5,2026-01-29,2024,v1.0,pitcher
-663738.0,Daniel Lynch IV,KCR,27,0.03,43.1,0.61,0.33,0.17,Average,43.3,2026-01-29,2024,v1.0,pitcher
-663765.0,Jake Woodford,- - -,27,0.06,35.0,0.38,0.21,0.11,Average,15.2,2026-01-29,2024,v1.0,pitcher
-663773.0,Bryan Hoeing,- - -,27,0.58,53.2,0.72,0.57,0.41,Average,57.0,2026-01-29,2024,v1.0,pitcher
-663776.0,Patrick Sandoval,LAA,27,1.2,79.2,1.06,1.07,1.0,Average,78.3,2026-01-29,2024,v1.0,pitcher
-663855.0,Jordan Hicks,SFG,27,0.48,109.2,0.73,0.54,0.38,Average,58.2,2026-01-29,2024,v1.0,pitcher
-663878.0,Nate Pearson,- - -,27,0.13,66.1,0.64,0.38,0.21,Average,47.6,2026-01-29,2024,v1.0,pitcher
-663893.0,Brendon Little,TOR,27,-0.31,45.2,0.51,0.21,0.08,Average,31.3,2026-01-29,2024,v1.0,pitcher
-663903.0,Brady Singer,KCR,27,2.45,179.2,1.65,2.12,2.51,Average,92.9,2026-01-29,2024,v1.0,pitcher
-663947.0,Tyler Holton,DET,28,1.48,94.1,1.06,1.19,1.21,Average,78.3,2026-01-29,2024,v1.0,pitcher
-663969.0,Tyler Phillips,PHI,26,-0.07,36.2,0.46,0.23,0.1,Average,24.9,2026-01-29,2024,v1.0,pitcher
-663978.0,Chris Paddack,MIN,28,1.05,88.1,0.92,0.91,0.82,Average,72.9,2026-01-29,2024,v1.0,pitcher
-663992.0,Richard Lovelady,- - -,28,0.06,34.1,0.46,0.27,0.15,Average,24.9,2026-01-29,2024,v1.0,pitcher
-664076.0,Garrett Cleavinger,TBR,30,0.18,60.0,0.55,0.37,0.23,Average,36.2,2026-01-29,2024,v1.0,pitcher
-664126.0,Pete Fairbanks,TBR,30,0.59,45.1,0.55,0.46,0.35,Average,36.2,2026-01-29,2024,v1.0,pitcher
-664208.0,Phil Maton,- - -,31,0.11,64.0,0.48,0.32,0.19,Average,28.3,2026-01-29,2024,v1.0,pitcher
-664285.0,Framber Valdez,HOU,30,3.65,176.1,2.37,3.32,4.2,Average,98.0,2026-01-29,2024,v1.0,pitcher
-664299.0,Cristian Javier,HOU,27,0.27,34.2,0.55,0.36,0.22,Average,36.2,2026-01-29,2024,v1.0,pitcher
-664350.0,Sixto Sánchez,MIA,25,0.12,35.2,0.38,0.22,0.11,Average,15.2,2026-01-29,2024,v1.0,pitcher
-664747.0,Alexis Díaz,CIN,27,0.22,56.1,0.42,0.26,0.16,Average,19.5,2026-01-29,2024,v1.0,pitcher
-664776.0,Jake Cousins,NYY,29,0.12,38.0,0.96,0.61,0.35,Average,74.3,2026-01-29,2024,v1.0,pitcher
-664849.0,Danny Young,NYM,30,0.16,37.2,0.81,0.53,0.32,Average,64.5,2026-01-29,2024,v1.0,pitcher
-664854.0,Ryan Helsley,STL,29,2.25,66.1,1.16,1.49,1.71,Average,83.4,2026-01-29,2024,v1.0,pitcher
-664875.0,Justin Lawrence,COL,29,-0.82,59.2,0.33,0.08,0.02,Average,10.1,2026-01-29,2024,v1.0,pitcher
-665152.0,Dean Kremer,BAL,28,1.45,129.2,1.09,1.21,1.23,Average,80.1,2026-01-29,2024,v1.0,pitcher
-665622.0,Luis Medina,OAK,25,0.41,40.0,0.64,0.45,0.29,Average,47.6,2026-01-29,2024,v1.0,pitcher
-665625.0,Elvis Peguero,MIL,27,0.1,51.1,0.61,0.35,0.19,Average,43.3,2026-01-29,2024,v1.0,pitcher
-665795.0,Edward Cabrera,MIA,26,0.57,96.1,0.9,0.71,0.5,Average,72.1,2026-01-29,2024,v1.0,pitcher
-665871.0,Javier Assad,CHC,26,1.04,147.0,0.73,0.7,0.61,Average,58.2,2026-01-29,2024,v1.0,pitcher
-666129.0,Braxton Garrett,MIA,26,0.6,37.0,0.9,0.72,0.51,Average,72.1,2026-01-29,2024,v1.0,pitcher
-666142.0,Cole Ragans,KCR,26,4.85,186.1,2.49,3.69,4.82,Average,99.3,2026-01-29,2024,v1.0,pitcher
-666157.0,Nick Lodolo,CIN,26,2.01,115.1,1.55,1.92,2.1,Average,92.4,2026-01-29,2024,v1.0,pitcher
-666159.0,Matt Manning,DET,26,0.24,27.2,0.31,0.2,0.11,Average,7.6,2026-01-29,2024,v1.0,pitcher
-666200.0,Jesús Luzardo,MIA,26,0.7,66.2,0.82,0.69,0.52,Average,65.6,2026-01-29,2024,v1.0,pitcher
-666201.0,Alek Manoah,TOR,26,0.04,24.1,0.4,0.22,0.11,Average,17.3,2026-01-29,2024,v1.0,pitcher
-666204.0,Dany Jiménez,OAK,30,-0.69,25.2,0.2,0.06,0.02,Average,1.1,2026-01-29,2024,v1.0,pitcher
-666205.0,Kyle Muller,OAK,26,0.11,49.1,0.54,0.31,0.16,Average,35.2,2026-01-29,2024,v1.0,pitcher
-666214.0,Joey Wentz,- - -,26,0.15,67.1,0.61,0.37,0.2,Average,43.3,2026-01-29,2024,v1.0,pitcher
-666277.0,George Soriano,MIA,25,-0.55,29.1,0.28,0.08,0.02,Average,4.0,2026-01-29,2024,v1.0,pitcher
-666720.0,Yerry Rodríguez,- - -,26,-0.71,21.2,0.19,0.04,0.01,Average,0.9,2026-01-29,2024,v1.0,pitcher
-666745.0,Jhony Brito,SDP,26,0.29,43.2,0.48,0.31,0.19,Average,28.3,2026-01-29,2024,v1.0,pitcher
-666808.0,Camilo Doval,SFG,26,0.1,59.0,0.63,0.36,0.19,Average,46.1,2026-01-29,2024,v1.0,pitcher
-666974.0,Yennier Cano,BAL,30,0.61,60.0,0.7,0.6,0.46,Average,54.8,2026-01-29,2024,v1.0,pitcher
-667297.0,Tommy Nance,TOR,33,0.07,22.0,0.33,0.23,0.14,Average,10.1,2026-01-29,2024,v1.0,pitcher
-667463.0,John King,STL,29,0.25,60.0,0.46,0.32,0.2,Average,24.9,2026-01-29,2024,v1.0,pitcher
-667725.0,Kyle Tyler,MIA,27,0.04,31.2,0.46,0.25,0.13,Average,24.9,2026-01-29,2024,v1.0,pitcher
-667755.0,José Soriano,LAA,25,1.67,113.0,1.12,1.32,1.38,Average,81.3,2026-01-29,2024,v1.0,pitcher
-668338.0,Tyson Miller,- - -,28,0.54,62.0,0.68,0.54,0.4,Average,52.3,2026-01-29,2024,v1.0,pitcher
-668674.0,Lucas Erceg,- - -,29,1.67,61.2,1.06,1.24,1.31,Average,78.3,2026-01-29,2024,v1.0,pitcher
-668678.0,Zac Gallen,ARI,28,2.83,148.0,1.73,2.34,2.88,Average,93.9,2026-01-29,2024,v1.0,pitcher
-668881.0,Hunter Greene,CIN,24,3.7,150.1,2.03,2.99,3.98,Average,95.8,2026-01-29,2024,v1.0,pitcher
-668909.0,Gavin Williams,CLE,24,1.26,76.0,1.01,1.05,1.0,Average,76.9,2026-01-29,2024,v1.0,pitcher
-668933.0,Graham Ashcraft,CIN,26,0.54,77.1,0.61,0.47,0.32,Average,43.3,2026-01-29,2024,v1.0,pitcher
-668941.0,JoJo Romero,STL,27,-0.09,59.0,0.5,0.25,0.11,Average,30.4,2026-01-29,2024,v1.0,pitcher
-668964.0,Tobias Myers,MIL,25,2.14,138.0,1.21,1.56,1.78,Average,84.9,2026-01-29,2024,v1.0,pitcher
-668968.0,Hans Crouse,LAA,25,0.22,25.1,0.44,0.27,0.15,Average,22.0,2026-01-29,2024,v1.0,pitcher
-669022.0,MacKenzie Gore,WSN,25,3.23,166.1,1.65,2.37,3.01,Average,92.9,2026-01-29,2024,v1.0,pitcher
-669060.0,Bryse Wilson,MIL,26,-0.25,104.2,0.37,0.15,0.06,Average,14.0,2026-01-29,2024,v1.0,pitcher
-669062.0,Erik Miller,SFG,26,0.43,67.1,0.89,0.64,0.41,Average,71.4,2026-01-29,2024,v1.0,pitcher
-669084.0,DL Hall,MIL,25,0.19,43.0,0.66,0.4,0.22,Average,50.5,2026-01-29,2024,v1.0,pitcher
-669093.0,Jeremiah Estrada,SDP,25,1.63,61.0,1.29,1.51,1.57,Average,87.0,2026-01-29,2024,v1.0,pitcher
-669194.0,Ryne Nelson,ARI,26,2.16,150.2,1.1,1.4,1.57,Average,80.5,2026-01-29,2024,v1.0,pitcher
-669203.0,Corbin Burnes,BAL,29,3.85,194.1,2.23,3.19,4.07,Average,97.5,2026-01-29,2024,v1.0,pitcher
-669211.0,Keegan Akin,BAL,29,1.44,78.2,1.39,1.56,1.56,Average,89.9,2026-01-29,2024,v1.0,pitcher
-669212.0,Eli Morgan,CLE,28,0.32,42.0,0.7,0.49,0.32,Average,54.8,2026-01-29,2024,v1.0,pitcher
-669276.0,Dylan Lee,ATL,29,0.78,59.2,1.08,0.99,0.81,Average,79.6,2026-01-29,2024,v1.0,pitcher
-669302.0,Logan Gilbert,SEA,27,4.02,208.2,2.63,3.73,4.85,Average,99.4,2026-01-29,2024,v1.0,pitcher
-669358.0,Shane Baz,TBR,25,1.08,79.1,0.87,0.86,0.76,Average,70.2,2026-01-29,2024,v1.0,pitcher
-669372.0,J.T. Ginn,OAK,25,0.42,34.0,0.76,0.54,0.35,Average,61.0,2026-01-29,2024,v1.0,pitcher
-669373.0,Tarik Skubal,DET,27,5.95,192.0,3.06,4.46,5.96,Good,100.0,2026-01-29,2024,v1.0,pitcher
-669387.0,Carmen Mlodzinski,PIT,25,0.6,50.2,0.73,0.59,0.42,Average,58.2,2026-01-29,2024,v1.0,pitcher
-669432.0,Trevor Rogers,- - -,26,0.94,124.1,0.69,0.64,0.53,Average,53.5,2026-01-29,2024,v1.0,pitcher
-669438.0,Mason Englert,DET,24,-0.07,21.2,0.3,0.14,0.06,Average,6.1,2026-01-29,2024,v1.0,pitcher
-669461.0,Matthew Liberatore,STL,24,0.35,86.0,0.65,0.43,0.26,Average,49.2,2026-01-29,2024,v1.0,pitcher
-669467.0,Andre Pallante,STL,25,1.78,121.1,0.99,1.2,1.28,Average,76.2,2026-01-29,2024,v1.0,pitcher
-669620.0,Brady Basso,OAK,26,0.34,22.1,0.39,0.26,0.16,Average,16.2,2026-01-29,2024,v1.0,pitcher
-669622.0,Anthony Bender,MIA,29,0.88,53.0,0.98,0.92,0.79,Average,75.5,2026-01-29,2024,v1.0,pitcher
-669674.0,Sam Long,KCR,28,0.17,42.2,0.63,0.4,0.24,Average,46.1,2026-01-29,2024,v1.0,pitcher
-669711.0,Greg Weissert,BOS,29,0.53,63.1,0.63,0.51,0.38,Average,46.1,2026-01-29,2024,v1.0,pitcher
-669713.0,Hayden Wesneski,CHC,26,0.17,67.2,0.75,0.46,0.25,Average,60.0,2026-01-29,2024,v1.0,pitcher
-669721.0,Davis Daniel,LAA,27,0.44,30.1,0.64,0.47,0.32,Average,47.6,2026-01-29,2024,v1.0,pitcher
-669724.0,Brenan Hanifee,DET,26,0.51,29.1,0.42,0.32,0.22,Average,19.5,2026-01-29,2024,v1.0,pitcher
-669854.0,Ronel Blanco,HOU,30,2.19,167.1,1.43,1.8,2.07,Average,90.9,2026-01-29,2024,v1.0,pitcher
-669923.0,George Kirby,SEA,26,4.16,191.0,2.24,3.26,4.2,Average,97.8,2026-01-29,2024,v1.0,pitcher
-669952.0,Mitch White,- - -,29,-0.36,23.2,0.15,0.07,0.03,Average,0.3,2026-01-29,2024,v1.0,pitcher
-670036.0,Matt Festa,- - -,31,0.38,23.2,0.31,0.24,0.17,Average,7.6,2026-01-29,2024,v1.0,pitcher
-670046.0,Kenny Rosenberg,LAA,28,-0.2,24.0,0.28,0.13,0.06,Average,4.0,2026-01-29,2024,v1.0,pitcher
-670059.0,Colin Holderman,PIT,28,0.13,51.1,0.53,0.33,0.19,Average,34.2,2026-01-29,2024,v1.0,pitcher
-670102.0,Bowden Francis,TOR,28,1.04,103.2,0.99,0.97,0.88,Average,76.2,2026-01-29,2024,v1.0,pitcher
-670124.0,Adam Oller,MIA,29,0.01,42.1,0.48,0.28,0.15,Average,28.3,2026-01-29,2024,v1.0,pitcher
-670167.0,John Schreiber,KCR,30,1.1,51.2,0.66,0.68,0.63,Average,50.5,2026-01-29,2024,v1.0,pitcher
-670174.0,Josh Winckowski,BOS,26,0.23,76.0,0.55,0.35,0.2,Average,36.2,2026-01-29,2024,v1.0,pitcher
-670280.0,David Bednar,PIT,29,-0.19,57.2,0.42,0.21,0.09,Average,19.5,2026-01-29,2024,v1.0,pitcher
-670766.0,Darren McCaughan,- - -,28,-0.44,42.0,0.28,0.1,0.04,Average,4.0,2026-01-29,2024,v1.0,pitcher
-670950.0,Trevor Richards,- - -,31,0.12,65.1,0.51,0.34,0.21,Average,31.3,2026-01-29,2024,v1.0,pitcher
-670955.0,Edwin Uceta,TBR,26,1.66,41.2,1.26,1.46,1.5,Average,86.0,2026-01-29,2024,v1.0,pitcher
-670970.0,Adrian Morejon,SDP,25,1.12,63.2,0.96,0.97,0.87,Average,74.3,2026-01-29,2024,v1.0,pitcher
-670990.0,Yohan Ramírez,- - -,29,0.14,45.0,0.51,0.33,0.19,Average,31.3,2026-01-29,2024,v1.0,pitcher
-671096.0,Andrew Abbott,CIN,25,1.03,138.0,0.82,0.8,0.69,Average,65.6,2026-01-29,2024,v1.0,pitcher
-671106.0,Logan Allen,CLE,25,-0.7,97.1,0.42,0.1,0.02,Average,19.5,2026-01-29,2024,v1.0,pitcher
-671212.0,Joe Boyle,OAK,24,0.31,47.2,0.62,0.4,0.24,Average,44.7,2026-01-29,2024,v1.0,pitcher
-671305.0,Michel Otañez,OAK,26,0.69,34.0,1.02,0.85,0.63,Average,77.4,2026-01-29,2024,v1.0,pitcher
-671345.0,Jason Foley,DET,28,0.28,60.0,0.45,0.31,0.2,Average,23.5,2026-01-29,2024,v1.0,pitcher
-671737.0,Taj Bradley,TBR,23,1.52,138.0,1.25,1.39,1.41,Average,85.6,2026-01-29,2024,v1.0,pitcher
-671922.0,Cade Smith,CLE,25,2.69,75.1,1.58,2.18,2.66,Average,92.6,2026-01-29,2024,v1.0,pitcher
-672282.0,Reid Detmers,LAA,24,0.64,87.1,0.97,0.77,0.56,Average,74.9,2026-01-29,2024,v1.0,pitcher
-672335.0,Cionel Pérez,BAL,28,0.72,53.2,0.57,0.49,0.39,Average,38.7,2026-01-29,2024,v1.0,pitcher
-672391.0,Kaleb Ort,HOU,32,-0.22,24.2,0.29,0.16,0.08,Average,4.8,2026-01-29,2024,v1.0,pitcher
-672456.0,Keider Montero,DET,23,-0.0,98.1,0.44,0.21,0.09,Average,22.0,2026-01-29,2024,v1.0,pitcher
-672578.0,Carlos Hernández,KCR,27,0.21,30.0,0.65,0.41,0.24,Average,49.2,2026-01-29,2024,v1.0,pitcher
-672582.0,Angel Zerpa,KCR,24,0.2,53.2,0.52,0.3,0.17,Average,32.7,2026-01-29,2024,v1.0,pitcher
-672710.0,Roansy Contreras,- - -,24,-0.47,68.1,0.41,0.12,0.03,Average,18.4,2026-01-29,2024,v1.0,pitcher
-673380.0,Dedniel Núñez,NYM,28,0.94,35.0,1.35,1.28,1.11,Average,88.9,2026-01-29,2024,v1.0,pitcher
-673513.0,Yuki Matsui,SDP,28,0.33,62.2,0.7,0.49,0.32,Average,54.8,2026-01-29,2024,v1.0,pitcher
-673929.0,Jordan Leasure,CHW,25,-0.42,31.1,0.41,0.14,0.04,Average,18.4,2026-01-29,2024,v1.0,pitcher
-674003.0,Cody Bradford,TEX,26,1.54,76.1,1.24,1.4,1.4,Average,85.3,2026-01-29,2024,v1.0,pitcher
-674072.0,Tommy Henry,ARI,26,-0.47,38.1,0.35,0.11,0.03,Average,11.6,2026-01-29,2024,v1.0,pitcher
-674285.0,Eduardo Salazar,- - -,26,0.17,29.1,0.35,0.21,0.12,Average,11.6,2026-01-29,2024,v1.0,pitcher
-674370.0,Osvaldo Bido,OAK,28,1.36,63.1,0.96,1.04,1.03,Average,74.3,2026-01-29,2024,v1.0,pitcher
-674944.0,Sean Guenther,DET,28,0.4,21.0,0.39,0.29,0.19,Average,16.2,2026-01-29,2024,v1.0,pitcher
-675540.0,Xzavion Curry,- - -,25,0.05,42.2,0.4,0.22,0.11,Average,17.3,2026-01-29,2024,v1.0,pitcher
-675627.0,Michael Grove,LAD,27,0.4,51.0,0.76,0.54,0.35,Average,61.0,2026-01-29,2024,v1.0,pitcher
-675921.0,Spencer Howard,- - -,27,-0.07,29.0,0.29,0.14,0.07,Average,4.8,2026-01-29,2024,v1.0,pitcher
-676092.0,Collin Snider,SEA,28,0.46,41.2,0.75,0.57,0.4,Average,60.0,2026-01-29,2024,v1.0,pitcher
-676106.0,Emerson Hancock,SEA,25,-0.39,60.2,0.36,0.13,0.04,Average,12.8,2026-01-29,2024,v1.0,pitcher
-676130.0,José Buttó,NYM,26,0.97,74.0,0.87,0.82,0.69,Average,70.2,2026-01-29,2024,v1.0,pitcher
-676254.0,Ryan Walker,SFG,28,1.7,80.0,1.33,1.56,1.67,Average,88.4,2026-01-29,2024,v1.0,pitcher
-676272.0,Bobby Miller,LAD,25,-0.86,56.0,0.36,0.06,0.01,Average,12.8,2026-01-29,2024,v1.0,pitcher
-676282.0,Joey Cantillo,CLE,24,0.44,38.2,0.79,0.56,0.37,Average,62.7,2026-01-29,2024,v1.0,pitcher
-676395.0,Robert Garcia,WSN,28,1.53,59.2,1.4,1.58,1.63,Average,90.4,2026-01-29,2024,v1.0,pitcher
-676428.0,Brant Hurter,DET,25,0.76,45.1,0.87,0.75,0.59,Average,70.2,2026-01-29,2024,v1.0,pitcher
-676440.0,Tanner Bibee,CLE,25,3.31,173.2,1.7,2.45,3.13,Average,93.3,2026-01-29,2024,v1.0,pitcher
-676534.0,Calvin Faucher,MIA,28,1.34,53.2,0.89,0.96,0.95,Average,71.4,2026-01-29,2024,v1.0,pitcher
-676596.0,Josh Fleming,PIT,28,-0.04,31.1,0.25,0.14,0.07,Average,2.4,2026-01-29,2024,v1.0,pitcher
-676614.0,Bryan Sammons,DET,29,-0.37,27.1,0.21,0.09,0.03,Average,1.4,2026-01-29,2024,v1.0,pitcher
-676664.0,JP Sears,OAK,28,1.18,180.2,0.84,0.87,0.82,Average,67.5,2026-01-29,2024,v1.0,pitcher
-676684.0,Will Vest,DET,29,1.15,70.1,0.91,0.94,0.87,Average,72.6,2026-01-29,2024,v1.0,pitcher
-676702.0,Hunter Stratton,PIT,27,0.66,37.2,0.75,0.61,0.46,Average,60.0,2026-01-29,2024,v1.0,pitcher
-676710.0,Kutter Crawford,BOS,28,1.84,183.2,1.26,1.52,1.66,Average,86.0,2026-01-29,2024,v1.0,pitcher
-676760.0,Ron Marinaccio,NYY,29,-0.1,23.1,0.31,0.17,0.08,Average,7.6,2026-01-29,2024,v1.0,pitcher
-676775.0,Keaton Winn,SFG,26,-0.0,55.1,0.53,0.28,0.13,Average,34.2,2026-01-29,2024,v1.0,pitcher
-676879.0,Aaron Ashby,MIL,26,0.6,28.1,0.57,0.46,0.33,Average,38.7,2026-01-29,2024,v1.0,pitcher
-676962.0,Ben Brown,CHC,24,1.29,55.1,1.13,1.18,1.14,Average,81.7,2026-01-29,2024,v1.0,pitcher
-676974.0,Max Meyer,MIA,25,-0.31,57.0,0.49,0.19,0.07,Average,29.6,2026-01-29,2024,v1.0,pitcher
-676979.0,Garrett Crochet,CHW,25,4.63,146.0,2.77,4.19,5.59,Average,99.8,2026-01-29,2024,v1.0,pitcher
-677053.0,Andrew Nardi,MIA,25,0.71,49.2,1.02,0.86,0.65,Average,77.4,2026-01-29,2024,v1.0,pitcher
-677161.0,Zack Kelly,BOS,29,-0.26,56.2,0.52,0.24,0.1,Average,32.7,2026-01-29,2024,v1.0,pitcher
-677944.0,Slade Cecconi,ARI,25,0.17,77.0,0.52,0.31,0.17,Average,32.7,2026-01-29,2024,v1.0,pitcher
-677960.0,Ryan Weathers,MIA,24,1.07,86.2,0.99,0.96,0.85,Average,76.2,2026-01-29,2024,v1.0,pitcher
-678061.0,Ray Kerr,ATL,29,0.11,22.1,0.3,0.19,0.11,Average,6.1,2026-01-29,2024,v1.0,pitcher
-678368.0,Valente Bellozo,MIA,24,-0.09,68.2,0.39,0.18,0.08,Average,16.2,2026-01-29,2024,v1.0,pitcher
-678394.0,Brayan Bello,BOS,25,1.99,162.1,1.31,1.64,1.83,Average,88.0,2026-01-29,2024,v1.0,pitcher
-678495.0,Randy Rodríguez,SFG,24,0.54,52.1,0.87,0.65,0.45,Average,70.2,2026-01-29,2024,v1.0,pitcher
-678606.0,Jose A. Ferrer,WSN,24,0.64,32.0,0.84,0.67,0.49,Average,67.5,2026-01-29,2024,v1.0,pitcher
-679525.0,Alec Marsh,KCR,26,1.37,129.0,0.98,1.06,1.01,Average,75.5,2026-01-29,2024,v1.0,pitcher
-679885.0,Justin Martinez,ARI,22,1.39,72.2,1.01,1.1,1.06,Average,76.9,2026-01-29,2024,v1.0,pitcher
-680570.0,Grayson Rodriguez,BAL,24,2.03,116.2,1.38,1.73,1.98,Average,89.5,2026-01-29,2024,v1.0,pitcher
-680573.0,Simeon Woods Richardson,MIN,23,1.83,133.2,0.98,1.17,1.28,Average,75.5,2026-01-29,2024,v1.0,pitcher
-680694.0,Kyle Bradish,BAL,27,1.38,39.1,1.42,1.51,1.49,Average,90.6,2026-01-29,2024,v1.0,pitcher
-680704.0,Nick Sandlin,CLE,27,-0.69,57.2,0.49,0.12,0.03,Average,29.6,2026-01-29,2024,v1.0,pitcher
-680730.0,Mitchell Parker,WSN,24,2.43,151.0,1.28,1.7,2.07,Average,86.5,2026-01-29,2024,v1.0,pitcher
-680736.0,Justin Wrobleski,LAD,23,-0.33,36.1,0.37,0.12,0.04,Average,14.0,2026-01-29,2024,v1.0,pitcher
-680744.0,Ty Madden,DET,24,0.22,23.0,0.36,0.22,0.12,Average,12.8,2026-01-29,2024,v1.0,pitcher
-680767.0,Victor Vodnik,COL,24,0.35,73.2,0.47,0.31,0.19,Average,26.6,2026-01-29,2024,v1.0,pitcher
-680885.0,Spencer Schwellenbach,ATL,24,2.65,123.2,1.71,2.34,2.91,Average,93.5,2026-01-29,2024,v1.0,pitcher
-680897.0,Nick Nastrini,CHW,24,-0.52,35.2,0.33,0.09,0.02,Average,10.1,2026-01-29,2024,v1.0,pitcher
-681035.0,Christian Scott,NYM,25,0.45,47.1,0.65,0.48,0.31,Average,49.2,2026-01-29,2024,v1.0,pitcher
-681190.0,Randy Vásquez,SDP,25,0.74,98.0,0.61,0.52,0.4,Average,43.3,2026-01-29,2024,v1.0,pitcher
-681293.0,Spencer Arrighetti,HOU,24,1.66,145.0,1.16,1.35,1.44,Average,83.4,2026-01-29,2024,v1.0,pitcher
-681402.0,Gus Varland,- - -,27,0.42,26.1,0.37,0.27,0.18,Average,14.0,2026-01-29,2024,v1.0,pitcher
-681432.0,Luke Little,CHC,23,0.07,26.0,0.38,0.19,0.09,Average,15.2,2026-01-29,2024,v1.0,pitcher
-681517.0,Kyle Leahy,STL,27,0.34,48.2,0.58,0.4,0.25,Average,40.0,2026-01-29,2024,v1.0,pitcher
-681676.0,Ryan Fernandez,STL,26,0.74,66.2,0.73,0.63,0.48,Average,58.2,2026-01-29,2024,v1.0,pitcher
-681799.0,Ethan Roberts,CHC,26,0.1,26.2,0.32,0.18,0.09,Average,8.9,2026-01-29,2024,v1.0,pitcher
-681857.0,Reese Olson,DET,24,2.48,112.1,1.5,2.01,2.45,Average,91.9,2026-01-29,2024,v1.0,pitcher
-681867.0,Cooper Criswell,BOS,27,1.11,99.1,0.65,0.64,0.58,Average,49.2,2026-01-29,2024,v1.0,pitcher
-681869.0,Shawn Dubin,HOU,28,0.31,45.1,0.63,0.44,0.29,Average,46.1,2026-01-29,2024,v1.0,pitcher
-681892.0,Kody Funderburk,MIN,27,-0.11,34.2,0.53,0.26,0.12,Average,34.2,2026-01-29,2024,v1.0,pitcher
-681911.0,Alex Vesia,LAD,28,1.12,66.1,1.15,1.17,1.08,Average,82.8,2026-01-29,2024,v1.0,pitcher
-681982.0,Grant Anderson,TEX,27,-0.95,26.2,0.21,0.03,0.01,Average,1.4,2026-01-29,2024,v1.0,pitcher
-682120.0,Tim Herrin,CLE,27,0.97,65.2,0.95,0.89,0.77,Average,73.9,2026-01-29,2024,v1.0,pitcher
-682243.0,Bryce Miller,SEA,25,2.76,180.1,1.72,2.39,2.93,Average,93.7,2026-01-29,2024,v1.0,pitcher
-682610.0,Roddery Muñoz,MIA,24,-1.63,82.2,0.15,0.0,0.0,Average,0.3,2026-01-29,2024,v1.0,pitcher
-682847.0,Luis L. Ortiz,PIT,25,0.93,135.2,0.69,0.64,0.54,Average,53.5,2026-01-29,2024,v1.0,pitcher
-682990.0,Quinn Priester,- - -,23,0.14,49.2,0.44,0.24,0.12,Average,22.0,2026-01-29,2024,v1.0,pitcher
-683003.0,Jared Jones,PIT,22,1.76,121.2,1.13,1.35,1.44,Average,81.7,2026-01-29,2024,v1.0,pitcher
-683004.0,Jack Leiter,TEX,24,-0.24,35.2,0.44,0.17,0.06,Average,22.0,2026-01-29,2024,v1.0,pitcher
-683155.0,Joey Estes,OAK,22,0.73,127.2,0.46,0.37,0.27,Average,24.9,2026-01-29,2024,v1.0,pitcher
-683232.0,Nick Mears,- - -,27,0.78,57.2,0.9,0.78,0.63,Average,72.1,2026-01-29,2024,v1.0,pitcher
-683409.0,Angel Chivilli,COL,21,-0.25,31.2,0.42,0.14,0.04,Average,19.5,2026-01-29,2024,v1.0,pitcher
-683627.0,Anthony Molina,COL,22,0.22,59.2,0.41,0.24,0.12,Average,18.4,2026-01-29,2024,v1.0,pitcher
-683769.0,Hunter Gaddis,CLE,26,1.63,74.2,1.11,1.28,1.31,Average,81.0,2026-01-29,2024,v1.0,pitcher
-684007.0,Shota Imanaga,CHC,30,3.08,173.1,1.81,2.46,3.04,Average,94.7,2026-01-29,2024,v1.0,pitcher
-684320.0,Yariel Rodríguez,TOR,27,1.07,86.2,0.91,0.89,0.8,Average,72.6,2026-01-29,2024,v1.0,pitcher
-685299.0,Tanner Gordon,COL,26,-0.23,34.1,0.37,0.16,0.06,Average,14.0,2026-01-29,2024,v1.0,pitcher
-686539.0,Declan Cronin,MIA,26,1.31,70.1,1.06,1.12,1.06,Average,78.3,2026-01-29,2024,v1.0,pitcher
-686563.0,Jonathan Cannon,CHW,23,1.07,124.1,0.64,0.61,0.53,Average,47.6,2026-01-29,2024,v1.0,pitcher
-686580.0,Justin Slaten,BOS,26,1.47,55.1,1.07,1.18,1.16,Average,78.9,2026-01-29,2024,v1.0,pitcher
-686613.0,Hunter Brown,HOU,25,3.17,170.0,1.81,2.59,3.28,Average,94.7,2026-01-29,2024,v1.0,pitcher
-686642.0,Fraser Ellard,CHW,26,0.11,24.0,0.34,0.19,0.1,Average,10.9,2026-01-29,2024,v1.0,pitcher
-686730.0,Carson Spiers,CIN,26,0.04,90.2,0.49,0.26,0.13,Average,29.6,2026-01-29,2024,v1.0,pitcher
-686752.0,Ryan Pepiot,TBR,26,1.89,130.0,1.37,1.66,1.78,Average,89.2,2026-01-29,2024,v1.0,pitcher
-686799.0,Jack Kochanowicz,LAA,23,0.57,65.1,0.43,0.32,0.22,Average,20.6,2026-01-29,2024,v1.0,pitcher
-686826.0,Bryce Jarvis,ARI,26,-0.59,59.1,0.24,0.07,0.02,Average,2.0,2026-01-29,2024,v1.0,pitcher
-686973.0,Louis Varland,MIN,26,-0.37,49.2,0.45,0.16,0.05,Average,23.5,2026-01-29,2024,v1.0,pitcher
-687134.0,Bradley Blalock,- - -,23,-0.02,30.2,0.38,0.18,0.08,Average,15.2,2026-01-29,2024,v1.0,pitcher
-687330.0,Kevin Kelly,TBR,26,0.77,70.2,0.8,0.69,0.53,Average,63.6,2026-01-29,2024,v1.0,pitcher
-687765.0,Mitch Spence,OAK,26,1.25,151.1,0.89,0.92,0.86,Average,71.4,2026-01-29,2024,v1.0,pitcher
-687792.0,DJ Herz,WSN,23,1.66,88.2,1.2,1.38,1.44,Average,84.6,2026-01-29,2024,v1.0,pitcher
-687863.0,Porter Hodge,CHC,23,0.89,43.0,0.8,0.71,0.57,Average,63.6,2026-01-29,2024,v1.0,pitcher
-687911.0,Bryan King,HOU,27,0.41,26.1,0.46,0.33,0.22,Average,24.9,2026-01-29,2024,v1.0,pitcher
-687924.0,Julian Aguiar,CIN,23,-0.32,31.2,0.3,0.1,0.03,Average,6.1,2026-01-29,2024,v1.0,pitcher
-688107.0,Robert Gasser,MIL,25,0.67,28.0,0.42,0.35,0.26,Average,19.5,2026-01-29,2024,v1.0,pitcher
-688297.0,Chris Roycroft,STL,27,0.12,34.1,0.63,0.37,0.21,Average,46.1,2026-01-29,2024,v1.0,pitcher
-689017.0,Landon Knack,LAD,26,0.53,69.0,0.74,0.56,0.39,Average,59.2,2026-01-29,2024,v1.0,pitcher
-689147.0,Orion Kerkering,PHI,23,1.47,63.0,1.19,1.3,1.3,Average,84.3,2026-01-29,2024,v1.0,pitcher
-689225.0,Beau Brieske,DET,26,0.76,67.2,0.64,0.55,0.42,Average,47.6,2026-01-29,2024,v1.0,pitcher
-689672.0,Drew Thorpe,CHW,23,-0.09,44.1,0.4,0.18,0.07,Average,17.3,2026-01-29,2024,v1.0,pitcher
-689981.0,River Ryan,LAD,25,0.41,20.1,0.44,0.31,0.2,Average,22.0,2026-01-29,2024,v1.0,pitcher
-690829.0,Ben Joyce,LAA,23,0.62,34.2,0.65,0.5,0.35,Average,49.2,2026-01-29,2024,v1.0,pitcher
-690916.0,Richard Fitts,BOS,24,0.46,20.2,0.24,0.17,0.11,Average,2.0,2026-01-29,2024,v1.0,pitcher
-690986.0,Kyle Harrison,SFG,22,0.81,124.1,0.75,0.64,0.49,Average,60.0,2026-01-29,2024,v1.0,pitcher
-693312.0,Kyle Nicolas,PIT,25,0.1,54.2,0.58,0.33,0.17,Average,40.0,2026-01-29,2024,v1.0,pitcher
-693433.0,Bryan Woo,SEA,24,2.24,121.1,1.46,1.9,2.24,Average,91.1,2026-01-29,2024,v1.0,pitcher
-693821.0,Bryce Elder,ATL,25,0.24,49.2,0.68,0.43,0.25,Average,52.3,2026-01-29,2024,v1.0,pitcher
-694297.0,Brandon Pfaadt,ARI,25,3.12,181.2,1.68,2.39,3.02,Average,93.2,2026-01-29,2024,v1.0,pitcher
-694363.0,Jared Shuster,CHW,25,0.18,73.1,0.5,0.3,0.16,Average,30.4,2026-01-29,2024,v1.0,pitcher
-694738.0,Landen Roupp,SFG,25,0.54,50.1,0.72,0.55,0.38,Average,57.0,2026-01-29,2024,v1.0,pitcher
-694813.0,Gavin Stone,LAD,25,2.14,140.1,1.29,1.67,1.9,Average,87.0,2026-01-29,2024,v1.0,pitcher
-694973.0,Paul Skenes,PIT,22,4.26,133.0,2.41,3.69,5.0,Average,98.2,2026-01-29,2024,v1.0,pitcher
-695076.0,Rhett Lowder,CIN,22,0.86,30.2,0.53,0.47,0.36,Average,34.2,2026-01-29,2024,v1.0,pitcher
-695243.0,Mason Miller,OAK,25,2.34,65.0,1.34,1.78,2.09,Average,88.6,2026-01-29,2024,v1.0,pitcher
-696131.0,Mason Black,SFG,24,-0.26,36.1,0.38,0.15,0.05,Average,15.2,2026-01-29,2024,v1.0,pitcher
-696136.0,Jordan Wicks,CHC,24,-0.11,46.0,0.52,0.23,0.1,Average,32.7,2026-01-29,2024,v1.0,pitcher
-700241.0,Michael McGreevy,STL,23,0.62,23.0,0.47,0.36,0.25,Average,26.6,2026-01-29,2024,v1.0,pitcher
-700249.0,Cade Povich,BAL,24,0.51,79.2,0.6,0.44,0.3,Average,42.0,2026-01-29,2024,v1.0,pitcher
-700270.0,Yilber Díaz,ARI,23,0.12,28.1,0.29,0.16,0.08,Average,4.8,2026-01-29,2024,v1.0,pitcher
-701542.0,Will Warren,NYY,25,0.09,22.2,0.46,0.26,0.13,Average,24.9,2026-01-29,2024,v1.0,pitcher
-701581.0,David Festa,MIN,24,1.05,64.1,1.08,1.04,0.92,Average,79.6,2026-01-29,2024,v1.0,pitcher
-702352.0,Spencer Bivens,SFG,30,-0.29,48.2,0.38,0.18,0.08,Average,15.2,2026-01-29,2024,v1.0,pitcher
-800049.0,Adam Mazur,SDP,23,-0.29,33.2,0.3,0.11,0.03,Average,6.1,2026-01-29,2024,v1.0,pitcher
-805673.0,Zebby Matthews,MIN,24,-0.18,37.2,0.55,0.23,0.09,Average,36.2,2026-01-29,2024,v1.0,pitcher
-806185.0,Hayden Birdsong,SFG,22,0.1,72.0,0.65,0.33,0.16,Average,49.2,2026-01-29,2024,v1.0,pitcher
-808967.0,Yoshinobu Yamamoto,LAD,25,2.87,90.0,2.03,2.71,3.36,Average,95.8,2026-01-29,2024,v1.0,pitcher
+playerid,Name,Team,Age,war_2024,IP,war_2025,war_2026,war_2027,war_2025_tier,war_2025_percentile,projection_date,base_year,model_version,player_type,survival_prob_year_1,survival_prob_year_2,survival_prob_year_3
+434378.0,Justin Verlander,HOU,41,0.68,90.1,0.58,0.57,0.56,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.889123880602518,0.7114098058250592,0.5102433464701387
+445276.0,Kenley Jansen,BOS,36,1.42,54.2,0.68,0.67,0.66,Average,46.6,2026-01-29,2024,v1.0,pitcher,0.9263383221540443,0.8011541442591893,0.6452611453891275
+445926.0,Jesse Chavez,ATL,40,-0.2,63.1,0.52,0.51,0.51,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.7769494609528342,0.4813008242196477,0.23573853753158228
+450203.0,Charlie Morton,ATL,40,1.11,165.1,0.73,0.72,0.71,Average,54.9,2026-01-29,2024,v1.0,pitcher,0.9183001873673952,0.7811767165977153,0.6138528563315842
+453286.0,Max Scherzer,TEX,39,0.61,43.1,0.81,0.79,0.78,Average,65.4,2026-01-29,2024,v1.0,pitcher,0.8744444112285912,0.6779083106288348,0.4638533752351051
+455119.0,Chris Martin,BOS,38,0.9,44.1,0.61,0.6,0.59,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.8963872884070755,0.7283796444027888,0.5345746248207893
+458677.0,Justin Wilson,CIN,36,0.12,46.2,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.7984113946958686,0.5208409366103195,0.2755416986182575
+458681.0,Lance Lynn,STL,37,1.31,117.1,0.73,0.72,0.71,Average,54.9,2026-01-29,2024,v1.0,pitcher,0.922530495968978,0.7916492512463975,0.630221122608072
+471911.0,Carlos Carrasco,CLE,37,0.14,103.2,0.63,0.61,0.61,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.8072634262174139,0.5377492094887522,0.2934977350189273
+472610.0,Luis García,- - -,37,0.27,59.0,0.57,0.56,0.55,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.8248200713026258,0.5723392823351606,0.33197442770596536
+477132.0,Clayton Kershaw,LAD,36,0.66,30.0,0.68,0.67,0.66,Average,46.6,2026-01-29,2024,v1.0,pitcher,0.8658366967854197,0.6587533036554979,0.438310836268941
+489446.0,Kirby Yates,TEX,37,1.9,61.2,0.76,0.74,0.73,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.9519085181229615,0.8669225988719881,0.7541266895942201
+493603.0,Adam Ottavino,NYM,38,0.46,56.0,0.71,0.7,0.69,Average,52.2,2026-01-29,2024,v1.0,pitcher,0.8541921602918793,0.6334094180384141,0.405614270439586
+500779.0,Jose Quintana,NYM,35,1.06,170.1,0.65,0.63,0.62,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.8984231414410305,0.7331831968566129,0.541563584536515
+502043.0,Kyle Gibson,STL,36,1.43,169.2,0.72,0.7,0.69,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.9268683130079471,0.8024829733397213,0.6473777705047992
+502085.0,David Robertson,TEX,39,1.85,72.0,0.72,0.7,0.69,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.9534780317691361,0.8710706867814358,0.7612737731729082
+502624.0,Chase Anderson,- - -,36,-0.5,58.1,0.44,0.43,0.42,Average,11.3,2026-01-29,2024,v1.0,pitcher,0.6888964427224473,0.33966930061404654,0.11839432291317217
+506433.0,Yu Darvish,SDP,37,1.06,81.2,0.79,0.78,0.77,Average,62.5,2026-01-29,2024,v1.0,pitcher,0.9055358115758297,0.7501281461892346,0.5665757583791123
+518397.0,Scott Alexander,OAK,34,0.08,38.2,0.63,0.62,0.61,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.7773610747585641,0.48204000491665494,0.23645450612229343
+518489.0,Ryan Brasier,LAD,36,0.38,28.0,0.4,0.4,0.39,Average,8.6,2026-01-29,2024,v1.0,pitcher,0.8341149066978856,0.5912273961534211,0.3539723111471362
+518585.0,Fernando Cruz,CIN,34,1.19,66.2,0.77,0.76,0.75,Average,59.7,2026-01-29,2024,v1.0,pitcher,0.9052024351649026,0.7493282537703702,0.5653825068019283
+518617.0,Jake Diekman,NYM,37,-0.81,32.0,0.51,0.5,0.5,Average,19.4,2026-01-29,2024,v1.0,pitcher,0.6309505956138787,0.2633255666259412,0.07158949248817563
+518876.0,Merrill Kelly,ARI,35,0.65,73.2,0.81,0.8,0.79,Average,65.4,2026-01-29,2024,v1.0,pitcher,0.8596252662229363,0.6451533491539391,0.42060965874760076
+518886.0,Craig Kimbrel,BAL,36,0.18,52.1,0.73,0.72,0.71,Average,54.9,2026-01-29,2024,v1.0,pitcher,0.8071285878461902,0.5374889972251541,0.29321715667799714
+519008.0,T.J. McFarland,OAK,35,0.34,56.2,0.45,0.44,0.44,Average,12.0,2026-01-29,2024,v1.0,pitcher,0.8228380175181109,0.568363360644447,0.3274327333091042
+519043.0,Matt Moore,LAA,35,-0.78,48.1,0.44,0.44,0.43,Average,11.3,2026-01-29,2024,v1.0,pitcher,0.6150303897937762,0.24453142294287564,0.06184461434787713
+519151.0,Ryan Pressly,HOU,35,0.85,56.2,0.78,0.76,0.75,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.8807472137921202,0.6921629786925647,0.4833250910760825
+519242.0,Chris Sale,ATL,35,6.42,177.2,2.24,2.2,2.17,Average,99.6,2026-01-29,2024,v1.0,pitcher,0.9987747621034837,0.9964540381318661,0.9930050309641103
+519293.0,Will Smith,KCR,34,-0.38,41.1,0.47,0.46,0.45,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.6941801599515697,0.34727285152083515,0.12368867782123051
+519326.0,Hunter Strickland,LAA,35,0.21,73.1,0.47,0.46,0.45,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.8044669782999646,0.5323694651212101,0.28772389402843157
+523260.0,Joe Kelly,LAD,36,-0.02,32.0,0.63,0.62,0.61,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.7758870930795313,0.4793964433052086,0.2338988998132325
+527048.0,Martín Pérez,- - -,33,0.49,135.0,0.73,0.71,0.7,Average,54.9,2026-01-29,2024,v1.0,pitcher,0.830855529334354,0.5845582420911143,0.34612552550473485
+541640.0,Erasmo Ramírez,TBR,34,-0.53,20.2,0.34,0.33,0.33,Average,3.5,2026-01-29,2024,v1.0,pitcher,0.6617530885793635,0.30232384962954995,0.09405311697911597
+542881.0,Tyler Anderson,LAA,34,1.51,179.1,0.85,0.84,0.82,Average,68.6,2026-01-29,2024,v1.0,pitcher,0.9266171758056004,0.801853125302146,0.6463740903642015
+542888.0,Shawn Armstrong,- - -,33,0.68,66.2,0.67,0.66,0.65,Average,45.7,2026-01-29,2024,v1.0,pitcher,0.8540158090645346,0.6330305910280185,0.40513503729529354
+543037.0,Gerrit Cole,NYY,33,1.77,95.0,1.05,1.03,1.01,Average,81.1,2026-01-29,2024,v1.0,pitcher,0.9384406684200761,0.8318588789113202,0.6950433961525553
+543056.0,Danny Coulombe,BAL,34,0.54,29.2,0.57,0.56,0.55,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.8421921248480229,0.6079688133993787,0.37405261377584953
+543135.0,Nathan Eovaldi,TEX,34,2.64,170.2,1.25,1.22,1.21,Average,89.6,2026-01-29,2024,v1.0,pitcher,0.9706439488455489,0.917289936571853,0.8431603809067737
+543243.0,Sonny Gray,STL,34,3.81,166.1,1.74,1.71,1.69,Average,96.2,2026-01-29,2024,v1.0,pitcher,0.9888609393889753,0.9680648792652983,0.9378775252438558
+543294.0,Kyle Hendricks,CHC,34,0.4,130.2,0.6,0.59,0.59,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.8248206738030319,0.5723404936877219,0.33197581614261884
+543339.0,Daniel Hudson,LAD,37,0.26,63.0,0.52,0.51,0.5,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.8244804910110402,0.5716568089052876,0.3311926415176892
+543351.0,Jay Jackson,MIN,36,-0.27,26.1,0.3,0.3,0.29,Average,1.7,2026-01-29,2024,v1.0,pitcher,0.7333863862371863,0.40719860670228114,0.1694130876792623
+543518.0,Scott McGough,ARI,34,-0.66,32.2,0.49,0.48,0.47,Average,16.7,2026-01-29,2024,v1.0,pitcher,0.6327614249752538,0.2655212803441039,0.07277389575517065
+543859.0,Michael Tonkin,- - -,34,0.62,79.1,0.78,0.76,0.75,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.8517134237866066,0.6280983529377635,0.39892107734662524
+544150.0,Albert Suárez,BAL,34,1.5,133.2,0.77,0.76,0.75,Average,59.7,2026-01-29,2024,v1.0,pitcher,0.9261152768486015,0.8005953410275924,0.6443720784495773
+547001.0,Cody Poteet,NYY,29,0.22,24.1,0.37,0.37,0.36,Average,6.4,2026-01-29,2024,v1.0,pitcher,0.7627258434712423,0.45621171540876826,0.21207351890649662
+547179.0,Michael Lorenzen,- - -,32,0.69,130.1,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8490217592036708,0.6223641794425733,0.3917564324225547
+547184.0,Michael Kelly,OAK,31,0.13,31.1,0.59,0.58,0.57,Average,31.3,2026-01-29,2024,v1.0,pitcher,0.763944777388245,0.4583274199029711,0.21402139260935144
+547973.0,Aroldis Chapman,PIT,36,1.09,61.2,0.62,0.61,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.9043012131140278,0.7471686876910097,0.5621671479644355
+548389.0,Ross Stripling,OAK,34,1.11,85.1,0.6,0.59,0.58,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.8986245632931649,0.7336595720222403,0.5422591335477522
+552640.0,Andrew Kittredge,STL,34,0.29,70.2,0.61,0.6,0.59,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.8102051624432742,0.5434467487760916,0.2996744275371472
+554340.0,Yimi García,- - -,33,0.4,39.0,0.8,0.78,0.77,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.8192984550347674,0.5613082123687003,0.31944971919075216
+554430.0,Zack Wheeler,PHI,34,5.4,200.0,2.01,1.97,1.95,Average,98.3,2026-01-29,2024,v1.0,pitcher,0.997034857304501,0.9914327425228718,0.9831412248308811
+570632.0,José Ureña,TEX,32,0.04,109.0,0.47,0.46,0.45,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.7559655940418224,0.44459397502683484,0.2015341839845547
+571510.0,Matthew Boyd,CLE,33,0.89,39.2,0.8,0.79,0.78,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.8758881939938893,0.6811564846437941,0.46825555094473853
+571578.0,Patrick Corbin,WSN,34,1.74,174.2,0.8,0.79,0.78,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.9389300896420147,0.8331165268429844,0.6971213966542972
+571656.0,Buck Farmer,CIN,33,0.55,71.0,0.7,0.69,0.68,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.837527631711645,0.5982635144124622,0.3623450344594991
+571670.0,Dylan Floro,- - -,33,0.6,68.2,0.58,0.57,0.56,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.8440929862939749,0.6119532669781501,0.37891233026607923
+571760.0,Andrew Heaney,TEX,33,2.18,160.0,0.98,0.97,0.95,Average,76.9,2026-01-29,2024,v1.0,pitcher,0.9557917125476669,0.8772092131177949,0.7719114448331431
+571882.0,Derek Law,WSN,33,1.12,90.0,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8961694510216125,0.7278668857764454,0.5338312321702151
+571927.0,Steven Matz,STL,33,0.04,44.1,0.55,0.54,0.53,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.7639292217236027,0.4583003795324158,0.21399644175260835
+571945.0,Miles Mikolas,STL,35,1.94,171.2,0.64,0.62,0.62,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.94983606221904,0.8614651258656241,0.7447742878002489
+571946.0,Shelby Miller,DET,33,-0.16,55.2,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.7270828851343953,0.39714024849028706,0.16124343908244052
+571948.0,Hoby Milner,MIL,33,0.9,64.2,0.7,0.69,0.68,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.8764901319492717,0.682513709049163,0.47010104985268175
+572020.0,James Paxton,- - -,35,0.79,100.1,0.59,0.58,0.57,Average,31.3,2026-01-29,2024,v1.0,pitcher,0.8742593391829587,0.6774926767382154,0.46329155842687286
+572143.0,Burch Smith,- - -,34,0.35,56.1,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8186264164614734,0.5599752004762648,0.31795232732754586
+572955.0,Pierce Johnson,ATL,33,0.46,56.1,0.63,0.62,0.61,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.8262454802756313,0.5752098265273677,0.3352726581411412
+573009.0,Joe Mantiply,ARI,33,1.19,59.2,0.67,0.65,0.64,Average,45.7,2026-01-29,2024,v1.0,pitcher,0.9018941395262924,0.7414206944930124,0.5536531547216563
+573124.0,Taylor Rogers,SFG,33,0.16,60.0,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.7833859715287133,0.4929448014396553,0.2471414558193592
+573186.0,Marcus Stroman,NYY,33,0.92,154.2,0.73,0.71,0.71,Average,54.9,2026-01-29,2024,v1.0,pitcher,0.8782902624872153,0.6865831321934625,0.4756559790529332
+573204.0,Caleb Thielbar,MIN,37,0.19,47.1,0.65,0.63,0.63,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.8143250985128644,0.5514924587999486,0.30850496933099286
+579328.0,Yusei Kikuchi,- - -,33,3.64,175.2,1.6,1.54,1.52,Average,94.6,2026-01-29,2024,v1.0,pitcher,0.9867235818336677,0.962014618497193,0.926329892095438
+592094.0,Jason Adam,- - -,32,1.3,73.2,0.82,0.81,0.8,Average,66.7,2026-01-29,2024,v1.0,pitcher,0.9062468997244827,0.7518361756759012,0.5691278967110498
+592155.0,Cam Booser,BOS,32,0.29,42.2,0.64,0.63,0.62,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.7956694770362149,0.5156751611466405,0.27016749296999365
+592332.0,Kevin Gausman,TOR,33,3.0,181.0,1.09,1.07,1.05,Average,83.6,2026-01-29,2024,v1.0,pitcher,0.977353850143885,0.935783740032035,0.8770826949056402
+592351.0,Jon Gray,TEX,32,1.81,102.2,0.85,0.84,0.82,Average,68.6,2026-01-29,2024,v1.0,pitcher,0.9377637941109379,0.830121589289231,0.6921779279755348
+592426.0,Luke Jackson,- - -,32,-0.11,53.0,0.62,0.61,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.727744753413363,0.39818864398342574,0.1620856607913671
+592454.0,Tommy Kahnle,NYY,34,0.06,42.2,0.57,0.56,0.56,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.7734576799895256,0.4750600826199017,0.2297365252240479
+592662.0,Robbie Ray,SFG,32,0.05,30.2,0.9,0.89,0.88,Average,72.1,2026-01-29,2024,v1.0,pitcher,0.7570060250753416,0.4463692284596035,0.20312747447425267
+592767.0,Drew Smyly,CHC,35,-0.26,58.2,0.56,0.55,0.54,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.7262994207152521,0.3959015837427476,0.16025115889833738
+592773.0,Ryne Stanek,- - -,32,-0.03,55.1,0.55,0.54,0.53,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.7432626286745466,0.4232909516957906,0.18289830546868235
+592791.0,Jameson Taillon,CHC,32,2.34,165.1,0.95,0.93,0.92,Average,74.9,2026-01-29,2024,v1.0,pitcher,0.9595169912069025,0.8871523197248604,0.789296897645643
+592836.0,Taijuan Walker,PHI,31,-1.15,83.2,0.58,0.56,0.56,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.4665868230515659,0.10983545897112704,0.012718413190626304
+592866.0,Trevor Williams,WSN,32,1.98,66.2,1.08,1.06,1.05,Average,83.0,2026-01-29,2024,v1.0,pitcher,0.9458170413187593,0.8509459143349595,0.7269103157492018
+593334.0,Domingo Germán,PIT,31,-0.2,20.2,0.36,0.36,0.35,Average,5.5,2026-01-29,2024,v1.0,pitcher,0.7012937067901776,0.35768446591399317,0.1311238017384203
+593423.0,Frankie Montas,- - -,31,1.3,150.2,0.88,0.86,0.85,Average,71.1,2026-01-29,2024,v1.0,pitcher,0.9029595418651386,0.7439612459493228,0.5574083342431714
+593576.0,Héctor Neris,- - -,35,0.04,59.1,0.47,0.47,0.46,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.7781915324041766,0.4835336123055332,0.23790448332765132
+593958.0,Eduardo Rodriguez,ARI,31,0.29,50.0,0.68,0.67,0.66,Average,46.6,2026-01-29,2024,v1.0,pitcher,0.7890413829963164,0.503326682574332,0.2575327045814795
+593974.0,Wandy Peralta,SDP,32,-0.46,38.1,0.47,0.46,0.45,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.6563946763089054,0.2952851881927688,0.08977521319521155
+594580.0,Sam Moll,CIN,32,0.44,37.2,0.7,0.68,0.67,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.8173279204769383,0.5574054645619021,0.3150755124802487
+594835.0,Marco Gonzales,PIT,32,0.21,33.2,0.57,0.56,0.55,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.78458175052854,0.49512813841563713,0.24930920879371893
+594902.0,Ben Lively,CLE,32,0.8,151.0,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8615359475553124,0.649317017091528,0.4259906467901351
+595014.0,Blake Treinen,LAD,36,1.01,46.2,0.79,0.78,0.76,Average,62.5,2026-01-29,2024,v1.0,pitcher,0.8984792624237199,0.7333159060962675,0.5417573072116934
+595345.0,Steven Okert,MIN,32,-0.25,35.1,0.58,0.57,0.56,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.7023530531809118,0.35925222361616965,0.13226193301660744
+596001.0,Jakob Junis,- - -,31,0.84,67.0,0.81,0.79,0.78,Average,65.4,2026-01-29,2024,v1.0,pitcher,0.8616778612077495,0.6496269687829882,0.4263925693986223
+596133.0,Luke Weaver,NYY,30,0.98,84.0,0.86,0.84,0.83,Average,69.3,2026-01-29,2024,v1.0,pitcher,0.8710893896956623,0.6703995072982307,0.4537554948705856
+596295.0,Austin Gomber,COL,30,1.28,165.0,0.75,0.73,0.72,Average,57.3,2026-01-29,2024,v1.0,pitcher,0.89773972841263,0.7315683923779611,0.539209111052241
+600917.0,José Leclerc,TEX,30,0.81,66.2,1.01,0.99,0.98,Average,78.5,2026-01-29,2024,v1.0,pitcher,0.853022521665535,0.6308996424210783,0.40244450647686336
+600986.0,Thyago Vieira,- - -,31,-0.4,38.0,0.54,0.53,0.53,Average,23.7,2026-01-29,2024,v1.0,pitcher,0.6597453953026348,0.2996738753581207,0.09243099140775342
+601713.0,Nick Pivetta,BOS,31,2.02,145.2,1.24,1.22,1.2,Average,89.3,2026-01-29,2024,v1.0,pitcher,0.9455557712545716,0.8502650050847597,0.7257613622348135
+605121.0,Justin Anderson,CHW,31,0.21,53.1,0.59,0.58,0.57,Average,31.3,2026-01-29,2024,v1.0,pitcher,0.777012466391649,0.48141392194535154,0.23584801421625157
+605130.0,Scott Barlow,CLE,31,0.04,55.0,0.61,0.6,0.59,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7480774805636592,0.4312849546092711,0.18978677678825032
+605135.0,Chris Bassitt,TOR,35,2.32,171.0,0.86,0.85,0.84,Average,69.3,2026-01-29,2024,v1.0,pitcher,0.963335286500938,0.8974199944922616,0.8074505597924353
+605154.0,John Brebbia,- - -,34,0.13,55.1,0.62,0.6,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7851484399580673,0.4961650474658096,0.25034199160789833
+605155.0,Colten Brewer,CHC,31,0.29,20.2,0.39,0.38,0.37,Average,8.1,2026-01-29,2024,v1.0,pitcher,0.7894297702716091,0.5040448679262105,0.25825935458948585
+605156.0,Aaron Brooks,OAK,34,-0.11,26.2,0.25,0.25,0.24,Average,0.7,2026-01-29,2024,v1.0,pitcher,0.7450596833376446,0.4262631127523778,0.18544474066949398
+605177.0,Andrew Chafin,- - -,34,0.43,56.1,0.55,0.54,0.54,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.8282807646280023,0.5793248791053435,0.34002890946548003
+605280.0,Clay Holmes,NYY,31,1.16,63.0,0.66,0.65,0.64,Average,44.8,2026-01-29,2024,v1.0,pitcher,0.8918149206426625,0.7176664680751862,0.5191489661814491
+605288.0,Adrian Houser,NYM,31,-0.14,69.1,0.59,0.57,0.57,Average,31.3,2026-01-29,2024,v1.0,pitcher,0.713545441758319,0.3760918697469295,0.14479311159523997
+605347.0,Jorge López,- - -,31,0.2,53.0,0.61,0.6,0.59,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7754157981669071,0.47855319144048014,0.23308659004088642
+605397.0,Joe Musgrove,SDP,31,1.37,99.2,1.0,0.98,0.96,Average,77.9,2026-01-29,2024,v1.0,pitcher,0.9087209595096583,0.7577986945102465,0.5780815024114225
+605400.0,Aaron Nola,PHI,31,3.13,199.1,1.52,1.49,1.47,Average,94.2,2026-01-29,2024,v1.0,pitcher,0.9780891608940999,0.9378251165471154,0.8808675935803043
+605452.0,Joe Ross,MIL,31,0.89,74.0,0.8,0.79,0.78,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.8668327574048933,0.6609514928832017,0.4412057466860682
+605463.0,Tayler Scott,HOU,32,0.19,68.2,0.62,0.61,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7808585290278781,0.4883507877795438,0.24261077337414427
+605483.0,Blake Snell,SFG,31,3.07,104.0,1.85,1.81,1.79,Average,97.2,2026-01-29,2024,v1.0,pitcher,0.9770125691584001,0.9348372621778406,0.8753305700187419
+605488.0,Jeffrey Springs,TBR,31,0.4,33.0,0.76,0.75,0.74,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.8057438629056386,0.5348215130772747,0.2903485406466812
+605513.0,Spencer Turnbull,PHI,31,0.66,54.1,0.87,0.85,0.84,Average,70.2,2026-01-29,2024,v1.0,pitcher,0.840496637534024,0.604429219244096,0.36976147022878525
+606149.0,Giovanny Gallegos,STL,32,-0.47,20.2,0.35,0.34,0.34,Average,4.4,2026-01-29,2024,v1.0,pitcher,0.6556971296808307,0.29437688572037674,0.08923033831532169
+606160.0,Rafael Montero,HOU,33,-0.9,38.1,0.45,0.44,0.43,Average,12.0,2026-01-29,2024,v1.0,pitcher,0.5619042393503025,0.18821518514629687,0.036869000056811374
+606303.0,Joel Payamps,MIL,30,0.54,59.0,0.64,0.63,0.62,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.8187560333167869,0.560232138476353,0.3182406792012388
+606930.0,Jacob Barnes,WSN,34,0.02,66.0,0.62,0.61,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.767016499393683,0.46368748318401304,0.21899563242749634
+606965.0,Chris Devenski,TBR,33,-0.67,26.2,0.33,0.32,0.32,Average,3.0,2026-01-29,2024,v1.0,pitcher,0.6199687346230489,0.25026389316931175,0.06474230896879679
+607067.0,Colin Rea,MIL,34,0.81,167.2,0.71,0.7,0.69,Average,52.2,2026-01-29,2024,v1.0,pitcher,0.8719201561302716,0.6722537277981658,0.45623885321432506
+607074.0,Carlos Rodón,NYY,31,1.61,175.0,1.04,1.02,1.01,Average,80.3,2026-01-29,2024,v1.0,pitcher,0.9246877674264417,0.7970249950354262,0.6387058816751658
+607179.0,Jordan Weems,WSN,31,-0.48,41.2,0.58,0.57,0.56,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.6409847867619601,0.27564336277694385,0.07835799941323128
+607192.0,Tyler Glasnow,LAD,30,3.89,134.0,2.06,2.03,2.0,Average,99.2,2026-01-29,2024,v1.0,pitcher,0.9879371217019945,0.9654467619272789,0.9328718676279598
+607200.0,Erick Fedde,- - -,31,3.41,177.1,1.29,1.27,1.25,Average,90.4,2026-01-29,2024,v1.0,pitcher,0.9827108618884967,0.950722724386362,0.9049670243481495
+607259.0,Nick Martinez,CIN,33,3.41,142.1,0.98,0.96,0.95,Average,76.9,2026-01-29,2024,v1.0,pitcher,0.983844939112722,0.9539051973897656,0.9109629534489508
+607455.0,Anthony Banda,LAD,30,0.58,49.2,0.72,0.71,0.7,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.8242292743315571,0.5711522678631802,0.3306152655916092
+607481.0,Aaron Bummer,ATL,30,1.1,55.1,1.11,1.09,1.07,Average,84.3,2026-01-29,2024,v1.0,pitcher,0.8821344364713655,0.6953264991076111,0.4877000422591213
+607536.0,Kyle Freeland,COL,31,0.94,113.1,0.7,0.69,0.68,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.8719351024271289,0.672287117746843,0.45628363375263054
+607625.0,Seth Lugo,KCR,34,4.68,206.2,1.48,1.45,1.43,Average,93.5,2026-01-29,2024,v1.0,pitcher,0.9945802391137096,0.9843770340938369,0.9693632258340487
+607644.0,John Means,BAL,31,0.48,20.2,0.33,0.33,0.32,Average,3.0,2026-01-29,2024,v1.0,pitcher,0.817514410476484,0.5577740541194964,0.3154873544212666
+608032.0,Carlos Estévez,- - -,31,1.13,55.0,0.64,0.62,0.62,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.889445987929944,0.7121568151414132,0.5113026245972075
+608331.0,Max Fried,ATL,30,3.36,174.1,1.75,1.71,1.69,Average,96.5,2026-01-29,2024,v1.0,pitcher,0.9812054768947208,0.9465090309242818,0.89705831970207
+608334.0,Carson Fulmer,LAA,30,0.21,86.2,0.66,0.65,0.64,Average,44.8,2026-01-29,2024,v1.0,pitcher,0.769649766801599,0.468314999030692,0.22333545450326234
+608344.0,Cole Irvin,- - -,30,0.36,111.0,0.47,0.46,0.45,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.7937394937202786,0.5120592662015225,0.26643681440712425
+608371.0,Lucas Sims,- - -,30,-0.32,49.1,0.42,0.41,0.41,Average,9.9,2026-01-29,2024,v1.0,pitcher,0.6675208230961787,0.3100219927639724,0.09884441750395807
+608379.0,Michael Wacha,KCR,33,3.32,166.2,1.12,1.1,1.09,Average,84.7,2026-01-29,2024,v1.0,pitcher,0.9826445447840432,0.9505368393411764,0.904617412717883
+608638.0,JT Chargois,- - -,33,-0.2,36.1,0.62,0.6,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7202720649609309,0.3864567861367492,0.15278454829113552
+608717.0,Chris Stratton,KCR,33,-0.2,58.1,0.5,0.49,0.49,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.7205708021477661,0.3869213903200395,0.15314772695896206
+608718.0,Brent Suter,CIN,34,0.18,65.2,0.74,0.73,0.72,Average,56.2,2026-01-29,2024,v1.0,pitcher,0.7934903151489258,0.5115936349096397,0.26595826435739134
+608723.0,Austin Voth,SEA,32,-0.0,61.0,0.66,0.65,0.64,Average,44.8,2026-01-29,2024,v1.0,pitcher,0.7477812043671268,0.43079022275449463,0.18935681258825035
+613534.0,Austin Adams,OAK,33,0.02,41.1,0.63,0.62,0.61,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.7590626852024001,0.44989208458828855,0.20630758910925326
+614179.0,José Ruiz,PHI,29,0.08,51.0,0.69,0.69,0.68,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.7375276530818556,0.4138966750639528,0.17496402469897776
+615698.0,Cal Quantrill,COL,29,0.54,148.1,0.62,0.62,0.61,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.8132490270433174,0.5493835545405091,0.3061780991956205
+621051.0,Steven Wilson,CHW,29,-0.75,34.2,0.46,0.46,0.45,Average,12.7,2026-01-29,2024,v1.0,pitcher,0.5524197697874034,0.17915684383957298,0.033445007333291046
+621053.0,Tyler Ferguson,OAK,30,0.67,51.1,0.8,0.78,0.77,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.8361621485712888,0.5954417136640318,0.3589755828200037
+621107.0,Zach Eflin,- - -,30,2.81,165.1,1.22,1.19,1.18,Average,88.7,2026-01-29,2024,v1.0,pitcher,0.970486763930258,0.9168595988659115,0.8423789015706571
+621111.0,Walker Buehler,LAD,29,-0.1,75.1,0.62,0.62,0.61,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7036799501821659,0.36122227676001933,0.13369900333580884
+621112.0,Paul Blackburn,- - -,30,0.45,75.1,0.73,0.71,0.7,Average,54.9,2026-01-29,2024,v1.0,pitcher,0.8069305012033249,0.5371068774638136,0.29280536973730203
+621114.0,Ryan Burr,TOR,30,0.46,32.2,1.02,1.0,0.99,Average,79.1,2026-01-29,2024,v1.0,pitcher,0.8085960255689074,0.5403253090915068,0.29628261027917113
+621199.0,Matt Bowman,- - -,33,-0.24,30.2,0.55,0.54,0.54,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.7125693007037441,0.3746030583920963,0.1436626450083486
+621237.0,José Alvarado,PHI,29,0.6,61.2,0.6,0.6,0.59,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.8216916668909345,0.5660721046519693,0.3248294687922619
+621242.0,Edwin Díaz,NYM,30,1.08,53.2,1.05,1.03,1.02,Average,81.1,2026-01-29,2024,v1.0,pitcher,0.8805041178176896,0.6916095779868875,0.4825617736600987
+621244.0,José Berríos,TOR,30,1.13,192.1,0.8,0.78,0.77,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.8854960700025505,0.7030318437354102,0.4984375207467482
+621345.0,A.J. Minter,ATL,30,-0.05,34.1,0.76,0.75,0.74,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.721553625254075,0.38845248439086655,0.15434758967912618
+621363.0,Colin Poche,TBR,30,-0.32,37.1,0.42,0.42,0.41,Average,9.9,2026-01-29,2024,v1.0,pitcher,0.6675431958729764,0.3100521006295296,0.09886338736622605
+621381.0,Matt Strahm,PHI,32,2.06,62.2,0.97,0.95,0.94,Average,76.2,2026-01-29,2024,v1.0,pitcher,0.9491481821933044,0.8596586927144672,0.741691325833051
+621383.0,Tanner Banks,- - -,32,1.12,72.1,0.82,0.81,0.8,Average,66.7,2026-01-29,2024,v1.0,pitcher,0.8927344292233118,0.7198125536632087,0.52222119598994
+621389.0,Ty Blach,COL,33,-0.61,71.1,0.47,0.46,0.45,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.6330612078416709,0.2658859334524128,0.07297152498485292
+622072.0,Alex Wood,OAK,33,-0.06,39.1,0.54,0.53,0.52,Average,23.7,2026-01-29,2024,v1.0,pitcher,0.7453521990126704,0.42674819588078167,0.18586199230991718
+622251.0,Josh Staumont,MIN,30,0.22,24.1,0.35,0.34,0.33,Average,4.4,2026-01-29,2024,v1.0,pitcher,0.7704909392941945,0.4697995626163087,0.2247366339172759
+622253.0,Dillon Tate,- - -,30,0.23,36.2,0.57,0.56,0.55,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.7725328608321675,0.47341610985222915,0.2281681643612092
+622491.0,Luis Castillo,SEA,31,2.29,175.1,1.16,1.14,1.12,Average,86.6,2026-01-29,2024,v1.0,pitcher,0.9565356526803023,0.8791889941275131,0.7753578276708903
+622554.0,Seranthony Domínguez,- - -,29,-0.11,58.2,0.68,0.68,0.67,Average,46.6,2026-01-29,2024,v1.0,pitcher,0.700444433929063,0.35643084309365514,0.13021721614907708
+622663.0,Luis Severino,NYM,30,2.11,182.0,1.15,1.13,1.11,Average,86.1,2026-01-29,2024,v1.0,pitcher,0.9477318635331112,0.8559471316753806,0.7353767870782391
+622786.0,Jesus Tinoco,- - -,29,0.68,40.2,0.8,0.8,0.79,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.8323753345578752,0.587661817022591,0.3497663175023667
+623149.0,Paul Sewald,ARI,34,0.35,39.2,0.65,0.64,0.63,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.8174498295782745,0.55764639465857,0.3153446845976432
+623167.0,Chris Flexen,CHW,30,1.32,160.0,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.9009383138227036,0.7391462796675649,0.5503019879757521
+623211.0,Huascar Brazobán,- - -,34,0.65,51.2,0.6,0.59,0.58,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.8548780220830492,0.6348841561871041,0.40748254541967094
+623352.0,Josh Hader,HOU,30,0.95,71.0,0.95,0.93,0.92,Average,74.9,2026-01-29,2024,v1.0,pitcher,0.867882570158932,0.6632735002867752,0.44427394279027527
+623433.0,Nick Anderson,KCR,33,-0.22,35.2,0.56,0.55,0.54,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.7155494220193214,0.37916047441135436,0.14713693396723349
+623465.0,Evan Phillips,LAD,29,0.89,54.2,0.93,0.92,0.91,Average,73.7,2026-01-29,2024,v1.0,pitcher,0.8571831750808714,0.6398571644082929,0.4138138706706599
+624133.0,Ranger Suárez,PHI,28,3.44,150.2,1.74,1.73,1.74,Average,96.2,2026-01-29,2024,v1.0,pitcher,0.9811082737919031,0.9462373728040842,0.8965496196831135
+624522.0,Keegan Thompson,CHC,29,0.15,30.1,0.8,0.8,0.79,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.750916034412635,0.43604373694399656,0.1939471631524633
+624647.0,Victor González,NYY,28,-0.44,23.1,0.22,0.22,0.22,Average,0.5,2026-01-29,2024,v1.0,pitcher,0.6188115330252748,0.24891279566929647,0.06405344283314378
+625643.0,Reynaldo López,ATL,30,3.52,135.2,1.65,1.62,1.57,Average,95.2,2026-01-29,2024,v1.0,pitcher,0.9836218121982091,0.9532785032210074,0.9097806856348405
+628317.0,Kenta Maeda,DET,36,0.02,112.1,0.61,0.6,0.59,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7824488267056686,0.49123811086539143,0.24545345904434931
+628452.0,Raisel Iglesias,ATL,34,1.57,69.1,0.78,0.77,0.76,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.9301275939777403,0.8106866051959305,0.6605207336674327
+628708.0,Yunior Marte,PHI,29,-0.25,26.0,0.38,0.38,0.37,Average,7.5,2026-01-29,2024,v1.0,pitcher,0.6722534523554918,0.3164335918659897,0.10292470452821366
+630023.0,Yonny Chirinos,MIA,30,-0.17,30.0,0.54,0.53,0.53,Average,23.7,2026-01-29,2024,v1.0,pitcher,0.6985166593127696,0.3535959160452184,0.12817853261701614
+640448.0,Kyle Finnegan,WSN,32,-0.02,63.2,0.52,0.51,0.51,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.7446382327946225,0.42556485012647327,0.1848449327353443
+640451.0,Hunter Harvey,- - -,29,0.69,50.2,0.76,0.76,0.75,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.8325792785007786,0.5880791076347345,0.350257274649235
+640455.0,Sean Manaea,NYM,32,2.79,181.2,1.28,1.26,1.24,Average,90.2,2026-01-29,2024,v1.0,pitcher,0.9720320687361702,0.9210960465659791,0.850087735472535
+640462.0,A.J. Puk,- - -,29,1.71,71.1,1.03,1.03,1.02,Average,79.8,2026-01-29,2024,v1.0,pitcher,0.9247308849791401,0.7971326833865169,0.6388764232704919
+641154.0,Pablo López,MIN,28,3.21,185.1,1.7,1.69,1.7,Average,95.7,2026-01-29,2024,v1.0,pitcher,0.9770443449937861,0.9349253599294024,0.8754935840031438
+641302.0,Tyler Alexander,TBR,29,-0.57,107.2,0.52,0.52,0.51,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.5992042032328423,0.22674115034923786,0.05326942230161177
+641329.0,Bryan Baker,BAL,29,0.16,23.1,0.35,0.35,0.35,Average,4.4,2026-01-29,2024,v1.0,pitcher,0.751788678165987,0.437513586775328,0.1952411926870291
+641482.0,Nestor Cortes,NYY,29,3.07,174.1,1.21,1.2,1.19,Average,88.4,2026-01-29,2024,v1.0,pitcher,0.9751938623299874,0.9298039959615152,0.8660420346507589
+641540.0,Dane Dunning,TEX,29,-0.1,95.0,0.62,0.62,0.61,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7041572899903994,0.3619327129104492,0.13421911828009045
+641585.0,J.P. France,HOU,29,-0.06,25.1,0.34,0.34,0.34,Average,3.5,2026-01-29,2024,v1.0,pitcher,0.7116967574632521,0.3732755260443371,0.14265833026555869
+641656.0,Ian Hamilton,NYY,29,0.63,37.2,0.87,0.87,0.86,Average,70.2,2026-01-29,2024,v1.0,pitcher,0.8257029576528802,0.5741161646833001,0.33401415095215653
+641703.0,Brent Honeywell,- - -,29,0.08,37.2,0.37,0.37,0.36,Average,6.4,2026-01-29,2024,v1.0,pitcher,0.7384693601753415,0.41542978759585625,0.17624700267152132
+641712.0,Dakota Hudson,COL,29,0.03,89.0,0.41,0.41,0.41,Average,9.2,2026-01-29,2024,v1.0,pitcher,0.7290776521588794,0.4003054445306106,0.16379278411927226
+641729.0,Joe Jiménez,ATL,29,1.82,68.2,1.05,1.04,1.03,Average,81.1,2026-01-29,2024,v1.0,pitcher,0.9313757739148425,0.8138427654070061,0.6656119417218036
+641745.0,Brad Keller,- - -,28,-0.38,41.1,0.53,0.53,0.53,Average,22.5,2026-01-29,2024,v1.0,pitcher,0.6321019763846543,0.2647202861288498,0.0723407143826599
+641755.0,Tyler Kinley,COL,33,-0.09,64.0,0.49,0.48,0.47,Average,16.7,2026-01-29,2024,v1.0,pitcher,0.7404764609572753,0.41870977553666194,0.17900739281534808
+641771.0,Chad Kuhl,CHW,31,0.28,53.1,0.62,0.61,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7871645696497703,0.499865620595965,0.254045031267156
+641793.0,Zack Littell,TBR,28,2.27,156.1,1.15,1.14,1.15,Average,86.1,2026-01-29,2024,v1.0,pitcher,0.9504470886233307,0.8630718178791824,0.7475216676759017
+641835.0,Tim Mayza,- - -,32,-0.13,42.2,0.56,0.55,0.54,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.724547416641275,0.3931408094423901,0.15805042163787114
+641927.0,Bailey Ober,MIN,28,2.94,178.2,1.68,1.67,1.68,Average,95.4,2026-01-29,2024,v1.0,pitcher,0.9714039373224949,0.9193724836708299,0.846947276261793
+641941.0,Emilio Pagán,CIN,33,0.48,38.0,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8290217754997702,0.5808278699191118,0.3417743437384881
+642048.0,Tayler Saucedo,SEA,31,0.2,38.2,0.68,0.67,0.66,Average,46.6,2026-01-29,2024,v1.0,pitcher,0.775450611468851,0.4786154469612228,0.2331465134478406
+642100.0,Gabe Speier,SEA,29,0.19,23.2,0.5,0.5,0.49,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.7583318026001445,0.4486380771380254,0.20517278800391123
+642207.0,Devin Williams,MIL,29,0.83,21.2,0.69,0.68,0.67,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8505234726545448,0.6255590993587358,0.39574045843436956
+642232.0,Ryan Yarbrough,- - -,32,0.01,98.2,0.53,0.52,0.51,Average,22.5,2026-01-29,2024,v1.0,pitcher,0.7507652901482784,0.43579015674521726,0.19372434558873208
+642397.0,Gregory Soto,- - -,29,0.46,53.0,0.87,0.86,0.85,Average,70.2,2026-01-29,2024,v1.0,pitcher,0.8015014794808615,0.5267031410199837,0.2817037597657492
+642520.0,Gerson Garabito,TEX,28,-0.14,26.1,0.37,0.37,0.37,Average,6.4,2026-01-29,2024,v1.0,pitcher,0.6857031500364368,0.33512728942109216,0.11528630888264554
+642546.0,Jonathan Hernández,- - -,27,-0.4,43.1,0.64,0.63,0.63,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.617986448397504,0.2479523862760464,0.06356598501531827
+642547.0,Freddy Peralta,MIL,28,2.27,173.2,1.37,1.37,1.37,Average,92.2,2026-01-29,2024,v1.0,pitcher,0.9507080959012302,0.8637587334098172,0.7486977909039454
+642629.0,Emmanuel Ramirez,MIA,29,-0.04,20.2,0.32,0.32,0.31,Average,2.4,2026-01-29,2024,v1.0,pitcher,0.7159252508026707,0.37973778355322296,0.1475799644989697
+642701.0,Dennis Santana,- - -,28,1.15,71.2,0.77,0.76,0.76,Average,59.7,2026-01-29,2024,v1.0,pitcher,0.8788974427513699,0.6879593149181099,0.47754181772628856
+643256.0,Adam Cimber,LAA,33,-0.06,24.1,0.32,0.32,0.31,Average,2.4,2026-01-29,2024,v1.0,pitcher,0.7454386307554498,0.42689159609103694,0.18598542889043201
+643338.0,Chad Green,TOR,33,0.08,53.1,0.55,0.54,0.54,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.7703306286048013,0.46951639707298803,0.22446903898680648
+643377.0,Griffin Jax,MIN,29,2.59,71.0,1.32,1.31,1.3,Average,91.2,2026-01-29,2024,v1.0,pitcher,0.9634173136413726,0.8976414209492499,0.8078442965732401
+643410.0,Mark Leiter Jr.,- - -,33,1.13,58.0,0.82,0.8,0.79,Average,66.7,2026-01-29,2024,v1.0,pitcher,0.8969060855425337,0.7296017724403395,0.5363485149189443
+643511.0,Tyler Rogers,SFG,33,0.58,70.1,0.48,0.47,0.47,Average,15.6,2026-01-29,2024,v1.0,pitcher,0.8416160870320034,0.6067647264410541,0.37259012263411745
+647315.0,Zach Pop,TOR,27,-0.63,48.1,0.48,0.47,0.47,Average,15.6,2026-01-29,2024,v1.0,pitcher,0.5599594646174773,0.18633390566404934,0.03614433035366377
+647336.0,Michael Soroka,CHW,26,0.37,79.2,0.69,0.7,0.69,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.7654913409249114,0.46102102583024496,0.2165140534964885
+650556.0,Bryan Abreu,HOU,27,0.88,78.1,0.85,0.84,0.84,Average,68.6,2026-01-29,2024,v1.0,pitcher,0.8447674068899825,0.6133710394338029,0.38064901810522644
+650633.0,Michael King,SDP,29,3.9,173.2,1.79,1.78,1.76,Average,97.0,2026-01-29,2024,v1.0,pitcher,0.9874934970825298,0.9641911708645138,0.9304759597006226
+650644.0,Aaron Civale,- - -,29,0.9,161.0,0.79,0.79,0.78,Average,62.5,2026-01-29,2024,v1.0,pitcher,0.8582010624726107,0.6420611913150986,0.41663532050297203
+650893.0,Génesis Cabrera,TOR,27,-0.44,62.2,0.47,0.47,0.47,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.6079244462054799,0.23643471858955287,0.0578635218144778
+650911.0,Cristopher Sánchez,PHI,27,4.66,181.2,2.04,2.01,2.01,Average,98.8,2026-01-29,2024,v1.0,pitcher,0.9928642204302253,0.979463984784242,0.9598260238477123
+655889.0,Manuel Rodríguez,TBR,27,0.22,37.2,0.81,0.79,0.8,Average,65.4,2026-01-29,2024,v1.0,pitcher,0.7474752469712631,0.43027971512581553,0.1889136428806498
+656222.0,Jalen Beeks,- - -,30,0.63,70.0,0.58,0.57,0.56,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.8313225433582251,0.5855107801855391,0.3472409428956986
+656232.0,Brandon Bielak,- - -,28,-0.33,29.2,0.22,0.22,0.22,Average,0.5,2026-01-29,2024,v1.0,pitcher,0.644459014889222,0.2799945510188345,0.08082108900594581
+656234.0,Jake Bird,COL,28,-0.34,40.0,0.52,0.52,0.52,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.64123326341871,0.275953078823755,0.07853207648610278
+656240.0,Scott Blewett,MIN,28,0.05,20.1,0.37,0.37,0.37,Average,6.4,2026-01-29,2024,v1.0,pitcher,0.7245728576994392,0.3931808084794821,0.15808219934916984
+656271.0,Brock Burke,- - -,27,0.38,34.0,0.91,0.9,0.9,Average,72.9,2026-01-29,2024,v1.0,pitcher,0.7751716247022691,0.4781166928278362,0.2326666565118938
+656288.0,Griffin Canning,LAA,28,0.09,171.2,0.59,0.59,0.59,Average,31.3,2026-01-29,2024,v1.0,pitcher,0.7315926742343626,0.4043196405123582,0.1670543480470103
+656302.0,Dylan Cease,SDP,28,4.74,189.1,2.04,2.04,2.04,Average,98.8,2026-01-29,2024,v1.0,pitcher,0.9935583046495744,0.9814492446730556,0.9636741985888057
+656412.0,Alex Faedo,DET,28,-0.42,57.1,0.63,0.63,0.63,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.6235323965051783,0.2544548144153766,0.06690223031486642
+656427.0,Jack Flaherty,- - -,28,3.31,162.0,1.87,1.87,1.87,Average,97.8,2026-01-29,2024,v1.0,pitcher,0.9789289922710632,0.9401602291458453,0.8852069767307519
+656464.0,Kevin Ginkel,ARI,30,1.26,70.0,0.95,0.93,0.92,Average,74.9,2026-01-29,2024,v1.0,pitcher,0.896364341284752,0.7283256189547787,0.5344962751495314
+656529.0,Sam Hentges,CLE,27,0.26,23.2,0.52,0.52,0.52,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.7548126004247909,0.44263206794036586,0.19978058122472112
+656546.0,Jeff Hoffman,PHI,31,2.03,66.1,1.06,1.04,1.03,Average,82.0,2026-01-29,2024,v1.0,pitcher,0.9463007893558306,0.8522075772555094,0.729041594886166
+656550.0,Grant Holmes,ATL,28,1.18,68.1,1.05,1.04,1.05,Average,81.1,2026-01-29,2024,v1.0,pitcher,0.8814150363104447,0.6936847490103677,0.48542717379531375
+656557.0,Tanner Houck,BOS,28,3.89,178.2,1.79,1.79,1.79,Average,97.0,2026-01-29,2024,v1.0,pitcher,0.9869705152791225,0.9627123490994894,0.9276579880657745
+656605.0,Mitch Keller,PIT,28,2.15,178.0,1.13,1.13,1.13,Average,85.2,2026-01-29,2024,v1.0,pitcher,0.9456154824105106,0.850420589909852,0.7260238140254787
+656629.0,Michael Kopech,- - -,28,0.4,67.2,0.9,0.9,0.9,Average,72.1,2026-01-29,2024,v1.0,pitcher,0.7857908517309209,0.4973422292829359,0.25151704509209444
+656641.0,Jacob Latz,TEX,28,-0.27,43.2,0.52,0.51,0.52,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.6567066956923381,0.2956920740677053,0.09001982833677341
+656730.0,Trevor Megill,MIL,30,0.98,46.1,0.74,0.72,0.71,Average,56.2,2026-01-29,2024,v1.0,pitcher,0.8714191106519827,0.6711350231647986,0.4547397704618995
+656731.0,Tylor Megill,NYM,28,1.4,78.0,1.13,1.13,1.13,Average,85.2,2026-01-29,2024,v1.0,pitcher,0.9004196283993842,0.7379139675228054,0.5484904732015985
+656756.0,Jordan Montgomery,ARI,31,0.61,117.0,0.65,0.64,0.63,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.8337897290383663,0.5905598100135196,0.35318293019749586
+656849.0,David Peterson,NYM,28,1.88,121.0,1.08,1.07,1.07,Average,83.0,2026-01-29,2024,v1.0,pitcher,0.9322280885669147,0.8160025532933926,0.6691070270995075
+656876.0,Drew Rasmussen,TBR,28,0.98,28.2,0.66,0.66,0.66,Average,44.8,2026-01-29,2024,v1.0,pitcher,0.861307654795364,0.6488186091918928,0.42534474058671967
+656887.0,Sean Reid-Foley,NYM,28,0.4,21.2,0.47,0.47,0.47,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.7854689460527475,0.4967521276925046,0.25092767065556987
+656924.0,Ryder Ryan,PIT,29,-0.01,20.2,0.34,0.34,0.33,Average,3.5,2026-01-29,2024,v1.0,pitcher,0.7199947362948104,0.3860258042120013,0.1524480327719329
+656945.0,Tanner Scott,- - -,29,1.64,72.0,1.0,0.99,0.98,Average,77.9,2026-01-29,2024,v1.0,pitcher,0.920596649134842,0.7868504949022213,0.6226943972633359
+657006.0,Justin Steele,CHC,28,2.99,134.2,1.78,1.77,1.77,Average,96.7,2026-01-29,2024,v1.0,pitcher,0.9725898582111108,0.9226283671589584,0.8528845579856011
+657024.0,Erik Swanson,TOR,30,-0.63,39.1,0.57,0.56,0.55,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.5953767649484519,0.2225700804067498,0.05135039176027703
+657044.0,Ryan Thompson,ARI,32,0.88,66.1,0.6,0.59,0.58,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.8704936272425772,0.6690718657285193,0.45198149705210483
+657053.0,Touki Toussaint,CHW,28,-0.15,23.0,0.38,0.38,0.38,Average,7.5,2026-01-29,2024,v1.0,pitcher,0.6833361866734211,0.3317864113098074,0.11302627849808389
+657097.0,Jacob Webb,BAL,30,0.67,56.2,0.62,0.61,0.6,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.8359992384126131,0.5951056394259632,0.3585753200339819
+657277.0,Logan Webb,SFG,27,4.43,204.2,2.03,2.0,2.0,Average,98.5,2026-01-29,2024,v1.0,pitcher,0.9913351603617346,0.9750997608849135,0.9513932667403695
+657376.0,Clarke Schmidt,NYY,28,1.67,85.1,1.23,1.23,1.23,Average,89.0,2026-01-29,2024,v1.0,pitcher,0.9196890195916249,0.784604836249322,0.6191874832506407
+657508.0,Mike Baumann,- - -,28,-0.41,58.1,0.61,0.6,0.61,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.6265380513809148,0.25802502474152533,0.06876986148006456
+657514.0,Brennan Bernardino,BOS,32,0.2,51.0,0.6,0.59,0.58,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.7821668850632856,0.4907254083595049,0.2449474884753845
+657571.0,Caleb Ferguson,- - -,27,0.27,54.1,0.76,0.75,0.75,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.75640501372991,0.44534317734647705,0.2022058374543497
+657585.0,Reed Garrett,NYM,31,0.91,57.1,0.82,0.81,0.8,Average,66.7,2026-01-29,2024,v1.0,pitcher,0.8680980022901472,0.6637506591698129,0.4449057399125104
+657612.0,Tim Hill,- - -,34,0.47,67.0,0.47,0.47,0.46,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.8343608807400357,0.5917327063089483,0.35457038919737216
+657649.0,Jared Koenig,MIL,30,0.92,62.0,0.74,0.73,0.72,Average,56.2,2026-01-29,2024,v1.0,pitcher,0.8651413704444696,0.6572216409148443,0.4362992742158268
+657746.0,Joe Ryan,MIN,28,3.13,135.0,1.6,1.56,1.56,Average,94.6,2026-01-29,2024,v1.0,pitcher,0.9754653825088488,0.9305542975357605,0.8674235585551021
+658648.0,Pedro Avila,- - -,27,0.22,82.2,0.75,0.74,0.74,Average,57.3,2026-01-29,2024,v1.0,pitcher,0.7467212031537657,0.42902324114555285,0.18782508745302282
+660600.0,Enoli Paredes,- - -,28,0.25,21.2,0.41,0.41,0.41,Average,9.2,2026-01-29,2024,v1.0,pitcher,0.7602381629389873,0.4519137142149923,0.20814355149392033
+660761.0,José Suarez,LAA,26,0.06,52.1,0.63,0.64,0.63,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.7076638183156908,0.36717962888336314,0.13809130355156193
+660825.0,Eduard Bazardo,SEA,28,0.28,27.2,0.51,0.51,0.51,Average,19.4,2026-01-29,2024,v1.0,pitcher,0.766506984436086,0.46279557027097035,0.2181640053473162
+660853.0,Enyel De Los Santos,- - -,28,-0.96,64.0,0.64,0.64,0.64,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.48092430688041693,0.11990233221754895,0.015124880947380142
+660896.0,Jorge Alcala,MIN,28,0.3,58.1,0.61,0.61,0.61,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7695093278284575,0.46806744159944913,0.22310222284477765
+661395.0,Jhoan Duran,MIN,26,1.19,54.1,1.01,1.02,1.01,Average,78.5,2026-01-29,2024,v1.0,pitcher,0.8736773283587382,0.6761866873697457,0.46152842722383075
+661403.0,Emmanuel Clase,CLE,26,2.25,74.1,1.34,1.35,1.34,Average,91.8,2026-01-29,2024,v1.0,pitcher,0.9457310614253942,0.8507217983406673,0.7265320475052565
+661527.0,Seth Martinez,HOU,29,-0.15,52.2,0.5,0.49,0.49,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.6924877707154298,0.3448254088444335,0.12197203789827074
+661563.0,Luis Gil,NYY,26,2.09,151.2,1.17,1.19,1.18,Average,87.2,2026-01-29,2024,v1.0,pitcher,0.9385841950859433,0.832227565237134,0.6956522558213752
+662253.0,Andrés Muñoz,SEA,25,0.63,59.1,1.05,1.09,1.11,Average,81.1,2026-01-29,2024,v1.0,pitcher,0.7997223623491418,0.523322728093735,0.27814221880991924
+663158.0,Robert Suarez,SDP,33,0.88,65.0,0.6,0.59,0.58,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.8749814720502501,0.6791153844670851,0.4654868965814705
+663362.0,Matt Waldron,SDP,27,1.76,146.2,1.05,1.03,1.04,Average,81.1,2026-01-29,2024,v1.0,pitcher,0.922632845931464,0.7919037607807311,0.6306215615682967
+663372.0,Ryan Feltner,COL,27,2.47,162.1,1.21,1.19,1.2,Average,88.4,2026-01-29,2024,v1.0,pitcher,0.9563810749915244,0.878777389843029,0.7746406866538429
+663423.0,Trent Thornton,SEA,30,0.57,72.1,0.75,0.74,0.73,Average,57.3,2026-01-29,2024,v1.0,pitcher,0.8230447820539106,0.5687772744283671,0.327904105785027
+663432.0,Tanner Rainey,WSN,31,-0.2,51.0,0.52,0.51,0.5,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.702348738109261,0.359245828505665,0.13225728054571867
+663436.0,Davis Martin,CHW,27,0.63,50.0,0.84,0.83,0.83,Average,67.8,2026-01-29,2024,v1.0,pitcher,0.8124417454785927,0.5478049016726212,0.3044419797276143
+663460.0,Kris Bubic,KCR,26,0.92,30.1,1.32,1.33,1.32,Average,91.2,2026-01-29,2024,v1.0,pitcher,0.8445917785553436,0.6130016252053349,0.38019612951705384
+663465.0,Kolby Allard,PHI,26,0.07,27.0,0.4,0.41,0.4,Average,8.6,2026-01-29,2024,v1.0,pitcher,0.7089593889787064,0.36913075510653137,0.13954509420386213
+663474.0,Triston McKenzie,CLE,26,-0.97,75.2,0.58,0.58,0.58,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.4523583406823785,0.10040885504547421,0.010651826717610361
+663485.0,Cole Sands,MIN,26,1.51,71.1,1.17,1.18,1.17,Average,87.2,2026-01-29,2024,v1.0,pitcher,0.9022942677436004,0.7423741703161061,0.5550610139399855
+663531.0,Logan Allen,ARI,27,-0.01,28.0,0.32,0.32,0.32,Average,2.4,2026-01-29,2024,v1.0,pitcher,0.703281085787968,0.3606293382898188,0.13326567289702543
+663542.0,Bryan Hudson,MIL,27,0.73,62.1,0.82,0.8,0.81,Average,66.7,2026-01-29,2024,v1.0,pitcher,0.82640983890473,0.5755414232672228,0.3356546976209094
+663546.0,Sean Hjelle,SFG,27,0.3,80.2,0.94,0.92,0.93,Average,74.1,2026-01-29,2024,v1.0,pitcher,0.7612629030098108,0.45368094556921934,0.2097550609804119
+663554.0,Casey Mize,DET,27,1.34,102.1,0.87,0.86,0.86,Average,70.2,2026-01-29,2024,v1.0,pitcher,0.8915251777050344,0.7169910922825143,0.5181839839818259
+663559.0,Bailey Falter,PIT,27,1.67,142.1,0.79,0.78,0.78,Average,62.5,2026-01-29,2024,v1.0,pitcher,0.9165478956128973,0.7768654674304319,0.6071763276481674
+663562.0,Noah Davis,COL,27,0.01,20.1,0.32,0.32,0.32,Average,2.4,2026-01-29,2024,v1.0,pitcher,0.7067353213681746,0.3657854775497145,0.13705712359860728
+663567.0,Peter Lambert,COL,27,0.21,61.1,0.56,0.55,0.55,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.7452990889966857,0.4266600959002869,0.185786177346245
+663568.0,Stephen Kolek,SDP,27,0.27,46.2,0.79,0.78,0.78,Average,62.5,2026-01-29,2024,v1.0,pitcher,0.7553465266322764,0.4435398779626384,0.2005910640768801
+663574.0,Tony Santillan,CIN,27,0.76,30.0,1.14,1.12,1.12,Average,85.7,2026-01-29,2024,v1.0,pitcher,0.8305302483492953,0.5838953875863848,0.34535037216082304
+663623.0,Jake Irvin,WSN,27,1.82,187.2,1.07,1.06,1.06,Average,82.4,2026-01-29,2024,v1.0,pitcher,0.9259028168802124,0.8000632950327545,0.643526145507825
+663687.0,Hogan Harris,OAK,27,0.51,72.1,0.6,0.59,0.59,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.7948475961558701,0.5141332998929302,0.26857355305936836
+663704.0,James McArthur,KCR,27,0.09,56.2,0.78,0.77,0.77,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.7225453858905846,0.39000151832015967,0.15556621786369637
+663738.0,Daniel Lynch IV,KCR,27,0.03,43.1,0.72,0.71,0.71,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.7103997353073439,0.3713078691626575,0.14117614594461841
+663765.0,Jake Woodford,- - -,27,0.06,35.0,0.45,0.44,0.44,Average,12.0,2026-01-29,2024,v1.0,pitcher,0.7171713694456382,0.38165605938760633,0.14905678585544516
+663773.0,Bryan Hoeing,- - -,27,0.58,53.2,0.76,0.74,0.75,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.8060407236104811,0.5353926430519571,0.29096156255724875
+663776.0,Patrick Sandoval,LAA,27,1.2,79.2,1.02,1.0,1.01,Average,79.1,2026-01-29,2024,v1.0,pitcher,0.8791111774985615,0.6884441772708976,0.4782071222170069
+663855.0,Jordan Hicks,SFG,27,0.48,109.2,0.78,0.77,0.77,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.7905969300296279,0.5062071562710402,0.26045323385104696
+663878.0,Nate Pearson,- - -,27,0.13,66.1,0.74,0.73,0.73,Average,56.2,2026-01-29,2024,v1.0,pitcher,0.7306613573782793,0.4028301185669358,0.16584039393227984
+663893.0,Brendon Little,TOR,27,-0.31,45.2,0.68,0.67,0.67,Average,46.6,2026-01-29,2024,v1.0,pitcher,0.6389573933014883,0.2731248016511046,0.0769495177750427
+663903.0,Brady Singer,KCR,27,2.45,179.2,1.46,1.44,1.44,Average,93.1,2026-01-29,2024,v1.0,pitcher,0.9557618143657612,0.8771297088581255,0.7717732030055678
+663947.0,Tyler Holton,DET,28,1.48,94.1,0.99,0.99,0.99,Average,77.5,2026-01-29,2024,v1.0,pitcher,0.9067461707572663,0.7530369423094904,0.5709254742205372
+663969.0,Tyler Phillips,PHI,26,-0.07,36.2,0.57,0.58,0.57,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.6815373239805248,0.3292620261628527,0.1113332483198179
+663978.0,Chris Paddack,MIN,28,1.05,88.1,0.89,0.89,0.89,Average,71.4,2026-01-29,2024,v1.0,pitcher,0.868735541489332,0.6651640564255358,0.4467797950414564
+663992.0,Richard Lovelady,- - -,28,0.06,34.1,0.54,0.54,0.54,Average,23.7,2026-01-29,2024,v1.0,pitcher,0.7247614912258795,0.3934774657377737,0.15831798073131212
+664076.0,Garrett Cleavinger,TBR,30,0.18,60.0,0.61,0.6,0.59,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7633567885893521,0.45730604698515104,0.21307994302116115
+664126.0,Pete Fairbanks,TBR,30,0.59,45.1,0.56,0.55,0.54,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.8257836796022134,0.5742788043361603,0.3342011569573074
+664208.0,Phil Maton,- - -,31,0.11,64.0,0.54,0.53,0.52,Average,23.7,2026-01-29,2024,v1.0,pitcher,0.7592364647935254,0.450190583251171,0.20657816794882905
+664285.0,Framber Valdez,HOU,30,3.65,176.1,1.98,1.94,1.91,Average,98.0,2026-01-29,2024,v1.0,pitcher,0.9852618353565962,0.9578911160432292,0.9185001984659404
+664299.0,Cristian Javier,HOU,27,0.27,34.2,0.62,0.61,0.61,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7558996999921417,0.44448169812774213,0.2014336238115849
+664350.0,Sixto Sánchez,MIA,25,0.12,35.2,0.45,0.47,0.48,Average,12.0,2026-01-29,2024,v1.0,pitcher,0.7100488631711513,0.37077674592396437,0.14077737531252743
+664747.0,Alexis Díaz,CIN,27,0.22,56.1,0.47,0.47,0.47,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.7474236090615832,0.43019359337921836,0.1888389314870247
+664776.0,Jake Cousins,NYY,29,0.12,38.0,1.1,1.09,1.08,Average,84.1,2026-01-29,2024,v1.0,pitcher,0.7448767153981034,0.4259598779245919,0.18518414390043098
+664849.0,Danny Young,NYM,30,0.16,37.2,0.9,0.88,0.87,Average,72.1,2026-01-29,2024,v1.0,pitcher,0.7601119801180253,0.45169641593952253,0.207945824586009
+664854.0,Ryan Helsley,STL,29,2.25,66.1,1.03,1.03,1.01,Average,79.8,2026-01-29,2024,v1.0,pitcher,0.9516566557696006,0.8662581555689952,0.7529849595780874
+664875.0,Justin Lawrence,COL,29,-0.82,59.2,0.53,0.53,0.52,Average,22.5,2026-01-29,2024,v1.0,pitcher,0.532435838954098,0.1610157371155297,0.02708384408846323
+665152.0,Dean Kremer,BAL,28,1.45,129.2,1.02,1.02,1.02,Average,79.1,2026-01-29,2024,v1.0,pitcher,0.9039979883134907,0.7464429984499946,0.561088709033278
+665622.0,Luis Medina,OAK,25,0.41,40.0,0.7,0.73,0.75,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.7640796371628991,0.45856189008480125,0.21423780462265388
+665625.0,Elvis Peguero,MIL,27,0.1,51.1,0.71,0.7,0.7,Average,52.2,2026-01-29,2024,v1.0,pitcher,0.7239008218595223,0.3921251120542039,0.15724454622760747
+665795.0,Edward Cabrera,MIA,26,0.57,96.1,0.96,0.97,0.96,Average,75.6,2026-01-29,2024,v1.0,pitcher,0.7982121170004338,0.5204643604562663,0.275148161459083
+665871.0,Javier Assad,CHC,26,1.04,147.0,0.72,0.73,0.72,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.8580767579317082,0.6417917691833541,0.4162899160224659
+666129.0,Braxton Garrett,MIA,26,0.6,37.0,0.95,0.96,0.95,Average,74.9,2026-01-29,2024,v1.0,pitcher,0.8019654122077097,0.5275869810015291,0.28263864840196445
+666142.0,Cole Ragans,KCR,26,4.85,186.1,2.06,2.09,2.07,Average,99.2,2026-01-29,2024,v1.0,pitcher,0.993692528064474,0.9818334620613304,0.964419833702964
+666157.0,Nick Lodolo,CIN,26,2.01,115.1,1.4,1.42,1.4,Average,92.6,2026-01-29,2024,v1.0,pitcher,0.9345569739642064,0.8219231422878862,0.6787344047573067
+666159.0,Matt Manning,DET,26,0.24,27.2,0.36,0.36,0.36,Average,5.5,2026-01-29,2024,v1.0,pitcher,0.7432740657116467,0.42330982444379545,0.18291442005908404
+666200.0,Jesús Luzardo,MIA,26,0.7,66.2,0.86,0.87,0.86,Average,69.3,2026-01-29,2024,v1.0,pitcher,0.8165219785865223,0.55581438887423,0.3133007803473819
+666201.0,Alek Manoah,TOR,26,0.04,24.1,0.48,0.48,0.48,Average,15.6,2026-01-29,2024,v1.0,pitcher,0.7033377000698667,0.36071346034444607,0.13332710855791
+666204.0,Dany Jiménez,OAK,30,-0.69,25.2,0.29,0.28,0.28,Average,1.3,2026-01-29,2024,v1.0,pitcher,0.5807357782935689,0.2070787811256723,0.04452776682022892
+666205.0,Kyle Muller,OAK,26,0.11,49.1,0.63,0.64,0.63,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.7183084925483557,0.38341207512518205,0.15041505567598792
+666214.0,Joey Wentz,- - -,26,0.15,67.1,0.71,0.72,0.72,Average,52.2,2026-01-29,2024,v1.0,pitcher,0.7260745720531102,0.39554656370281144,0.15996731426801397
+666277.0,George Soriano,MIA,25,-0.55,29.1,0.43,0.44,0.45,Average,10.6,2026-01-29,2024,v1.0,pitcher,0.5561053318081598,0.18264208000478163,0.03474289539022607
+666720.0,Yerry Rodríguez,- - -,26,-0.71,21.2,0.3,0.3,0.3,Average,1.7,2026-01-29,2024,v1.0,pitcher,0.5252690380990391,0.1548158213691813,0.02506180160556132
+666745.0,Jhony Brito,SDP,26,0.29,43.2,0.54,0.54,0.54,Average,23.7,2026-01-29,2024,v1.0,pitcher,0.7523153721405649,0.43840229934762814,0.19602566122380977
+666808.0,Camilo Doval,SFG,26,0.1,59.0,0.75,0.75,0.75,Average,57.3,2026-01-29,2024,v1.0,pitcher,0.7155220296660932,0.37911841961098214,0.14710468656805284
+666974.0,Yennier Cano,BAL,30,0.61,60.0,0.72,0.7,0.69,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.828700594382124,0.5801761057869573,0.34101690319889283
+667297.0,Tommy Nance,TOR,33,0.07,22.0,0.37,0.36,0.36,Average,6.4,2026-01-29,2024,v1.0,pitcher,0.7686666298468304,0.46658378369000114,0.22170694451393894
+667463.0,John King,STL,29,0.25,60.0,0.51,0.5,0.5,Average,19.4,2026-01-29,2024,v1.0,pitcher,0.7690667834765251,0.4672879113945471,0.2223685891721499
+667725.0,Kyle Tyler,MIA,27,0.04,31.2,0.55,0.54,0.54,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.7129363145396673,0.3751623746334011,0.14408682511640492
+667755.0,José Soriano,LAA,25,1.67,113.0,1.04,1.08,1.1,Average,80.3,2026-01-29,2024,v1.0,pitcher,0.9103643537666708,0.7617763627987405,0.584092946770379
+668338.0,Tyson Miller,- - -,28,0.54,62.0,0.71,0.71,0.71,Average,52.2,2026-01-29,2024,v1.0,pitcher,0.8067759981035948,0.536808956223382,0.2924845166720573
+668674.0,Lucas Erceg,- - -,29,1.67,61.2,0.97,0.97,0.95,Average,76.2,2026-01-29,2024,v1.0,pitcher,0.9228245776626778,0.7923806765593004,0.6313722672649649
+668678.0,Zac Gallen,ARI,28,2.83,148.0,1.51,1.51,1.51,Average,93.8,2026-01-29,2024,v1.0,pitcher,0.968729424853303,0.9120573900996827,0.8336825305766753
+668881.0,Hunter Greene,CIN,24,3.7,150.1,1.7,1.77,1.85,Average,95.7,2026-01-29,2024,v1.0,pitcher,0.9822922946574653,0.949549890738999,0.9027622825828968
+668909.0,Gavin Williams,CLE,24,1.26,76.0,0.98,1.01,1.06,Average,76.9,2026-01-29,2024,v1.0,pitcher,0.8721405444851688,0.6727461842921305,0.45689952557161645
+668933.0,Graham Ashcraft,CIN,26,0.54,77.1,0.65,0.66,0.65,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.7933443137753661,0.5113209361194924,0.2656781969583311
+668941.0,JoJo Romero,STL,27,-0.09,59.0,0.62,0.61,0.61,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.6855102045240046,0.33485413327901903,0.11510069515176442
+668964.0,Tobias Myers,MIL,25,2.14,138.0,1.09,1.14,1.16,Average,83.6,2026-01-29,2024,v1.0,pitcher,0.9385002576771821,0.8320119367418466,0.6952961284805791
+668968.0,Hans Crouse,LAA,25,0.22,25.1,0.51,0.53,0.54,Average,19.4,2026-01-29,2024,v1.0,pitcher,0.7306731657852208,0.4028489820700508,0.16585574026617544
+669022.0,MacKenzie Gore,WSN,25,3.23,166.1,1.43,1.49,1.51,Average,92.8,2026-01-29,2024,v1.0,pitcher,0.9747613609101634,0.9286096673983996,0.8638451713928716
+669060.0,Bryse Wilson,MIL,26,-0.25,104.2,0.49,0.49,0.49,Average,16.7,2026-01-29,2024,v1.0,pitcher,0.6402368707726757,0.2747124899477803,0.07783594743687586
+669062.0,Erik Miller,SFG,26,0.43,67.1,0.97,0.98,0.97,Average,76.2,2026-01-29,2024,v1.0,pitcher,0.7751942405746298,0.4781571113088754,0.2327055254012518
+669084.0,DL Hall,MIL,25,0.19,43.0,0.78,0.81,0.82,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.7241308013982067,0.3924861761131782,0.15753078884685823
+669093.0,Jeremiah Estrada,SDP,25,1.63,61.0,1.21,1.25,1.28,Average,88.4,2026-01-29,2024,v1.0,pitcher,0.9075905411107463,0.7550705432537776,0.5739762118078381
+669194.0,Ryne Nelson,ARI,26,2.16,150.2,0.99,1.0,0.99,Average,77.5,2026-01-29,2024,v1.0,pitcher,0.941735326282199,0.8403490686661144,0.7091311368333127
+669203.0,Corbin Burnes,BAL,29,3.85,194.1,1.86,1.85,1.83,Average,97.5,2026-01-29,2024,v1.0,pitcher,0.9870055538635849,0.9628113803189627,0.9278465652985846
+669211.0,Keegan Akin,BAL,29,1.44,78.2,1.3,1.29,1.28,Average,90.7,2026-01-29,2024,v1.0,pitcher,0.9069335750125597,0.7534879809373267,0.5716014136667013
+669212.0,Eli Morgan,CLE,28,0.32,42.0,0.77,0.77,0.77,Average,59.7,2026-01-29,2024,v1.0,pitcher,0.7724658764608089,0.4732971823184675,0.2280549125479986
+669276.0,Dylan Lee,ATL,29,0.78,59.2,1.09,1.08,1.07,Average,83.6,2026-01-29,2024,v1.0,pitcher,0.8441172696610698,0.6120042783857605,0.3789747482071623
+669302.0,Logan Gilbert,SEA,27,4.02,208.2,2.19,2.16,2.16,Average,99.4,2026-01-29,2024,v1.0,pitcher,0.9878713401915543,0.9652605128992384,0.9325162766171395
+669358.0,Shane Baz,TBR,25,1.08,79.1,0.85,0.89,0.9,Average,68.6,2026-01-29,2024,v1.0,pitcher,0.857548274206081,0.6406471410619657,0.41482405783258686
+669372.0,J.T. Ginn,OAK,25,0.42,34.0,0.84,0.87,0.88,Average,67.8,2026-01-29,2024,v1.0,pitcher,0.7668394832311641,0.46337748647969457,0.2187064116982197
+669373.0,Tarik Skubal,DET,27,5.95,192.0,2.52,2.48,2.49,Average,100.0,2026-01-29,2024,v1.0,pitcher,0.9975533747588119,0.99292742567528,0.9860722880820335
+669387.0,Carmen Mlodzinski,PIT,25,0.6,50.2,0.78,0.81,0.82,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.7959385895607487,0.5161806776718739,0.2706910981641793
+669432.0,Trevor Rogers,- - -,26,0.94,124.1,0.69,0.7,0.69,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8471537781879986,0.6184049567566793,0.38684695870138747
+669438.0,Mason Englert,DET,24,-0.07,21.2,0.38,0.39,0.41,Average,7.5,2026-01-29,2024,v1.0,pitcher,0.6613019701790447,0.30172708284670074,0.09368660276629255
+669461.0,Matthew Liberatore,STL,24,0.35,86.0,0.74,0.76,0.8,Average,56.2,2026-01-29,2024,v1.0,pitcher,0.746646044089579,0.42889813437578994,0.1877168703851293
+669467.0,Andre Pallante,STL,25,1.78,121.1,0.91,0.95,0.97,Average,72.9,2026-01-29,2024,v1.0,pitcher,0.918080783766485,0.7806360512897705,0.613013588154211
+669620.0,Brady Basso,OAK,26,0.34,22.1,0.43,0.43,0.43,Average,10.6,2026-01-29,2024,v1.0,pitcher,0.7608762066861138,0.4530135317683614,0.20914573576006237
+669622.0,Anthony Bender,MIA,29,0.88,53.0,0.96,0.96,0.95,Average,75.6,2026-01-29,2024,v1.0,pitcher,0.8561858678084079,0.6377025106774872,0.41106477951389725
+669674.0,Sam Long,KCR,28,0.17,42.2,0.72,0.71,0.72,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.7467910696663875,0.4291395595766899,0.1879257302646332
+669711.0,Greg Weissert,BOS,29,0.53,63.1,0.66,0.66,0.65,Average,44.8,2026-01-29,2024,v1.0,pitcher,0.8119373094255873,0.5468199780979234,0.3033612828728569
+669713.0,Hayden Wesneski,CHC,26,0.17,67.2,0.87,0.88,0.87,Average,70.2,2026-01-29,2024,v1.0,pitcher,0.7302175223740283,0.4021215275902415,0.16526443039414876
+669721.0,Davis Daniel,LAA,27,0.44,30.1,0.69,0.68,0.68,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.784946041121818,0.4957945418719042,0.24997271824135073
+669724.0,Brenan Hanifee,DET,26,0.51,29.1,0.45,0.46,0.45,Average,12.0,2026-01-29,2024,v1.0,pitcher,0.7889965917887813,0.5032439001507784,0.2574490114739665
+669854.0,Ronel Blanco,HOU,30,2.19,167.1,1.27,1.25,1.23,Average,90.0,2026-01-29,2024,v1.0,pitcher,0.9509206257081594,0.8643183309479556,0.7496565978521625
+669923.0,George Kirby,SEA,26,4.16,191.0,1.86,1.88,1.86,Average,97.5,2026-01-29,2024,v1.0,pitcher,0.9887249413949174,0.9676791668128205,0.9371392388758383
+669952.0,Mitch White,- - -,29,-0.36,23.2,0.2,0.2,0.2,Average,0.2,2026-01-29,2024,v1.0,pitcher,0.6485670755945154,0.28519730435257035,0.08381564497116516
+670036.0,Matt Festa,- - -,31,0.38,23.2,0.32,0.32,0.31,Average,2.4,2026-01-29,2024,v1.0,pitcher,0.8037182666282565,0.5309351170075332,0.28619404034824464
+670046.0,Kenny Rosenberg,LAA,28,-0.2,24.0,0.35,0.35,0.35,Average,4.4,2026-01-29,2024,v1.0,pitcher,0.6726209233121805,0.31693502883224345,0.10324725160882005
+670059.0,Colin Holderman,PIT,28,0.13,51.1,0.61,0.61,0.61,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7397837853494761,0.4175759014612852,0.17805074449699995
+670102.0,Bowden Francis,TOR,28,1.04,103.2,0.96,0.96,0.96,Average,75.6,2026-01-29,2024,v1.0,pitcher,0.8680554654183983,0.6636564267920682,0.44478093344690295
+670124.0,Adam Oller,MIA,29,0.01,42.1,0.56,0.55,0.55,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.7254395558848034,0.3945450443566682,0.15916792197008559
+670167.0,John Schreiber,KCR,30,1.1,51.2,0.64,0.63,0.62,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.8822273100715048,0.6955386321141414,0.4879941056097188
+670174.0,Josh Winckowski,BOS,26,0.23,76.0,0.62,0.63,0.63,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.7409785278329648,0.4195328920826051,0.17970344153759574
+670280.0,David Bednar,PIT,29,-0.19,57.2,0.51,0.51,0.51,Average,19.4,2026-01-29,2024,v1.0,pitcher,0.6858382464290806,0.3353186344393673,0.11541641870481459
+670766.0,Darren McCaughan,- - -,28,-0.44,42.0,0.38,0.38,0.38,Average,7.5,2026-01-29,2024,v1.0,pitcher,0.6193991270773879,0.24959824597792418,0.0644024693957891
+670950.0,Trevor Richards,- - -,31,0.12,65.1,0.57,0.56,0.55,Average,28.0,2026-01-29,2024,v1.0,pitcher,0.7611230042948621,0.45343941480306293,0.20953445082696276
+670955.0,Edwin Uceta,TBR,26,1.66,41.2,1.17,1.18,1.17,Average,87.2,2026-01-29,2024,v1.0,pitcher,0.9128086488031858,0.7677177823665265,0.5931294111867146
+670970.0,Adrian Morejon,SDP,25,1.12,63.2,0.94,0.98,1.0,Average,74.1,2026-01-29,2024,v1.0,pitcher,0.8618928161120133,0.6500966333891426,0.42700195278071257
+670990.0,Yohan Ramírez,- - -,29,0.14,45.0,0.58,0.58,0.57,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.7482558250364734,0.43158293946268383,0.1900459834937869
+671096.0,Andrew Abbott,CIN,25,1.03,138.0,0.81,0.85,0.86,Average,65.4,2026-01-29,2024,v1.0,pitcher,0.8522898736487489,0.6293308705068276,0.4004694380469119
+671106.0,Logan Allen,CLE,25,-0.7,97.1,0.7,0.72,0.74,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.5149678558492018,0.1461814448626193,0.02237496306103532
+671212.0,Joe Boyle,OAK,24,0.31,47.2,0.71,0.74,0.77,Average,52.2,2026-01-29,2024,v1.0,pitcher,0.7381184248439968,0.41485802596358845,0.17576798527693635
+671305.0,Michel Otañez,OAK,26,0.69,34.0,1.06,1.07,1.06,Average,82.0,2026-01-29,2024,v1.0,pitcher,0.8144814561125681,0.5517993316354408,0.3088442842364421
+671345.0,Jason Foley,DET,28,0.28,60.0,0.5,0.5,0.5,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.7664525218795574,0.46270029934039764,0.21807526632064517
+671737.0,Taj Bradley,TBR,23,1.52,138.0,1.19,1.23,1.29,Average,87.7,2026-01-29,2024,v1.0,pitcher,0.8916585876993202,0.7173020123487522,0.5186281188424096
+671922.0,Cade Smith,CLE,25,2.69,75.1,1.39,1.45,1.47,Average,92.4,2026-01-29,2024,v1.0,pitcher,0.9609370855049973,0.8909620211418792,0.7960088108413752
+672282.0,Reid Detmers,LAA,24,0.64,87.1,1.03,1.07,1.12,Average,79.8,2026-01-29,2024,v1.0,pitcher,0.7948485548644593,0.5141350966839432,0.26857540782825395
+672335.0,Cionel Pérez,BAL,28,0.72,53.2,0.58,0.57,0.58,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.831508577739224,0.585890505311979,0.34768609331474304
+672391.0,Kaleb Ort,HOU,32,-0.22,24.2,0.35,0.34,0.34,Average,4.4,2026-01-29,2024,v1.0,pitcher,0.708063749054647,0.3677812011246689,0.1385387351313402
+672456.0,Keider Montero,DET,23,-0.0,98.1,0.56,0.58,0.6,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.6645443120494281,0.30603344250926673,0.0963472770757534
+672578.0,Carlos Hernández,KCR,27,0.21,30.0,0.74,0.73,0.73,Average,56.2,2026-01-29,2024,v1.0,pitcher,0.7455683288637043,0.4271068393806922,0.18617078281022284
+672582.0,Angel Zerpa,KCR,24,0.2,53.2,0.61,0.63,0.66,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7167653027986663,0.38103026479835406,0.14857420765560778
+672710.0,Roansy Contreras,- - -,24,-0.47,68.1,0.62,0.64,0.67,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.5648029643844611,0.19104228790330574,0.03797136130950938
+673380.0,Dedniel Núñez,NYM,28,0.94,35.0,1.33,1.33,1.33,Average,91.5,2026-01-29,2024,v1.0,pitcher,0.8569123939101019,0.6392716787279863,0.4130659624945648
+673513.0,Yuki Matsui,SDP,28,0.33,62.2,0.76,0.76,0.76,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.7743553889145227,0.47665943526318294,0.23126741063921227
+673929.0,Jordan Leasure,CHW,25,-0.42,31.1,0.59,0.61,0.62,Average,31.3,2026-01-29,2024,v1.0,pitcher,0.5899259858369534,0.2167171439751071,0.04871622190801271
+674003.0,Cody Bradford,TEX,26,1.54,76.1,1.16,1.18,1.17,Average,86.6,2026-01-29,2024,v1.0,pitcher,0.9039915044522279,0.7464274860667417,0.5610656674145965
+674072.0,Tommy Henry,ARI,26,-0.47,38.1,0.5,0.51,0.5,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.5878060401027024,0.2144683095826573,0.047722335789836104
+674285.0,Eduardo Salazar,- - -,26,0.17,29.1,0.41,0.41,0.41,Average,9.2,2026-01-29,2024,v1.0,pitcher,0.7303094453508732,0.4022682172846049,0.16538358284105067
+674370.0,Osvaldo Bido,OAK,28,1.36,63.1,0.91,0.9,0.91,Average,72.9,2026-01-29,2024,v1.0,pitcher,0.8971988741266437,0.7302920855619256,0.5373517710102836
+674944.0,Sean Guenther,DET,28,0.4,21.0,0.42,0.42,0.42,Average,9.9,2026-01-29,2024,v1.0,pitcher,0.7847881951490921,0.4955057192752995,0.24968504296902522
+675540.0,Xzavion Curry,- - -,25,0.05,42.2,0.49,0.51,0.52,Average,16.7,2026-01-29,2024,v1.0,pitcher,0.6958262018529516,0.3496641550553849,0.1253773866390789
+675627.0,Michael Grove,LAD,27,0.4,51.0,0.83,0.81,0.82,Average,67.5,2026-01-29,2024,v1.0,pitcher,0.7774469701613377,0.4821943505411689,0.23660414025763843
+675921.0,Spencer Howard,- - -,27,-0.07,29.0,0.35,0.35,0.35,Average,4.4,2026-01-29,2024,v1.0,pitcher,0.6900243684137867,0.3412831977356653,0.11950851552485539
+676092.0,Collin Snider,SEA,28,0.46,41.2,0.8,0.79,0.8,Average,64.0,2026-01-29,2024,v1.0,pitcher,0.7952183482169493,0.5148284621725201,0.26929161875182933
+676106.0,Emerson Hancock,SEA,25,-0.39,60.2,0.52,0.54,0.54,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.5974696613067985,0.2248445948595316,0.05239254147619843
+676130.0,José Buttó,NYM,26,0.97,74.0,0.87,0.88,0.87,Average,70.2,2026-01-29,2024,v1.0,pitcher,0.850487253560506,0.6254819165352653,0.395643977700125
+676254.0,Ryan Walker,SFG,28,1.7,80.0,1.23,1.22,1.22,Average,89.0,2026-01-29,2024,v1.0,pitcher,0.9214481419562849,0.7889610828114385,0.6259992971372529
+676272.0,Bobby Miller,LAD,25,-0.86,56.0,0.64,0.67,0.68,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.47034177243390735,0.11241619739026257,0.013315708631382026
+676282.0,Joey Cantillo,CLE,24,0.44,38.2,0.88,0.91,0.95,Average,71.1,2026-01-29,2024,v1.0,pitcher,0.7629727622273746,0.45663977478568035,0.21246691209274746
+676395.0,Robert Garcia,WSN,28,1.53,59.2,1.3,1.29,1.3,Average,90.7,2026-01-29,2024,v1.0,pitcher,0.9100611848013753,0.7610415472266734,0.5829801078586352
+676428.0,Brant Hurter,DET,25,0.76,45.1,0.9,0.94,0.95,Average,72.1,2026-01-29,2024,v1.0,pitcher,0.8186597001895257,0.5600411710618522,0.31802635132021534
+676440.0,Tanner Bibee,CLE,25,3.31,173.2,1.47,1.53,1.56,Average,93.3,2026-01-29,2024,v1.0,pitcher,0.9763551786789919,0.9330158820792398,0.8719636911407789
+676534.0,Calvin Faucher,MIA,28,1.34,53.2,0.84,0.84,0.84,Average,67.8,2026-01-29,2024,v1.0,pitcher,0.8953721298784398,0.7259921198562354,0.5311175638150099
+676596.0,Josh Fleming,PIT,28,-0.04,31.1,0.3,0.3,0.3,Average,1.7,2026-01-29,2024,v1.0,pitcher,0.7057379843211191,0.3642918283832485,0.13595339738061718
+676614.0,Bryan Sammons,DET,29,-0.37,27.1,0.27,0.27,0.27,Average,1.1,2026-01-29,2024,v1.0,pitcher,0.6454266324380064,0.28121436911431846,0.08151835189156094
+676664.0,JP Sears,OAK,28,1.18,180.2,0.81,0.81,0.81,Average,65.4,2026-01-29,2024,v1.0,pitcher,0.8817270497598297,0.6943964858330064,0.48641187114337053
+676684.0,Will Vest,DET,29,1.15,70.1,0.87,0.87,0.86,Average,70.2,2026-01-29,2024,v1.0,pitcher,0.8828515690887934,0.6969656048665491,0.48997448137079835
+676702.0,Hunter Stratton,PIT,27,0.66,37.2,0.78,0.76,0.77,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.8166643639084518,0.5560952667671301,0.3136137198070129
+676710.0,Kutter Crawford,BOS,28,1.84,183.2,1.15,1.14,1.15,Average,86.1,2026-01-29,2024,v1.0,pitcher,0.930225485004036,0.8109338432384495,0.6609188567628542
+676760.0,Ron Marinaccio,NYY,29,-0.1,23.1,0.38,0.38,0.37,Average,7.5,2026-01-29,2024,v1.0,pitcher,0.7023436377003314,0.3592382695897257,0.13225178150552588
+676775.0,Keaton Winn,SFG,26,-0.0,55.1,0.65,0.66,0.65,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.6946251381668321,0.3479182382864224,0.12414332748068484
+676879.0,Aaron Ashby,MIL,26,0.6,28.1,0.6,0.61,0.6,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.8027834519530723,0.5291477967313905,0.2842933499317677
+676962.0,Ben Brown,CHC,24,1.29,55.1,1.09,1.13,1.18,Average,83.6,2026-01-29,2024,v1.0,pitcher,0.8748766438953247,0.6788796669421834,0.4651676794632123
+676974.0,Max Meyer,MIA,25,-0.31,57.0,0.68,0.71,0.72,Average,46.6,2026-01-29,2024,v1.0,pitcher,0.6157311982247695,0.2453396351433543,0.06224918702335471
+676979.0,Garrett Crochet,CHW,25,4.63,146.0,2.3,2.38,2.43,Average,99.8,2026-01-29,2024,v1.0,pitcher,0.9921293222557805,0.9773648547293854,0.9557653987956982
+677053.0,Andrew Nardi,MIA,25,0.71,49.2,1.07,1.11,1.13,Average,82.4,2026-01-29,2024,v1.0,pitcher,0.8118305229600022,0.5466116237926586,0.30313291159953604
+677161.0,Zack Kelly,BOS,29,-0.26,56.2,0.65,0.65,0.64,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.6708408434600236,0.3145108369042967,0.10169252184143864
+677944.0,Slade Cecconi,ARI,25,0.17,77.0,0.61,0.64,0.65,Average,34.9,2026-01-29,2024,v1.0,pitcher,0.7207262626181258,0.3871633112984252,0.1533370039532701
+677960.0,Ryan Weathers,MIA,24,1.07,86.2,0.98,1.02,1.06,Average,76.9,2026-01-29,2024,v1.0,pitcher,0.8515638358747137,0.627778774935561,0.39852008846243114
+678061.0,Ray Kerr,ATL,29,0.11,22.1,0.35,0.34,0.34,Average,4.4,2026-01-29,2024,v1.0,pitcher,0.7442294001416515,0.4248882090848847,0.18426461347701723
+678368.0,Valente Bellozo,MIA,24,-0.09,68.2,0.51,0.53,0.55,Average,19.4,2026-01-29,2024,v1.0,pitcher,0.6568069324410135,0.2958228647128972,0.09009852800524602
+678394.0,Brayan Bello,BOS,25,1.99,162.1,1.19,1.23,1.26,Average,87.7,2026-01-29,2024,v1.0,pitcher,0.9306845159230923,0.8120938513279151,0.6627883797047136
+678495.0,Randy Rodríguez,SFG,24,0.54,52.1,0.95,0.98,1.03,Average,74.9,2026-01-29,2024,v1.0,pitcher,0.7783357358454444,0.48379327569670905,0.23815700838075823
+678606.0,Jose A. Ferrer,WSN,24,0.64,32.0,0.9,0.93,0.97,Average,72.1,2026-01-29,2024,v1.0,pitcher,0.7941568254210225,0.5128397408748964,0.2672398961123603
+679525.0,Alec Marsh,KCR,26,1.37,129.0,0.93,0.95,0.94,Average,73.7,2026-01-29,2024,v1.0,pitcher,0.8901483096086826,0.7137873722424227,0.5136185650591831
+679885.0,Justin Martinez,ARI,22,1.39,72.2,0.98,1.04,1.08,Average,76.9,2026-01-29,2024,v1.0,pitcher,0.8759929960951529,0.6813926608246575,0.468576436081514
+680570.0,Grayson Rodriguez,BAL,24,2.03,116.2,1.25,1.3,1.36,Average,89.6,2026-01-29,2024,v1.0,pitcher,0.9303389733059079,0.8112205362717146,0.6613806619069216
+680573.0,Simeon Woods Richardson,MIN,23,1.83,133.2,0.91,0.94,0.98,Average,72.9,2026-01-29,2024,v1.0,pitcher,0.9152556873310079,0.7736961867315116,0.6022912875055862
+680694.0,Kyle Bradish,BAL,27,1.38,39.1,1.35,1.33,1.33,Average,92.1,2026-01-29,2024,v1.0,pitcher,0.8949849516391853,0.7250828774678624,0.5298039222600873
+680704.0,Nick Sandlin,CLE,27,-0.69,57.2,0.76,0.75,0.75,Average,58.5,2026-01-29,2024,v1.0,pitcher,0.5432713517189315,0.17069460089871483,0.030395322514822062
+680730.0,Mitchell Parker,WSN,24,2.43,151.0,1.14,1.18,1.24,Average,85.7,2026-01-29,2024,v1.0,pitcher,0.9498764285807549,0.8615712086102444,0.7449555310348472
+680736.0,Justin Wrobleski,LAD,23,-0.33,36.1,0.53,0.55,0.57,Average,22.5,2026-01-29,2024,v1.0,pitcher,0.5892980623548901,0.21604944240365034,0.04842007092152033
+680744.0,Ty Madden,DET,24,0.22,23.0,0.42,0.43,0.45,Average,9.9,2026-01-29,2024,v1.0,pitcher,0.7220378862244791,0.3892083486965368,0.1549416382991981
+680767.0,Victor Vodnik,COL,24,0.35,73.2,0.54,0.56,0.58,Average,23.7,2026-01-29,2024,v1.0,pitcher,0.746815176863262,0.4291796996381893,0.18796046704294758
+680885.0,Spencer Schwellenbach,ATL,24,2.65,123.2,1.52,1.6,1.68,Average,94.2,2026-01-29,2024,v1.0,pitcher,0.9578386487386599,0.8826635868066699,0.7814246968311357
+680897.0,Nick Nastrini,CHW,24,-0.52,35.2,0.51,0.53,0.56,Average,19.4,2026-01-29,2024,v1.0,pitcher,0.5505209958288912,0.17737840489269205,0.03279213004184067
+681035.0,Christian Scott,NYM,25,0.45,47.1,0.72,0.75,0.76,Average,53.5,2026-01-29,2024,v1.0,pitcher,0.7710142123603733,0.4707246267228339,0.2256119284540269
+681190.0,Randy Vásquez,SDP,25,0.74,98.0,0.63,0.65,0.66,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.8160628604152957,0.554909337421032,0.31229346912322775
+681293.0,Spencer Arrighetti,HOU,24,1.66,145.0,1.08,1.12,1.17,Average,83.0,2026-01-29,2024,v1.0,pitcher,0.9066411916484329,0.7527843591957412,0.5705471184725304
+681402.0,Gus Varland,- - -,27,0.42,26.1,0.4,0.4,0.4,Average,8.6,2026-01-29,2024,v1.0,pitcher,0.7819387901357768,0.49031088103023124,0.24453878105944254
+681432.0,Luke Little,CHC,23,0.07,26.0,0.47,0.48,0.5,Average,14.0,2026-01-29,2024,v1.0,pitcher,0.6817641953727608,0.3295797044043787,0.1115456114576012
+681517.0,Kyle Leahy,STL,27,0.34,48.2,0.64,0.63,0.63,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.7686054693238195,0.46647622423268814,0.22160596032576946
+681676.0,Ryan Fernandez,STL,26,0.74,66.2,0.75,0.76,0.75,Average,57.3,2026-01-29,2024,v1.0,pitcher,0.8224261370899006,0.567539421381141,0.3264954134282704
+681799.0,Ethan Roberts,CHC,26,0.1,26.2,0.38,0.38,0.38,Average,7.5,2026-01-29,2024,v1.0,pitcher,0.7160099529747838,0.3798679736675165,0.1476799640941651
+681857.0,Reese Olson,DET,24,2.48,112.1,1.34,1.38,1.45,Average,91.8,2026-01-29,2024,v1.0,pitcher,0.9517783810087348,0.8665792397928621,0.753536580170327
+681867.0,Cooper Criswell,BOS,27,1.11,99.1,0.63,0.62,0.62,Average,39.8,2026-01-29,2024,v1.0,pitcher,0.8708628039652448,0.6698943636220525,0.453080116140975
+681869.0,Shawn Dubin,HOU,28,0.31,45.1,0.7,0.69,0.7,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.771570978698751,0.4717102105936134,0.22654633581819372
+681892.0,Kody Funderburk,MIN,27,-0.11,34.2,0.66,0.65,0.65,Average,44.8,2026-01-29,2024,v1.0,pitcher,0.6828513224233341,0.3311047470436411,0.11256786261462441
+681911.0,Alex Vesia,LAD,28,1.12,66.1,1.12,1.11,1.11,Average,84.7,2026-01-29,2024,v1.0,pitcher,0.8755319142114285,0.6803539932685859,0.4671660424672764
+681982.0,Grant Anderson,TEX,27,-0.95,26.2,0.37,0.37,0.37,Average,6.4,2026-01-29,2024,v1.0,pitcher,0.47239377540599764,0.11384314534759986,0.01365177832324162
+682120.0,Tim Herrin,CLE,27,0.97,65.2,0.94,0.92,0.93,Average,74.1,2026-01-29,2024,v1.0,pitcher,0.8558545916891149,0.6369878508815567,0.41015495449068934
+682243.0,Bryce Miller,SEA,25,2.76,180.1,1.51,1.61,1.63,Average,93.8,2026-01-29,2024,v1.0,pitcher,0.9628813030169728,0.8961951450209478,0.8052742660332455
+682610.0,Roddery Muñoz,MIA,24,-1.63,82.2,0.55,0.57,0.6,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.23257947788795322,0.014610367892242999,0.0002361718396485098
+682847.0,Luis L. Ortiz,PIT,25,0.93,135.2,0.69,0.72,0.73,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.8405503558284575,0.6045411570016082,0.3698968008391908
+682990.0,Quinn Priester,- - -,23,0.14,49.2,0.53,0.55,0.57,Average,22.5,2026-01-29,2024,v1.0,pitcher,0.6965535968394726,0.35072431127660886,0.12612967455014537
+683003.0,Jared Jones,PIT,22,1.76,121.2,1.05,1.12,1.16,Average,81.1,2026-01-29,2024,v1.0,pitcher,0.9069789261948114,0.7535971573068981,0.5717650878967898
+683004.0,Jack Leiter,TEX,24,-0.24,35.2,0.6,0.63,0.65,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.6206740835211939,0.25108977833033197,0.06516518445355865
+683155.0,Joey Estes,OAK,22,0.73,127.2,0.49,0.52,0.54,Average,16.7,2026-01-29,2024,v1.0,pitcher,0.7943608158557136,0.513221517748002,0.2676331662569407
+683232.0,Nick Mears,- - -,27,0.78,57.2,0.92,0.9,0.91,Average,73.4,2026-01-29,2024,v1.0,pitcher,0.8328086908541148,0.5885487411285323,0.3508102218813166
+683409.0,Angel Chivilli,COL,21,-0.25,31.2,0.6,0.64,0.68,Average,32.9,2026-01-29,2024,v1.0,pitcher,0.5853589501693224,0.21189150770275933,0.046595944565003065
+683627.0,Anthony Molina,COL,22,0.22,59.2,0.5,0.53,0.55,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.7041753178479955,0.36195956211409536,0.13423879431836103
+683769.0,Hunter Gaddis,CLE,26,1.63,74.2,1.03,1.04,1.03,Average,79.8,2026-01-29,2024,v1.0,pitcher,0.9109465674037013,0.7631888245133065,0.5862349886106843
+684007.0,Shota Imanaga,CHC,30,3.08,173.1,1.6,1.54,1.52,Average,94.6,2026-01-29,2024,v1.0,pitcher,0.9764241616507977,0.9332068985410232,0.8723164902948637
+684320.0,Yariel Rodríguez,TOR,27,1.07,86.2,0.89,0.88,0.88,Average,71.4,2026-01-29,2024,v1.0,pitcher,0.8669199081123934,0.6611440524931498,0.4414597869168465
+685299.0,Tanner Gordon,COL,26,-0.23,34.1,0.49,0.5,0.49,Average,16.7,2026-01-29,2024,v1.0,pitcher,0.6452075166568155,0.28093783865291805,0.08136002438566348
+686539.0,Declan Cronin,MIA,26,1.31,70.1,1.01,1.02,1.01,Average,78.5,2026-01-29,2024,v1.0,pitcher,0.8857074669886634,0.7035182555263001,0.4991192162469022
+686563.0,Jonathan Cannon,CHW,23,1.07,124.1,0.64,0.66,0.69,Average,41.7,2026-01-29,2024,v1.0,pitcher,0.8466708691577637,0.6173841119499229,0.3855860608596235
+686580.0,Justin Slaten,BOS,26,1.47,55.1,1.01,1.02,1.01,Average,78.5,2026-01-29,2024,v1.0,pitcher,0.8987844782490901,0.7340379251154293,0.5428118760382113
+686613.0,Hunter Brown,HOU,25,3.17,170.0,1.61,1.67,1.7,Average,95.0,2026-01-29,2024,v1.0,pitcher,0.9735567890191409,0.925288605868017,0.8577508562563202
+686642.0,Fraser Ellard,CHW,26,0.11,24.0,0.4,0.4,0.4,Average,8.6,2026-01-29,2024,v1.0,pitcher,0.7170958416266406,0.38153961157043303,0.14896692919962343
+686730.0,Carson Spiers,CIN,26,0.04,90.2,0.58,0.59,0.59,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.7028309870627668,0.35996100244329365,0.13277807368413994
+686752.0,Ryan Pepiot,TBR,26,1.89,130.0,1.25,1.26,1.25,Average,89.6,2026-01-29,2024,v1.0,pitcher,0.9277341482600023,0.8046569579909808,0.6508479841744647
+686799.0,Jack Kochanowicz,LAA,23,0.57,65.1,0.46,0.48,0.5,Average,12.7,2026-01-29,2024,v1.0,pitcher,0.7764578552445295,0.4804189663400739,0.23488577514643
+686826.0,Bryce Jarvis,ARI,26,-0.59,59.1,0.36,0.36,0.36,Average,5.5,2026-01-29,2024,v1.0,pitcher,0.5563174856277433,0.18284404234861235,0.034818853449117185
+686973.0,Louis Varland,MIN,26,-0.37,49.2,0.62,0.63,0.62,Average,37.4,2026-01-29,2024,v1.0,pitcher,0.6131770991900456,0.24240250967768667,0.06078516591428443
+687134.0,Bradley Blalock,- - -,23,-0.02,30.2,0.48,0.5,0.52,Average,15.6,2026-01-29,2024,v1.0,pitcher,0.6617518840022067,0.3023222551135255,0.09405213673885189
+687330.0,Kevin Kelly,TBR,26,0.77,70.2,0.82,0.83,0.82,Average,66.7,2026-01-29,2024,v1.0,pitcher,0.8259789607448871,0.5746723841494834,0.33465391606576966
+687765.0,Mitch Spence,OAK,26,1.25,151.1,0.85,0.86,0.86,Average,68.6,2026-01-29,2024,v1.0,pitcher,0.879964105920382,0.6903812939875442,0.4808697045276356
+687792.0,DJ Herz,WSN,23,1.66,88.2,1.12,1.16,1.21,Average,84.7,2026-01-29,2024,v1.0,pitcher,0.9028584755940278,0.7437199996120514,0.5570512101747679
+687863.0,Porter Hodge,CHC,23,0.89,43.0,0.82,0.85,0.89,Average,66.7,2026-01-29,2024,v1.0,pitcher,0.824401456433154,0.5714980452021385,0.33101090523809784
+687911.0,Bryan King,HOU,27,0.41,26.1,0.5,0.5,0.5,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.7797394395356191,0.486325660679952,0.24062671429996293
+687924.0,Julian Aguiar,CIN,23,-0.32,31.2,0.43,0.45,0.47,Average,10.6,2026-01-29,2024,v1.0,pitcher,0.5918331794298177,0.21875343766709124,0.04962490313388862
+688107.0,Robert Gasser,MIL,25,0.67,28.0,0.44,0.46,0.47,Average,11.3,2026-01-29,2024,v1.0,pitcher,0.8061473867021146,0.535597949546589,0.29118208417098956
+688297.0,Chris Roycroft,STL,27,0.12,34.1,0.74,0.73,0.73,Average,56.2,2026-01-29,2024,v1.0,pitcher,0.7290807998346185,0.40031045211248956,0.16379683302776837
+689017.0,Landon Knack,LAD,26,0.53,69.0,0.79,0.8,0.79,Average,62.5,2026-01-29,2024,v1.0,pitcher,0.7913740438104111,0.5076502059534449,0.26192246633596195
+689147.0,Orion Kerkering,PHI,23,1.47,63.0,1.13,1.17,1.22,Average,85.2,2026-01-29,2024,v1.0,pitcher,0.8877544469042133,0.7082396370526676,0.5057600412149651
+689225.0,Beau Brieske,DET,26,0.76,67.2,0.65,0.66,0.66,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.824168951337563,0.5710311592067567,0.33047674790780085
+689672.0,Drew Thorpe,CHW,23,-0.09,44.1,0.53,0.55,0.57,Average,22.5,2026-01-29,2024,v1.0,pitcher,0.6460933013691932,0.28205682067415655,0.0820016346322044
+689981.0,River Ryan,LAD,25,0.41,20.1,0.48,0.5,0.51,Average,15.6,2026-01-29,2024,v1.0,pitcher,0.765217091155436,0.4605426186614245,0.2160702946571865
+690829.0,Ben Joyce,LAA,23,0.62,34.2,0.7,0.72,0.75,Average,50.9,2026-01-29,2024,v1.0,pitcher,0.7852949890361357,0.49643342921058703,0.25060964892681853
+690916.0,Richard Fitts,BOS,24,0.46,20.2,0.26,0.27,0.28,Average,0.9,2026-01-29,2024,v1.0,pitcher,0.7658249252826561,0.46160337605971563,0.21705483426706962
+690986.0,Kyle Harrison,SFG,22,0.81,124.1,0.79,0.84,0.87,Average,62.5,2026-01-29,2024,v1.0,pitcher,0.8061721287479566,0.5356455807211681,0.2912332570519525
+693312.0,Kyle Nicolas,PIT,25,0.1,54.2,0.69,0.72,0.73,Average,48.7,2026-01-29,2024,v1.0,pitcher,0.7066107875334766,0.3655987523209395,0.13691890263171433
+693433.0,Bryan Woo,SEA,24,2.24,121.1,1.31,1.36,1.42,Average,90.9,2026-01-29,2024,v1.0,pitcher,0.9413256341655201,0.839290234885258,0.7073665970263526
+693821.0,Bryce Elder,ATL,25,0.24,49.2,0.78,0.81,0.83,Average,61.0,2026-01-29,2024,v1.0,pitcher,0.7348905381777552,0.4096231418652148,0.1714121818811194
+694297.0,Brandon Pfaadt,ARI,25,3.12,181.2,1.46,1.52,1.54,Average,93.1,2026-01-29,2024,v1.0,pitcher,0.972513065518136,0.9224173085777451,0.8524990601383967
+694363.0,Jared Shuster,CHW,25,0.18,73.1,0.58,0.61,0.62,Average,29.8,2026-01-29,2024,v1.0,pitcher,0.7219302053953823,0.38904019063759626,0.15480938208687953
+694738.0,Landen Roupp,SFG,25,0.54,50.1,0.77,0.8,0.82,Average,59.7,2026-01-29,2024,v1.0,pitcher,0.7858674802805611,0.49748276856689677,0.25165751189401037
+694813.0,Gavin Stone,LAD,25,2.14,140.1,1.17,1.21,1.23,Average,87.2,2026-01-29,2024,v1.0,pitcher,0.9387994444520321,0.8327806909050952,0.6965661980495753
+694973.0,Paul Skenes,PIT,22,4.26,133.0,2.0,2.13,2.21,Average,98.2,2026-01-29,2024,v1.0,pitcher,0.9880306269006786,0.9657115463079552,0.9333775154474043
+695076.0,Rhett Lowder,CIN,22,0.86,30.2,0.55,0.59,0.61,Average,25.0,2026-01-29,2024,v1.0,pitcher,0.8138913019768702,0.5506416599213536,0.3075651889657249
+695243.0,Mason Miller,OAK,25,2.34,65.0,1.2,1.25,1.27,Average,88.0,2026-01-29,2024,v1.0,pitcher,0.9476958064274361,0.8558527787807438,0.7352166105696718
+696131.0,Mason Black,SFG,24,-0.26,36.1,0.52,0.54,0.57,Average,21.0,2026-01-29,2024,v1.0,pitcher,0.6171741038262477,0.2470091804663343,0.06308904923782935
+696136.0,Jordan Wicks,CHC,24,-0.11,46.0,0.67,0.7,0.73,Average,45.7,2026-01-29,2024,v1.0,pitcher,0.6509515758694137,0.28824604413469707,0.08559541419649493
+700241.0,Michael McGreevy,STL,23,0.62,23.0,0.5,0.52,0.55,Average,18.0,2026-01-29,2024,v1.0,pitcher,0.784657216400216,0.49526614131561425,0.2494465408680358
+700249.0,Cade Povich,BAL,24,0.51,79.2,0.65,0.68,0.71,Average,43.4,2026-01-29,2024,v1.0,pitcher,0.7742149569921618,0.4764090103294069,0.2310273746146647
+700270.0,Yilber Díaz,ARI,23,0.12,28.1,0.36,0.37,0.39,Average,5.5,2026-01-29,2024,v1.0,pitcher,0.690895085083272,0.3425324948348099,0.12037453730691607
+701542.0,Will Warren,NYY,25,0.09,22.2,0.56,0.58,0.59,Average,26.5,2026-01-29,2024,v1.0,pitcher,0.7035665149315318,0.3610535827956804,0.13357564793278806
+701581.0,David Festa,MIN,24,1.05,64.1,1.07,1.11,1.16,Average,82.4,2026-01-29,2024,v1.0,pitcher,0.8497481090862433,0.6239081629818887,0.39367927481270076
+702352.0,Spencer Bivens,SFG,30,-0.29,48.2,0.48,0.47,0.46,Average,15.6,2026-01-29,2024,v1.0,pitcher,0.6726497648949237,0.31697440697316204,0.10327260253226865
+800049.0,Adam Mazur,SDP,23,-0.29,33.2,0.43,0.45,0.46,Average,10.6,2026-01-29,2024,v1.0,pitcher,0.5976716391714657,0.22506490182812944,0.052494032318275215
+805673.0,Zebby Matthews,MIN,24,-0.18,37.2,0.73,0.76,0.79,Average,54.9,2026-01-29,2024,v1.0,pitcher,0.6347004089845631,0.2678856428435303,0.07406000383986083
+806185.0,Hayden Birdsong,SFG,22,0.1,72.0,0.81,0.86,0.89,Average,65.4,2026-01-29,2024,v1.0,pitcher,0.6787246171095502,0.3253401544786554,0.10872800433224167
+808967.0,Yoshinobu Yamamoto,LAD,25,2.87,90.0,1.73,1.8,1.83,Average,95.9,2026-01-29,2024,v1.0,pitcher,0.9662098168615134,0.9052009437577041,0.821343381611798

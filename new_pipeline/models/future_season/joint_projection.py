@@ -142,10 +142,11 @@ class JointProjectionModel:
                 age_factor_year_1 = age_factor
 
             else:
-                # Year 2+: Apply RELATIVE age change from Year 1
-                # Calculate how much the age factor changed relative to Year 1
-                relative_age_change = age_factor / age_factor_year_1
-                war_adjusted = projections['war_year_1'] * relative_age_change
+                # Year 2+: Apply age curve DELTA from Year 1
+                # Calculate actual change in age factor (not ratio)
+                # This properly captures decline: e.g., 0.90 - 0.93 = -0.03 (3% decline)
+                age_delta = age_factor - age_factor_year_1
+                war_adjusted = projections['war_year_1'] * (1 + age_delta)
 
             # Calculate survival probability for this year
             # Create survival features for this projection
@@ -181,10 +182,15 @@ class JointProjectionModel:
                 print(f"Warning: Survival prediction failed ({str(e)}). Using default.")
                 cumulative_survival *= 0.9
 
-            # Final projection: performance * survival probability
-            war_final = war_adjusted * cumulative_survival
+            # Final projection: project conditional on playing
+            # Don't discount by survival - roster spots get filled by replacement players
+            # This maintains 1000 WAR league total across years
+            war_final = war_adjusted
 
-            # Store projection
+            # Store survival probability separately for reference
+            projections[f'survival_prob_year_{year}'] = cumulative_survival
+
+            # Store projection (conditional on playing)
             projections[f'war_year_{year}'] = max(0, war_final)  # Floor at 0
 
         return projections
