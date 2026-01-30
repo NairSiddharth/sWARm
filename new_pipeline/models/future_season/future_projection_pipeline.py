@@ -371,7 +371,8 @@ class FutureProjectionPipeline:
             adjusted_df = apply_elite_adjustments(
                 adjusted_df,
                 historical_war=historical_war_aligned,  # Use actual base year WAR
-                war_columns=[f'war_year_{i}' for i in range(1, self.years_ahead + 1)]
+                war_columns=[f'war_year_{i}' for i in range(1, self.years_ahead + 1)],
+                player_type=self.player_type  # Use pitcher-specific thresholds for pitchers
             )
 
         # Injury recovery adjustments

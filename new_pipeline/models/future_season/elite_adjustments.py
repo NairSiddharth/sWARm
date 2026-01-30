@@ -16,7 +16,8 @@ from new_pipeline.models.future_season.elite_player_adjuster import ElitePlayerA
 def apply_elite_adjustments(
     projections_df: pd.DataFrame,
     historical_war: pd.Series = None,
-    war_columns: list = None
+    war_columns: list = None,
+    player_type: str = 'hitter'
 ) -> pd.DataFrame:
     """
     Apply elite player protection to future projections.
@@ -35,13 +36,16 @@ def apply_elite_adjustments(
             If None, uses war_year_1 from projections
         war_columns: List of WAR columns to adjust (optional)
             Default: ['war_year_1', 'war_year_2', 'war_year_3']
+        player_type: 'hitter' or 'pitcher' (optional)
+            Determines elite protection thresholds
+            Default: 'hitter'
 
     Returns:
         DataFrame with elite-adjusted projections
 
     Example:
         >>> projections = joint_model.project_multiple_players(sequences)
-        >>> adjusted_projections = apply_elite_adjustments(projections)
+        >>> adjusted_projections = apply_elite_adjustments(projections, player_type='pitcher')
     """
     if war_columns is None:
         # Default: adjust all projection years
@@ -51,8 +55,21 @@ def apply_elite_adjustments(
     if not war_columns:
         raise ValueError("No WAR projection columns found in projections_df")
 
-    # Initialize adjuster with enhanced system
-    adjuster = ElitePlayerAdjuster(use_enhanced_system=True)
+    # Initialize adjuster with player-type-specific thresholds
+    if player_type == 'pitcher':
+        # Pitchers: Lower WAR scale requires adjusted thresholds
+        adjuster = ElitePlayerAdjuster(
+            use_enhanced_system=True,
+            elite_threshold=5.0,       # Elite: 5+ WAR (vs 5.5 for hitters)
+            very_good_threshold=3.5,   # Very good: 3.5-5 WAR (vs 4.5 for hitters)
+            good_threshold=2.5,        # Good: 2.5-3.5 WAR (vs 3.0 for hitters)
+            elite_protection=0.25,     # 75% protection (vs 60% for hitters)
+            very_good_protection=0.45, # 55% protection (vs 40% for hitters)
+            good_protection=0.65       # 35% protection (vs 20% for hitters)
+        )
+    else:
+        # Hitters: Use default thresholds
+        adjuster = ElitePlayerAdjuster(use_enhanced_system=True)
 
     # Use historical WAR if provided, otherwise use war_year_1 as baseline
     if historical_war is None:
