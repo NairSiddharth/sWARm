@@ -194,20 +194,20 @@ class RNNTimeSeriesModel:
         self.player_type = player_type
         self.min_sequence_length = min_sequence_length
         self.model = RNNModel(
-            # Architecture (smaller than Keras due to data constraints)
+            # Architecture (increased capacity for trajectory learning)
             model='GRU',                 # Faster and more robust than LSTM
-            hidden_dim=16,               # Very small - limited player sequences
-            n_rnn_layers=1,              # Single layer due to data constraints
-            dropout=0.2,                 # Reduced dropout
+            hidden_dim=48,               # Increased from 16 for better trajectory capture
+            n_rnn_layers=2,              # Added second layer for deeper patterns
+            dropout=0.35,                # Increased regularization for larger network
 
             # Time series parameters
             input_chunk_length=2,        # Use last 2 years (reduced from 3 due to RNN minimum requirements)
             training_length=3,           # Minimum training sequence length
 
-            # Training (from Keras config, reduced for stability)
-            n_epochs=100,                # Reduced from 200
-            batch_size=16,               # Reduced from 32
-            optimizer_kwargs={'lr': 0.001},  # Slightly higher learning rate
+            # Training (adjusted for larger network)
+            n_epochs=150,                # Increased from 100 for convergence
+            batch_size=16,
+            optimizer_kwargs={'lr': 0.001},
 
             # Reproducibility
             random_state=42,
