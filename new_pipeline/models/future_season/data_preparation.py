@@ -220,14 +220,15 @@ def build_longitudinal_sequences(
     print(f"  Predicting: {sequences_df['year_n_plus_1'].min()}-{sequences_df['year_n_plus_1'].max()}")
 
     # Add age and career context features
-    sequences_df = add_age_context_features(sequences_df, player_type)
+    sequences_df = add_age_context_features(sequences_df, player_type, historical_df=df)
 
     return sequences_df
 
 
 def add_age_context_features(
     sequences_df: pd.DataFrame,
-    player_type: str
+    player_type: str,
+    historical_df: pd.DataFrame = None
 ) -> pd.DataFrame:
     """
     Add age and career context features to sequences.
@@ -239,10 +240,12 @@ def add_age_context_features(
     - career_war: Cumulative WAR up to Year N
     - seasons_played: Number of seasons up to Year N
     - peak_war: Best single-season WAR up to Year N
+    - peak_percentage: Current WAR as percentage of career peak
 
     Args:
         sequences_df: Output from build_longitudinal_sequences()
         player_type: 'hitter' or 'pitcher'
+        historical_df: Full historical data for computing career stats
 
     Returns:
         sequences_df with additional age/career context features
@@ -262,16 +265,45 @@ def add_age_context_features(
     df['age_group_prime'] = ((df['age_n'] >= 26) & (df['age_n'] <= 30)).astype(int)
     df['age_group_veteran'] = (df['age_n'] > 30).astype(int)
 
-    # Career context - requires loading full player history
-    # For initial implementation, we'll use simplified version
-    # TODO: Implement full career WAR tracking when we add survival model
-    df['career_war'] = df['war_n']  # Placeholder - use Year N WAR as proxy
-    df['seasons_played'] = 1  # Placeholder
-    df['peak_war'] = df['war_n']  # Placeholder
+    # Career context - calculate from full player history
+    if historical_df is not None:
+        career_stats = []
+        for _, row in df.iterrows():
+            playerid = row['playerid']
+            year_n = row['year_n']
 
-    print(f"Added age/career context features:")
+            # Get player's history up to and including year_n
+            player_history = historical_df[
+                (historical_df['playerid'] == playerid) &
+                (historical_df['Year'] <= year_n)
+            ]
+
+            career_stats.append({
+                'career_war': player_history['WAR'].sum(),
+                'seasons_played': len(player_history),
+                'peak_war': player_history['WAR'].max()
+            })
+
+        career_df = pd.DataFrame(career_stats)
+        df['career_war'] = career_df['career_war'].values
+        df['seasons_played'] = career_df['seasons_played'].values
+        df['peak_war'] = career_df['peak_war'].values
+    else:
+        # Fallback for backward compatibility
+        df['career_war'] = df['war_n']
+        df['seasons_played'] = 1
+        df['peak_war'] = df['war_n']
+
+    # Add peak percentage (how close to career best)
+    df['peak_percentage'] = df['war_n'] / df['peak_war'].clip(lower=0.1)
+    df['peak_percentage'] = df['peak_percentage'].clip(upper=2.0)  # Cap outliers
+
+    print("Added age/career context features:")
     print(f"  Age range: {df['age_n'].min():.1f} - {df['age_n'].max():.1f}")
     print(f"  Years from peak: {df['years_from_peak'].min():.0f} to {df['years_from_peak'].max():.0f}")
+    if historical_df is not None:
+        print(f"  Seasons played range: {df['seasons_played'].min():.0f} - {df['seasons_played'].max():.0f}")
+        print(f"  Career WAR range: {df['career_war'].min():.1f} - {df['career_war'].max():.1f}")
 
     return df
 

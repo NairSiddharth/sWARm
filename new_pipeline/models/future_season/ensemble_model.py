@@ -439,7 +439,11 @@ class ExtraTreesFallbackModel:
             'age_group_young',
             'age_group_prime',
             'age_group_veteran',
-            'war_n'
+            'war_n',
+            'career_war',
+            'seasons_played',
+            'peak_war',
+            'peak_percentage'
         ]
 
         # Combine all features
@@ -650,6 +654,13 @@ class EnsembleLongitudinalModel:
             sequences_df['age_group_prime'] = ((sequences_df['age_n'] >= 26) & (sequences_df['age_n'] <= 30)).astype(int)
             sequences_df['age_group_veteran'] = (sequences_df['age_n'] > 30).astype(int)
 
+            # Career context features - compute from sequences
+            sequences_df['career_war'] = sequences_df.groupby('playerid')['war_n'].cumsum()
+            sequences_df['seasons_played'] = sequences_df.groupby('playerid').cumcount() + 1
+            sequences_df['peak_war'] = sequences_df.groupby('playerid')['war_n'].cummax()
+            sequences_df['peak_percentage'] = sequences_df['war_n'] / sequences_df['peak_war'].clip(lower=0.1)
+            sequences_df['peak_percentage'] = sequences_df['peak_percentage'].clip(upper=2.0)
+
         return sequences_df
 
     def _convert_single_timeseries_to_row(
@@ -720,6 +731,13 @@ class EnsembleLongitudinalModel:
         row_df['age_group_young'] = (row_df['age_n'] < 26).astype(int)
         row_df['age_group_prime'] = ((row_df['age_n'] >= 26) & (row_df['age_n'] <= 30)).astype(int)
         row_df['age_group_veteran'] = (row_df['age_n'] > 30).astype(int)
+
+        # Career context features - fallback values for single-row prediction
+        # (Single row doesn't have full history, use current year as proxy)
+        row_df['career_war'] = row_df['war_n']
+        row_df['seasons_played'] = 1
+        row_df['peak_war'] = row_df['war_n'].clip(lower=0.1)
+        row_df['peak_percentage'] = 1.0
 
         return row_df
 
@@ -947,6 +965,13 @@ class EnsembleLongitudinalModel:
         row_df['age_group_young'] = (row_df['age_n'] < 26).astype(int)
         row_df['age_group_prime'] = ((row_df['age_n'] >= 26) & (row_df['age_n'] <= 30)).astype(int)
         row_df['age_group_veteran'] = (row_df['age_n'] > 30).astype(int)
+
+        # Career context features - fallback values for single DataFrame row
+        # (Single row doesn't have full history, use current year as proxy)
+        row_df['career_war'] = row_df['war_n']
+        row_df['seasons_played'] = 1
+        row_df['peak_war'] = row_df['war_n'].clip(lower=0.1)
+        row_df['peak_percentage'] = 1.0
 
         return row_df
 

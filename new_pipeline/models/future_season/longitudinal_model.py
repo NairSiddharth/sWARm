@@ -88,7 +88,11 @@ class LongitudinalModel:
             'age_group_young',
             'age_group_prime',
             'age_group_veteran',
-            'war_n'  # Include Year N WAR for context
+            'war_n',  # Include Year N WAR for context
+            'career_war',
+            'seasons_played',
+            'peak_war',
+            'peak_percentage'
         ]
 
         # Combine all features
@@ -216,7 +220,8 @@ class LongitudinalModel:
         # Get feature names
         feature_cols_n = [f'{feat}_n' for feat in self.model_features]
         context_features = ['age_n', 'age_squared', 'years_from_peak',
-                           'age_group_young', 'age_group_prime', 'age_group_veteran', 'war_n']
+                           'age_group_young', 'age_group_prime', 'age_group_veteran',
+                           'war_n', 'career_war', 'seasons_played', 'peak_war', 'peak_percentage']
         all_features = feature_cols_n + context_features
 
         # Get importance scores

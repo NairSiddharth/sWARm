@@ -609,44 +609,57 @@ def validate_ensemble_model(
         actual_war = player_val['WAR'].values[0]
         predictions['actual'].append(actual_war)
 
+        # Check consecutive years before attempting TimeSeries creation
+        # to avoid verbose Darts ValueError messages
+        years = player_full['Year'].values
+        has_consecutive_years = len(years) >= 2 and np.all(np.diff(years) == 1)
+
         # Try TimeSeries creation for detailed model contributions
-        try:
-            target_series = TimeSeries.from_dataframe(
-                df=player_full,
-                time_col='Year',
-                value_cols=['WAR'],
-                fill_missing_dates=False
-            )
+        # Only attempt if years are consecutive (avoids Darts RangeIndex errors)
+        timeseries_success = False
+        if has_consecutive_years:
+            try:
+                target_series = TimeSeries.from_dataframe(
+                    df=player_full,
+                    time_col='Year',
+                    value_cols=['WAR'],
+                    fill_missing_dates=False
+                )
 
-            covariate_cols = [c for c in feature_cols + ['Age'] if c in player_full.columns]
-            covariate_series = TimeSeries.from_dataframe(
-                df=player_full,
-                time_col='Year',
-                value_cols=covariate_cols,
-                fill_missing_dates=False
-            )
+                covariate_cols = [c for c in feature_cols + ['Age'] if c in player_full.columns]
+                covariate_series = TimeSeries.from_dataframe(
+                    df=player_full,
+                    time_col='Year',
+                    value_cols=covariate_cols,
+                    fill_missing_dates=False
+                )
 
-            # Get model contributions
-            contributions = ensemble_model.get_model_contributions(
-                target_series, covariate_series, len(target_series)
-            )
+                # Get model contributions
+                contributions = ensemble_model.get_model_contributions(
+                    target_series, covariate_series, len(target_series)
+                )
 
-            if contributions['used_fallback']:
-                predictions['xgboost'].append(None)
-                predictions['rnn'].append(None)
-                predictions['extratrees'].append(None)
-                predictions['ensemble'].append(contributions['ensemble_pred'])
-                predictions['fallback'].append(contributions['fallback_pred'])
-            else:
-                predictions['xgboost'].append(contributions['xgboost_pred'])
-                predictions['rnn'].append(contributions['rnn_pred'])
-                predictions['extratrees'].append(contributions['extratrees_pred'])
-                predictions['ensemble'].append(contributions['ensemble_pred'])
-                predictions['fallback'].append(None)
+                if contributions['used_fallback']:
+                    predictions['xgboost'].append(None)
+                    predictions['rnn'].append(None)
+                    predictions['extratrees'].append(None)
+                    predictions['ensemble'].append(contributions['ensemble_pred'])
+                    predictions['fallback'].append(contributions['fallback_pred'])
+                else:
+                    predictions['xgboost'].append(contributions['xgboost_pred'])
+                    predictions['rnn'].append(contributions['rnn_pred'])
+                    predictions['extratrees'].append(contributions['extratrees_pred'])
+                    predictions['ensemble'].append(contributions['ensemble_pred'])
+                    predictions['fallback'].append(None)
 
-        except (ValueError, Exception) as e:
-            # TimeSeries creation failed (non-consecutive years or other issues)
-            # Use DataFrame-based prediction (routes to fallback automatically)
+                timeseries_success = True
+
+            except (ValueError, Exception):
+                # TimeSeries creation failed - will fall through to DataFrame fallback
+                pass
+
+        # Use DataFrame-based prediction for non-consecutive years or TimeSeries failures
+        if not timeseries_success:
             try:
                 ensemble_pred = ensemble_model.predict_from_dataframe(player_full)
 
@@ -657,7 +670,7 @@ def validate_ensemble_model(
                 predictions['ensemble'].append(ensemble_pred)
                 predictions['fallback'].append(ensemble_pred)
 
-            except Exception as e2:
+            except Exception:
                 # Still failed - skip this player
                 skip_reasons['dataframe_failed'] += 1
                 predictions['actual'].pop()
