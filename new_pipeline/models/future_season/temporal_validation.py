@@ -518,6 +518,56 @@ def validate_ensemble_model(
 
     feature_cols = FUTURE_HITTER_MODEL_FEATURES if player_type == 'hitter' else FUTURE_PITCHER_MODEL_FEATURES
 
+    # Create and train ensemble model if not provided
+    if ensemble_model is None:
+        from new_pipeline.models.future_season.ensemble_model import EnsembleLongitudinalModel
+
+        print(f"Creating and training {player_type} ensemble model...")
+        ensemble_model = EnsembleLongitudinalModel(player_type=player_type)
+
+        # Filter to training years
+        train_df = historical_df[historical_df['Year'].isin(train_years)].copy()
+
+        # Build TimeSeries per player for Darts models
+        target_series = []
+        covariate_series = []
+
+        for playerid in train_df['playerid'].unique():
+            player_data = train_df[train_df['playerid'] == playerid].sort_values('Year')
+
+            if len(player_data) < 2:
+                continue  # Need at least 2 years for training
+
+            # Ensure consecutive years for TimeSeries
+            years = player_data['Year'].values
+            if len(years) >= 2 and np.all(np.diff(years) == 1):
+                try:
+                    target_ts = TimeSeries.from_dataframe(
+                        df=player_data,
+                        time_col='Year',
+                        value_cols=['WAR'],
+                        fill_missing_dates=False
+                    )
+
+                    cov_cols = [c for c in feature_cols + ['Age'] if c in player_data.columns]
+                    cov_ts = TimeSeries.from_dataframe(
+                        df=player_data,
+                        time_col='Year',
+                        value_cols=cov_cols,
+                        fill_missing_dates=False
+                    )
+
+                    target_series.append(target_ts)
+                    covariate_series.append(cov_ts)
+                except Exception:
+                    continue
+
+        print(f"  Created {len(target_series)} player TimeSeries for training")
+
+        # Train ensemble
+        ensemble_model.train(target_series, covariate_series)
+        print("  Training complete")
+
     # Filter to validation years only
     val_df = historical_df[historical_df['Year'].isin(val_years)].copy()
 
