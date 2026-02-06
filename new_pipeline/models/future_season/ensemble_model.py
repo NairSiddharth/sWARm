@@ -6,8 +6,10 @@ This module implements a time-series ensemble combining:
 - Darts RNNModel with GRU (sequential trajectory learning)
 - Darts SKLearnModel wrapping ExtraTrees (proven baseline)
 
-Weighting: Baseline 1D adaptive weighting based on player career history length
-Optional: HMM 2D weighting (Stage 2.5, only if elite tier underperforms)
+Weighting: 2D adaptive weighting based on:
+- Player tier (elite/average/below_average based on recent WAR)
+- Consistency (high/medium/low based on coefficient of variation)
+- History length (short history uses baseline weights)
 
 Author: Claude Code (Phase 2 Implementation)
 """
@@ -62,6 +64,145 @@ def get_baseline_ensemble_weights(player_history_length: int) -> List[float]:
     else:
         # Rookies: Skip RNN, use cross-sectional only
         return [0.55, 0.00, 0.45]
+
+
+def get_weighted_recent_war(war_history: List[float], decay_lambda: float = 0.5) -> float:
+    """
+    Calculate weighted average WAR with exponential decay.
+
+    More recent years get higher weight, which smooths out single-year noise
+    while still giving most weight to recent performance.
+
+    With decay_lambda=0.5:
+    - Last year: weight 1.0
+    - 2 years ago: weight 0.61
+    - 3 years ago: weight 0.37
+    - 4 years ago: weight 0.22
+
+    Args:
+        war_history: List of historical WAR values (oldest to newest)
+        decay_lambda: Decay rate (higher = faster decay, more weight on recent)
+
+    Returns:
+        Exponentially weighted average WAR
+    """
+    if len(war_history) == 0:
+        return 0.0
+
+    n = len(war_history)
+    # Calculate weights: most recent year gets highest weight
+    # years_ago = 0 for most recent, 1 for one year ago, etc.
+    weights = [np.exp(-decay_lambda * (n - 1 - i)) for i in range(n)]
+    weights = np.array(weights) / sum(weights)  # Normalize to sum to 1
+
+    return float(np.dot(war_history, weights))
+
+
+def get_player_tier(weighted_war: float) -> str:
+    """
+    Classify player into tier based on weighted recent WAR.
+
+    Tiers:
+    - elite: 4+ WAR (star-level performance)
+    - average: 2-4 WAR (solid regular)
+    - below_average: <2 WAR (replacement to below-average)
+
+    Args:
+        weighted_war: Exponentially weighted average WAR from get_weighted_recent_war()
+
+    Returns:
+        Tier string: 'elite', 'average', or 'below_average'
+    """
+    if weighted_war >= 4.0:
+        return 'elite'
+    elif weighted_war >= 2.0:
+        return 'average'
+    else:
+        return 'below_average'
+
+
+def get_consistency_bucket(war_history: List[float]) -> str:
+    """
+    Classify player consistency based on coefficient of variation.
+
+    Thresholds based on empirical analysis of MLB WAR data (terciles):
+    - high: CV < 0.9 (top third - most stable performers)
+    - medium: CV 0.9-1.7 (middle third - typical variation)
+    - low: CV > 1.7 (bottom third - volatile performers)
+
+    Args:
+        war_history: List of historical WAR values
+
+    Returns:
+        Consistency string: 'high', 'medium', or 'low'
+    """
+    if len(war_history) < 2:
+        return 'medium'  # Default for insufficient data
+
+    war_array = np.array(war_history)
+    mean_war = np.mean(war_array)
+
+    if mean_war <= 0:
+        return 'low'  # Can't calculate CV meaningfully for non-positive mean
+
+    cv = np.std(war_array) / mean_war
+
+    if cv < 0.9:
+        return 'high'
+    elif cv < 1.7:
+        return 'medium'
+    else:
+        return 'low'
+
+
+def get_adaptive_ensemble_weights(
+    player_history_length: int,
+    player_tier: str,
+    consistency: str
+) -> List[float]:
+    """
+    Get ensemble weights based on history length, tier, and consistency.
+
+    2D weight matrix rationale:
+    - Elite + consistent players: RNN can learn reliable trajectory patterns (0.50)
+    - Volatile + below-average: Historical patterns less predictive, skip RNN (0.00)
+
+    Weight range widened from [0.15-0.40] to [0.00-0.50] RNN to allow the
+    tier/consistency signal to have meaningful impact on ensemble behavior.
+
+    Args:
+        player_history_length: Number of consecutive MLB seasons
+        player_tier: 'elite', 'average', or 'below_average'
+        consistency: 'high', 'medium', or 'low'
+
+    Returns:
+        [xgboost_weight, rnn_weight, extratrees_weight]
+    """
+    # Short history: use baseline (RNN needs sequences)
+    if player_history_length < 3:
+        return [0.55, 0.00, 0.45]
+
+    # 2D weight matrix: [XGBoost, RNN, ExtraTrees]
+    # Widened RNN weight range: 0.00 (volatile/below-avg) to 0.50 (elite/consistent)
+    # This allows tier/consistency to meaningfully differentiate weighting
+    weight_matrix = {
+        # Elite tier: Trust RNN most for consistent elite players
+        ('elite', 'high'): [0.25, 0.50, 0.25],      # RNN learns stable elite trajectories
+        ('elite', 'medium'): [0.30, 0.40, 0.30],    # Still trust RNN with some caution
+        ('elite', 'low'): [0.40, 0.25, 0.35],       # Volatile elite - less RNN trust
+
+        # Average tier: Moderate RNN trust for consistent players
+        ('average', 'high'): [0.30, 0.40, 0.30],    # Consistent average - RNN useful
+        ('average', 'medium'): [0.40, 0.30, 0.30],  # Balanced blend
+        ('average', 'low'): [0.50, 0.15, 0.35],     # Volatile average - favor XGBoost
+
+        # Below-average tier: Minimal to no RNN trust
+        ('below_average', 'high'): [0.40, 0.30, 0.30],   # Consistent below-avg - some RNN
+        ('below_average', 'medium'): [0.55, 0.10, 0.35], # Limited RNN value
+        ('below_average', 'low'): [0.60, 0.00, 0.40],    # Skip RNN entirely
+    }
+
+    return weight_matrix.get((player_tier, consistency), [0.40, 0.30, 0.30])
 
 
 class XGBoostTimeSeriesModel:
@@ -528,8 +669,7 @@ class EnsembleLongitudinalModel:
     """
     Ensemble of 3 Darts models with adaptive weighting + ExtraTrees fallback for short histories.
 
-    Baseline: Weights based on player history length (1D table).
-    Optional Stage 2.5: Weights based on (HMM tier, history) 2D table.
+    2D Adaptive Weighting: Weights based on (player_tier, consistency) matrix.
 
     Models:
         1. XGBoost - Gradient boosting with lagged features (requires 4+ seasons)
@@ -537,10 +677,11 @@ class EnsembleLongitudinalModel:
         3. ExtraTrees (Darts) - Conservative baseline (requires 4+ seasons)
         4. ExtraTrees (Fallback) - For players with <4 seasons
 
-    Weighting Strategy:
-        - Veterans (5+): [0.35, 0.35, 0.30] - Trust RNN
-        - Mid-career (3-4): [0.45, 0.25, 0.30] - Favor XGBoost
-        - Short history (<4): ExtraTrees fallback only
+    Weighting Strategy (2D matrix by tier and consistency):
+        - Elite + consistent: [0.30, 0.40, 0.30] - Trust RNN trajectory learning
+        - Volatile + below-average: [0.55, 0.15, 0.30] - Favor XGBoost cross-sectional
+        - Short history (<3 seasons): [0.55, 0.00, 0.45] - Skip RNN
+        - Very short history (<4 seasons): ExtraTrees fallback only
     """
 
     def __init__(self, player_type: str, xgboost_lags: Optional[int] = 1):
@@ -848,8 +989,17 @@ class EnsembleLongitudinalModel:
         rnn_pred = self.rnn_model.predict(target_series, covariate_series)  # May be None
         et_pred = self.extratrees_model.predict(target_series, covariate_series)
 
-        # Get baseline weights (1D - history-based only)
-        weights = get_baseline_ensemble_weights(player_history_length)
+        # Extract WAR history for tier/consistency calculation
+        war_values = target_series.values().flatten()
+        war_history = list(war_values)
+
+        # Use exponentially weighted WAR for tier (smooths single-year noise)
+        weighted_war = get_weighted_recent_war(war_history)
+
+        # Get adaptive weights (2D - tier and consistency)
+        player_tier = get_player_tier(weighted_war)
+        consistency = get_consistency_bucket(war_history)
+        weights = get_adaptive_ensemble_weights(player_history_length, player_tier, consistency)
 
         # Compute weighted ensemble
         if rnn_pred is not None:
@@ -907,7 +1057,17 @@ class EnsembleLongitudinalModel:
 
         ensemble_pred = self.predict(target_series, covariate_series, player_history_length)
 
-        weights = get_baseline_ensemble_weights(player_history_length)
+        # Extract WAR history for tier/consistency calculation
+        war_values = target_series.values().flatten()
+        war_history = list(war_values)
+
+        # Use exponentially weighted WAR for tier (smooths single-year noise)
+        weighted_war = get_weighted_recent_war(war_history)
+
+        # Get adaptive weights (2D - tier and consistency)
+        player_tier = get_player_tier(weighted_war)
+        consistency = get_consistency_bucket(war_history)
+        weights = get_adaptive_ensemble_weights(player_history_length, player_tier, consistency)
 
         return {
             'xgboost_pred': xgb_pred,
@@ -916,6 +1076,9 @@ class EnsembleLongitudinalModel:
             'fallback_pred': None,
             'ensemble_pred': ensemble_pred,
             'weights': weights,
+            'player_tier': player_tier,
+            'consistency': consistency,
+            'weighted_war': weighted_war,
             'used_fallback': False
         }
 
