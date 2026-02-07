@@ -108,8 +108,8 @@ class TeamWinsPipeline:
         if not pitcher_path.exists():
             raise FileNotFoundError(f"Pitcher projections not found: {pitcher_path}")
 
-        self.hitter_projections = pd.read_csv(hitter_path)
-        self.pitcher_projections = pd.read_csv(pitcher_path)
+        self.hitter_projections = pd.read_csv(hitter_path, encoding='utf-8-sig')
+        self.pitcher_projections = pd.read_csv(pitcher_path, encoding='utf-8-sig')
 
         print(f"  Hitter projections: {len(self.hitter_projections)} players")
         print(f"  Pitcher projections: {len(self.pitcher_projections)} players")
@@ -184,7 +184,7 @@ class TeamWinsPipeline:
             'projection_year'
         ]
         available_cols = [c for c in standings_cols if c in self.standings_df.columns]
-        self.standings_df[available_cols].to_csv(standings_path, index=False)
+        self.standings_df[available_cols].to_csv(standings_path, index=False, encoding='utf-8-sig')
 
         # Save detail file
         detail_path = out_dir / f"team_wins_detail_{self.projection_year}.csv"
@@ -201,7 +201,7 @@ class TeamWinsPipeline:
                 'playing_time_factor': 3, 'adjusted_war': 2
             })
             detail_df = detail_df.sort_values(['Team', 'adjusted_war'], ascending=[True, False])
-            detail_df.to_csv(detail_path, index=False)
+            detail_df.to_csv(detail_path, index=False, encoding='utf-8-sig')
 
         print(f"\nResults saved:")
         print(f"  Standings: {standings_path}")

@@ -66,7 +66,7 @@ ATL,686948,Drake Baldwin,starter_hitter,C
 ATL,542303,Marcell Ozuna,starter_hitter,DH
 ATL,621566,Matt Olson,starter_hitter,1B
 ATL,671739,Michael Harris II,starter_hitter,CF
-ATL,669397,Nick Allen,starter_hitter,2B
+HOU,669397,Nick Allen,starter_hitter,2B
 ATL,645277,Ozzie Albies,starter_hitter,2B
 ATL,669221,Sean Murphy,starter_hitter,C
 ATL,693821,Bryce Elder,starter_pitcher,SP
@@ -320,7 +320,7 @@ HOU,670623,Isaac Paredes,starter_hitter,1B
 HOU,676694,Jake Meyers,starter_hitter,CF
 HOU,665161,Jeremy Peña,starter_hitter,SS
 HOU,514888,Jose Altuve,starter_hitter,2B
-HOU,643289,Mauricio Dubón,starter_hitter,1B
+ATL,643289,Mauricio Dubon,starter_hitter,1B
 HOU,605170,Victor Caratini,starter_hitter,1B
 HOU,673237,Yainer Diaz,starter_hitter,DH
 HOU,664285,Framber Valdez,starter_pitcher,SP

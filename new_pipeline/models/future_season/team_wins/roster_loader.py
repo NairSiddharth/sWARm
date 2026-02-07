@@ -8,13 +8,12 @@ and generating starter templates from existing projection CSVs.
 from pathlib import Path
 from typing import List
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from new_pipeline.models.future_season.team_wins.constants import (
-    MLB_TEAMS, ALL_ROLES, HITTER_ROLES,
-    HITTER_POSITIONS,
-    ROLE_TO_PLAYER_TYPE, REPLACEMENT_ROLES
+    ALL_ROLES, HITTER_POSITIONS, HITTER_ROLES,
+    MLB_TEAMS, REPLACEMENT_ROLES, ROLE_TO_PLAYER_TYPE
 )
 
 
@@ -38,7 +37,7 @@ def load_roster(roster_path: str, projection_year: int) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(f"Roster file not found: {roster_path}")
 
-    roster_df = pd.read_csv(roster_path)
+    roster_df = pd.read_csv(roster_path, encoding='utf-8-sig')
 
     # Check required columns
     required_cols = {'Team', 'Name', 'role'}
@@ -188,8 +187,9 @@ def generate_roster_template(
 
     Reads the projection CSVs, groups players by Team, and auto-assigns:
     - Roles: Top 9 hitters per team (by PA) -> starter_hitter, rest -> bench_hitter.
-             Top pitchers per team (by IP) -> starter_pitcher, rest -> reliever.
-    - Positions: From FanGraphs defensive data via load_positions_all_years().
+             Pitchers with GS >= 5 or total IP above threshold -> starter_pitcher,
+             rest -> reliever.
+    - Positions: From FanGraphs defensive data keyed by MLBAMID.
 
     Users then edit the template for offseason moves.
 
@@ -202,8 +202,8 @@ def generate_roster_template(
     Returns:
         Path where template was saved.
     """
-    hitters = pd.read_csv(hitter_projections_path)
-    pitchers = pd.read_csv(pitcher_projections_path)
+    hitters = pd.read_csv(hitter_projections_path, encoding='utf-8-sig')
+    pitchers = pd.read_csv(pitcher_projections_path, encoding='utf-8-sig')
 
     # Detect projection year from war columns if not provided
     if projection_year is None:
@@ -240,7 +240,21 @@ def generate_roster_template(
                 'position': position,
             })
 
-    # --- Pitchers: use IP-based classification per team ---
+    # --- Pitchers: use GS + total IP for role classification ---
+    # Load GS data from FanGraphs pitcher CSV for reliable starter detection
+    gs_lookup = _load_pitcher_gs_lookup(projection_year)
+
+    # Build total IP lookup from combined '- - -' rows in projections
+    # (handles traded players whose IP is split across teams)
+    total_ip_lookup = {}
+    combined_rows = pitchers[pitchers['Team'] == '- - -']
+    for _, row in combined_rows.iterrows():
+        if pd.notna(row['playerid']):
+            pid = int(row['playerid'])
+            ip = pd.to_numeric(row.get('IP', 0), errors='coerce')
+            if pd.notna(ip):
+                total_ip_lookup[pid] = ip
+
     pitcher_rows = []
     pitchers_valid = pitchers[~pitchers['Team'].isin(['- - -', 'nan', '', 'None'])].copy()
     pitchers_valid = pitchers_valid[pitchers_valid['Team'].notna()]
@@ -249,15 +263,21 @@ def generate_roster_template(
     for team, group in pitchers_valid.groupby('Team'):
         group = group.sort_values('IP', ascending=False)
 
-        # Use per-team relative threshold: top pitchers by IP who are
-        # above the team's median IP are likely starters
+        # Per-team IP threshold as fallback
         median_ip = group['IP'].median()
-        # Starters tend to have significantly more IP than relievers
         starter_threshold = max(median_ip * 1.5, 60)
 
         for _, row in group.iterrows():
+            pid = int(row['playerid']) if pd.notna(row['playerid']) else ''
             ip = row['IP']
-            if ip >= starter_threshold:
+
+            # Primary: use GS from FanGraphs data (not split by team)
+            gs = gs_lookup.get(pid, 0) if pid != '' else 0
+
+            # Secondary: use total IP across all teams (from combined row)
+            player_total_ip = total_ip_lookup.get(pid, ip) if pid != '' else ip
+
+            if gs >= 5 or player_total_ip >= starter_threshold:
                 role = 'starter_pitcher'
                 position = 'SP'
             else:
@@ -266,7 +286,7 @@ def generate_roster_template(
 
             pitcher_rows.append({
                 'Team': team,
-                'playerid': int(row['playerid']) if pd.notna(row['playerid']) else '',
+                'playerid': pid,
                 'Name': row.get('Name', ''),
                 'role': role,
                 'position': position,
@@ -283,7 +303,7 @@ def generate_roster_template(
     # Save
     output = Path(output_path)
     output.parent.mkdir(parents=True, exist_ok=True)
-    template_df.to_csv(output, index=False)
+    template_df.to_csv(output, index=False, encoding='utf-8-sig')
 
     # Report summary
     teams_count = template_df['Team'].nunique()
@@ -309,23 +329,85 @@ def _load_position_lookup(projection_year: int) -> dict:
     Load player position data from FanGraphs defensive files.
 
     Uses load_positions_all_years() from the existing pipeline to get
-    primary positions. Falls back to empty dict if data unavailable.
+    primary positions keyed by MLBAMID (matching 'playerid' in projection CSVs).
+
+    Falls back to direct CSV loading if the import fails.
 
     Args:
         projection_year: Year to determine which historical data to load.
 
     Returns:
-        Dict mapping MLBAMID -> position string (e.g., 'SS', 'LF', 'DH').
+        Dict mapping MLBAMID (int) -> position string (e.g., 'SS', 'LF', 'DH').
     """
     try:
         from new_pipeline.common.loaders.hitter_loaders import load_positions_all_years
-        # Use the most recent available year(s) for position data
+        # load_positions_all_years overwrites earlier entries with later ones,
+        # so pass years oldest-first so the most recent year takes priority
         base_year = projection_year - 1
-        years_to_try = [base_year, base_year - 1, base_year - 2]
-        position_dict = load_positions_all_years(years_to_try)
+        years_oldest_first = [base_year - 2, base_year - 1, base_year]
+        position_dict = load_positions_all_years(years_oldest_first)
         print(f"  Loaded position data for {len(position_dict)} players")
         return position_dict
     except Exception as e:
         print(f"  Could not load position data: {e}")
         print("  Positions will default to 'DH' for hitters -- edit manually")
         return {}
+
+
+def _load_pitcher_gs_lookup(projection_year: int) -> dict:
+    """
+    Load Games Started (GS) data for pitchers from FanGraphs pitcher files.
+
+    Uses base year data (projection_year - 1) to determine which pitchers
+    are starters vs relievers. Keyed by MLBAMID to match 'playerid' in
+    projection CSVs.
+
+    Args:
+        projection_year: Year of projections (loads data from year before).
+
+    Returns:
+        Dict mapping MLBAMID (int) -> GS count (int).
+    """
+    from new_pipeline.common.constants import FANGRAPHS_PITCHER_DIR
+
+    gs_lookup = {}
+    base_year = projection_year - 1
+    years_to_try = [base_year, base_year - 1]
+
+    for year in years_to_try:
+        pitcher_path = FANGRAPHS_PITCHER_DIR / f"fangraphs_pitchers_{year}.csv"
+
+        # Try partial season files if main doesn't exist
+        if not pitcher_path.exists():
+            import glob
+            partial_files = glob.glob(
+                str(FANGRAPHS_PITCHER_DIR / f"fangraphs_pitchers_{year}_*.csv")
+            )
+            if partial_files:
+                base_files = [f for f in partial_files if not any(
+                    suffix in f for suffix in [
+                        '_advanced', '_standard', '_battedball',
+                        '_stuff', '_winprobability'
+                    ]
+                )]
+                if base_files:
+                    pitcher_path = Path(base_files[0])
+
+        if not pitcher_path.exists():
+            continue
+
+        try:
+            df = pd.read_csv(pitcher_path, encoding='utf-8')
+            if 'MLBAMID' not in df.columns or 'GS' not in df.columns:
+                continue
+
+            for _, row in df.iterrows():
+                if pd.notna(row['MLBAMID']) and pd.notna(row['GS']):
+                    mlbamid = int(row['MLBAMID'])
+                    if mlbamid not in gs_lookup:
+                        gs_lookup[mlbamid] = int(row['GS'])
+        except Exception:
+            continue
+
+    print(f"  Loaded GS data for {len(gs_lookup)} pitchers")
+    return gs_lookup

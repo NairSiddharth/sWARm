@@ -617,7 +617,7 @@ class FutureProjectionPipeline:
         output_df = self._prepare_output_dataframe(include_metadata=include_metadata)
 
         # Save to CSV
-        output_df.to_csv(output_path, index=False)
+        output_df.to_csv(output_path, index=False, encoding='utf-8-sig')
 
         print(f"Projections saved to: {output_path}")
         print(f"  Total players: {len(output_df)}")
