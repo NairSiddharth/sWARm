@@ -53,12 +53,19 @@ def load_roster(roster_path: str, projection_year: int) -> pd.DataFrame:
     if 'position' not in roster_df.columns:
         roster_df['position'] = ''
 
+    # Ensure manual_war column passes through if present
+    if 'manual_war' in roster_df.columns:
+        roster_df['manual_war'] = pd.to_numeric(roster_df['manual_war'], errors='coerce')
+
     # Clean data types
     roster_df['playerid'] = pd.to_numeric(roster_df['playerid'], errors='coerce')
     roster_df['Team'] = roster_df['Team'].astype(str).str.strip()
     roster_df['Name'] = roster_df['Name'].astype(str).str.strip()
     roster_df['role'] = roster_df['role'].astype(str).str.strip()
     roster_df['position'] = roster_df['position'].astype(str).str.strip()
+
+    # Resolve missing playerids via pybaseball Chadwick register
+    roster_df = _resolve_missing_playerids(roster_df)
 
     # Add derived columns
     roster_df['player_type'] = roster_df['role'].map(ROLE_TO_PLAYER_TYPE)
@@ -297,8 +304,11 @@ def generate_roster_template(
     template_df = pd.DataFrame(all_rows)
     template_df = template_df.sort_values(['Team', 'role', 'Name']).reset_index(drop=True)
 
+    # Add empty manual_war column for user to fill in for unprojecteable players
+    template_df['manual_war'] = np.nan
+
     # Reorder columns
-    template_df = template_df[['Team', 'playerid', 'Name', 'role', 'position']]
+    template_df = template_df[['Team', 'playerid', 'Name', 'role', 'position', 'manual_war']]
 
     # Save
     output = Path(output_path)
@@ -411,3 +421,72 @@ def _load_pitcher_gs_lookup(projection_year: int) -> dict:
 
     print(f"  Loaded GS data for {len(gs_lookup)} pitchers")
     return gs_lookup
+
+
+def _resolve_missing_playerids(roster_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Attempt to resolve missing playerids using pybaseball's Chadwick register.
+
+    For each row where playerid is NaN and Name is present, looks up the player
+    by name via pybaseball.playerid_lookup() and fills in the MLBAMID.
+
+    Only resolves players who exist in the Chadwick register (i.e., players who
+    have appeared in MLB). International players without MLB history will remain
+    unresolved -- use the manual_war column for those.
+
+    Args:
+        roster_df: Roster DataFrame with potential NaN playerids.
+
+    Returns:
+        Updated DataFrame with resolved playerids where possible.
+    """
+    missing_mask = roster_df['playerid'].isna() & roster_df['Name'].notna()
+    missing_players = roster_df[missing_mask]
+
+    if missing_players.empty:
+        return roster_df
+
+    # Only attempt pybaseball import if there are players to resolve
+    try:
+        from pybaseball import playerid_lookup
+    except ImportError:
+        print("  pybaseball not installed -- skipping playerid resolution")
+        return roster_df
+
+    resolved = []
+    unresolved = []
+
+    for idx, row in missing_players.iterrows():
+        name = str(row['Name']).strip()
+        if not name or name == 'nan':
+            continue
+
+        name_parts = name.split()
+        if len(name_parts) < 2:
+            unresolved.append(name)
+            continue
+
+        first_name = name_parts[0]
+        last_name = ' '.join(name_parts[1:])
+
+        try:
+            result = playerid_lookup(last_name, first_name)
+            if len(result) > 0:
+                mlbam_id = int(result.iloc[0]['key_mlbam'])
+                roster_df.at[idx, 'playerid'] = mlbam_id
+                resolved.append(f"{name} -> {mlbam_id}")
+            else:
+                unresolved.append(name)
+        except Exception:
+            unresolved.append(name)
+
+    if resolved:
+        print(f"\n  Resolved {len(resolved)} missing playerids:")
+        for r in resolved:
+            print(f"    {r}")
+    if unresolved:
+        print(f"\n  Could not resolve {len(unresolved)} players (not in Chadwick register):")
+        for u in unresolved:
+            print(f"    {u} -- set manual_war in roster CSV if needed")
+
+    return roster_df

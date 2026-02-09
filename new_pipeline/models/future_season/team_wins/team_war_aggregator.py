@@ -81,13 +81,29 @@ def merge_roster_with_projections(
     for _, row in roster.iterrows():
         pid = row.get('playerid')
         role = row.get('role', '')
+        manual_war = row.get('manual_war')
+        has_manual = pd.notna(manual_war) if manual_war is not None else False
 
         # Replacement roles always get 0 WAR
-        if role in REPLACEMENT_ROLES or pd.isna(pid):
+        if role in REPLACEMENT_ROLES:
             rate_wars.append(0.0)
             ages.append(np.nan)
             base_usages.append(0.0)
-            sources.append('replacement_level' if role in REPLACEMENT_ROLES else 'no_playerid')
+            sources.append('replacement_level')
+            continue
+
+        # No playerid: use manual_war if available, else 0
+        if pd.isna(pid):
+            if has_manual:
+                rate_wars.append(float(manual_war))
+                ages.append(np.nan)
+                base_usages.append(0.0)
+                sources.append('manual')
+            else:
+                rate_wars.append(0.0)
+                ages.append(np.nan)
+                base_usages.append(0.0)
+                sources.append('no_playerid')
             continue
 
         pid = int(pid)
@@ -96,6 +112,11 @@ def merge_roster_with_projections(
             ages.append(proj_lookup[pid]['age'])
             base_usages.append(proj_lookup[pid]['base_pa_ip'])
             sources.append('projected')
+        elif has_manual:
+            rate_wars.append(float(manual_war))
+            ages.append(np.nan)
+            base_usages.append(0.0)
+            sources.append('manual')
         else:
             rate_wars.append(0.0)
             ages.append(np.nan)
@@ -107,12 +128,25 @@ def merge_roster_with_projections(
     roster['base_pa_ip'] = base_usages
     roster['projection_source'] = sources
 
+    # Report manual WAR players
+    manual = roster[roster['projection_source'] == 'manual']
+    if len(manual) > 0:
+        print(f"\nPlayers using manual WAR ({len(manual)}):")
+        for _, row in manual.iterrows():
+            print(f"  {row['Team']}: {row['Name']} -> {row['rate_war']:.1f} WAR (manual)")
+
     # Report missing projections
     not_found = roster[roster['projection_source'] == 'not_found']
     if len(not_found) > 0:
         print(f"\nPlayers on roster without projections ({len(not_found)}):")
         for _, row in not_found.iterrows():
             print(f"  {row['Team']}: {row['Name']} (playerid={row.get('playerid', 'N/A')}) -> 0.0 WAR")
+
+    no_pid = roster[roster['projection_source'] == 'no_playerid']
+    if len(no_pid) > 0:
+        print(f"\nPlayers with no playerid and no manual WAR ({len(no_pid)}):")
+        for _, row in no_pid.iterrows():
+            print(f"  {row['Team']}: {row['Name']} -> 0.0 WAR (set manual_war in roster CSV)")
 
     return roster
 
@@ -171,6 +205,7 @@ def aggregate_team_war(enriched_roster: pd.DataFrame) -> pd.DataFrame:
             'num_hitters': len(hitters),
             'num_pitchers': len(pitchers),
             'num_replacement': len(team_data[team_data['role'].isin(REPLACEMENT_ROLES)]),
+            'num_manual': len(team_data[team_data['projection_source'] == 'manual']),
             'num_not_found': len(team_data[team_data['projection_source'] == 'not_found']),
         })
 

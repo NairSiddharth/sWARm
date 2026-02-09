@@ -180,7 +180,7 @@ class TeamWinsPipeline:
             'Team', 'Division', 'League', 'total_war', 'hitter_war', 'pitcher_war',
             'constrained_wins', 'projected_losses', 'win_pct',
             'rank', 'div_rank', 'wins_adjustment',
-            'num_hitters', 'num_pitchers', 'num_replacement', 'num_not_found',
+            'num_hitters', 'num_pitchers', 'num_replacement', 'num_manual', 'num_not_found',
             'projection_year'
         ]
         available_cols = [c for c in standings_cols if c in self.standings_df.columns]
