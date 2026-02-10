@@ -140,3 +140,47 @@ DIVISION_ORDER = [
     'AL East', 'AL Central', 'AL West',
     'NL East', 'NL Central', 'NL West'
 ]
+
+
+# ============================================================================
+# FV Prospect Integration
+# ============================================================================
+
+from pathlib import Path as _Path
+PROJECT_ROOT = _Path(__file__).resolve().parents[4]
+
+# FV grade -> expected first-year WAR: (hitter, pitcher)
+# Based on FanGraphs tier definitions with first-year discount.
+# Pitchers discounted ~20% vs hitters due to higher bust rates.
+FV_TO_FIRST_YEAR_WAR = {
+    '80':  (3.5, 3.0),
+    '70':  (2.8, 2.3),
+    '65':  (2.2, 1.8),
+    '60':  (1.8, 1.5),
+    '55':  (1.4, 1.1),
+    '50':  (1.0, 0.8),
+    '45+': (0.7, 0.55),
+    '45':  (0.5, 0.4),
+    '40+': (0.3, 0.2),
+    '40':  (0.15, 0.1),
+    '35+': (0.05, 0.0),
+    '35':  (0.0, 0.0),
+}
+
+# Risk modifier on blending confidence
+FV_RISK_CONFIDENCE = {'Low': 1.0, 'Med': 0.85, 'High': 0.70}
+
+# Rookie thresholds (career PA/IP below these = eligible for FV blending)
+ROOKIE_PA_THRESHOLD = 200
+ROOKIE_IP_THRESHOLD = 80
+
+# Blending alpha: weight on statistical projection
+# At 0 career PA/IP -> alpha = 0.3 (70% FV weight)
+# At threshold -> alpha = 0.7 (30% FV weight)
+# Above threshold -> alpha = 1.0 (pure projection, no FV)
+FV_BLEND_ALPHA_MIN = 0.30
+FV_BLEND_ALPHA_MAX = 0.70
+
+# Data paths for prospect files
+FANGRAPHS_PROSPECT_DIR = PROJECT_ROOT / "MLB Player Data/FanGraphs_Data/prospects"
+FANGRAPHS_INTL_PROSPECT_DIR = PROJECT_ROOT / "MLB Player Data/FanGraphs_Data/international_prospects"

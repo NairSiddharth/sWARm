@@ -85,6 +85,8 @@ class TeamWinsPipeline:
         self.team_war_df = None
         self.team_wins_df = None
         self.standings_df = None
+        self.fv_lookup = None
+        self.career_usage = None
 
         print("Initialized TeamWinsPipeline:")
         print(f"  Base year: {base_year}")
@@ -114,6 +116,38 @@ class TeamWinsPipeline:
         print(f"  Hitter projections: {len(self.hitter_projections)} players")
         print(f"  Pitcher projections: {len(self.pitcher_projections)} players")
 
+        # Load FV prospect data (optional enhancement)
+        try:
+            from new_pipeline.models.future_season.team_wins.fv_prospect_integrator import (
+                build_fv_lookup,
+                build_fg_to_mlbam_crosswalk,
+                build_career_usage_lookup,
+                match_prospects_to_roster,
+            )
+            from new_pipeline.models.future_season.team_wins.constants import (
+                FANGRAPHS_PROSPECT_DIR,
+                FANGRAPHS_INTL_PROSPECT_DIR,
+            )
+
+            board_year = self.projection_year - 1  # 2025 board for 2026 projections
+            board_path = FANGRAPHS_PROSPECT_DIR / f"fangraphs_the_board_{board_year}.csv"
+
+            if board_path.exists():
+                fv_df = build_fv_lookup(
+                    board_year, FANGRAPHS_PROSPECT_DIR, FANGRAPHS_INTL_PROSPECT_DIR
+                )
+                crosswalk = build_fg_to_mlbam_crosswalk()
+                self.career_usage = build_career_usage_lookup()
+                self.fv_lookup = match_prospects_to_roster(
+                    fv_df, self.roster_df, crosswalk
+                )
+                print(f"  FV data: {len(self.fv_lookup)} roster players matched "
+                      f"to prospect grades (crosswalk size: {len(crosswalk)})")
+            else:
+                print(f"  No FV board found for {board_year} -- skipping")
+        except Exception as e:
+            print(f"  FV integration failed (non-fatal): {e}")
+
     def build_team_projections(self) -> pd.DataFrame:
         """
         Build team win projections: merge, allocate, adjust, aggregate, convert.
@@ -132,7 +166,9 @@ class TeamWinsPipeline:
             self.roster_df,
             self.hitter_projections,
             self.pitcher_projections,
-            war_column=war_column
+            war_column=war_column,
+            fv_lookup=self.fv_lookup,
+            career_usage=self.career_usage,
         )
 
         # Step 3: Allocate playing time and adjust WAR
@@ -181,6 +217,7 @@ class TeamWinsPipeline:
             'constrained_wins', 'projected_losses', 'win_pct',
             'rank', 'div_rank', 'wins_adjustment',
             'num_hitters', 'num_pitchers', 'num_replacement', 'num_manual', 'num_not_found',
+            'num_fv_blended', 'num_fv_only',
             'projection_year'
         ]
         available_cols = [c for c in standings_cols if c in self.standings_df.columns]
