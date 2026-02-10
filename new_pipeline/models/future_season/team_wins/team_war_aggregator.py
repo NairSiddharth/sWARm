@@ -65,12 +65,23 @@ def merge_roster_with_projections(
                 war_val = 0.0
             if pd.isna(base_usage):
                 base_usage = 0.0
-            proj_lookup[pid] = {
-                'war': war_val,
-                'age': age_val,
-                'base_pa_ip': float(base_usage),
-                'player_type_proj': ptype
-            }
+            if pid in proj_lookup:
+                # Two-way player: sum WAR, keep metadata from higher-WAR role
+                existing = proj_lookup[pid]
+                existing['war'] += war_val
+                if war_val > existing.get('_primary_war', 0):
+                    existing['age'] = age_val
+                    existing['base_pa_ip'] = float(base_usage)
+                    existing['player_type_proj'] = ptype
+                    existing['_primary_war'] = war_val
+            else:
+                proj_lookup[pid] = {
+                    'war': war_val,
+                    'age': age_val,
+                    'base_pa_ip': float(base_usage),
+                    'player_type_proj': ptype,
+                    '_primary_war': war_val,
+                }
 
     # Merge projections into roster
     rate_wars = []

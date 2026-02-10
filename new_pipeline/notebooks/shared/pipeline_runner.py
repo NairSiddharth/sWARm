@@ -64,21 +64,25 @@ def load_current_season_data(player_type: str, year: int = 2025) -> pd.DataFrame
         data_dir = FANGRAPHS_HITTER_DIR
         file_pattern = f"fangraphs_hitters_{year}.csv"
 
-    # Check for partial season files first (firsthalf, quarter, etc.)
-    # Look for base files (not advanced/standard/battedball/etc. splits)
-    all_partial_files = sorted(data_dir.glob(f"fangraphs_{player_type}s_{year}_*.csv"))
-    # Exclude files with secondary suffixes (advanced, standard, battedball, stuff, winprobability)
-    partial_files = [
-        f for f in all_partial_files
-        if not any(suffix in f.name for suffix in ['_advanced', '_standard', '_battedball', '_stuff', '_winprobability'])
-    ]
-
-    if partial_files:
-        # Use most recent partial season file
-        csv_path = partial_files[0]  # Alphabetically first (e.g., "firsthalf" before "quarter")
-        print(f"Loading partial season data: {csv_path.name}")
+    # Prefer full-year file; fall back to partial season files if full-year doesn't exist
+    full_year_path = data_dir / file_pattern
+    if full_year_path.exists():
+        csv_path = full_year_path
+        print(f"Loading full-year data: {csv_path.name}")
     else:
-        csv_path = data_dir / file_pattern
+        # No full-year file -- check for partial season files (firsthalf, quarter, etc.)
+        all_partial_files = sorted(data_dir.glob(f"fangraphs_{player_type}s_{year}_*.csv"))
+        # Exclude files with secondary suffixes (advanced, standard, battedball, stuff, winprobability)
+        partial_files = [
+            f for f in all_partial_files
+            if not any(suffix in f.name for suffix in ['_advanced', '_standard', '_battedball', '_stuff', '_winprobability'])
+        ]
+
+        if partial_files:
+            csv_path = partial_files[0]
+            print(f"Loading partial season data: {csv_path.name}")
+        else:
+            csv_path = full_year_path  # Will trigger FileNotFoundError below
 
     if not csv_path.exists():
         raise FileNotFoundError(

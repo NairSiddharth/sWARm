@@ -72,12 +72,20 @@ def _load_fangraphs_feature(
     feature_dict = {}
 
     for year in years:
-        # For recent seasons (current and previous year), try partial season files first
-        # Matches any partial season: *_firsthalf_*, *_quarter_*, *_2weeks_*, *_month_*, etc.
+        # Prefer full-year file; fall back to partial season files if full-year doesn't exist
         files_found = []
 
-        if year >= get_current_season_year() - 1:
-            # Try partial season pattern (glob for ANY partial season file)
+        # Try full-year file first
+        if file_type:
+            full_season_pattern = f"fangraphs_{player_type}_{year}_{file_type}.csv"
+        else:
+            full_season_pattern = f"fangraphs_{player_type}_{year}.csv"
+        full_season_matches = glob.glob(str(_PLAYER_TYPE_DIRS[player_type] / full_season_pattern))
+
+        if full_season_matches:
+            files_found = full_season_matches
+        elif year >= get_current_season_year() - 1:
+            # No full-year file -- try partial season files for recent years
             partial_pattern = f"fangraphs_{player_type}_{year}_*_{file_type}.csv"
             partial_matches = sorted(glob.glob(str(_PLAYER_TYPE_DIRS[player_type] / partial_pattern)))
 
@@ -86,17 +94,7 @@ def _load_fangraphs_feature(
             partial_matches = [f for f in partial_matches if not f.endswith(full_season_file)]
 
             if partial_matches:
-                # Use first alphabetical match (firsthalf < month < quarter < 2weeks)
                 files_found = [partial_matches[0]]
-
-        # Fall back to full season file if no partial season found
-        if not files_found:
-            # Handle empty file_type (base comprehensive file)
-            if file_type:
-                full_season_pattern = f"fangraphs_{player_type}_{year}_{file_type}.csv"
-            else:
-                full_season_pattern = f"fangraphs_{player_type}_{year}.csv"
-            files_found = glob.glob(str(_PLAYER_TYPE_DIRS[player_type] / full_season_pattern))
 
         if not files_found:
             continue
@@ -180,11 +178,20 @@ def _load_park_adjusted_fangraphs_feature(
     feature_dict = {}
 
     for year in years:
-        # For recent seasons, try partial season files first (same logic as _load_fangraphs_feature)
+        # Prefer full-year file; fall back to partial season files if full-year doesn't exist
         files_found = []
 
-        if year >= get_current_season_year() - 1:
-            # Try partial season pattern
+        # Try full-year file first
+        if file_type:
+            full_season_pattern = f"fangraphs_{player_type}_{year}_{file_type}.csv"
+        else:
+            full_season_pattern = f"fangraphs_{player_type}_{year}.csv"
+        full_season_matches = glob.glob(str(_PLAYER_TYPE_DIRS[player_type] / full_season_pattern))
+
+        if full_season_matches:
+            files_found = full_season_matches
+        elif year >= get_current_season_year() - 1:
+            # No full-year file -- try partial season files for recent years
             partial_pattern = f"fangraphs_{player_type}_{year}_*_{file_type}.csv"
             partial_matches = sorted(glob.glob(str(_PLAYER_TYPE_DIRS[player_type] / partial_pattern)))
 
@@ -194,15 +201,6 @@ def _load_park_adjusted_fangraphs_feature(
 
             if partial_matches:
                 files_found = [partial_matches[0]]
-
-        # Fall back to full season file
-        if not files_found:
-            # Handle empty file_type (base comprehensive file)
-            if file_type:
-                full_season_pattern = f"fangraphs_{player_type}_{year}_{file_type}.csv"
-            else:
-                full_season_pattern = f"fangraphs_{player_type}_{year}.csv"
-            files_found = glob.glob(str(_PLAYER_TYPE_DIRS[player_type] / full_season_pattern))
 
         if not files_found:
             continue
