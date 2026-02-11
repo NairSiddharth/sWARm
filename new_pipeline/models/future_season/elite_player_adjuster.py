@@ -220,19 +220,33 @@ class ElitePlayerAdjuster:
                 base_value = base_projections[idx]
                 predicted_value = predictions.loc[idx, 'predicted_war']
 
-                # Determine protection tier
-                if confidence >= self.elite_threshold:
-                    protection = self.elite_protection
-                    self.adjustment_stats['elite_adjusted'] += 1
-                elif confidence >= self.very_good_threshold:
-                    protection = self.very_good_protection
-                    self.adjustment_stats['very_good_adjusted'] += 1
-                elif confidence >= self.good_threshold:
-                    protection = self.good_protection
-                    self.adjustment_stats['good_adjusted'] += 1
+                # Determine protection factor
+                if self.use_enhanced_system:
+                    # Use enhanced WAR tier system with position-specific factors
+                    protection = self.get_protection_factor(confidence, position='OF')
+                    tier = self.get_war_tier(confidence)
+                    if tier in ('mvp_level', 'superstar'):
+                        self.adjustment_stats['elite_adjusted'] += 1
+                    elif tier in ('all_star', 'good_player'):
+                        self.adjustment_stats['very_good_adjusted'] += 1
+                    elif tier in ('solid_starter', 'role_player'):
+                        self.adjustment_stats['good_adjusted'] += 1
+                    else:
+                        self.adjustment_stats['regular_adjusted'] += 1
                 else:
-                    protection = 1.0  # No protection
-                    self.adjustment_stats['regular_adjusted'] += 1
+                    # Legacy threshold system
+                    if confidence >= self.elite_threshold:
+                        protection = self.elite_protection
+                        self.adjustment_stats['elite_adjusted'] += 1
+                    elif confidence >= self.very_good_threshold:
+                        protection = self.very_good_protection
+                        self.adjustment_stats['very_good_adjusted'] += 1
+                    elif confidence >= self.good_threshold:
+                        protection = self.good_protection
+                        self.adjustment_stats['good_adjusted'] += 1
+                    else:
+                        protection = 1.0  # No protection
+                        self.adjustment_stats['regular_adjusted'] += 1
 
                 # Apply protection (reduce regression)
                 regression_amount = base_value - predicted_value
