@@ -198,3 +198,6 @@ MLE_WAR_CAP = 2.5      # Cap for MLE WAR estimates
 MLE_AGE_BONUS_THRESHOLD = 25   # Under this age -> +adjustment (young upside)
 MLE_AGE_PENALTY_THRESHOLD = 29  # At or above this age -> -adjustment (AAAA ceiling)
 MLE_AGE_ADJUSTMENT = 0.2       # WAR adjustment magnitude for age
+
+# International leagues (standalone -- no blending with MiLB levels)
+INTL_LEAGUES = ['KBO', 'NPB']
