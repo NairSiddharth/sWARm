@@ -191,7 +191,7 @@ FANGRAPHS_INTL_PROSPECT_DIR = PROJECT_ROOT / "MLB Player Data/FanGraphs_Data/int
 # ============================================================================
 
 MILB_DATA_DIR = PROJECT_ROOT / "MLB Player Data/FanGraphs_Data/minor_leaguers"
-MLE_MIN_PA = 100       # Minimum PA in both AAA and MLB for translation model
+MLE_MIN_PA = 50        # Minimum PA in both MiLB and MLB for translation model
 MLE_MIN_IP = 30        # Minimum IP in both AAA and MLB for translation model
 MLE_WAR_FLOOR = -0.5   # Floor for MLE WAR estimates
 MLE_WAR_CAP = 2.5      # Cap for MLE WAR estimates

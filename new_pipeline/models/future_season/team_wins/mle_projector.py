@@ -1,15 +1,20 @@
 """
 Minor League Equivalency (MLE) Projector.
 
-Translates AAA stats into MLB-equivalent WAR for players who lack
-MLB projections and FV prospect grades. Uses historical AAA-to-MLB
+Translates minor league stats (AA/AAA) into MLB-equivalent WAR for players
+who lack MLB projections and FV prospect grades. Uses historical level-to-MLB
 translation factors computed from players who appeared at both levels.
 
+For players who split time across multiple levels in the same season,
+stats are translated independently at each level then blended weighted
+by PA/IP.
+
 Architecture:
-    AAA wRC+ (hitters) / FIP (pitchers)
-        -> apply translation factor (multi-year median ratio)
-        -> MLB-equivalent wRC+ / FIP
-        -> convert to WAR via linear fit from MLB data
+    MiLB wRC+ (hitters) / FIP (pitchers) at each level
+        -> apply level-specific translation factor (multi-year median ratio)
+        -> MLB-equivalent wRC+ / FIP per level
+        -> PA/IP-weighted blend across levels
+        -> convert blended MLB-equiv stat to WAR via linear fit
         -> age adjustment
         -> single WAR estimate for team_war_aggregator
 """
@@ -44,17 +49,26 @@ PITCHER_WAR_SLOPE = -1.81
 PITCHER_WAR_INTERCEPT = 9.08
 PITCHER_WAR_IP_BASIS = 180
 
+# Levels supported for MLE translation
+MLE_LEVELS = ['AA', 'AAA']
 
-def _load_aaa_hitter_stats(year: int) -> Optional[pd.DataFrame]:
-    """
-    Load AAA hitter stats for a given year by merging standard and advanced CSVs.
 
-    Returns DataFrame with columns: PlayerId, Name, Age, PA, wRC+
-    or None if files don't exist.
+def _load_milb_hitter_stats(year: int, level: str) -> Optional[pd.DataFrame]:
     """
-    aaa_dir = MILB_DATA_DIR / "AAA" / "hitters"
-    standard_path = aaa_dir / f"fangraphs_hitters_{year}_standard_AAA.csv"
-    advanced_path = aaa_dir / f"fangraphs_hitters_{year}_advanced_AAA.csv"
+    Load minor league hitter stats for a given year and level by merging
+    standard and advanced CSVs.
+
+    Args:
+        year: Season year.
+        level: Minor league level (e.g., 'AA', 'AAA').
+
+    Returns:
+        DataFrame with columns: PlayerId, Name, Age, PA, wRC+
+        or None if files don't exist.
+    """
+    milb_dir = MILB_DATA_DIR / level / "hitters"
+    standard_path = milb_dir / f"fangraphs_hitters_{year}_standard_{level}.csv"
+    advanced_path = milb_dir / f"fangraphs_hitters_{year}_advanced_{level}.csv"
 
     if not standard_path.exists() or not advanced_path.exists():
         return None
@@ -62,7 +76,6 @@ def _load_aaa_hitter_stats(year: int) -> Optional[pd.DataFrame]:
     standard = pd.read_csv(standard_path, encoding='utf-8-sig')
     advanced = pd.read_csv(advanced_path, encoding='utf-8-sig')
 
-    # Standard has PA; advanced has wRC+. Both have PlayerId.
     merged = standard[['PlayerId', 'Name', 'Age', 'PA']].merge(
         advanced[['PlayerId', 'wRC+']],
         on='PlayerId',
@@ -71,16 +84,22 @@ def _load_aaa_hitter_stats(year: int) -> Optional[pd.DataFrame]:
     return merged
 
 
-def _load_aaa_pitcher_stats(year: int) -> Optional[pd.DataFrame]:
+def _load_milb_pitcher_stats(year: int, level: str) -> Optional[pd.DataFrame]:
     """
-    Load AAA pitcher stats for a given year by merging standard and advanced CSVs.
+    Load minor league pitcher stats for a given year and level by merging
+    standard and advanced CSVs.
 
-    Returns DataFrame with columns: PlayerId, Name, Age, IP, FIP
-    or None if files don't exist.
+    Args:
+        year: Season year.
+        level: Minor league level (e.g., 'AA', 'AAA').
+
+    Returns:
+        DataFrame with columns: PlayerId, Name, Age, IP, FIP
+        or None if files don't exist.
     """
-    aaa_dir = MILB_DATA_DIR / "AAA" / "pitchers"
-    standard_path = aaa_dir / f"fangraphs_pitchers_{year}_standard_AAA.csv"
-    advanced_path = aaa_dir / f"fangraphs_pitchers_{year}_advanced_AAA.csv"
+    milb_dir = MILB_DATA_DIR / level / "pitchers"
+    standard_path = milb_dir / f"fangraphs_pitchers_{year}_standard_{level}.csv"
+    advanced_path = milb_dir / f"fangraphs_pitchers_{year}_advanced_{level}.csv"
 
     if not standard_path.exists() or not advanced_path.exists():
         return None
@@ -100,8 +119,6 @@ def _load_mlb_hitter_stats(year: int) -> Optional[pd.DataFrame]:
     """
     Load MLB hitter stats for a given year.
 
-    The base fangraphs_hitters_{year}.csv has WAR, PA, wRC+, PlayerId.
-
     Returns DataFrame with columns: PlayerId, PA, wRC+, WAR
     or None if file doesn't exist.
     """
@@ -110,7 +127,6 @@ def _load_mlb_hitter_stats(year: int) -> Optional[pd.DataFrame]:
         return None
 
     df = pd.read_csv(path, encoding='utf-8-sig')
-    # PlayerId in MLB files is the FG PlayerId
     cols_needed = ['PlayerId', 'PA', 'wRC+', 'WAR']
     missing = [c for c in cols_needed if c not in df.columns]
     if missing:
@@ -122,8 +138,6 @@ def _load_mlb_hitter_stats(year: int) -> Optional[pd.DataFrame]:
 def _load_mlb_pitcher_stats(year: int) -> Optional[pd.DataFrame]:
     """
     Load MLB pitcher stats for a given year.
-
-    The base fangraphs_pitchers_{year}.csv has WAR, IP, FIP, PlayerId.
 
     Returns DataFrame with columns: PlayerId, IP, FIP, WAR
     or None if file doesn't exist.
@@ -145,86 +159,105 @@ def build_translation_model(
     years: Optional[List[int]] = None,
 ) -> Dict[str, float]:
     """
-    Build AAA-to-MLB translation factors from historical paired data.
+    Build MiLB-to-MLB translation factors from historical paired data.
 
-    For each year, finds players who appeared in both AAA and MLB with
-    meaningful sample sizes. Computes per-player ratios of MLB stat to
-    AAA stat, then takes the median across all player-years.
+    For each level (AA, AAA) and each year, finds players who appeared at
+    that level and in MLB with meaningful sample sizes. Computes per-player
+    ratios of MLB stat to MiLB stat, then takes the median across all
+    player-years for each level.
 
     Args:
         years: Years to include. Default: 2016-2025 excluding 2020.
 
     Returns:
         Dict with keys:
-            'hitter_wrc_ratio': median(MLB_wRC+ / AAA_wRC+)
-            'pitcher_fip_ratio': median(MLB_FIP / AAA_FIP)
-            'hitter_pairs': total number of hitter player-years used
-            'pitcher_pairs': total number of pitcher player-years used
+            'aaa_hitter_wrc_ratio': median(MLB_wRC+ / AAA_wRC+)
+            'aaa_pitcher_fip_ratio': median(MLB_FIP / AAA_FIP)
+            'aa_hitter_wrc_ratio': median(MLB_wRC+ / AA_wRC+)
+            'aa_pitcher_fip_ratio': median(MLB_FIP / AA_FIP)
+            'aaa_hitter_pairs': int
+            'aaa_pitcher_pairs': int
+            'aa_hitter_pairs': int
+            'aa_pitcher_pairs': int
     """
     if years is None:
         years = [y for y in range(2016, 2026) if y != 2020]
 
-    hitter_ratios = []
-    pitcher_ratios = []
+    # Collect ratios per level
+    hitter_ratios = {level: [] for level in MLE_LEVELS}
+    pitcher_ratios = {level: [] for level in MLE_LEVELS}
 
     for year in years:
-        # Hitters
-        aaa_h = _load_aaa_hitter_stats(year)
         mlb_h = _load_mlb_hitter_stats(year)
-        if aaa_h is not None and mlb_h is not None:
-            # Ensure PlayerId types match for merge
-            aaa_h['PlayerId'] = aaa_h['PlayerId'].astype(str)
-            mlb_h['PlayerId'] = mlb_h['PlayerId'].astype(str)
-
-            paired = aaa_h.merge(
-                mlb_h, on='PlayerId', suffixes=('_aaa', '_mlb')
-            )
-            # Filter for meaningful sample
-            paired = paired[
-                (paired['PA_aaa'] >= MLE_MIN_PA) &
-                (paired['PA_mlb'] >= MLE_MIN_PA)
-            ]
-            # Compute ratio, skip players with 0 or negative AAA wRC+
-            for _, row in paired.iterrows():
-                aaa_wrc = row['wRC+_aaa']
-                mlb_wrc = row['wRC+_mlb']
-                if pd.notna(aaa_wrc) and pd.notna(mlb_wrc) and aaa_wrc > 0:
-                    hitter_ratios.append(mlb_wrc / aaa_wrc)
-
-        # Pitchers
-        aaa_p = _load_aaa_pitcher_stats(year)
         mlb_p = _load_mlb_pitcher_stats(year)
-        if aaa_p is not None and mlb_p is not None:
-            aaa_p['PlayerId'] = aaa_p['PlayerId'].astype(str)
-            mlb_p['PlayerId'] = mlb_p['PlayerId'].astype(str)
 
-            paired = aaa_p.merge(
-                mlb_p, on='PlayerId', suffixes=('_aaa', '_mlb')
-            )
-            paired = paired[
-                (paired['IP_aaa'] >= MLE_MIN_IP) &
-                (paired['IP_mlb'] >= MLE_MIN_IP)
-            ]
-            for _, row in paired.iterrows():
-                aaa_fip = row['FIP_aaa']
-                mlb_fip = row['FIP_mlb']
-                if pd.notna(aaa_fip) and pd.notna(mlb_fip) and aaa_fip > 0:
-                    pitcher_ratios.append(mlb_fip / aaa_fip)
+        for level in MLE_LEVELS:
+            # Hitters
+            milb_h = _load_milb_hitter_stats(year, level)
+            if milb_h is not None and mlb_h is not None:
+                milb_h['PlayerId'] = milb_h['PlayerId'].astype(str)
+                mlb_h_copy = mlb_h.copy()
+                mlb_h_copy['PlayerId'] = mlb_h_copy['PlayerId'].astype(str)
 
-    hitter_wrc_ratio = float(np.median(hitter_ratios)) if hitter_ratios else 0.69
-    pitcher_fip_ratio = float(np.median(pitcher_ratios)) if pitcher_ratios else 1.12
+                paired = milb_h.merge(
+                    mlb_h_copy, on='PlayerId', suffixes=('_milb', '_mlb')
+                )
+                paired = paired[
+                    (paired['PA_milb'] >= MLE_MIN_PA) &
+                    (paired['PA_mlb'] >= MLE_MIN_PA)
+                ]
+                for _, row in paired.iterrows():
+                    milb_wrc = row['wRC+_milb']
+                    mlb_wrc = row['wRC+_mlb']
+                    if pd.notna(milb_wrc) and pd.notna(mlb_wrc) and milb_wrc > 0:
+                        hitter_ratios[level].append(mlb_wrc / milb_wrc)
+
+            # Pitchers
+            milb_p = _load_milb_pitcher_stats(year, level)
+            if milb_p is not None and mlb_p is not None:
+                milb_p['PlayerId'] = milb_p['PlayerId'].astype(str)
+                mlb_p_copy = mlb_p.copy()
+                mlb_p_copy['PlayerId'] = mlb_p_copy['PlayerId'].astype(str)
+
+                paired = milb_p.merge(
+                    mlb_p_copy, on='PlayerId', suffixes=('_milb', '_mlb')
+                )
+                paired = paired[
+                    (paired['IP_milb'] >= MLE_MIN_IP) &
+                    (paired['IP_mlb'] >= MLE_MIN_IP)
+                ]
+                for _, row in paired.iterrows():
+                    milb_fip = row['FIP_milb']
+                    mlb_fip = row['FIP_mlb']
+                    if pd.notna(milb_fip) and pd.notna(mlb_fip) and milb_fip > 0:
+                        pitcher_ratios[level].append(mlb_fip / milb_fip)
+
+    # Compute median ratios per level with sensible fallbacks
+    # AA ratio should be lower than AAA (further from MLB talent)
+    aaa_hitter_wrc_ratio = float(np.median(hitter_ratios['AAA'])) if hitter_ratios['AAA'] else 0.69
+    aaa_pitcher_fip_ratio = float(np.median(pitcher_ratios['AAA'])) if pitcher_ratios['AAA'] else 1.12
+    aa_hitter_wrc_ratio = float(np.median(hitter_ratios['AA'])) if hitter_ratios['AA'] else 0.60
+    aa_pitcher_fip_ratio = float(np.median(pitcher_ratios['AA'])) if pitcher_ratios['AA'] else 1.20
 
     print(f"\nMLE Translation Model:")
-    print(f"  Hitter wRC+ ratio (AAA->MLB): {hitter_wrc_ratio:.3f} "
-          f"({len(hitter_ratios)} player-years)")
-    print(f"  Pitcher FIP ratio (AAA->MLB): {pitcher_fip_ratio:.3f} "
-          f"({len(pitcher_ratios)} player-years)")
+    print(f"  AAA hitter wRC+ ratio (AAA->MLB): {aaa_hitter_wrc_ratio:.3f} "
+          f"({len(hitter_ratios['AAA'])} player-years)")
+    print(f"  AAA pitcher FIP ratio (AAA->MLB): {aaa_pitcher_fip_ratio:.3f} "
+          f"({len(pitcher_ratios['AAA'])} player-years)")
+    print(f"  AA hitter wRC+ ratio  (AA->MLB):  {aa_hitter_wrc_ratio:.3f} "
+          f"({len(hitter_ratios['AA'])} player-years)")
+    print(f"  AA pitcher FIP ratio  (AA->MLB):  {aa_pitcher_fip_ratio:.3f} "
+          f"({len(pitcher_ratios['AA'])} player-years)")
 
     return {
-        'hitter_wrc_ratio': hitter_wrc_ratio,
-        'pitcher_fip_ratio': pitcher_fip_ratio,
-        'hitter_pairs': len(hitter_ratios),
-        'pitcher_pairs': len(pitcher_ratios),
+        'aaa_hitter_wrc_ratio': aaa_hitter_wrc_ratio,
+        'aaa_pitcher_fip_ratio': aaa_pitcher_fip_ratio,
+        'aa_hitter_wrc_ratio': aa_hitter_wrc_ratio,
+        'aa_pitcher_fip_ratio': aa_pitcher_fip_ratio,
+        'aaa_hitter_pairs': len(hitter_ratios['AAA']),
+        'aaa_pitcher_pairs': len(pitcher_ratios['AAA']),
+        'aa_hitter_pairs': len(hitter_ratios['AA']),
+        'aa_pitcher_pairs': len(pitcher_ratios['AA']),
     }
 
 
@@ -242,9 +275,9 @@ def _apply_age_adjustment(war: float, age: float) -> float:
     """
     Apply age-based WAR adjustment for MLE players.
 
-    Young for AAA (under 25): +0.2 WAR (upside)
+    Young for level (under 25): +0.2 WAR (upside)
     Prime (25-28): no adjustment
-    Old for AAA (29+): -0.2 WAR (AAAA ceiling)
+    Old for level (29+): -0.2 WAR (AAAA ceiling)
     """
     if pd.isna(age):
         return war
@@ -260,10 +293,11 @@ def build_mle_lookup(
     translation_factors: Dict[str, float],
 ) -> Dict[str, dict]:
     """
-    Build MLE WAR lookup for all AAA players from the most recent season.
+    Build MLE WAR lookup for minor league players from the most recent season.
 
-    Loads AAA stats from projection_year - 1, translates to MLB-equivalent
-    stats using translation factors, converts to WAR, and applies age adjustment.
+    Loads AA and AAA stats from projection_year - 1, translates each level
+    independently to MLB-equivalent stats, then blends across levels weighted
+    by PA/IP for players who split time.
 
     Args:
         projection_year: The season being projected (e.g., 2026).
@@ -272,86 +306,204 @@ def build_mle_lookup(
     Returns:
         Dict mapping FG PlayerId (str) -> {
             'mle_war': float,
-            'translated_stat': float,  # MLB-equiv wRC+ or FIP
-            'raw_stat': float,         # original AAA stat
+            'translated_stat': float,  # MLB-equiv wRC+ or FIP (blended)
+            'raw_stat': float,         # PA/IP-weighted raw stat across levels
             'age': float,
             'player_type': str,        # 'hitter' or 'pitcher'
             'name': str,
+            'levels': str,             # e.g. 'AA', 'AAA', or 'AA+AAA'
         }
     """
     stats_year = projection_year - 1
-    hitter_wrc_ratio = translation_factors['hitter_wrc_ratio']
-    pitcher_fip_ratio = translation_factors['pitcher_fip_ratio']
+    aaa_hitter_ratio = translation_factors['aaa_hitter_wrc_ratio']
+    aa_hitter_ratio = translation_factors['aa_hitter_wrc_ratio']
+    aaa_pitcher_ratio = translation_factors['aaa_pitcher_fip_ratio']
+    aa_pitcher_ratio = translation_factors['aa_pitcher_fip_ratio']
 
     lookup: Dict[str, dict] = {}
 
-    # Hitters
-    aaa_h = _load_aaa_hitter_stats(stats_year)
+    # --- Hitters ---
+    # Load both levels
+    aa_h = _load_milb_hitter_stats(stats_year, 'AA')
+    aaa_h = _load_milb_hitter_stats(stats_year, 'AAA')
+
+    # Build per-player data by level: {player_id: {'AA': row, 'AAA': row}}
+    hitter_by_player: Dict[str, Dict[str, pd.Series]] = {}
+
+    if aa_h is not None:
+        aa_h['PlayerId'] = aa_h['PlayerId'].astype(str).str.strip()
+        for _, row in aa_h.iterrows():
+            fg_id = row['PlayerId']
+            if fg_id not in hitter_by_player:
+                hitter_by_player[fg_id] = {}
+            hitter_by_player[fg_id]['AA'] = row
+
     if aaa_h is not None:
+        aaa_h['PlayerId'] = aaa_h['PlayerId'].astype(str).str.strip()
         for _, row in aaa_h.iterrows():
-            fg_id = str(row['PlayerId']).strip()
-            aaa_wrc = row.get('wRC+')
+            fg_id = row['PlayerId']
+            if fg_id not in hitter_by_player:
+                hitter_by_player[fg_id] = {}
+            hitter_by_player[fg_id]['AAA'] = row
+
+    multi_level_hitters = 0
+    for fg_id, level_data in hitter_by_player.items():
+        # Gather PA and wRC+ at each level
+        entries = []
+        for level, row in level_data.items():
+            wrc = row.get('wRC+')
             pa = row.get('PA', 0)
-            age = row.get('Age', np.nan)
-            name = row.get('Name', '')
+            if pd.notna(wrc) and pa > 0:
+                ratio = aaa_hitter_ratio if level == 'AAA' else aa_hitter_ratio
+                entries.append({
+                    'level': level,
+                    'pa': pa,
+                    'wrc': wrc,
+                    'mlb_equiv_wrc': wrc * ratio,
+                    'age': row.get('Age', np.nan),
+                    'name': row.get('Name', ''),
+                })
 
-            if pd.isna(aaa_wrc) or pa < MLE_MIN_PA:
-                continue
+        if not entries:
+            continue
 
-            mlb_equiv_wrc = aaa_wrc * hitter_wrc_ratio
-            war = _wrc_to_war(mlb_equiv_wrc)
-            war = _apply_age_adjustment(war, age)
-            war = max(MLE_WAR_FLOOR, min(MLE_WAR_CAP, war))
+        total_pa = sum(e['pa'] for e in entries)
+        if total_pa < MLE_MIN_PA:
+            continue
 
-            lookup[fg_id] = {
-                'mle_war': round(war, 2),
-                'translated_stat': round(mlb_equiv_wrc, 1),
-                'raw_stat': round(float(aaa_wrc), 1),
-                'age': float(age) if pd.notna(age) else None,
-                'player_type': 'hitter',
-                'name': str(name),
-            }
+        # PA-weighted blend of MLB-equivalent wRC+
+        blended_mlb_wrc = sum(e['pa'] * e['mlb_equiv_wrc'] for e in entries) / total_pa
+        blended_raw_wrc = sum(e['pa'] * e['wrc'] for e in entries) / total_pa
 
-    # Pitchers
-    aaa_p = _load_aaa_pitcher_stats(stats_year)
+        # Use age from highest level (AAA if available)
+        if 'AAA' in level_data:
+            age = level_data['AAA'].get('Age', np.nan)
+            name = level_data['AAA'].get('Name', '')
+        else:
+            age = entries[0]['age']
+            name = entries[0]['name']
+
+        levels_str = '+'.join(sorted(level_data.keys()))
+        if len(entries) > 1:
+            multi_level_hitters += 1
+
+        war = _wrc_to_war(blended_mlb_wrc)
+        war = _apply_age_adjustment(war, age)
+        war = max(MLE_WAR_FLOOR, min(MLE_WAR_CAP, war))
+
+        lookup[fg_id] = {
+            'mle_war': round(war, 2),
+            'translated_stat': round(blended_mlb_wrc, 1),
+            'raw_stat': round(float(blended_raw_wrc), 1),
+            'age': float(age) if pd.notna(age) else None,
+            'player_type': 'hitter',
+            'name': str(name),
+            'levels': levels_str,
+        }
+
+    # --- Pitchers ---
+    aa_p = _load_milb_pitcher_stats(stats_year, 'AA')
+    aaa_p = _load_milb_pitcher_stats(stats_year, 'AAA')
+
+    pitcher_by_player: Dict[str, Dict[str, pd.Series]] = {}
+
+    if aa_p is not None:
+        aa_p['PlayerId'] = aa_p['PlayerId'].astype(str).str.strip()
+        for _, row in aa_p.iterrows():
+            fg_id = row['PlayerId']
+            if fg_id not in pitcher_by_player:
+                pitcher_by_player[fg_id] = {}
+            pitcher_by_player[fg_id]['AA'] = row
+
     if aaa_p is not None:
+        aaa_p['PlayerId'] = aaa_p['PlayerId'].astype(str).str.strip()
         for _, row in aaa_p.iterrows():
-            fg_id = str(row['PlayerId']).strip()
-            aaa_fip = row.get('FIP')
+            fg_id = row['PlayerId']
+            if fg_id not in pitcher_by_player:
+                pitcher_by_player[fg_id] = {}
+            pitcher_by_player[fg_id]['AAA'] = row
+
+    multi_level_pitchers = 0
+    for fg_id, level_data in pitcher_by_player.items():
+        # Don't overwrite a hitter entry
+        if fg_id in lookup:
+            continue
+
+        entries = []
+        for level, row in level_data.items():
+            fip = row.get('FIP')
             ip = row.get('IP', 0)
-            age = row.get('Age', np.nan)
-            name = row.get('Name', '')
+            if pd.notna(fip) and ip > 0:
+                ratio = aaa_pitcher_ratio if level == 'AAA' else aa_pitcher_ratio
+                entries.append({
+                    'level': level,
+                    'ip': ip,
+                    'fip': fip,
+                    'mlb_equiv_fip': fip * ratio,
+                    'age': row.get('Age', np.nan),
+                    'name': row.get('Name', ''),
+                })
 
-            if pd.isna(aaa_fip) or ip < MLE_MIN_IP:
-                continue
+        if not entries:
+            continue
 
-            # Don't overwrite a hitter entry if the same player hit and pitched
-            if fg_id in lookup:
-                continue
+        total_ip = sum(e['ip'] for e in entries)
+        if total_ip < MLE_MIN_IP:
+            continue
 
-            mlb_equiv_fip = aaa_fip * pitcher_fip_ratio
-            war = _fip_to_war(mlb_equiv_fip)
-            war = _apply_age_adjustment(war, age)
-            war = max(MLE_WAR_FLOOR, min(MLE_WAR_CAP, war))
+        # IP-weighted blend of MLB-equivalent FIP
+        blended_mlb_fip = sum(e['ip'] * e['mlb_equiv_fip'] for e in entries) / total_ip
+        blended_raw_fip = sum(e['ip'] * e['fip'] for e in entries) / total_ip
 
-            lookup[fg_id] = {
-                'mle_war': round(war, 2),
-                'translated_stat': round(mlb_equiv_fip, 2),
-                'raw_stat': round(float(aaa_fip), 2),
-                'age': float(age) if pd.notna(age) else None,
-                'player_type': 'pitcher',
-                'name': str(name),
-            }
+        if 'AAA' in level_data:
+            age = level_data['AAA'].get('Age', np.nan)
+            name = level_data['AAA'].get('Name', '')
+        else:
+            age = entries[0]['age']
+            name = entries[0]['name']
 
-    print(f"\nMLE Lookup built from {stats_year} AAA stats:")
-    print(f"  Hitters: {sum(1 for v in lookup.values() if v['player_type'] == 'hitter')}")
-    print(f"  Pitchers: {sum(1 for v in lookup.values() if v['player_type'] == 'pitcher')}")
+        levels_str = '+'.join(sorted(level_data.keys()))
+        if len(entries) > 1:
+            multi_level_pitchers += 1
+
+        war = _fip_to_war(blended_mlb_fip)
+        war = _apply_age_adjustment(war, age)
+        war = max(MLE_WAR_FLOOR, min(MLE_WAR_CAP, war))
+
+        lookup[fg_id] = {
+            'mle_war': round(war, 2),
+            'translated_stat': round(blended_mlb_fip, 2),
+            'raw_stat': round(float(blended_raw_fip), 2),
+            'age': float(age) if pd.notna(age) else None,
+            'player_type': 'pitcher',
+            'name': str(name),
+            'levels': levels_str,
+        }
+
+    n_hitters = sum(1 for v in lookup.values() if v['player_type'] == 'hitter')
+    n_pitchers = sum(1 for v in lookup.values() if v['player_type'] == 'pitcher')
+
+    print(f"\nMLE Lookup built from {stats_year} AA+AAA stats:")
+    print(f"  Hitters: {n_hitters} ({multi_level_hitters} multi-level blends)")
+    print(f"  Pitchers: {n_pitchers} ({multi_level_pitchers} multi-level blends)")
 
     # Show WAR distribution
     wars = [v['mle_war'] for v in lookup.values()]
     if wars:
         print(f"  WAR range: [{min(wars):.2f}, {max(wars):.2f}]")
         print(f"  WAR median: {np.median(wars):.2f}")
+
+    # Print a few multi-level blend examples
+    multi_examples = [
+        (k, v) for k, v in lookup.items()
+        if '+' in v.get('levels', '')
+    ][:3]
+    if multi_examples:
+        print(f"\n  Multi-level blend examples:")
+        for fg_id, info in multi_examples:
+            print(f"    {info['name']} ({info['levels']}): "
+                  f"raw={info['raw_stat']}, mlb_equiv={info['translated_stat']}, "
+                  f"MLE WAR={info['mle_war']}")
 
     return lookup
 
