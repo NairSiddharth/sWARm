@@ -19,8 +19,7 @@ Architecture:
         -> single WAR estimate for team_war_aggregator
 """
 
-from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 import numpy as np
 import pandas as pd
@@ -239,7 +238,7 @@ def build_translation_model(
     aa_hitter_wrc_ratio = float(np.median(hitter_ratios['AA'])) if hitter_ratios['AA'] else 0.60
     aa_pitcher_fip_ratio = float(np.median(pitcher_ratios['AA'])) if pitcher_ratios['AA'] else 1.20
 
-    print(f"\nMLE Translation Model:")
+    print("\nMLE Translation Model:")
     print(f"  AAA hitter wRC+ ratio (AAA->MLB): {aaa_hitter_wrc_ratio:.3f} "
           f"({len(hitter_ratios['AAA'])} player-years)")
     print(f"  AAA pitcher FIP ratio (AAA->MLB): {aaa_pitcher_fip_ratio:.3f} "
@@ -499,8 +498,8 @@ def build_mle_lookup(
         if '+' in v.get('levels', '')
     ][:3]
     if multi_examples:
-        print(f"\n  Multi-level blend examples:")
-        for fg_id, info in multi_examples:
+        print("\n  Multi-level blend examples:")
+        for _fg_id, info in multi_examples:
             print(f"    {info['name']} ({info['levels']}): "
                   f"raw={info['raw_stat']}, mlb_equiv={info['translated_stat']}, "
                   f"MLE WAR={info['mle_war']}")
@@ -579,7 +578,7 @@ def match_mle_to_roster(
         if matched_mlbam is not None and matched_mlbam not in result:
             result[matched_mlbam] = mle_info
 
-    print(f"\nMLE roster matching:")
+    print("\nMLE roster matching:")
     print(f"  Matched via crosswalk: {matched_crosswalk}")
     print(f"  Matched via name: {matched_name}")
     print(f"  Total MLE players on roster: {len(result)}")
