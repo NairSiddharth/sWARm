@@ -184,3 +184,17 @@ FV_BLEND_ALPHA_MAX = 0.70
 # Data paths for prospect files
 FANGRAPHS_PROSPECT_DIR = PROJECT_ROOT / "MLB Player Data/FanGraphs_Data/prospects"
 FANGRAPHS_INTL_PROSPECT_DIR = PROJECT_ROOT / "MLB Player Data/FanGraphs_Data/international_prospects"
+
+
+# ============================================================================
+# MLE (Minor League Equivalency) Translation
+# ============================================================================
+
+MILB_DATA_DIR = PROJECT_ROOT / "MLB Player Data/FanGraphs_Data/minor_leaguers"
+MLE_MIN_PA = 100       # Minimum PA in both AAA and MLB for translation model
+MLE_MIN_IP = 30        # Minimum IP in both AAA and MLB for translation model
+MLE_WAR_FLOOR = -0.5   # Floor for MLE WAR estimates
+MLE_WAR_CAP = 2.5      # Cap for MLE WAR estimates
+MLE_AGE_BONUS_THRESHOLD = 25   # Under this age -> +adjustment (young upside)
+MLE_AGE_PENALTY_THRESHOLD = 29  # At or above this age -> -adjustment (AAAA ceiling)
+MLE_AGE_ADJUSTMENT = 0.2       # WAR adjustment magnitude for age

@@ -87,6 +87,7 @@ class TeamWinsPipeline:
         self.standings_df = None
         self.fv_lookup = None
         self.career_usage = None
+        self.mle_lookup = None
 
         print("Initialized TeamWinsPipeline:")
         print(f"  Base year: {base_year}")
@@ -137,6 +138,7 @@ class TeamWinsPipeline:
                     board_year, FANGRAPHS_PROSPECT_DIR, FANGRAPHS_INTL_PROSPECT_DIR
                 )
                 crosswalk = build_fg_to_mlbam_crosswalk()
+                self._crosswalk = crosswalk  # cache for MLE reuse
                 self.career_usage = build_career_usage_lookup()
                 self.fv_lookup = match_prospects_to_roster(
                     fv_df, self.roster_df, crosswalk
@@ -147,6 +149,30 @@ class TeamWinsPipeline:
                 print(f"  No FV board found for {board_year} -- skipping")
         except Exception as e:
             print(f"  FV integration failed (non-fatal): {e}")
+
+        # Load MLE data for AAA players without projections or FV grades
+        try:
+            from new_pipeline.models.future_season.team_wins.mle_projector import (
+                build_translation_model,
+                build_mle_lookup,
+                match_mle_to_roster,
+            )
+            from new_pipeline.models.future_season.team_wins.fv_prospect_integrator import (
+                build_fg_to_mlbam_crosswalk,
+            )
+
+            translation_factors = build_translation_model()
+            mle_fg_lookup = build_mle_lookup(self.projection_year, translation_factors)
+
+            # Reuse crosswalk if already built for FV, otherwise build it
+            if not hasattr(self, '_crosswalk') or self._crosswalk is None:
+                self._crosswalk = build_fg_to_mlbam_crosswalk()
+            self.mle_lookup = match_mle_to_roster(
+                mle_fg_lookup, self.roster_df, self._crosswalk
+            )
+            print(f"  MLE data: {len(self.mle_lookup)} roster players with MLE WAR")
+        except Exception as e:
+            print(f"  MLE integration failed (non-fatal): {e}")
 
     def build_team_projections(self) -> pd.DataFrame:
         """
@@ -169,6 +195,7 @@ class TeamWinsPipeline:
             war_column=war_column,
             fv_lookup=self.fv_lookup,
             career_usage=self.career_usage,
+            mle_lookup=self.mle_lookup,
         )
 
         # Step 3: Allocate playing time and adjust WAR
@@ -217,7 +244,7 @@ class TeamWinsPipeline:
             'constrained_wins', 'projected_losses', 'win_pct',
             'rank', 'div_rank', 'wins_adjustment',
             'num_hitters', 'num_pitchers', 'num_replacement', 'num_manual', 'num_not_found',
-            'num_fv_blended', 'num_fv_only',
+            'num_fv_blended', 'num_fv_only', 'num_mle',
             'projection_year'
         ]
         available_cols = [c for c in standings_cols if c in self.standings_df.columns]

@@ -26,6 +26,7 @@ def merge_roster_with_projections(
     war_column: str,
     fv_lookup: Optional[Dict[int, dict]] = None,
     career_usage: Optional[Dict[int, dict]] = None,
+    mle_lookup: Optional[Dict[int, dict]] = None,
 ) -> pd.DataFrame:
     """
     Map rostered players to their WAR projections.
@@ -45,6 +46,8 @@ def merge_roster_with_projections(
             Maps MLBAM ID -> {fv, risk, fv_war, is_pitcher, match_method}.
         career_usage: Optional dict from build_career_usage_lookup().
             Maps MLBAM ID -> {career_pa, career_ip}.
+        mle_lookup: Optional dict from match_mle_to_roster().
+            Maps MLBAM ID -> {mle_war, translated_stat, age, player_type, ...}.
 
     Returns:
         Enriched roster DataFrame with columns:
@@ -192,6 +195,16 @@ def merge_roster_with_projections(
                 'fv': fv_info['fv'], 'fv_war': fv_info['fv_war'],
             })
 
+        elif mle_lookup and pid in mle_lookup:
+            # No projection or FV, but MLE data from AAA stats
+            mle_info = mle_lookup[pid]
+            rate_wars.append(mle_info['mle_war'])
+            mle_age = mle_info.get('age')
+            ages.append(float(mle_age) if mle_age is not None else np.nan)
+            base_usages.append(0.0)
+            sources.append('mle')
+            fv_blend_details.append(None)
+
         else:
             rate_wars.append(0.0)
             ages.append(np.nan)
@@ -234,6 +247,16 @@ def merge_roster_with_projections(
                     print(f"  {row['Team']}: {row['Name']} -> "
                           f"{row['rate_war']:.2f} WAR "
                           f"(fv_only, FV={detail['fv']})")
+
+    # Report MLE players
+    mle_players = roster[roster['projection_source'] == 'mle']
+    if len(mle_players) > 0:
+        mle_wars = mle_players['rate_war']
+        print(f"\nPlayers using MLE WAR ({len(mle_players)}):")
+        print(f"  WAR range: [{mle_wars.min():.2f}, {mle_wars.max():.2f}], "
+              f"median: {mle_wars.median():.2f}")
+        for _, row in mle_players.sort_values('rate_war', ascending=False).head(10).iterrows():
+            print(f"  {row['Team']}: {row['Name']} -> {row['rate_war']:.2f} WAR (mle)")
 
     # Report missing projections
     not_found = roster[roster['projection_source'] == 'not_found']
@@ -309,6 +332,7 @@ def aggregate_team_war(enriched_roster: pd.DataFrame) -> pd.DataFrame:
             'num_not_found': len(team_data[team_data['projection_source'] == 'not_found']),
             'num_fv_blended': len(team_data[team_data['projection_source'] == 'projected+fv']),
             'num_fv_only': len(team_data[team_data['projection_source'] == 'fv_only']),
+            'num_mle': len(team_data[team_data['projection_source'] == 'mle']),
         })
 
     result = pd.DataFrame(teams)
