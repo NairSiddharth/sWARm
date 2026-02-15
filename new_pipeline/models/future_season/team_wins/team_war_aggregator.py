@@ -38,6 +38,14 @@ INJURY_RECOVERY_FACTORS = {
 MIN_PREINJURY_PA = 75
 MIN_PREINJURY_IP = 20
 
+# Full-season workload targets for rate-normalization
+# WAR is a counting stat, so a half-season of 2 WAR quality work shows as ~1 WAR.
+# We normalize to a full-season workload before applying recovery discounts.
+FULL_SEASON_IP_SP = 170    # Typical full-season SP workload
+FULL_SEASON_IP_RP = 60     # Typical full-season RP workload
+FULL_SEASON_PA = 580       # Typical full-season hitter workload
+GS_THRESHOLD_SP = 5        # >= 5 games started -> classify as SP for normalization
+
 
 def _load_fg_stats_with_mlbamid(year: int, player_type: str) -> Optional[pd.DataFrame]:
     """
@@ -67,6 +75,9 @@ def _load_fg_stats_with_mlbamid(year: int, player_type: str) -> Optional[pd.Data
         return None
 
     result = df[needed].copy()
+    # Include GS for pitchers to distinguish SP vs RP
+    if player_type == 'pitcher' and 'GS' in df.columns:
+        result['GS'] = df['GS']
     result = result.dropna(subset=['MLBAMID'])
     result['MLBAMID'] = result['MLBAMID'].astype(int)
     result['usage'] = result[usage_col]
@@ -157,6 +168,7 @@ def build_injury_fallback_lookup(
                 preinjury_lookup[mid] = {
                     'war': float(row['WAR']),
                     'usage': float(row['usage']),
+                    'gs': int(row['GS']) if 'GS' in row.index and pd.notna(row.get('GS')) else 0,
                     'year': year,
                     'player_type': ptype,
                     'name': row.get('Name', ''),
@@ -208,7 +220,23 @@ def build_injury_fallback_lookup(
             else:
                 recovery_factor = INJURY_RECOVERY_FACTORS.get('unknown', 0.80)
 
-        adjusted_war = pre['war'] * recovery_factor
+        # Rate-normalize WAR to a full-season workload.
+        # WAR is a counting stat, so injury-shortened seasons undercount ability.
+        raw_war = pre['war']
+        actual_usage = pre['usage']
+
+        if pre['player_type'] == 'pitcher':
+            is_sp = pre.get('gs', 0) >= GS_THRESHOLD_SP
+            full_season_usage = FULL_SEASON_IP_SP if is_sp else FULL_SEASON_IP_RP
+        else:
+            full_season_usage = FULL_SEASON_PA
+
+        if actual_usage > 0 and actual_usage < full_season_usage:
+            rate_normalized_war = raw_war * (full_season_usage / actual_usage)
+        else:
+            rate_normalized_war = raw_war
+
+        adjusted_war = rate_normalized_war * recovery_factor
         # Floor at 0 -- an injured player shouldn't project negative
         adjusted_war = max(0.0, adjusted_war)
 
@@ -219,7 +247,9 @@ def build_injury_fallback_lookup(
             'injury_type': injury_class,
             'injury_desc': str(injury_desc),
             'recovery_factor': round(recovery_factor, 3),
-            'pre_injury_war': pre['war'],
+            'pre_injury_war': round(raw_war, 2),
+            'rate_normalized_war': round(rate_normalized_war, 2),
+            'usage': actual_usage,
             'player_name': pre['name'],
             'player_type': pre['player_type'],
         }
@@ -228,10 +258,15 @@ def build_injury_fallback_lookup(
     print(f"\n  Injury fallback lookup built: {len(result)} players")
     if result:
         sorted_players = sorted(result.items(), key=lambda x: x[1]['war'], reverse=True)
-        for mid, info in sorted_players[:10]:
+        for mid, info in sorted_players[:15]:
+            normalized_note = ""
+            if info['rate_normalized_war'] != info['pre_injury_war']:
+                normalized_note = (f" -> {info['rate_normalized_war']:.1f} rate-norm "
+                                   f"({info['usage']:.0f} IP/PA)")
             print(f"    {info['player_name']}: {info['pre_injury_war']:.1f} WAR "
-                  f"({info['source_year']}) x {info['recovery_factor']:.2f} "
-                  f"({info['injury_type']}) = {info['war']:.2f} WAR")
+                  f"({info['source_year']}){normalized_note} "
+                  f"x {info['recovery_factor']:.2f} ({info['injury_type']}) "
+                  f"= {info['war']:.2f} WAR")
 
     return result
 
@@ -502,10 +537,10 @@ def merge_roster_with_projections(
             inj_info = injury_lookup.get(pid, {}) if injury_lookup else {}
             inj_type = inj_info.get('injury_type', '?')
             recovery = inj_info.get('recovery_factor', '?')
-            pre_war = inj_info.get('pre_injury_war', '?')
+            norm_war = inj_info.get('rate_normalized_war', '?')
             src_year = inj_info.get('source_year', '?')
             print(f"  {row['Team']}: {row['Name']} -> {row['rate_war']:.2f} WAR "
-                  f"({inj_type}, {pre_war} WAR in {src_year} x {recovery})")
+                  f"({inj_type}, {norm_war} norm WAR from {src_year} x {recovery})")
 
     # Report missing projections
     not_found = roster[roster['projection_source'] == 'not_found']
