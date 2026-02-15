@@ -12,11 +12,228 @@ from typing import Dict, Optional
 import numpy as np
 import pandas as pd
 
+from new_pipeline.common.constants import FANGRAPHS_HITTER_DIR, FANGRAPHS_PITCHER_DIR
 from new_pipeline.models.future_season.team_wins.constants import REPLACEMENT_ROLES
 from new_pipeline.models.future_season.team_wins.playing_time_estimator import (
     allocate_team_playing_time,
     adjust_war_for_playing_time
 )
+
+
+# Recovery factors by injury classification (year 1 post-return)
+INJURY_RECOVERY_FACTORS = {
+    'shoulder_surgery': 0.75,
+    'hip_surgery': 0.70,
+    'elbow_internal_brace': 0.80,
+    'other_surgery': 0.75,
+    'oblique_strain': 0.90,
+    'hamstring_strain': 0.90,
+    'shoulder_strain': 0.90,
+    'back_strain': 0.90,
+    'groin_strain': 0.90,
+    'unknown': 0.80,
+}
+
+# Minimum playing time thresholds for a "qualifying" pre-injury season
+MIN_PREINJURY_PA = 75
+MIN_PREINJURY_IP = 20
+
+
+def _load_fg_stats_with_mlbamid(year: int, player_type: str) -> Optional[pd.DataFrame]:
+    """
+    Load FanGraphs hitter or pitcher stats for a year, returning key columns.
+
+    Args:
+        year: Season year.
+        player_type: 'hitter' or 'pitcher'.
+
+    Returns:
+        DataFrame with MLBAMID, WAR, PA/IP, Name columns, or None if missing.
+    """
+    if player_type == 'hitter':
+        path = FANGRAPHS_HITTER_DIR / f"fangraphs_hitters_{year}.csv"
+        usage_col = 'PA'
+    else:
+        path = FANGRAPHS_PITCHER_DIR / f"fangraphs_pitchers_{year}.csv"
+        usage_col = 'IP'
+
+    if not path.exists():
+        return None
+
+    df = pd.read_csv(path, encoding='utf-8-sig')
+    needed = ['MLBAMID', 'WAR', usage_col, 'Name']
+    missing = [c for c in needed if c not in df.columns]
+    if missing:
+        return None
+
+    result = df[needed].copy()
+    result = result.dropna(subset=['MLBAMID'])
+    result['MLBAMID'] = result['MLBAMID'].astype(int)
+    result['usage'] = result[usage_col]
+    result['player_type'] = player_type
+    return result
+
+
+def build_injury_fallback_lookup(
+    projection_year: int,
+    roster_df: pd.DataFrame,
+) -> Dict[int, dict]:
+    """
+    Build a lookup of injury-recovery WAR for rostered players missing projections.
+
+    For players in the injury report who missed significant time, looks up their
+    pre-injury WAR from FanGraphs historical data and applies injury-specific
+    recovery discounts.
+
+    Args:
+        projection_year: The season being projected (e.g. 2026).
+        roster_df: Roster DataFrame with 'playerid' (MLBAM ID) column.
+
+    Returns:
+        Dict mapping MLBAM ID -> {war, age, source_year, injury_type,
+                                    recovery_factor, player_name}.
+    """
+    from new_pipeline.common.data_preparation.injury_data_loader import (
+        load_injury_data,
+        classify_injury_severity,
+    )
+    from new_pipeline.models.future_season.injury_recovery import (
+        InjuryRecoveryAdjuster,
+    )
+
+    injury_year = projection_year - 1  # e.g. 2025 injuries for 2026 projection
+    base_year = injury_year  # pre-injury data goes back from here
+
+    # Load injury report
+    try:
+        injury_df = load_injury_data(injury_year)
+    except FileNotFoundError:
+        print(f"  No injury data for {injury_year} -- skipping injury fallback")
+        return {}
+
+    # Get set of MLBAM IDs on the roster
+    roster_ids = set(
+        roster_df['playerid'].dropna().astype(int).tolist()
+    )
+
+    # De-duplicate injury records: keep the most severe injury per player
+    # (prefer 60-Day IL over 15-Day IL, prefer surgeries)
+    severity_order = {'60-Day IL': 3, '10-Day IL': 1, '15-Day IL': 1}
+    injury_df['_severity_rank'] = injury_df['status'].map(severity_order).fillna(2)
+    injury_deduped = (
+        injury_df.sort_values('_severity_rank', ascending=False)
+        .drop_duplicates(subset='MLBAMID', keep='first')
+    )
+
+    # Filter to rostered players only
+    injury_roster = injury_deduped[
+        injury_deduped['MLBAMID'].isin(roster_ids)
+    ].copy()
+
+    if injury_roster.empty:
+        print("  No rostered players found in injury report")
+        return {}
+
+    # Load historical FanGraphs data (search backwards from injury year - 1)
+    # Build a combined lookup: MLBAMID -> best recent season {war, usage, year, player_type}
+    preinjury_lookup = {}
+    search_years = list(range(base_year - 1, base_year - 5, -1))  # e.g. 2024, 2023, 2022, 2021
+
+    for year in search_years:
+        for ptype in ['hitter', 'pitcher']:
+            fg_df = _load_fg_stats_with_mlbamid(year, ptype)
+            if fg_df is None:
+                continue
+
+            min_usage = MIN_PREINJURY_PA if ptype == 'hitter' else MIN_PREINJURY_IP
+
+            for _, row in fg_df.iterrows():
+                mid = int(row['MLBAMID'])
+                if mid in preinjury_lookup:
+                    continue  # already have a more recent season
+                if row['usage'] < min_usage:
+                    continue  # not enough playing time
+
+                preinjury_lookup[mid] = {
+                    'war': float(row['WAR']),
+                    'usage': float(row['usage']),
+                    'year': year,
+                    'player_type': ptype,
+                    'name': row.get('Name', ''),
+                }
+
+    # Build the final lookup with recovery-adjusted WAR
+    adjuster = InjuryRecoveryAdjuster()
+    result = {}
+
+    for _, inj_row in injury_roster.iterrows():
+        mid = int(inj_row['MLBAMID'])
+        if mid not in preinjury_lookup:
+            continue  # no historical data found
+
+        pre = preinjury_lookup[mid]
+        injury_desc = inj_row.get('injury_type', '')
+        injury_class = classify_injury_severity(injury_desc)
+        position = inj_row.get('Position', 'OF')
+        il_status = inj_row.get('status', '')
+
+        # Determine surgery year for TJ/ACL recovery factor calculation
+        injury_date = inj_row.get('injury_date')
+        if pd.notna(injury_date):
+            surgery_year = pd.Timestamp(injury_date).year
+        else:
+            surgery_year = injury_year
+
+        # Get recovery factor based on injury classification
+        if injury_class == 'tommy_john':
+            recovery_factor = adjuster.get_tommy_john_recovery_factors(
+                age=28.0,  # default age, position-specific factor matters more
+                position=position,
+                surgery_year=surgery_year,
+                projection_year=projection_year,
+            )
+        elif injury_class == 'acl_surgery':
+            recovery_factor = adjuster.get_acl_recovery_factors(
+                age=28.0,
+                position=position,
+                surgery_year=surgery_year,
+                projection_year=projection_year,
+            )
+        elif injury_class in INJURY_RECOVERY_FACTORS:
+            recovery_factor = INJURY_RECOVERY_FACTORS[injury_class]
+        else:
+            # Minor strain on short IL -> near full recovery
+            if '15' in str(il_status) or '10' in str(il_status):
+                recovery_factor = 0.90
+            else:
+                recovery_factor = INJURY_RECOVERY_FACTORS.get('unknown', 0.80)
+
+        adjusted_war = pre['war'] * recovery_factor
+        # Floor at 0 -- an injured player shouldn't project negative
+        adjusted_war = max(0.0, adjusted_war)
+
+        result[mid] = {
+            'war': round(adjusted_war, 2),
+            'age': np.nan,  # age not in FG base CSVs; pipeline will use roster age if available
+            'source_year': pre['year'],
+            'injury_type': injury_class,
+            'injury_desc': str(injury_desc),
+            'recovery_factor': round(recovery_factor, 3),
+            'pre_injury_war': pre['war'],
+            'player_name': pre['name'],
+            'player_type': pre['player_type'],
+        }
+
+    # Report
+    print(f"\n  Injury fallback lookup built: {len(result)} players")
+    if result:
+        sorted_players = sorted(result.items(), key=lambda x: x[1]['war'], reverse=True)
+        for mid, info in sorted_players[:10]:
+            print(f"    {info['player_name']}: {info['pre_injury_war']:.1f} WAR "
+                  f"({info['source_year']}) x {info['recovery_factor']:.2f} "
+                  f"({info['injury_type']}) = {info['war']:.2f} WAR")
+
+    return result
 
 
 def merge_roster_with_projections(
@@ -27,6 +244,7 @@ def merge_roster_with_projections(
     fv_lookup: Optional[Dict[int, dict]] = None,
     career_usage: Optional[Dict[int, dict]] = None,
     mle_lookup: Optional[Dict[int, dict]] = None,
+    injury_lookup: Optional[Dict[int, dict]] = None,
 ) -> pd.DataFrame:
     """
     Map rostered players to their WAR projections.
@@ -36,6 +254,8 @@ def merge_roster_with_projections(
     can have their WAR blended with FV-based estimates.
 
     Replacement-role players always get 0.0 WAR regardless of projection.
+
+    Fallback chain: projection -> manual_war -> FV -> MLE -> injury_recovery -> 0.0
 
     Args:
         roster_df: Validated roster DataFrame (from load_roster).
@@ -48,6 +268,8 @@ def merge_roster_with_projections(
             Maps MLBAM ID -> {career_pa, career_ip}.
         mle_lookup: Optional dict from match_mle_to_roster().
             Maps MLBAM ID -> {mle_war, translated_stat, age, player_type, ...}.
+        injury_lookup: Optional dict from build_injury_fallback_lookup().
+            Maps MLBAM ID -> {war, age, source_year, injury_type, recovery_factor, ...}.
 
     Returns:
         Enriched roster DataFrame with columns:
@@ -205,6 +427,16 @@ def merge_roster_with_projections(
             sources.append('mle')
             fv_blend_details.append(None)
 
+        elif injury_lookup and pid in injury_lookup:
+            # No projection/FV/MLE, but player is in injury report with
+            # historical WAR data and recovery discount applied
+            inj_info = injury_lookup[pid]
+            rate_wars.append(inj_info['war'])
+            ages.append(inj_info.get('age', np.nan))
+            base_usages.append(0.0)
+            sources.append('injury_recovery')
+            fv_blend_details.append(None)
+
         else:
             rate_wars.append(0.0)
             ages.append(np.nan)
@@ -257,6 +489,23 @@ def merge_roster_with_projections(
               f"median: {mle_wars.median():.2f}")
         for _, row in mle_players.sort_values('rate_war', ascending=False).head(10).iterrows():
             print(f"  {row['Team']}: {row['Name']} -> {row['rate_war']:.2f} WAR (mle)")
+
+    # Report injury-recovery players
+    injury_players = roster[roster['projection_source'] == 'injury_recovery']
+    if len(injury_players) > 0:
+        inj_wars = injury_players['rate_war']
+        print(f"\nPlayers using injury-recovery WAR ({len(injury_players)}):")
+        print(f"  WAR range: [{inj_wars.min():.2f}, {inj_wars.max():.2f}], "
+              f"median: {inj_wars.median():.2f}")
+        for _, row in injury_players.sort_values('rate_war', ascending=False).iterrows():
+            pid = int(row['playerid'])
+            inj_info = injury_lookup.get(pid, {}) if injury_lookup else {}
+            inj_type = inj_info.get('injury_type', '?')
+            recovery = inj_info.get('recovery_factor', '?')
+            pre_war = inj_info.get('pre_injury_war', '?')
+            src_year = inj_info.get('source_year', '?')
+            print(f"  {row['Team']}: {row['Name']} -> {row['rate_war']:.2f} WAR "
+                  f"({inj_type}, {pre_war} WAR in {src_year} x {recovery})")
 
     # Report missing projections
     not_found = roster[roster['projection_source'] == 'not_found']
@@ -333,6 +582,7 @@ def aggregate_team_war(enriched_roster: pd.DataFrame) -> pd.DataFrame:
             'num_fv_blended': len(team_data[team_data['projection_source'] == 'projected+fv']),
             'num_fv_only': len(team_data[team_data['projection_source'] == 'fv_only']),
             'num_mle': len(team_data[team_data['projection_source'] == 'mle']),
+            'num_injury_recovery': len(team_data[team_data['projection_source'] == 'injury_recovery']),
         })
 
     result = pd.DataFrame(teams)

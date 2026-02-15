@@ -21,7 +21,8 @@ from new_pipeline.models.future_season.team_wins.roster_loader import (
     load_roster,
 )
 from new_pipeline.models.future_season.team_wins.team_war_aggregator import (
-    merge_roster_with_projections, allocate_and_adjust, aggregate_team_war
+    merge_roster_with_projections, allocate_and_adjust, aggregate_team_war,
+    build_injury_fallback_lookup,
 )
 from new_pipeline.models.future_season.team_wins.wins_converter import (
     war_to_wins_raw, apply_wins_constraint, generate_standings
@@ -88,6 +89,7 @@ class TeamWinsPipeline:
         self.fv_lookup = None
         self.career_usage = None
         self.mle_lookup = None
+        self.injury_lookup = None
 
         print("Initialized TeamWinsPipeline:")
         print(f"  Base year: {base_year}")
@@ -174,6 +176,14 @@ class TeamWinsPipeline:
         except Exception as e:
             print(f"  MLE integration failed (non-fatal): {e}")
 
+        # Load injury-based fallback for players missing from projections
+        try:
+            self.injury_lookup = build_injury_fallback_lookup(
+                self.projection_year, self.roster_df
+            )
+        except Exception as e:
+            print(f"  Injury fallback failed (non-fatal): {e}")
+
     def build_team_projections(self) -> pd.DataFrame:
         """
         Build team win projections: merge, allocate, adjust, aggregate, convert.
@@ -196,6 +206,7 @@ class TeamWinsPipeline:
             fv_lookup=self.fv_lookup,
             career_usage=self.career_usage,
             mle_lookup=self.mle_lookup,
+            injury_lookup=self.injury_lookup,
         )
 
         # Step 3: Allocate playing time and adjust WAR
@@ -244,7 +255,7 @@ class TeamWinsPipeline:
             'constrained_wins', 'projected_losses', 'win_pct',
             'rank', 'div_rank', 'wins_adjustment',
             'num_hitters', 'num_pitchers', 'num_replacement', 'num_manual', 'num_not_found',
-            'num_fv_blended', 'num_fv_only', 'num_mle',
+            'num_fv_blended', 'num_fv_only', 'num_mle', 'num_injury_recovery',
             'projection_year'
         ]
         available_cols = [c for c in standings_cols if c in self.standings_df.columns]
