@@ -8,14 +8,11 @@ Welcome to **sWARm**, a personalized reimplementation of the Wins Above Replacem
   - [Table of Contents](#table-of-contents)
   - [What is WAR?](#what-is-war)
   - [About sWARm](#about-swarm)
-  - [Installation \& System Requirements](#installation--system-requirements)
-    - [**System Requirements**](#system-requirements)
-    - [**Hardware Acceleration**](#hardware-acceleration)
+  - [Installation](#installation)
     - [**Dependencies**](#dependencies)
     - [**Installation Process**](#installation-process)
   - [Project Structure](#project-structure)
-    - [**Key Architecture Features**](#key-architecture-features)
-    - [**Module Interdependencies**](#module-interdependencies)
+    - [**Architecture Overview**](#architecture-overview)
   - [Usage](#usage)
     - [**Quick Start**](#quick-start)
     - [**System Capabilities**](#system-capabilities)
@@ -51,6 +48,7 @@ Welcome to **sWARm**, a personalized reimplementation of the Wins Above Replacem
     - [**Future Integrations**](#future-integrations)
     - [**Development Priorities**](#development-priorities)
   - [Documentation](#documentation)
+    - [Quick Summary](#quick-summary)
   - [License Information](#license-information)
     - [**Mozilla Public License 2.0**](#mozilla-public-license-20)
     - [**What This License Allows**](#what-this-license-allows)
@@ -72,39 +70,7 @@ Key features of sWARm include:
 - **Comprehensive Metrics**: Integration of various performance metrics to provide a holistic view of player contributions.
 - **Open Source**: Transparent and accessible codebase for collaboration and further development. All data I used is available in the github repo as well, I paid for it where appropriate and it encompasses 2016-2024 (soon to be 2025).
 
-## Installation & System Requirements
-
-### **System Requirements**
-
-**Minimum Requirements:**
-
-- **Python**: 3.9+ (Recommended: 3.11 or 3.13+)
-- **RAM**: 8GB minimum, 16GB recommended
-- **Storage**: 2GB free space (includes data cache)
-- **OS**: Windows 10+, macOS 10.15+, Linux (Ubuntu 20.04+)
-
-**Recommended for Optimal Performance:**
-
-- **RAM**: 32GB for large dataset processing
-- **CPU**: Multi-core processor (8+ cores recommended)
-- **Storage**: SSD with 5GB+ free space for caching
-- **GPU**: NVIDIA GPU with CUDA support (optional, for neural network acceleration)
-
-### **Hardware Acceleration**
-
-**GPU Support (Optional):**
-
-- **TensorFlow GPU**: Automatically detects and uses NVIDIA GPUs
-- **Memory**: 4GB+ VRAM recommended for neural network training
-- **CUDA**: Compatible with CUDA 11.8+ and cuDNN 8.6+
-- **Performance**: ~3-5x speedup for neural network models
-
-**Memory Usage:**
-
-- **Dataset Loading**: ~500MB RAM for full 2016-2024 data
-- **Model Training**: 2-8GB RAM depending on model complexity
-- **Caching**: ~195MB disk space for preprocessed data
-- **Jupyter**: Additional 1-2GB for notebook execution
+## Installation
 
 ### **Dependencies**
 
@@ -142,6 +108,7 @@ pytest==8.4.2           # Testing framework
 **Dependency Philosophy:**
 
 sWARm now uses a split requirements approach for cleaner dependency management:
+
 - **Only 15 core packages** for production runtime (vs 154 in old requirements.txt)
 - **6 development packages** for notebooks and testing
 - **89% reduction** in explicit dependencies - transitive dependencies auto-installed by pip
@@ -319,6 +286,7 @@ The new_pipeline architecture (v4.0+) follows a layered design:
 6. **Visualization** → Interactive notebooks and analysis
 
 **Key Features:**
+
 - Modular design with 24 specialized modules
 - Intelligent caching (~195MB preprocessed data)
 - GPU acceleration via TensorFlow
@@ -591,7 +559,7 @@ sWARm employs a comprehensive machine learning approach built on strategic featu
 **Model Accuracy Comparison:**
 
 | Model | Hitter R² | Pitcher R² | Combined Accuracy | Speed |
-|-------|-----------|------------|-------------------|-------|
+| ------- | ----------- | ------------ | ------------------- | ------- |
 | **RandomForest** | 0.853 | 0.940 | **64.7%** | Fast |
 | **Neural Network** | 0.438 | 0.755 | 48.1% | GPU Accelerated |
 | **SVR** | 0.482 | 0.908 | 56.0% | Medium |
@@ -617,7 +585,7 @@ sWARm employs a comprehensive machine learning approach built on strategic featu
 **Hitter Performance:**
 
 | Model | WARP R² | WARP RMSE | WAR R² | WAR RMSE |
-|-------|---------|-----------|--------|----------|
+| ------- | --------- | ----------- | -------- | ---------- |
 | **RandomForest** | 0.210 | 1.375 | **0.853** | **0.690** |
 | **SVR** | **0.323** | **1.273** | 0.482 | 1.294 |
 | **Keras** | 0.279 | 1.313 | 0.438 | 1.347 |
@@ -628,7 +596,7 @@ sWARm employs a comprehensive machine learning approach built on strategic featu
 **Pitcher Performance:**
 
 | Model | WARP R² | WARP RMSE | WAR R² | WAR RMSE |
-|-------|---------|-----------|--------|----------|
+| ------- | --------- | ----------- | -------- | ---------- |
 | **RandomForest** | **0.825** | **0.686** | **0.940** | **0.322** |
 | **SVR** | 0.804 | 0.724 | 0.908 | 0.401 |
 | **Keras** | 0.793 | 0.745 | 0.755 | 0.654 |
@@ -909,7 +877,6 @@ This project is licensed under the **Mozilla Public License 2.0 (MPL-2.0)**, a c
 ### **What This License Allows**
 
 For complete license terms, see [LICENSE](LICENSE) file.
-
 
 ## Data Sources
 
