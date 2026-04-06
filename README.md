@@ -68,7 +68,7 @@ Key features of sWARm include:
 
 - **Personalized Adjustments**: Tailored modifications to standard WAR calculations based on my analysis and insights.
 - **Comprehensive Metrics**: Integration of various performance metrics to provide a holistic view of player contributions.
-- **Open Source**: Transparent and accessible codebase for collaboration and further development. All data I used is available in the github repo as well, I paid for it where appropriate and it encompasses 2016-2024 (soon to be 2025).
+- **Open Source**: Transparent and accessible codebase for collaboration and further development. All data I used is available in the github repo as well, I paid for it where appropriate and it encompasses 2016-2025 (and the in-progress 2026 season).
 
 ## Installation
 
