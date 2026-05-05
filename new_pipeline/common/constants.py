@@ -233,7 +233,6 @@ HITTER_CRITICAL_FEATURES = [COL_BB_PCT, COL_K_PCT, COL_PA]
 
 # Pitcher modeling features (19 total: 14 base + 5 injury features)
 # ORDER MATCHES PITCHER_MONOTONIC_CONSTRAINTS in pitcher_ensemble.py
-# These are the final features used for model training after pipeline processing
 PITCHER_MODEL_FEATURES = [
     # Base and composite features
     'BB%',                              # Base feature
@@ -250,8 +249,7 @@ PITCHER_MODEL_FEATURES = [
     'Statcast_Launch_Quality_Index',    # Composite feature
     'Running_Control',                  # Base feature
     'SD_MD_Net',                        # Composite feature (reliever-specific signal)
-    # Injury features (added Phase 1: Injury Feature Engineering)
-    'has_injury_data',
+    # Injury features
     'had_tommy_john_ever',
     'years_since_tommy_john',
     'total_il_days_past_year',
@@ -260,7 +258,6 @@ PITCHER_MODEL_FEATURES = [
 
 # Hitter modeling features (14 total: 9 base + 5 injury features)
 # ORDER MATCHES HITTER_MONOTONIC_CONSTRAINTS in hitter_ensemble.py
-# These are the final features used for model training after pipeline processing
 HITTER_MODEL_FEATURES = [
     # Base features
     'K%',                    # Base feature
@@ -272,7 +269,7 @@ HITTER_MODEL_FEATURES = [
     'Positional_WAR',        # Derived feature
     'Enhanced_Baserunning',  # Derived feature
     'Enhanced_Defense',      # Derived feature
-    # Injury features (added Phase 1: Injury Feature Engineering)
+    # Injury features 
     'has_injury_data',
     'had_tommy_john_ever',
     'years_since_tommy_john',
